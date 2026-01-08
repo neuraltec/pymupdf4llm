@@ -1,3 +1,39 @@
+"""                                                                                                                                                                                                                                                                                                                                                                                                                                                          """
+This script accepts a PDF document filename and converts it to a text file
+in Markdown format, compatible with the GitHub standard.
+
+It must be invoked with the filename like this:
+
+python pymupdf_rag.py input.pdf [-pages PAGES]
+
+The "PAGES" parameter is a string (containing no spaces) of comma-separated
+page numbers to consider. Each item is either a single page number or a
+number range "m-n". Use "N" to address the document's last page number.
+Example: "-pages 2-15,40,43-N"
+
+It will produce a markdown text file called "input.md".
+
+Text will be sorted in Western reading order. Any table will be included in
+the text in markdwn format as well.
+
+Dependencies
+-------------
+PyMuPDF v1.25.5 or later
+
+Copyright and License
+----------------------
+Copyright (C) 2024-2025 Artifex Software, Inc.
+
+PyMuPDF4LLM is free software: you can redistribute it and/or modify it under the
+terms of the GNU Affero General Public License as published by the Free
+Software Foundation, either version 3 of the License, or (at your option)
+any later version.
+
+Alternative licensing terms are available from the licensor.
+For commercial licensing, see <https://www.artifex.com/> or contact
+Artifex Software, Inc., 39 Mesa Street, Suite 108A, San Francisco,
+CA 94129, USA, for further information.
+"""
 
 import os
 import re
