@@ -1,41 +1,6 @@
-"""
-This script accepts a PDF document filename and converts it to a text file
-in Markdown format, compatible with the GitHub standard.
-
-It must be invoked with the filename like this:
-
-python pymupdf_rag.py input.pdf [-pages PAGES]
-
-The "PAGES" parameter is a string (containing no spaces) of comma-separated
-page numbers to consider. Each item is either a single page number or a
-number range "m-n". Use "N" to address the document's last page number.
-Example: "-pages 2-15,40,43-N"
-
-It will produce a markdown text file called "input.md".
-
-Text will be sorted in Western reading order. Any table will be included in
-the text in markdwn format as well.
-
-Dependencies
--------------
-PyMuPDF v1.25.5 or later
-
-Copyright and License
-----------------------
-Copyright (C) 2024-2025 Artifex Software, Inc.
-
-PyMuPDF4LLM is free software: you can redistribute it and/or modify it under the
-terms of the GNU Affero General Public License as published by the Free
-Software Foundation, either version 3 of the License, or (at your option)
-any later version.
-
-Alternative licensing terms are available from the licensor.
-For commercial licensing, see <https://www.artifex.com/> or contact
-Artifex Software, Inc., 39 Mesa Street, Suite 108A, San Francisco,
-CA 94129, USA, for further information.
-"""
 
 import os
+import re
 import string
 from binascii import b2a_base64
 from collections import defaultdict
@@ -211,6 +176,112 @@ class Parameters:
     pass
 
 
+def wrap_text_by_bbox(text, cell_rect, textpage=None, avg_font_size=None):
+    """Wrap text to fit within cell width based on bbox dimensions.
+    
+    Args:
+        text: Text to wrap
+        cell_rect: pymupdf.Rect with cell dimensions
+        textpage: Optional TextPage to extract font size from
+        avg_font_size: Optional average font size (if not provided, will estimate)
+    
+    Returns:
+        Text with line breaks inserted to fit cell width
+    """
+    if not text or not cell_rect or cell_rect.is_empty:
+        return text
+    
+    # Estimate font size if not provided
+    if avg_font_size is None:
+        if textpage:
+            # Try to extract font size from text in the cell
+            try:
+                blocks = textpage.extractDICT(clip=cell_rect)["blocks"]
+                font_sizes = []
+                for block in blocks:
+                    if block.get("type") == 0:  # text block
+                        for line in block.get("lines", []):
+                            for span in line.get("spans", []):
+                                if span.get("text", "").strip():
+                                    font_sizes.append(span.get("size", 0))
+                if font_sizes:
+                    avg_font_size = sum(font_sizes) / len(font_sizes)
+                else:
+                    avg_font_size = 10  # default fallback
+            except:
+                avg_font_size = 10  # default fallback
+        else:
+            avg_font_size = 10  # default fallback
+    
+    # Estimate character width: typically 0.5-0.6 * font_size for proportional fonts
+    # Using 0.55 as a reasonable average
+    char_width = avg_font_size * 0.55
+    if char_width <= 0:
+        char_width = 5.5  # fallback
+    
+    # Calculate max characters per line (leave some margin)
+    cell_width = cell_rect.width
+    max_chars_per_line = max(10, int(cell_width / char_width) - 2)  # -2 for margin
+    
+    if len(text) <= max_chars_per_line:
+        return text
+    
+    # Break text into lines
+    lines = []
+    current_pos = 0
+    dynamic_max_chars = max_chars_per_line  # Allow dynamic adjustment
+    
+    while current_pos < len(text):
+        # If remaining text fits in one line
+        if current_pos + dynamic_max_chars >= len(text):
+            lines.append(text[current_pos:])
+            break
+        
+        # Find break point
+        break_pos = current_pos + dynamic_max_chars
+        
+        # If break point is in the middle of a word, go back to find a space
+        if break_pos < len(text) and text[break_pos] != ' ':
+            # Look backwards for a space
+            space_pos = text.rfind(' ', current_pos, break_pos + 1)
+            if space_pos > current_pos:
+                # Found a space, break there
+                break_pos = space_pos + 1  # Include the space, will be stripped
+            else:
+                # No space found - word is too long for current line width
+                # Find the end of the current word
+                word_end = break_pos
+                while word_end < len(text) and text[word_end] != ' ':
+                    word_end += 1
+                
+                # Calculate how many characters the word needs
+                word_length = word_end - current_pos
+                
+                # If word is longer than current max, increase column width to fit the entire word
+                if word_length > dynamic_max_chars:
+                    # Increase the column width to accommodate the entire word
+                    dynamic_max_chars = word_length
+                
+                # Break at the end of the word (which may now fit due to increased width)
+                break_pos = word_end
+        
+        # Extract line and move forward
+        line = text[current_pos:break_pos].rstrip()
+        if line:
+            lines.append(line)
+        current_pos = break_pos
+        
+        # Skip leading spaces on next line
+        while current_pos < len(text) and text[current_pos] == ' ':
+            current_pos += 1
+        
+        # Reset dynamic_max_chars for next line (but keep it if it was increased)
+        # This allows subsequent lines to also benefit from the increased width
+        # if they contain similarly long words
+    
+    return '\n'.join(lines)
+
+
 def matriz_to_ascii(matrix):
     """Convert a matrix (list of lists) into a simple ASCII table.
 
@@ -255,14 +326,27 @@ def matriz_to_ascii(matrix):
         return ""
 
     # Compute base width of each column from all cell texts
+    # Consider multi-line cells: take max width of all lines in each cell
     col_widths = [0] * max_cols
     for row in row_texts:
         for idx_col in range(max_cols):
             text = row[idx_col] if idx_col < len(row) else ""
-            col_widths[idx_col] = max(col_widths[idx_col], len(text))
+            # For multi-line cells, find the longest line
+            if "\n" in text:
+                lines = text.split("\n")
+                max_line_len = max(len(line) for line in lines) if lines else 0
+                col_widths[idx_col] = max(col_widths[idx_col], max_line_len)
+            else:
+                col_widths[idx_col] = max(col_widths[idx_col], len(text))
 
     # Helper to build a content line respecting colspan
-    def build_content_line(row_index):
+    def build_content_line(row_index, line_in_cell=0):
+        """Build a content line for a row, optionally for a specific line within multi-line cells.
+        
+        Args:
+            row_index: Index of the row
+            line_in_cell: Which line within multi-line cells to render (0 = first line)
+        """
         cells = row_cells[row_index]
         texts = row_texts[row_index]
         parts = []
@@ -280,6 +364,19 @@ def matriz_to_ascii(matrix):
 
             # Normal cell or primary merged cell
             text = texts[col] if col < len(texts) else ""
+            # Extract specific line if cell has multiple lines
+            if "\n" in text:
+                lines = text.split("\n")
+                if line_in_cell < len(lines):
+                    text = lines[line_in_cell]
+                else:
+                    text = ""  # No more lines in this cell
+            else:
+                # Cell has only one line: show it only on first line_in_cell (0)
+                # On subsequent lines, show empty to avoid repetition
+                if line_in_cell > 0:
+                    text = ""
+            
             colspan = 1
             if isinstance(cell, dict):
                 colspan = max(1, int(cell.get("colspan", 1)))
@@ -303,15 +400,29 @@ def matriz_to_ascii(matrix):
         # Add "|" at the beginning of the line
         return "| " + " ".join(parts).rstrip()
 
+    # Find maximum number of lines in any cell of the row
+    def get_max_lines_in_row(row_index):
+        max_lines = 1
+        texts = row_texts[row_index]
+        for text in texts:
+            if "\n" in text:
+                lines = text.split("\n")
+                max_lines = max(max_lines, len(lines))
+        return max_lines
+
     # Separator line length based on an example content line
-    sample_content = build_content_line(0)
+    sample_content = build_content_line(0, 0)
     separator = "-" * len(sample_content)
 
     output_lines = []
     # Add separator at the beginning of the table
     output_lines.append(separator)
+    
     for row_index in range(len(row_texts)):
-        output_lines.append(build_content_line(row_index))
+        max_lines = get_max_lines_in_row(row_index)
+        # Render each line of multi-line cells
+        for line_num in range(max_lines):
+            output_lines.append(build_content_line(row_index, line_num))
         output_lines.append(separator)
 
     return "\n".join(output_lines)
@@ -383,31 +494,47 @@ def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: fl
             else:
                 gap = 0  # vertical overlap
 
+            # Check if gap is small enough (first condition: small vertical distance)
+            gap_is_small = False
             if avg_row_height <= 0:
                 # Without a good estimate for row height, only accept very small gaps
-                if gap > 5:
-                    continue
+                gap_is_small = gap <= 5
             else:
-                if gap > avg_row_height * y_gap_factor:
-                    continue
+                gap_is_small = gap <= avg_row_height * y_gap_factor
 
-            # If we get here, we consider this table to be a continuation
-            # of the base table.
+            # If gap is not small, don't merge (skip this table)
+            if not gap_is_small:
+                continue
+
+            # If we get here, the gap is small enough and columns are aligned.
+            # This is sufficient to merge. Headers check is only to avoid duplicating header row.
             other_matrix = other.get("matriz") or []
             if not other_matrix:
                 used.add(j)
                 continue
 
-            # Avoid duplicating the header row if the second part repeats it
+            # Check headers only to avoid duplicating the header row, not to block merging
+            # If gap is small and columns align, we merge regardless of headers
             rows_to_add = other_matrix
             if base_matrix and other_matrix:
-                header1 = [c.get("text", "").strip() for c in base_matrix[0]]
-                header2 = [c.get("text", "").strip() for c in other_matrix[0]]
-                if header1 and header2:
-                    h1 = " | ".join(header1).lower()
-                    h2 = " | ".join(header2).lower()
-                    if h1 == h2:
-                        rows_to_add = other_matrix[1:]
+                header1 = [c.get("text", "").strip() if isinstance(c, dict) else str(c).strip() if c else "" for c in base_matrix[0]]
+                header2 = [c.get("text", "").strip() if isinstance(c, dict) else str(c).strip() if c else "" for c in other_matrix[0]]
+                
+                # Check if second table has a header (at least one non-empty cell)
+                has_header2 = any(h2 for h2 in header2)
+                
+                if has_header2:
+                    # If second table has a header, check if it matches the first table's header
+                    if header1 and header2:
+                        h1 = " | ".join(header1).lower()
+                        h2 = " | ".join(header2).lower()
+                        if h1 == h2:
+                            # Headers match, avoid duplicating the header row
+                            rows_to_add = other_matrix[1:]
+                        # If headers don't match, still merge but keep the header row
+                        # (gap is small and columns align, so it's likely the same table)
+                    # If can't compare headers properly, still merge (keep all rows)
+                # If has_header2 is False, we merge (keep all rows)
 
             # Adjust row / column indices for the newly added rows
             row_offset = len(base_matrix)
@@ -926,7 +1053,7 @@ def to_markdown(
                     text = f"{hdr_string}{prefix}{s['text'].strip()}{suffix} "
                 if text.startswith(bullet):
                     text = "- " + text[1:]
-                    text = text.replace("  ", " ")
+                    text = re.sub(r' +', ' ', text)
                     dist = span0["bbox"][0] - clip.x0
                     cwidth = (span0["bbox"][2] - span0["bbox"][0]) / len(span0["text"])
                     if cwidth == 0.0:
@@ -941,8 +1068,10 @@ def to_markdown(
             out_string += "```\n"  # switch of code mode
             code = False
         out_string += "\n\n"
+        # Remove múltiplos espaços entre palavras, mantendo apenas um espaço
+        out_string = re.sub(r' +', ' ', out_string)
         return (
-            out_string.replace(" \n", "\n").replace("  ", " ").replace("\n\n\n", "\n\n")
+            out_string.replace(" \n", "\n").replace("\n\n\n", "\n\n")
         )
 
     def is_in_rects(rect, rect_list):
@@ -1342,6 +1471,12 @@ def to_markdown(
                                 # Replace newlines with spaces and strip
                                 cell_text = cell_text.replace("\n", " ").strip()
                                 
+                                # Wrap text to fit cell width based on bbox
+                                if cell_text and not cell_rect.is_empty:
+                                    cell_text = wrap_text_by_bbox(
+                                        cell_text, cell_rect, parms.textpage
+                                    )
+                                
                                 # Calculate rowspan and colspan by comparing cell size with average
                                 rowspan = 1
                                 colspan = 1
@@ -1594,6 +1729,8 @@ def to_markdown(
             )
 
         parms.md_string = parms.md_string.replace(" ,", ",").replace("-\n", "")
+        # Remove múltiplos espaços entre palavras, mantendo apenas um espaço
+        parms.md_string = re.sub(r' +', ' ', parms.md_string)
 
         # write any remaining tables and images
         parms.md_string += output_tables(parms, None)
