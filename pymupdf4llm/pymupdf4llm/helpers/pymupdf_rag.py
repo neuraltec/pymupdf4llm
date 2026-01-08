@@ -1,4 +1,4 @@
-"""
+"""                                                                                                                                                                                                                                                                                                                                                                                                                                                          """
 This script accepts a PDF document filename and converts it to a text file
 in Markdown format, compatible with the GitHub standard.
 
@@ -36,6 +36,7 @@ CA 94129, USA, for further information.
 """
 
 import os
+import re
 import string
 from binascii import b2a_base64
 from collections import defaultdict
@@ -211,6 +212,112 @@ class Parameters:
     pass
 
 
+def wrap_text_by_bbox(text, cell_rect, textpage=None, avg_font_size=None):
+    """Wrap text to fit within cell width based on bbox dimensions.
+    
+    Args:
+        text: Text to wrap
+        cell_rect: pymupdf.Rect with cell dimensions
+        textpage: Optional TextPage to extract font size from
+        avg_font_size: Optional average font size (if not provided, will estimate)
+    
+    Returns:
+        Text with line breaks inserted to fit cell width
+    """
+    if not text or not cell_rect or cell_rect.is_empty:
+        return text
+    
+    # Estimate font size if not provided
+    if avg_font_size is None:
+        if textpage:
+            # Try to extract font size from text in the cell
+            try:
+                blocks = textpage.extractDICT(clip=cell_rect)["blocks"]
+                font_sizes = []
+                for block in blocks:
+                    if block.get("type") == 0:  # text block
+                        for line in block.get("lines", []):
+                            for span in line.get("spans", []):
+                                if span.get("text", "").strip():
+                                    font_sizes.append(span.get("size", 0))
+                if font_sizes:
+                    avg_font_size = sum(font_sizes) / len(font_sizes)
+                else:
+                    avg_font_size = 10  # default fallback
+            except:
+                avg_font_size = 10  # default fallback
+        else:
+            avg_font_size = 10  # default fallback
+    
+    # Estimate character width: typically 0.5-0.6 * font_size for proportional fonts
+    # Using 0.55 as a reasonable average
+    char_width = avg_font_size * 0.55
+    if char_width <= 0:
+        char_width = 5.5  # fallback
+    
+    # Calculate max characters per line (leave some margin)
+    cell_width = cell_rect.width
+    max_chars_per_line = max(10, int(cell_width / char_width) - 2)  # -2 for margin
+    
+    if len(text) <= max_chars_per_line:
+        return text
+    
+    # Break text into lines
+    lines = []
+    current_pos = 0
+    dynamic_max_chars = max_chars_per_line  # Allow dynamic adjustment
+    
+    while current_pos < len(text):
+        # If remaining text fits in one line
+        if current_pos + dynamic_max_chars >= len(text):
+            lines.append(text[current_pos:])
+            break
+        
+        # Find break point
+        break_pos = current_pos + dynamic_max_chars
+        
+        # If break point is in the middle of a word, go back to find a space
+        if break_pos < len(text) and text[break_pos] != ' ':
+            # Look backwards for a space
+            space_pos = text.rfind(' ', current_pos, break_pos + 1)
+            if space_pos > current_pos:
+                # Found a space, break there
+                break_pos = space_pos + 1  # Include the space, will be stripped
+            else:
+                # No space found - word is too long for current line width
+                # Find the end of the current word
+                word_end = break_pos
+                while word_end < len(text) and text[word_end] != ' ':
+                    word_end += 1
+                
+                # Calculate how many characters the word needs
+                word_length = word_end - current_pos
+                
+                # If word is longer than current max, increase column width to fit the entire word
+                if word_length > dynamic_max_chars:
+                    # Increase the column width to accommodate the entire word
+                    dynamic_max_chars = word_length
+                
+                # Break at the end of the word (which may now fit due to increased width)
+                break_pos = word_end
+        
+        # Extract line and move forward
+        line = text[current_pos:break_pos].rstrip()
+        if line:
+            lines.append(line)
+        current_pos = break_pos
+        
+        # Skip leading spaces on next line
+        while current_pos < len(text) and text[current_pos] == ' ':
+            current_pos += 1
+        
+        # Reset dynamic_max_chars for next line (but keep it if it was increased)
+        # This allows subsequent lines to also benefit from the increased width
+        # if they contain similarly long words
+    
+    return '\n'.join(lines)
+
+
 def matriz_to_ascii(matrix):
     """Convert a matrix (list of lists) into a simple ASCII table.
 
@@ -255,14 +362,27 @@ def matriz_to_ascii(matrix):
         return ""
 
     # Compute base width of each column from all cell texts
+    # Consider multi-line cells: take max width of all lines in each cell
     col_widths = [0] * max_cols
     for row in row_texts:
         for idx_col in range(max_cols):
             text = row[idx_col] if idx_col < len(row) else ""
-            col_widths[idx_col] = max(col_widths[idx_col], len(text))
+            # For multi-line cells, find the longest line
+            if "\n" in text:
+                lines = text.split("\n")
+                max_line_len = max(len(line) for line in lines) if lines else 0
+                col_widths[idx_col] = max(col_widths[idx_col], max_line_len)
+            else:
+                col_widths[idx_col] = max(col_widths[idx_col], len(text))
 
     # Helper to build a content line respecting colspan
-    def build_content_line(row_index):
+    def build_content_line(row_index, line_in_cell=0):
+        """Build a content line for a row, optionally for a specific line within multi-line cells.
+        
+        Args:
+            row_index: Index of the row
+            line_in_cell: Which line within multi-line cells to render (0 = first line)
+        """
         cells = row_cells[row_index]
         texts = row_texts[row_index]
         parts = []
@@ -280,6 +400,19 @@ def matriz_to_ascii(matrix):
 
             # Normal cell or primary merged cell
             text = texts[col] if col < len(texts) else ""
+            # Extract specific line if cell has multiple lines
+            if "\n" in text:
+                lines = text.split("\n")
+                if line_in_cell < len(lines):
+                    text = lines[line_in_cell]
+                else:
+                    text = ""  # No more lines in this cell
+            else:
+                # Cell has only one line: show it only on first line_in_cell (0)
+                # On subsequent lines, show empty to avoid repetition
+                if line_in_cell > 0:
+                    text = ""
+            
             colspan = 1
             if isinstance(cell, dict):
                 colspan = max(1, int(cell.get("colspan", 1)))
@@ -300,21 +433,170 @@ def matriz_to_ascii(matrix):
                 parts.append(segment)
             col += colspan
 
-        # Adiciona "|" no início da linha
+        # Add "|" at the beginning of the line
         return "| " + " ".join(parts).rstrip()
 
+    # Find maximum number of lines in any cell of the row
+    def get_max_lines_in_row(row_index):
+        max_lines = 1
+        texts = row_texts[row_index]
+        for text in texts:
+            if "\n" in text:
+                lines = text.split("\n")
+                max_lines = max(max_lines, len(lines))
+        return max_lines
+
     # Separator line length based on an example content line
-    sample_content = build_content_line(0)
+    sample_content = build_content_line(0, 0)
     separator = "-" * len(sample_content)
 
     output_lines = []
-    # Adiciona separador no início da tabela
+    # Add separator at the beginning of the table
     output_lines.append(separator)
+    
     for row_index in range(len(row_texts)):
-        output_lines.append(build_content_line(row_index))
+        max_lines = get_max_lines_in_row(row_index)
+        # Render each line of multi-line cells
+        for line_num in range(max_lines):
+            output_lines.append(build_content_line(row_index, line_num))
         output_lines.append(separator)
 
     return "\n".join(output_lines)
+
+
+def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: float = 0.05):
+    """Merge table metadata entries that are parts of the same logical table.
+
+    Sometimes `page.find_tables()` returns one physical table in the PDF
+    as two or more independent tables (for example, when there is a small
+    whitespace or a short text line between blocks of the same table). This
+    would otherwise lead to reading them as separate tables.
+
+    This helper applies a simple heuristic to detect such cases and join
+    them into one logical table:
+    - same number of columns;
+    - horizontally well aligned (x0 / x1 very similar);
+    - small vertical distance relative to the average row height.
+    """
+
+    if not tables:
+        return tables
+
+    # Sort tables from top to bottom
+    indices = list(range(len(tables)))
+    indices.sort(key=lambda i: (tables[i]["bbox"][1], tables[i]["bbox"][0]))
+
+    merged_tables = []
+    used = set()
+
+    for idx in indices:
+        if idx in used:
+            continue
+
+        base = tables[idx]
+        base_bbox = pymupdf.Rect(base["bbox"])
+        base_cols = base.get("columns", 0)
+        base_matrix = [row[:] for row in (base.get("matriz") or [])]
+        base_rows = base.get("rows", 0) or len(base_matrix)
+
+        # Average row height to calibrate the acceptable vertical gap
+        avg_row_height = (
+            base_bbox.height / base_rows if base_rows > 0 and base_bbox.height > 0 else 0
+        )
+        x_tol = max(5, base_bbox.width * x_tolerance_factor)
+
+        for j in indices:
+            if j == idx or j in used:
+                continue
+
+            other = tables[j]
+            if other.get("columns", 0) != base_cols:
+                continue
+
+            other_bbox = pymupdf.Rect(other["bbox"])
+
+            # Same horizontal span (same x-limits with a small tolerance)
+            if (
+                abs(base_bbox.x0 - other_bbox.x0) > x_tol
+                or abs(base_bbox.x1 - other_bbox.x1) > x_tol
+            ):
+                continue
+
+            # Vertical distance between bounding boxes (if they do not overlap)
+            if other_bbox.y0 >= base_bbox.y1:
+                gap = other_bbox.y0 - base_bbox.y1
+            elif base_bbox.y0 >= other_bbox.y1:
+                gap = base_bbox.y0 - other_bbox.y1
+            else:
+                gap = 0  # vertical overlap
+
+            # Check if gap is small enough (first condition: small vertical distance)
+            gap_is_small = False
+            if avg_row_height <= 0:
+                # Without a good estimate for row height, only accept very small gaps
+                gap_is_small = gap <= 5
+            else:
+                gap_is_small = gap <= avg_row_height * y_gap_factor
+
+            # If gap is not small, don't merge (skip this table)
+            if not gap_is_small:
+                continue
+
+            # If we get here, the gap is small enough and columns are aligned.
+            # This is sufficient to merge. Headers check is only to avoid duplicating header row.
+            other_matrix = other.get("matriz") or []
+            if not other_matrix:
+                used.add(j)
+                continue
+
+            # Check headers only to avoid duplicating the header row, not to block merging
+            # If gap is small and columns align, we merge regardless of headers
+            rows_to_add = other_matrix
+            if base_matrix and other_matrix:
+                header1 = [c.get("text", "").strip() if isinstance(c, dict) else str(c).strip() if c else "" for c in base_matrix[0]]
+                header2 = [c.get("text", "").strip() if isinstance(c, dict) else str(c).strip() if c else "" for c in other_matrix[0]]
+                
+                # Check if second table has a header (at least one non-empty cell)
+                has_header2 = any(h2 for h2 in header2)
+                
+                if has_header2:
+                    # If second table has a header, check if it matches the first table's header
+                    if header1 and header2:
+                        h1 = " | ".join(header1).lower()
+                        h2 = " | ".join(header2).lower()
+                        if h1 == h2:
+                            # Headers match, avoid duplicating the header row
+                            rows_to_add = other_matrix[1:]
+                        # If headers don't match, still merge but keep the header row
+                        # (gap is small and columns align, so it's likely the same table)
+                    # If can't compare headers properly, still merge (keep all rows)
+                # If has_header2 is False, we merge (keep all rows)
+
+            # Adjust row / column indices for the newly added rows
+            row_offset = len(base_matrix)
+            for r_idx, row in enumerate(rows_to_add):
+                for c_idx, cell in enumerate(row):
+                    if isinstance(cell, dict):
+                        cell["row"] = row_offset + r_idx
+                        cell["col"] = c_idx
+
+            base_matrix.extend(rows_to_add)
+            base_rows = len(base_matrix)
+            base_bbox |= other_bbox
+            used.add(j)
+
+        # Update the base table definition after merging all parts
+        new_table = dict(base)
+        new_table["bbox"] = (base_bbox.x0, base_bbox.y0, base_bbox.x1, base_bbox.y1)
+        new_table["rows"] = base_rows
+        # Keep public keys "matriz" and "matriz_ascii" for backward compatibility
+        new_table["matriz"] = base_matrix
+        new_table["matriz_ascii"] = matriz_to_ascii(base_matrix)
+
+        merged_tables.append(new_table)
+        used.add(idx)
+
+    return merged_tables
 
 
 def refine_boxes(boxes, enlarge=0):
@@ -807,7 +1089,7 @@ def to_markdown(
                     text = f"{hdr_string}{prefix}{s['text'].strip()}{suffix} "
                 if text.startswith(bullet):
                     text = "- " + text[1:]
-                    text = text.replace("  ", " ")
+                    text = re.sub(r' +', ' ', text)
                     dist = span0["bbox"][0] - clip.x0
                     cwidth = (span0["bbox"][2] - span0["bbox"][0]) / len(span0["text"])
                     if cwidth == 0.0:
@@ -822,8 +1104,10 @@ def to_markdown(
             out_string += "```\n"  # switch of code mode
             code = False
         out_string += "\n\n"
+        # Remove múltiplos espaços entre palavras, mantendo apenas um espaço
+        out_string = re.sub(r' +', ' ', out_string)
         return (
-            out_string.replace(" \n", "\n").replace("  ", " ").replace("\n\n\n", "\n\n")
+            out_string.replace(" \n", "\n").replace("\n\n\n", "\n\n")
         )
 
     def is_in_rects(rect, rect_list):
@@ -1148,7 +1432,7 @@ def to_markdown(
         tab_rects = {}
         for i, t in enumerate(parms.tabs):
             tab_rects[i] = pymupdf.Rect(t.bbox) | pymupdf.Rect(t.header.bbox)
-            # Extract matriz (list of lists) from table using extract_cells
+            # Extract matrix (list of lists) from table using extract_cells
             # to preserve spaces and formatting
             try:
                 # Try to access table structure
@@ -1205,7 +1489,7 @@ def to_markdown(
                         avg_cell_width = widths[len(widths) // 4]
                         avg_cell_height = heights[len(heights) // 4]
                 
-                # Initialize matriz with None
+                # Initialize matrix with None
                 matriz = [[None for _ in range(col_count)] for _ in range(row_count)]
                 # Extract text from each cell using extract_cells
                 for row_idx, row in enumerate(cell_boxes):
@@ -1222,6 +1506,12 @@ def to_markdown(
                                 )
                                 # Replace newlines with spaces and strip
                                 cell_text = cell_text.replace("\n", " ").strip()
+                                
+                                # Wrap text to fit cell width based on bbox
+                                if cell_text and not cell_rect.is_empty:
+                                    cell_text = wrap_text_by_bbox(
+                                        cell_text, cell_rect, parms.textpage
+                                    )
                                 
                                 # Calculate rowspan and colspan by comparing cell size with average
                                 rowspan = 1
@@ -1249,8 +1539,8 @@ def to_markdown(
                                         for check_row in range(row_idx + 1, min(row_idx + rowspan, row_count)):
                                             if (check_row, col_idx) in cell_rects_map:
                                                 other_rect = cell_rects_map[(check_row, col_idx)]
-                                                # If there's a separate physical cell that doesn't overlap significantly,
-                                                # this might not be a merged cell
+                                # If there's a separate physical cell that doesn't overlap significantly,
+                                # this might not be a merged cell
                                                 overlap_ratio = abs(cell_rect & other_rect) / min(abs(cell_rect), abs(other_rect)) if abs(cell_rect) > 0 and abs(other_rect) > 0 else 0
                                                 if overlap_ratio < 0.5:  # Less than 50% overlap
                                                     # Separate cell found, reduce rowspan
@@ -1376,10 +1666,13 @@ def to_markdown(
                 "columns": t.col_count,
                 "matriz": matriz,
                 "markdown": markdown,
-                # Representação opcional em tabela ASCII simples
+                # Optional representation in a simple ASCII table
                 "matriz_ascii": matriz_to_ascii(matriz),
             }
             parms.tables.append(tab_dict)
+        # After building the list of tables for this page, merge those that
+        # are parts of the same logical table (same columns, aligned and close).
+        parms.tables = merge_split_tables(parms.tables)
         parms.tab_rects = tab_rects
         # list of table rectangles
         parms.tab_rects0 = list(tab_rects.values())
@@ -1472,6 +1765,8 @@ def to_markdown(
             )
 
         parms.md_string = parms.md_string.replace(" ,", ",").replace("-\n", "")
+        # Remove múltiplos espaços entre palavras, mantendo apenas um espaço
+        parms.md_string = re.sub(r' +', ' ', parms.md_string)
 
         # write any remaining tables and images
         parms.md_string += output_tables(parms, None)
