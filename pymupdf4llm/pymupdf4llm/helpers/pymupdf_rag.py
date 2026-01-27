@@ -1,5 +1,4 @@
-"""                                                                                                                                                                                                                                                                                                                                                                                                                                                          """
-This script accepts a PDF document filename and converts it to a text file
+"""This script accepts a PDF document filename and converts it to a text file
 in Markdown format, compatible with the GitHub standard.
 
 It must be invoked with the filename like this:
@@ -375,7 +374,7 @@ def matriz_to_ascii(matrix):
             else:
                 col_widths[idx_col] = max(col_widths[idx_col], len(text))
 
-    # Helper to build a content line respecting colspan
+    # Helper to build a content line respecting colspan and rowspan
     def build_content_line(row_index, line_in_cell=0):
         """Build a content line for a row, optionally for a specific line within multi-line cells.
         
@@ -390,28 +389,92 @@ def matriz_to_ascii(matrix):
         while col < max_cols:
             cell = cells[col] if col < len(cells) else None
 
-            # Secondary merged cell: just consumes width, no additional text
+            # Check if this position is covered by a cell above with rowspan
+            covered_by_above = None
+            if row_index > 0:
+                for check_row in range(row_index - 1, -1, -1):
+                    if check_row < len(row_cells):
+                        # Check all cells in this row to see if any covers the current column
+                        for check_col in range(len(row_cells[check_row])):
+                            check_cell = row_cells[check_row][check_col]
+                            if isinstance(check_cell, dict):
+                                # Only check primary cells (not merged secondary cells)
+                                is_merged_secondary = check_cell.get("is_merged", False)
+                                if not is_merged_secondary:
+                                    check_rowspan = check_cell.get("rowspan", 1)
+                                    check_colspan = check_cell.get("colspan", 1)
+                                    if check_rowspan > 1:
+                                        rows_covered = check_row + check_rowspan
+                                        cols_covered = check_col + check_colspan
+                                        # Check if this cell covers the current position
+                                        if (rows_covered > row_index and 
+                                            check_col <= col < cols_covered):
+                                            # This cell above covers the current position
+                                            covered_by_above = check_cell
+                                            break
+                        if covered_by_above is not None:
+                            break
+
+            # Secondary merged cell: check if it's covered by a cell above with rowspan
             if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
-                # Still reserve this column's space to keep alignment
-                dummy = "".ljust(col_widths[col]) + " |"
-                parts.append(dummy)
-                col += 1
-                continue
+                # Get the primary cell that this is merged from
+                merged_from = cell.get("merged_from")
+                if merged_from and isinstance(merged_from, (list, tuple)) and len(merged_from) >= 2:
+                    primary_row, primary_col = merged_from[0], merged_from[1]
+                    if primary_row < len(row_cells) and primary_col < len(row_cells[primary_row]):
+                        primary_cell = row_cells[primary_row][primary_col]
+                        if isinstance(primary_cell, dict):
+                            primary_rowspan = primary_cell.get("rowspan", 1)
+                            primary_colspan = primary_cell.get("colspan", 1)
+                            # Check if the primary cell's rowspan covers this row
+                            if primary_rowspan > 1:
+                                rows_covered = primary_row + primary_rowspan
+                                cols_covered = primary_col + primary_colspan
+                                if (rows_covered > row_index and 
+                                    primary_col <= col < cols_covered):
+                                    # This position is covered by the primary cell's rowspan
+                                    # Don't render anything here - the cell above already occupies this space
+                                    # But we still need to reserve the space for alignment
+                                    dummy = "".ljust(col_widths[col]) + " |"
+                                    parts.append(dummy)
+                                    col += 1
+                                    continue
+                
+                # If not covered by rowspan, check if covered by any cell above
+                if covered_by_above is not None:
+                    # This position is covered by a cell above with rowspan
+                    dummy = "".ljust(col_widths[col]) + " |"
+                    parts.append(dummy)
+                    col += 1
+                    continue
+                else:
+                    # It's a merged cell but not covered by rowspan above
+                    # This might be a colspan merge, reserve space but show empty
+                    dummy = "".ljust(col_widths[col]) + " |"
+                    parts.append(dummy)
+                    col += 1
+                    continue
 
             # Normal cell or primary merged cell
             text = texts[col] if col < len(texts) else ""
-            # Extract specific line if cell has multiple lines
-            if "\n" in text:
-                lines = text.split("\n")
-                if line_in_cell < len(lines):
-                    text = lines[line_in_cell]
-                else:
-                    text = ""  # No more lines in this cell
+            
+            # If this position is covered by a cell above with rowspan, don't show text here
+            if covered_by_above is not None:
+                # The cell above is occupying this space, so show empty
+                text = ""
             else:
-                # Cell has only one line: show it only on first line_in_cell (0)
-                # On subsequent lines, show empty to avoid repetition
-                if line_in_cell > 0:
-                    text = ""
+                # Extract specific line if cell has multiple lines
+                if "\n" in text:
+                    lines = text.split("\n")
+                    if line_in_cell < len(lines):
+                        text = lines[line_in_cell]
+                    else:
+                        text = ""  # No more lines in this cell
+                else:
+                    # Cell has only one line: show it only on first line_in_cell (0)
+                    # On subsequent lines, show empty to avoid repetition
+                    if line_in_cell > 0:
+                        text = ""
             
             colspan = 1
             if isinstance(cell, dict):
@@ -1473,21 +1536,52 @@ def to_markdown(
                                 cell_rects_map[(row_idx, col_idx)] = cell_rect
                 
                 # Calculate average cell width and height from non-empty cells
+                # Use a more robust method: find the most common cell size
                 avg_cell_width = 0
                 avg_cell_height = 0
                 if all_cell_bboxes:
-                    # Use median instead of mean to avoid outliers from merged cells
-                    widths = sorted([c.width for c in all_cell_bboxes])
-                    heights = sorted([c.height for c in all_cell_bboxes])
-                    mid = len(widths) // 2
-                    avg_cell_width = widths[mid] if widths else 0
-                    avg_cell_height = heights[mid] if heights else 0
+                    # Group similar widths/heights to find the most common size
+                    # This helps avoid outliers from merged cells
+                    widths = [c.width for c in all_cell_bboxes]
+                    heights = [c.height for c in all_cell_bboxes]
                     
-                    # If median is still too large (likely merged cells), use a smaller percentile
-                    if len(widths) > 3:
+                    # Sort and use median
+                    sorted_widths = sorted(widths)
+                    sorted_heights = sorted(heights)
+                    mid = len(sorted_widths) // 2
+                    avg_cell_width = sorted_widths[mid] if sorted_widths else 0
+                    avg_cell_height = sorted_heights[mid] if sorted_heights else 0
+                    
+                    # If we have enough cells, use a smaller percentile to avoid merged cell outliers
+                    if len(sorted_widths) > 3:
                         # Use 25th percentile for more accurate base cell size
-                        avg_cell_width = widths[len(widths) // 4]
-                        avg_cell_height = heights[len(heights) // 4]
+                        quartile_idx = len(sorted_widths) // 4
+                        avg_cell_width = sorted_widths[quartile_idx]
+                        avg_cell_height = sorted_heights[quartile_idx]
+                    
+                    # Calculate row and column boundaries to help detect merged cells
+                    # Group cells by approximate row/column positions
+                    row_y_positions = sorted(set([round(c.y0, 1) for c in all_cell_bboxes]))
+                    col_x_positions = sorted(set([round(c.x0, 1) for c in all_cell_bboxes]))
+                    
+                    # Calculate typical row height and column width from spacing
+                    if len(row_y_positions) > 1:
+                        row_heights = [row_y_positions[i+1] - row_y_positions[i] 
+                                      for i in range(len(row_y_positions)-1)]
+                        if row_heights:
+                            avg_row_height_from_spacing = sorted(row_heights)[len(row_heights)//2]
+                            # Use the smaller of the two estimates to avoid merged cell bias
+                            if avg_row_height_from_spacing > 0:
+                                avg_cell_height = min(avg_cell_height, avg_row_height_from_spacing) if avg_cell_height > 0 else avg_row_height_from_spacing
+                    
+                    if len(col_x_positions) > 1:
+                        col_widths = [col_x_positions[i+1] - col_x_positions[i] 
+                                      for i in range(len(col_x_positions)-1)]
+                        if col_widths:
+                            avg_col_width_from_spacing = sorted(col_widths)[len(col_widths)//2]
+                            # Use the smaller of the two estimates to avoid merged cell bias
+                            if avg_col_width_from_spacing > 0:
+                                avg_cell_width = min(avg_cell_width, avg_col_width_from_spacing) if avg_cell_width > 0 else avg_col_width_from_spacing
                 
                 # Initialize matrix with None
                 matriz = [[None for _ in range(col_count)] for _ in range(row_count)]
@@ -1513,52 +1607,142 @@ def to_markdown(
                                         cell_text, cell_rect, parms.textpage
                                     )
                                 
-                                # Calculate rowspan and colspan by comparing cell size with average
+                                # Calculate rowspan and colspan using multiple detection methods
                                 rowspan = 1
                                 colspan = 1
+                                
+                                # Method 1: Analyze cell size compared to average
                                 if avg_cell_height > 0 and avg_cell_width > 0:
-                                    # Calculate how many rows/cols this cell spans
-                                    # Use a threshold of 1.3x to account for small variations
                                     height_ratio = cell_rect.height / avg_cell_height
                                     width_ratio = cell_rect.width / avg_cell_width
                                     
-                                    # Only consider it merged if significantly larger
-                                    if height_ratio > 1.3:
+                                    # Use a threshold of 1.2x to detect merged cells (more sensitive)
+                                    if height_ratio > 1.2:
                                         rowspan = max(1, round(height_ratio))
-                                    if width_ratio > 1.3:
+                                    if width_ratio > 1.2:
                                         colspan = max(1, round(width_ratio))
-                                    
-                                    # Cap at reasonable values
-                                    rowspan = min(rowspan, row_count - row_idx)
-                                    colspan = min(colspan, col_count - col_idx)
-                                    
-                                    # Verify merged cells by checking if positions that should be covered are empty
-                                    # If a cell is truly merged, the covered positions should not have physical cells
-                                    if rowspan > 1:
-                                        # Check if there are separate physical cells in the rows that should be covered
-                                        for check_row in range(row_idx + 1, min(row_idx + rowspan, row_count)):
-                                            if (check_row, col_idx) in cell_rects_map:
-                                                other_rect = cell_rects_map[(check_row, col_idx)]
-                                # If there's a separate physical cell that doesn't overlap significantly,
-                                # this might not be a merged cell
-                                                overlap_ratio = abs(cell_rect & other_rect) / min(abs(cell_rect), abs(other_rect)) if abs(cell_rect) > 0 and abs(other_rect) > 0 else 0
-                                                if overlap_ratio < 0.5:  # Less than 50% overlap
-                                                    # Separate cell found, reduce rowspan
-                                                    rowspan = check_row - row_idx
+                                
+                                # Method 2: Check for overlapping cells that indicate merging
+                                # Look for cells in adjacent positions that significantly overlap
+                                # This detects merged cells even when size-based detection fails
+                                
+                                # Check vertical merging (rowspan)
+                                # Look for cells in rows below that overlap significantly with this cell
+                                for check_row in range(row_idx + 1, row_count):
+                                    check_pos = (check_row, col_idx)
+                                    if check_pos in cell_rects_map:
+                                        other_rect = cell_rects_map[check_pos]
+                                        # Calculate overlap
+                                        intersection = cell_rect & other_rect
+                                        if not intersection.is_empty:
+                                            # Check if cells overlap significantly (indicating they're part of the same merged cell)
+                                            overlap_area = abs(intersection)
+                                            cell_area = abs(cell_rect)
+                                            other_area = abs(other_rect)
+                                            
+                                            # If overlap is significant (>70% of smaller cell), they're likely merged
+                                            if cell_area > 0 and other_area > 0:
+                                                overlap_ratio_smaller = overlap_area / min(cell_area, other_area)
+                                                # Also check if the other cell is mostly contained within this cell's vertical span
+                                                vertical_overlap_ratio = intersection.height / min(cell_rect.height, other_rect.height) if min(cell_rect.height, other_rect.height) > 0 else 0
+                                                
+                                                if overlap_ratio_smaller > 0.7 or vertical_overlap_ratio > 0.8:
+                                                    # Cells are merged vertically
+                                                    # Calculate how many rows this cell spans
+                                                    estimated_rowspan = check_row - row_idx + 1
+                                                    rowspan = max(rowspan, estimated_rowspan)
                                                     break
-                                    
-                                    if colspan > 1:
-                                        # Check if there are separate physical cells in the columns that should be covered
-                                        for check_col in range(col_idx + 1, min(col_idx + colspan, col_count)):
-                                            if (row_idx, check_col) in cell_rects_map:
-                                                other_rect = cell_rects_map[(row_idx, check_col)]
-                                                # If there's a separate physical cell that doesn't overlap significantly,
-                                                # this might not be a merged cell
-                                                overlap_ratio = abs(cell_rect & other_rect) / min(abs(cell_rect), abs(other_rect)) if abs(cell_rect) > 0 and abs(other_rect) > 0 else 0
-                                                if overlap_ratio < 0.5:  # Less than 50% overlap
-                                                    # Separate cell found, reduce colspan
-                                                    colspan = check_col - col_idx
+                                    else:
+                                        # No physical cell at this position - check if it's None in cell_boxes
+                                        if (check_row < len(cell_boxes) and 
+                                            col_idx < len(cell_boxes[check_row]) and
+                                            cell_boxes[check_row][col_idx] is None):
+                                            # Empty cell position - check if this cell's height suggests it spans here
+                                            if avg_cell_height > 0:
+                                                # Estimate rows based on height
+                                                estimated_rows = round(cell_rect.height / avg_cell_height)
+                                                if estimated_rows > rowspan:
+                                                    # Verify no physical cells in between
+                                                    can_span = True
+                                                    for verify_row in range(row_idx + 1, min(row_idx + estimated_rows, row_count)):
+                                                        if (verify_row, col_idx) in cell_rects_map:
+                                                            can_span = False
+                                                            break
+                                                    if can_span:
+                                                        rowspan = max(rowspan, min(estimated_rows, row_count - row_idx))
+                                
+                                # Check horizontal merging (colspan)
+                                # Look for cells in columns to the right that overlap significantly
+                                for check_col in range(col_idx + 1, col_count):
+                                    check_pos = (row_idx, check_col)
+                                    if check_pos in cell_rects_map:
+                                        other_rect = cell_rects_map[check_pos]
+                                        # Calculate overlap
+                                        intersection = cell_rect & other_rect
+                                        if not intersection.is_empty:
+                                            # Check if cells overlap significantly
+                                            overlap_area = abs(intersection)
+                                            cell_area = abs(cell_rect)
+                                            other_area = abs(other_rect)
+                                            
+                                            if cell_area > 0 and other_area > 0:
+                                                overlap_ratio_smaller = overlap_area / min(cell_area, other_area)
+                                                # Also check horizontal overlap
+                                                horizontal_overlap_ratio = intersection.width / min(cell_rect.width, other_rect.width) if min(cell_rect.width, other_rect.width) > 0 else 0
+                                                
+                                                if overlap_ratio_smaller > 0.7 or horizontal_overlap_ratio > 0.8:
+                                                    # Cells are merged horizontally
+                                                    estimated_colspan = check_col - col_idx + 1
+                                                    colspan = max(colspan, estimated_colspan)
                                                     break
+                                    else:
+                                        # No physical cell at this position
+                                        if (row_idx < len(cell_boxes) and 
+                                            check_col < len(cell_boxes[row_idx]) and
+                                            cell_boxes[row_idx][check_col] is None):
+                                            # Empty cell position - check if this cell's width suggests it spans here
+                                            if avg_cell_width > 0:
+                                                estimated_cols = round(cell_rect.width / avg_cell_width)
+                                                if estimated_cols > colspan:
+                                                    # Verify no physical cells in between
+                                                    can_span = True
+                                                    for verify_col in range(col_idx + 1, min(col_idx + estimated_cols, col_count)):
+                                                        if (row_idx, verify_col) in cell_rects_map:
+                                                            can_span = False
+                                                            break
+                                                    if can_span:
+                                                        colspan = max(colspan, min(estimated_cols, col_count - col_idx))
+                                
+                                # Method 3: Verify merged cells by checking if positions that should be covered are empty
+                                # Refine rowspan by checking for separate physical cells
+                                if rowspan > 1:
+                                    for check_row in range(row_idx + 1, min(row_idx + rowspan, row_count)):
+                                        if (check_row, col_idx) in cell_rects_map:
+                                            other_rect = cell_rects_map[(check_row, col_idx)]
+                                            # If there's a separate physical cell that doesn't overlap significantly,
+                                            # reduce rowspan
+                                            intersection = cell_rect & other_rect
+                                            if intersection.is_empty or abs(intersection) / min(abs(cell_rect), abs(other_rect)) < 0.5:
+                                                # Separate cell found, reduce rowspan
+                                                rowspan = check_row - row_idx
+                                                break
+                                
+                                # Refine colspan by checking for separate physical cells
+                                if colspan > 1:
+                                    for check_col in range(col_idx + 1, min(col_idx + colspan, col_count)):
+                                        if (row_idx, check_col) in cell_rects_map:
+                                            other_rect = cell_rects_map[(row_idx, check_col)]
+                                            # If there's a separate physical cell that doesn't overlap significantly,
+                                            # reduce colspan
+                                            intersection = cell_rect & other_rect
+                                            if intersection.is_empty or abs(intersection) / min(abs(cell_rect), abs(other_rect)) < 0.5:
+                                                # Separate cell found, reduce colspan
+                                                colspan = check_col - col_idx
+                                                break
+                                
+                                # Cap at reasonable values
+                                rowspan = min(rowspan, row_count - row_idx)
+                                colspan = min(colspan, col_count - col_idx)
                                 
                                 # Create cell dictionary with all information
                                 cell_dict = {
@@ -1617,7 +1801,170 @@ def to_markdown(
                                 }
                                 matriz[row_idx][col_idx] = cell_dict
                 
-                # Replace None with empty cell dictionaries for consistency
+                # Detect empty cells (None) that should be merged with cells above them
+                # This handles cases where PyMuPDF returns None for merged cell positions
+                # Build a map of estimated cell positions based on existing cells and cell_boxes
+                estimated_cell_positions = {}
+                for row_idx in range(row_count):
+                    for col_idx in range(col_count):
+                        if (row_idx, col_idx) in cell_rects_map:
+                            estimated_cell_positions[(row_idx, col_idx)] = cell_rects_map[(row_idx, col_idx)]
+                        elif row_idx < len(cell_boxes) and col_idx < len(cell_boxes[row_idx]):
+                            cell_data = cell_boxes[row_idx][col_idx]
+                            if cell_data is not None:
+                                estimated_cell_positions[(row_idx, col_idx)] = pymupdf.Rect(cell_data) if not isinstance(cell_data, pymupdf.Rect) else cell_data
+                
+                # Estimate positions for empty cells based on adjacent cells
+                for row_idx in range(row_count):
+                    for col_idx in range(col_count):
+                        if (row_idx, col_idx) not in estimated_cell_positions:
+                            # Try to estimate from adjacent cells
+                            # Look for cells in same row (left/right) or same column (above)
+                            estimated_rect = None
+                            
+                            # Check left neighbor
+                            if col_idx > 0 and (row_idx, col_idx - 1) in estimated_cell_positions:
+                                left_rect = estimated_cell_positions[(row_idx, col_idx - 1)]
+                                # Estimate width from average cell width
+                                if avg_cell_width > 0:
+                                    estimated_rect = pymupdf.Rect(
+                                        left_rect.x1, left_rect.y0,
+                                        left_rect.x1 + avg_cell_width, left_rect.y1
+                                    )
+                            
+                            # Check right neighbor
+                            if estimated_rect is None and col_idx < col_count - 1 and (row_idx, col_idx + 1) in estimated_cell_positions:
+                                right_rect = estimated_cell_positions[(row_idx, col_idx + 1)]
+                                if avg_cell_width > 0:
+                                    estimated_rect = pymupdf.Rect(
+                                        right_rect.x0 - avg_cell_width, right_rect.y0,
+                                        right_rect.x0, right_rect.y1
+                                    )
+                            
+                            # Check cell above
+                            if estimated_rect is None and row_idx > 0 and (row_idx - 1, col_idx) in estimated_cell_positions:
+                                above_rect = estimated_cell_positions[(row_idx - 1, col_idx)]
+                                if avg_cell_height > 0:
+                                    estimated_rect = pymupdf.Rect(
+                                        above_rect.x0, above_rect.y1,
+                                        above_rect.x1, above_rect.y1 + avg_cell_height
+                                    )
+                            
+                            if estimated_rect is not None:
+                                estimated_cell_positions[(row_idx, col_idx)] = estimated_rect
+                
+                # Now detect empty cells that should be merged - check ALL rows including row 0
+                # This is important for detecting merged cells that start at the top of the table
+                for row_idx in range(row_count):  # Start from row 0, not row 1
+                    for col_idx in range(col_count):
+                        if matriz[row_idx][col_idx] is None:
+                            # Check if this empty cell should be merged with a cell above or to the left
+                            merged_with = None
+                            empty_pos = (row_idx, col_idx)
+                            
+                            # Get estimated bbox for empty cell
+                            empty_cell_bbox = estimated_cell_positions.get(empty_pos)
+                            
+                            # First, check for cells above that might span to this position
+                            if row_idx > 0:
+                                for check_row in range(row_idx - 1, -1, -1):  # Check rows above, from closest to furthest
+                                    check_cell = matriz[check_row][col_idx]
+                                    if check_cell is not None and isinstance(check_cell, dict) and not check_cell.get("is_merged", False):
+                                        # Check if cell above has rowspan that would cover this row
+                                        check_rowspan = check_cell.get("rowspan", 1)
+                                        if check_rowspan > 1:
+                                            rows_covered = check_row + check_rowspan
+                                            if rows_covered > row_idx:
+                                                # This cell spans to cover the empty cell position
+                                                merged_with = check_cell
+                                                break
+                                        
+                                        # Also check bbox overlap if available
+                                        if empty_cell_bbox is not None and check_cell.get("bbox"):
+                                            check_bbox = pymupdf.Rect(check_cell["bbox"])
+                                            # Check if the cell above vertically spans to cover this empty cell
+                                            # Allow tolerance for alignment
+                                            tolerance = avg_cell_height * 0.15 if avg_cell_height > 0 else 3
+                                            
+                                            # Check vertical overlap - cell above should extend down to cover this position
+                                            vertical_overlap = check_bbox.y1 >= empty_cell_bbox.y0 - tolerance
+                                            horizontal_alignment = (abs(check_bbox.x0 - empty_cell_bbox.x0) < tolerance * 2 and
+                                                                   abs(check_bbox.x1 - empty_cell_bbox.x1) < tolerance * 2)
+                                            
+                                            if vertical_overlap and horizontal_alignment:
+                                                # The cell above covers this position - it's a merged cell
+                                                merged_with = check_cell
+                                                break
+                            
+                            # If not merged vertically, check for horizontal merging (colspan from left)
+                            if merged_with is None and col_idx > 0:
+                                for check_col in range(col_idx - 1, -1, -1):
+                                    check_cell = matriz[row_idx][check_col]
+                                    if check_cell is not None and isinstance(check_cell, dict) and not check_cell.get("is_merged", False):
+                                        # Check if cell to the left has colspan that would cover this column
+                                        check_colspan = check_cell.get("colspan", 1)
+                                        if check_colspan > 1:
+                                            cols_covered = check_col + check_colspan
+                                            if cols_covered > col_idx:
+                                                # This cell spans to cover the empty cell position
+                                                merged_with = check_cell
+                                                break
+                                        
+                                        # Also check bbox overlap if available
+                                        if empty_cell_bbox is not None and check_cell.get("bbox"):
+                                            check_bbox = pymupdf.Rect(check_cell["bbox"])
+                                            # Check if the cell to the left horizontally spans to cover this empty cell
+                                            tolerance = avg_cell_width * 0.15 if avg_cell_width > 0 else 3
+                                            
+                                            # Check horizontal overlap
+                                            horizontal_overlap = check_bbox.x1 >= empty_cell_bbox.x0 - tolerance
+                                            vertical_alignment = (abs(check_bbox.y0 - empty_cell_bbox.y0) < tolerance * 2 and
+                                                                 abs(check_bbox.y1 - empty_cell_bbox.y1) < tolerance * 2)
+                                            
+                                            if horizontal_overlap and vertical_alignment:
+                                                # The cell to the left covers this position - it's a merged cell
+                                                merged_with = check_cell
+                                                break
+                            
+                            if merged_with is not None:
+                                # Update rowspan/colspan of the primary cell if needed
+                                primary_row = merged_with["row"]
+                                primary_col = merged_with["col"]
+                                primary_cell = matriz[primary_row][primary_col]
+                                if primary_cell is not None and isinstance(primary_cell, dict):
+                                    # Check if we need to update rowspan (vertical merge)
+                                    if row_idx > primary_row:
+                                        current_rowspan = primary_cell.get("rowspan", 1)
+                                        required_rowspan = row_idx - primary_row + 1
+                                        if required_rowspan > current_rowspan:
+                                            primary_cell["rowspan"] = required_rowspan
+                                            # Update the matriz reference
+                                            matriz[primary_row][primary_col] = primary_cell
+                                    
+                                    # Check if we need to update colspan (horizontal merge)
+                                    if col_idx > primary_col:
+                                        current_colspan = primary_cell.get("colspan", 1)
+                                        required_colspan = col_idx - primary_col + 1
+                                        if required_colspan > current_colspan:
+                                            primary_cell["colspan"] = required_colspan
+                                            # Update the matriz reference
+                                            matriz[primary_row][primary_col] = primary_cell
+                                
+                                # Mark as merged cell
+                                matriz[row_idx][col_idx] = {
+                                    "text": merged_with.get("text", ""),
+                                    "row": row_idx,
+                                    "col": col_idx,
+                                    "rowspan": 1,
+                                    "colspan": 1,
+                                    "bbox": merged_with.get("bbox"),
+                                    "is_merged": True,
+                                    "merged_from": (merged_with["row"], merged_with["col"]),
+                                    "primary_row": merged_with["row"],
+                                    "primary_col": merged_with["col"],
+                                }
+                
+                # Replace remaining None with empty cell dictionaries for consistency
                 for row_idx in range(row_count):
                     for col_idx in range(col_count):
                         if matriz[row_idx][col_idx] is None:
