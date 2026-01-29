@@ -125,23 +125,23 @@ def test_ascii_matrix_comparison(pdf_test):
     """
     
     # Define the exact expected result
-    expected_ascii_matrix = """----------------------------------------------------------------------------------------
-|Solvents            |Specifications  |Batch No.                                       |
-|                    |                |------------|-----------------|-----------------|
-|                    |                |3ARP321002  |3ARP321003       |3ARP321004       |
-|--------------------|----------------|------------|-----------------|-----------------|
-|Acetonitrile        |Not more than   |Below       |Below Detection  |Below            |
-|[LOD:15 ppm; LOQ:   |200 ppm         |Detection   |Limit            |quantitation     |
-|52 ppm]             |                |Limit       |                 |limit            |
-|--------------------|----------------|------------|-----------------|-----------------|
-|Isopropyl alcohol   |Not more than   |116 ppm     |141 ppm          |140 ppm          |
-|[LOD:30 ppm; LOQ:   |2000 ppm        |            |                 |                 |
-|75 ppm]             |                |            |                 |                 |
-|--------------------|----------------|------------|-----------------|-----------------|
-|Cyclohexane [LOD:1  |Not more than   |Below       |Below Detection  |Below Detection  |
-|ppm; LOQ: 4 ppm]    |1000 ppm        |Detection   |Limit            |Limit            |
-|                    |                |Limit       |                 |                 |
-----------------------------------------------------------------------------------------"""
+    expected_ascii_matrix = """------------------------------------------------------------------------------
+|Solvents          |Specifications|Batch No.                                 |
+|                  |              |------------------------------------------|
+|                  |              |3ARP321002|3ARP321003     |3ARP321004     |
+|------------------|--------------|----------|---------------|---------------|
+|Acetonitrile      |Not more than |Below     |Below Detection|Below          |
+|[LOD:15 ppm; LOQ: |200 ppm       |Detection |Limit          |quantitation   |
+|52 ppm]           |              |Limit     |               |limit          |
+|------------------|--------------|----------|---------------|---------------|
+|Isopropyl alcohol |Not more than |116 ppm   |141 ppm        |140 ppm        |
+|[LOD:30 ppm; LOQ: |2000 ppm      |          |               |               |
+|75 ppm]           |              |          |               |               |
+|------------------|--------------|----------|---------------|---------------|
+|Cyclohexane [LOD:1|Not more than |Below     |Below Detection|Below Detection|
+|ppm; LOQ: 4 ppm]  |1000 ppm      |Detection |Limit          |Limit          |
+|                  |              |Limit     |               |               |
+------------------------------------------------------------------------------"""
     
     # Try different strategies with pymupdf4llm
     strategies = ["lines_strict", "lines", "text"]

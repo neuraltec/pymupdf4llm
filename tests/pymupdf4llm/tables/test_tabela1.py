@@ -117,13 +117,13 @@ def test_ascii_matrix_comparison(pdf_test):
     """
     
     # Define the exact expected result
-    expected_ascii_matrix = """------------------------------------------
-| STAGE : ARP-3                          |
-------------------------------------------
-| Input batch size   | Output batch size |
-------------------------------------------
-| 55 – 60 Kg of ARP2 | 43.18 to 57.6     |
-------------------------------------------"""
+    expected_ascii_matrix = """--------------------------------------
+|STAGE : ARP-3                       |
+|------------------------------------|
+|Input batch size  |Output batch size|
+|------------------|-----------------|
+|55 – 60 Kg of ARP2|43.18 to 57.6    |
+--------------------------------------"""
     
     # Try different strategies with pymupdf4llm
     strategies = ["lines_strict", "lines", "text"]

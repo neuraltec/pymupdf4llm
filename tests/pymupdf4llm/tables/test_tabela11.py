@@ -127,49 +127,49 @@ def test_ascii_matrix_comparison(pdf_test):
     """
     
     # Define the exact expected result
-    expected_ascii_matrix = """---------------------------------------------------------------------------------------------------------
-|Source                                |Are there     |Remarks                                          |
-|                                      |any direct    |                                                 |
-|                                      |source of     |                                                 |
-|                                      |nitrosamines  |                                                 |
-|                                      |(Like sodium  |                                                 |
-|                                      |nitrites and  |                                                 |
-|                                      |amines)       |                                                 |
-|                                      |(Yes/No)      |                                                 |
-|--------------------------------------|--------------|-------------------------------------------------|
-|Solvents used in key starting         |No            |Risk of formation of nitroso impurities due to   |
-|materials and  drug substance         |              |solvents is eliminated.                          |
-|manufacturing                         |              |                                                 |
-|--------------------------------------|--------------|-------------------------------------------------|
-|Reagents used in key starting         |No            |Risk of formation of nitroso impurities due to   |
-|materials and drug substance          |              |reagents is eliminated.  There is a possibility  |
-|manufacturing                         |              |for carryover of secondary amines (DBA) & Tetra  |
-|                                      |              |Butyl Ammonium  Iodide (TBAI).  Since, there is  |
-|                                      |              |no source of nitrite is used during the          |
-|                                      |              |manufacturing process of  drug substance, risk   |
-|                                      |              |of formation of nitrosamine impurities due to    |
-|                                      |              |secondary amines  from DBA and TBAI is ruled     |
-|                                      |              |out.                                             |
-|--------------------------------------|--------------|-------------------------------------------------|
-|All the possible process and          |              |Risk of formation of nitroso impurities due to   |
-|degradation                           |              |the possible process and                         |
-|--------------------------------------|--------------|-------------------------------------------------|
-|impurities in key starting materials  |No            |degradation impurities in key starting           |
-|and drug substance                    |              |materials and drug substance is eliminated.      |
-|--------------------------------------|--------------|-------------------------------------------------|
-|Recovered solvents used               |No            |Risk of formation of nitroso impurities due to   |
-|                                      |              |use of recovered solvents is eliminated  as      |
-|                                      |              |recovered solvents are not used in the           |
-|                                      |              |manufacturing process of  Aripiprazole.          |
-|--------------------------------------|--------------|-------------------------------------------------|
-|Is there a risk of nitrosamines       |No            |Risk of formation of nitroso impurities due      |
-|forming in the API synthetic process  |              |combination of reagents, solvents, catalysts     |
-|taking  into consideration the        |              |and  starting materials used, intermediates      |
-|combination of reagents, solvents,    |              |formed, impurities and degradants is             |
-|catalysts  and starting materials     |              |eliminated.                                      |
-|used, intermediates formed,           |              |                                                 |
-|impurities and  degradants            |              |                                                 |
----------------------------------------------------------------------------------------------------------"""
+    expected_ascii_matrix = """---------------------------------------------------------------------------------------------------
+|Source                              |Are there   |Remarks                                        |
+|                                    |any direct  |                                               |
+|                                    |source of   |                                               |
+|                                    |nitrosamines|                                               |
+|                                    |(Like sodium|                                               |
+|                                    |nitrites and|                                               |
+|                                    |amines)     |                                               |
+|                                    |(Yes/No)    |                                               |
+|------------------------------------|------------|-----------------------------------------------|
+|Solvents used in key starting       |No          |Risk of formation of nitroso impurities due to |
+|materials and  drug substance       |            |solvents is eliminated.                        |
+|manufacturing                       |            |                                               |
+|------------------------------------|------------|-----------------------------------------------|
+|Reagents used in key starting       |No          |Risk of formation of nitroso impurities due to |
+|materials and drug substance        |            |reagents is eliminated.  There is a possibility|
+|manufacturing                       |            |for carryover of secondary amines (DBA) & Tetra|
+|                                    |            |Butyl Ammonium  Iodide (TBAI).  Since, there is|
+|                                    |            |no source of nitrite is used during the        |
+|                                    |            |manufacturing process of  drug substance, risk |
+|                                    |            |of formation of nitrosamine impurities due to  |
+|                                    |            |secondary amines  from DBA and TBAI is ruled   |
+|                                    |            |out.                                           |
+|------------------------------------|------------|-----------------------------------------------|
+|All the possible process and        |            |Risk of formation of nitroso impurities due to |
+|degradation                         |            |the possible process and                       |
+|------------------------------------|------------|-----------------------------------------------|
+|impurities in key starting materials|No          |degradation impurities in key starting         |
+|and drug substance                  |            |materials and drug substance is eliminated.    |
+|------------------------------------|------------|-----------------------------------------------|
+|Recovered solvents used             |No          |Risk of formation of nitroso impurities due to |
+|                                    |            |use of recovered solvents is eliminated  as    |
+|                                    |            |recovered solvents are not used in the         |
+|                                    |            |manufacturing process of  Aripiprazole.        |
+|------------------------------------|------------|-----------------------------------------------|
+|Is there a risk of nitrosamines     |No          |Risk of formation of nitroso impurities due    |
+|forming in the API synthetic process|            |combination of reagents, solvents, catalysts   |
+|taking  into consideration the      |            |and  starting materials used, intermediates    |
+|combination of reagents, solvents,  |            |formed, impurities and degradants is           |
+|catalysts  and starting materials   |            |eliminated.                                    |
+|used, intermediates formed,         |            |                                               |
+|impurities and  degradants          |            |                                               |
+---------------------------------------------------------------------------------------------------"""
     
     # Try different strategies with pymupdf4llm
     strategies = ["lines_strict", "lines", "text"]
