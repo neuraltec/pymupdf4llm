@@ -31,7 +31,7 @@ def pdf_test(tmp_path):
     return pdf_path
 
 
-def extract_first_table_llm(pdf_path: Path, strategy="lines_strict", page=24):
+def extract_first_table_llm(pdf_path: Path, strategy="lines_strict", page=23):
     """
     Extracts the table from the specified page using PyMuPDF4LLM (local fork).
     Returns a tuple (table_data, complete_structure) where:
@@ -76,7 +76,7 @@ def extract_first_table_llm(pdf_path: Path, strategy="lines_strict", page=24):
     return None, None
 
 
-def extract_first_table_pymupdf(pdf_path: Path, strategy="lines_strict", page=24):
+def extract_first_table_pymupdf(pdf_path: Path, strategy="lines_strict", page=23):
     """
     Extracts the first table from the specified page using PyMuPDF directly (fallback).
     Returns a tuple (table_data, complete_structure).
@@ -125,19 +125,23 @@ def test_ascii_matrix_comparison(pdf_test):
     """
     
     # Define the exact expected result
-    expected_ascii_matrix = """----------------------------------------------------
-| S.No                | Batch. No  | Residue on    |
-|                     |            | Ignition      |
-----------------------------------------------------
-| 1                   | 3ARP321002 | 0.03%         |
-----------------------------------------------------
-| 2                   | 3ARP321003 | 0.03%         |
-----------------------------------------------------
-| 3                   | 3ARP321004 | 0.03%         |
-----------------------------------------------------
-| Specification Limit              | Not more than |
-|                                  | 0.1%          |
-----------------------------------------------------"""
+    expected_ascii_matrix = """----------------------------------------------------------------------------------------
+|Solvents            |Specifications  |Batch No.                                       |
+|                    |                |------------|-----------------|-----------------|
+|                    |                |3ARP321002  |3ARP321003       |3ARP321004       |
+|--------------------|----------------|------------|-----------------|-----------------|
+|Acetonitrile        |Not more than   |Below       |Below Detection  |Below            |
+|[LOD:15 ppm; LOQ:   |200 ppm         |Detection   |Limit            |quantitation     |
+|52 ppm]             |                |Limit       |                 |limit            |
+|--------------------|----------------|------------|-----------------|-----------------|
+|Isopropyl alcohol   |Not more than   |116 ppm     |141 ppm          |140 ppm          |
+|[LOD:30 ppm; LOQ:   |2000 ppm        |            |                 |                 |
+|75 ppm]             |                |            |                 |                 |
+|--------------------|----------------|------------|-----------------|-----------------|
+|Cyclohexane [LOD:1  |Not more than   |Below       |Below Detection  |Below Detection  |
+|ppm; LOQ: 4 ppm]    |1000 ppm        |Detection   |Limit            |Limit            |
+|                    |                |Limit       |                 |                 |
+----------------------------------------------------------------------------------------"""
     
     # Try different strategies with pymupdf4llm
     strategies = ["lines_strict", "lines", "text"]
@@ -148,13 +152,13 @@ def test_ascii_matrix_comparison(pdf_test):
     for strategy in strategies:
         chunks = llm.to_markdown(str(pdf_test), page_chunks=True, table_strategy=strategy)
         
-        # Search specifically on page 24 
-        page_idx = 24 - 1
+        # Search specifically on page 23, second table (tabela 14)
+        page_idx = 23 - 1
         if page_idx < len(chunks):
             chunk = chunks[page_idx]
             tables = chunk.get("tables") or []
-            if tables:
-                complete_structure = tables[0]
+            if len(tables) >= 2:
+                complete_structure = tables[1]
                 used_strategy = strategy
                 used_method = "pymupdf4llm"
                 break
@@ -167,14 +171,14 @@ def test_ascii_matrix_comparison(pdf_test):
         for strategy in strategies:
             doc = fitz.open(str(pdf_test))
             try:
-                # Search specifically on page 24 
-                page_idx = 24 - 1
+                # Search specifically on page 23, second table
+                page_idx = 23 - 1
                 if page_idx < len(doc):
                     page_obj = doc[page_idx]
                     tables = page_obj.find_tables(strategy=strategy)
-                    if tables.tables:
-                        first_table = tables.tables[0]
-                        matrix = first_table.extract()
+                    if len(tables.tables) >= 2:
+                        second_table = tables.tables[1]
+                        matrix = second_table.extract()
                         # Convert to expected format
                         # Import matriz_to_ascii function from helpers module
                         # Use relative path to project

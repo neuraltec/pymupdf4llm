@@ -31,7 +31,7 @@ def pdf_test(tmp_path):
     return pdf_path
 
 
-def extract_first_table_llm(pdf_path: Path, strategy="lines_strict", page=21):
+def extract_first_table_llm(pdf_path: Path, strategy="lines_strict", page=25):
     """
     Extracts the table from the specified page using PyMuPDF4LLM (local fork).
     Returns a tuple (table_data, complete_structure) where:
@@ -52,9 +52,10 @@ def extract_first_table_llm(pdf_path: Path, strategy="lines_strict", page=21):
         tables = chunk.get("tables") or []
         print(f"  Page {page} (chunk {page_idx + 1}): {len(tables)} table(s) found")
         
-        if tables:
-            table = tables[0]
-            print(f"  First table found on page {page}")
+        # For page 25, we need the second table (tabela 17)
+        if len(tables) >= 2:
+            table = tables[1]
+            print(f"  Second table found on page {page}")
             
             # Try to extract the matrix in different ways
             data = None
@@ -76,9 +77,9 @@ def extract_first_table_llm(pdf_path: Path, strategy="lines_strict", page=21):
     return None, None
 
 
-def extract_first_table_pymupdf(pdf_path: Path, strategy="lines_strict", page=21):
+def extract_first_table_pymupdf(pdf_path: Path, strategy="lines_strict", page=25):
     """
-    Extracts the first table from the specified page using PyMuPDF directly (fallback).
+    Extracts the second table from the specified page using PyMuPDF directly (fallback).
     Returns a tuple (table_data, complete_structure).
     """
     doc = fitz.open(str(pdf_path))
@@ -92,18 +93,18 @@ def extract_first_table_pymupdf(pdf_path: Path, strategy="lines_strict", page=21
         page_obj = doc[page_idx]
         tables = page_obj.find_tables(strategy=strategy)
         
-        if tables.tables:
-            print(f"  Table found on page {page}")
-            first_table = tables.tables[0]
+        if len(tables.tables) >= 2:
+            print(f"  Second table found on page {page}")
+            second_table = tables.tables[1]
             
             # Convert to matrix
             try:
-                matrix = first_table.extract()
+                matrix = second_table.extract()
                 structure = {
-                    "bbox": first_table.bbox,
-                    "rows": first_table.row_count,
-                    "cols": first_table.col_count,
-                    "markdown": first_table.to_markdown()
+                    "bbox": second_table.bbox,
+                    "rows": second_table.row_count,
+                    "cols": second_table.col_count,
+                    "markdown": second_table.to_markdown()
                 }
                 doc.close()
                 return matrix, structure
@@ -119,7 +120,6 @@ def extract_first_table_pymupdf(pdf_path: Path, strategy="lines_strict", page=21
 
 
 
-
 def test_ascii_matrix_comparison(pdf_test):
     """
     Tests if the extracted ASCII matrix matches
@@ -127,49 +127,15 @@ def test_ascii_matrix_comparison(pdf_test):
     """
     
     # Define the exact expected result
-    expected_ascii_matrix = """---------------------------------------------------------------------------------------------------------
-|Source                                |Are there     |Remarks                                          |
-|                                      |any direct    |                                                 |
-|                                      |source of     |                                                 |
-|                                      |nitrosamines  |                                                 |
-|                                      |(Like sodium  |                                                 |
-|                                      |nitrites and  |                                                 |
-|                                      |amines)       |                                                 |
-|                                      |(Yes/No)      |                                                 |
-|--------------------------------------|--------------|-------------------------------------------------|
-|Solvents used in key starting         |No            |Risk of formation of nitroso impurities due to   |
-|materials and  drug substance         |              |solvents is eliminated.                          |
-|manufacturing                         |              |                                                 |
-|--------------------------------------|--------------|-------------------------------------------------|
-|Reagents used in key starting         |No            |Risk of formation of nitroso impurities due to   |
-|materials and drug substance          |              |reagents is eliminated.  There is a possibility  |
-|manufacturing                         |              |for carryover of secondary amines (DBA) & Tetra  |
-|                                      |              |Butyl Ammonium  Iodide (TBAI).  Since, there is  |
-|                                      |              |no source of nitrite is used during the          |
-|                                      |              |manufacturing process of  drug substance, risk   |
-|                                      |              |of formation of nitrosamine impurities due to    |
-|                                      |              |secondary amines  from DBA and TBAI is ruled     |
-|                                      |              |out.                                             |
-|--------------------------------------|--------------|-------------------------------------------------|
-|All the possible process and          |              |Risk of formation of nitroso impurities due to   |
-|degradation                           |              |the possible process and                         |
-|--------------------------------------|--------------|-------------------------------------------------|
-|impurities in key starting materials  |No            |degradation impurities in key starting           |
-|and drug substance                    |              |materials and drug substance is eliminated.      |
-|--------------------------------------|--------------|-------------------------------------------------|
-|Recovered solvents used               |No            |Risk of formation of nitroso impurities due to   |
-|                                      |              |use of recovered solvents is eliminated  as      |
-|                                      |              |recovered solvents are not used in the           |
-|                                      |              |manufacturing process of  Aripiprazole.          |
-|--------------------------------------|--------------|-------------------------------------------------|
-|Is there a risk of nitrosamines       |No            |Risk of formation of nitroso impurities due      |
-|forming in the API synthetic process  |              |combination of reagents, solvents, catalysts     |
-|taking  into consideration the        |              |and  starting materials used, intermediates      |
-|combination of reagents, solvents,    |              |formed, impurities and degradants is             |
-|catalysts  and starting materials     |              |eliminated.                                      |
-|used, intermediates formed,           |              |                                                 |
-|impurities and  degradants            |              |                                                 |
----------------------------------------------------------------------------------------------------------"""
+    expected_ascii_matrix = """-------------------------------------------------------------------------------------------
+|Element  |Class     |Detection  |Quantitation  |Batch #                                  |
+|         |          |Limit      |Limit         |                                         |
+|         |          |           |              |-------------|-------------|-------------|
+|         |          |           |              |3APR3/12001  |3APR3/12002  |3APR3/12003  |
+|---------|----------|-----------|--------------|-------------|-------------|-------------|
+|Al       |Other     |2.2 ppm    |6.5 ppm       |BDL          |BDL          |BDL          |
+|         |elements  |           |              |             |             |             |
+-------------------------------------------------------------------------------------------"""
     
     # Try different strategies with pymupdf4llm
     strategies = ["lines_strict", "lines", "text"]
@@ -180,13 +146,13 @@ def test_ascii_matrix_comparison(pdf_test):
     for strategy in strategies:
         chunks = llm.to_markdown(str(pdf_test), page_chunks=True, table_strategy=strategy)
         
-        # Search specifically on page 21 
-        page_idx = 21 - 1
+        # Search specifically on page 25, second table
+        page_idx = 25 - 1
         if page_idx < len(chunks):
             chunk = chunks[page_idx]
             tables = chunk.get("tables") or []
-            if tables:
-                complete_structure = tables[0]
+            if len(tables) >= 2:
+                complete_structure = tables[1]
                 used_strategy = strategy
                 used_method = "pymupdf4llm"
                 break
@@ -199,14 +165,14 @@ def test_ascii_matrix_comparison(pdf_test):
         for strategy in strategies:
             doc = fitz.open(str(pdf_test))
             try:
-                # Search specifically on page 21 
-                page_idx = 21 - 1
+                # Search specifically on page 25, second table
+                page_idx = 25 - 1
                 if page_idx < len(doc):
                     page_obj = doc[page_idx]
                     tables = page_obj.find_tables(strategy=strategy)
-                    if tables.tables:
-                        first_table = tables.tables[0]
-                        matrix = first_table.extract()
+                    if len(tables.tables) >= 2:
+                        second_table = tables.tables[1]
+                        matrix = second_table.extract()
                         # Convert to expected format
                         # Import matriz_to_ascii function from helpers module
                         # Use relative path to project
@@ -342,4 +308,5 @@ def test_ascii_matrix_comparison(pdf_test):
         print(normalized_ascii_matrix)
         print("-"*80)
         pytest.fail(f"The extracted ASCII matrix does not match exactly the expected format.\nTotal errors: {len(errors)}")
+
 

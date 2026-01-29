@@ -316,18 +316,17 @@ def wrap_text_by_bbox(text, cell_rect, textpage=None, avg_font_size=None):
     
     return '\n'.join(lines)
 
-
 def matriz_to_ascii(matrix):
     """Convert a matrix (list of lists) into a simple ASCII table.
 
     The output follows this pattern:
 
     ----------------------
-    Header |
+    |Header|
     ----------------------
-    Cell 1 | Cell 2 |
+    |Cell 1|Cell 2|
     ----------------------
-    Cell 3 | Cell 4 |
+    |Cell 3|Cell 4|
     ----------------------
     """
 
@@ -349,9 +348,12 @@ def matriz_to_ascii(matrix):
                 if cell.get("is_merged") and cell.get("merged_from"):
                     text = ""
                 else:
-                    text = str(cell.get("text", "") or "")
+                    # Fix: Added .strip() to remove source whitespace that inflates width
+                    raw_text = str(cell.get("text", "") or "")
+                    text = raw_text.strip()
             else:
-                text = "" if cell is None else str(cell)
+                # Fix: Added .strip() here as well
+                text = "" if cell is None else str(cell).strip()
             current_row_texts.append(text)
         row_cells.append(current_row_cells)
         row_texts.append(current_row_texts)
@@ -369,7 +371,8 @@ def matriz_to_ascii(matrix):
             # For multi-line cells, find the longest line
             if "\n" in text:
                 lines = text.split("\n")
-                max_line_len = max(len(line) for line in lines) if lines else 0
+                # Fix: Ensure lines are stripped too when calculating width
+                max_line_len = max(len(line.strip()) for line in lines) if lines else 0
                 col_widths[idx_col] = max(col_widths[idx_col], max_line_len)
             else:
                 col_widths[idx_col] = max(col_widths[idx_col], len(text))
@@ -433,9 +436,7 @@ def matriz_to_ascii(matrix):
                                 if (rows_covered > row_index and 
                                     primary_col <= col < cols_covered):
                                     # This position is covered by the primary cell's rowspan
-                                    # Don't render anything here - the cell above already occupies this space
-                                    # But we still need to reserve the space for alignment
-                                    dummy = "".ljust(col_widths[col]) + " |"
+                                    dummy = "".ljust(col_widths[col]) + "|"
                                     parts.append(dummy)
                                     col += 1
                                     continue
@@ -443,14 +444,14 @@ def matriz_to_ascii(matrix):
                 # If not covered by rowspan, check if covered by any cell above
                 if covered_by_above is not None:
                     # This position is covered by a cell above with rowspan
-                    dummy = "".ljust(col_widths[col]) + " |"
+                    dummy = "".ljust(col_widths[col]) + "|"
                     parts.append(dummy)
                     col += 1
                     continue
                 else:
                     # It's a merged cell but not covered by rowspan above
                     # This might be a colspan merge, reserve space but show empty
-                    dummy = "".ljust(col_widths[col]) + " |"
+                    dummy = "".ljust(col_widths[col]) + "|"
                     parts.append(dummy)
                     col += 1
                     continue
@@ -467,12 +468,11 @@ def matriz_to_ascii(matrix):
                 if "\n" in text:
                     lines = text.split("\n")
                     if line_in_cell < len(lines):
-                        text = lines[line_in_cell]
+                        text = lines[line_in_cell].strip() # Ensure displayed line is stripped
                     else:
                         text = ""  # No more lines in this cell
                 else:
-                    # Cell has only one line: show it only on first line_in_cell (0)
-                    # On subsequent lines, show empty to avoid repetition
+                    # Cell has only one line
                     if line_in_cell > 0:
                         text = ""
             
@@ -484,20 +484,73 @@ def matriz_to_ascii(matrix):
             colspan = min(colspan, max_cols - col)
 
             if colspan == 1:
-                segment = text.ljust(col_widths[col]) + " |"
+                segment = text.ljust(col_widths[col]) + "|"
                 parts.append(segment)
             else:
                 # Total width of merged cell = sum of involved column widths
-                total_width = (
-                    sum(col_widths[c] for c in range(col, col + colspan))
-                    + (colspan - 1) * 3
-                )
-                segment = text.ljust(total_width) + " |"
+                # Adjust for the separators being skipped inside the merge
+                total_width = 0
+                for c in range(col, col + colspan):
+                    total_width += col_widths[c]
+                
+                # Add space for the inner separators that are merged
+                total_width += (colspan - 1)
+                
+                segment = text.ljust(total_width) + "|"
                 parts.append(segment)
             col += colspan
 
         # Add "|" at the beginning of the line
-        return "| " + " ".join(parts).rstrip()
+        return "|" + "".join(parts)
+
+    def build_separator_line(row_index):
+        """Build a separator line dynamically checking for vertical merges."""
+        parts = []
+        col = 0
+        while col < max_cols:
+            # Get the cell at the current position
+            cell = row_cells[row_index][col]
+            
+            # Determine effective rowspan for this column position
+            is_crossing_vertical = False
+            
+            # Find the primary cell to check rowspan
+            primary = cell
+            if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
+                p_row, p_col = cell.get("merged_from")
+                if p_row < len(row_cells) and p_col < len(row_cells[p_row]):
+                    primary = row_cells[p_row][p_col]
+            
+            if isinstance(primary, dict):
+                start_row = primary.get("row", row_index)
+                span = primary.get("rowspan", 1)
+                end_row = start_row + span
+                
+                # If the merged block ends AFTER the next row, it crosses the boundary
+                if end_row > row_index + 1:
+                    is_crossing_vertical = True
+            
+            colspan = 1
+            if isinstance(cell, dict):
+                colspan = max(1, int(cell.get("colspan", 1)))
+            colspan = min(colspan, max_cols - col)
+            
+            # Calculate width
+            total_width = 0
+            for c in range(col, col + colspan):
+                total_width += col_widths[c]
+            total_width += (colspan - 1)
+            
+            # Choose character: space if merged vertically, dash otherwise
+            char = " " if is_crossing_vertical else "-"
+            junction = "|"
+            
+            segment = char * total_width
+            parts.append(segment + junction)
+            
+            col += colspan
+            
+        return "|" + "".join(parts)
 
     # Find maximum number of lines in any cell of the row
     def get_max_lines_in_row(row_index):
@@ -509,23 +562,27 @@ def matriz_to_ascii(matrix):
                 max_lines = max(max_lines, len(lines))
         return max_lines
 
-    # Separator line length based on an example content line
-    sample_content = build_content_line(0, 0)
-    separator = "-" * len(sample_content)
-
     output_lines = []
-    # Add separator at the beginning of the table
-    output_lines.append(separator)
+    
+    # Static top separator using simple dash string based on first row width
+    sample = build_content_line(0, 0)
+    top_separator = "-" * len(sample)
+    
+    output_lines.append(top_separator)
     
     for row_index in range(len(row_texts)):
         max_lines = get_max_lines_in_row(row_index)
-        # Render each line of multi-line cells
         for line_num in range(max_lines):
             output_lines.append(build_content_line(row_index, line_num))
-        output_lines.append(separator)
+        
+        # Build dynamic separator for the bottom of this row
+        if row_index < len(row_texts) - 1:
+            sep = build_separator_line(row_index)
+            output_lines.append(sep)
+
+    output_lines.append(top_separator)
 
     return "\n".join(output_lines)
-
 
 def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: float = 0.05):
     """Merge table metadata entries that are parts of the same logical table.

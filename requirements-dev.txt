@@ -1,0 +1,17 @@
+# Development and testing dependencies
+# Install with: pip install -r requirements-dev.txt
+
+# Include all production dependencies
+-r requirements.txt
+
+# Testing framework
+pytest>=7.0.0
+
+# Environment variable management for tests
+python-dotenv>=1.0.0
+
+# Optional: For llama_index integration tests
+# Uncomment if you want to run tests/pymupdf4llm/llama_index/test_pdf_markdown_reader.py
+# llama-index>=0.9.0
+
+

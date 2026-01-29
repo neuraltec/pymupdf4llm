@@ -128,15 +128,15 @@ def test_ascii_matrix_comparison(pdf_test):
     
     # Define the exact expected result
     expected_ascii_matrix = """---------------------------------------------
-| Name of Solvents  | Limit                 |
----------------------------------------------
-| Acetonitrile      | Not more than 200 ppm |
----------------------------------------------
-| Isopropyl alcohol | Not more than 2000    |
-|                   | ppm                   |
----------------------------------------------
-| Cyclohexane       | Not more than 1000    |
-|                   | ppm                   |
+|Name of Solvents   |Limit                  |
+|-------------------|-----------------------|
+|Acetonitrile       |Not more than 200 ppm  |
+|-------------------|-----------------------|
+|Isopropyl alcohol  |Not more than 2000     |
+|                   |ppm                    |
+|-------------------|-----------------------|
+|Cyclohexane        |Not more than 1000     |
+|                   |ppm                    |
 ---------------------------------------------"""
     
     # Try different strategies with pymupdf4llm

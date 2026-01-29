@@ -1,0 +1,16 @@
+# Core dependencies for pymupdf4llm
+# These are required to run the main package
+
+# PyMuPDF - PDF processing library
+pymupdf>=1.26.6
+
+# Tabulate - Table formatting utilities
+tabulate
+
+# OpenCV - Used for OCR checking (check_ocr.py)
+opencv-python
+
+# NumPy - Used for image processing (check_ocr.py)
+numpy
+
+
