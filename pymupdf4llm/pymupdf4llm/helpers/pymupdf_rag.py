@@ -318,22 +318,17 @@ def wrap_text_by_bbox(text, cell_rect, textpage=None, avg_font_size=None):
 
 def matriz_to_ascii(matrix):
     """Convert a matrix (list of lists) into a simple ASCII table.
-
-    The output follows this pattern:
-
-    ----------------------
-    |Header|
-    ----------------------
-    |Cell 1|Cell 2|
-    ----------------------
-    |Cell 3|Cell 4|
-    ----------------------
+    
+    This version enforces a STRICT maximum width to prevent line wrapping
+    in text editors, ensuring visual alignment even at 100% zoom.
     """
+    import textwrap
+    import math
 
     if not matrix:
         return ""
 
-    # Keep original cell objects to correctly handle merged cells (rowspan / colspan)
+    # --- 1. Pre-process text and setup ---
     row_cells = []
     row_texts = []
     max_cols = 0
@@ -344,15 +339,12 @@ def matriz_to_ascii(matrix):
         for cell in row:
             current_row_cells.append(cell)
             if isinstance(cell, dict):
-                # For width calculation, always use the primary cell text
                 if cell.get("is_merged") and cell.get("merged_from"):
                     text = ""
                 else:
-                    # Fix: Added .strip() to remove source whitespace that inflates width
                     raw_text = str(cell.get("text", "") or "")
                     text = raw_text.strip()
             else:
-                # Fix: Added .strip() here as well
                 text = "" if cell is None else str(cell).strip()
             current_row_texts.append(text)
         row_cells.append(current_row_cells)
@@ -362,159 +354,209 @@ def matriz_to_ascii(matrix):
     if max_cols == 0:
         return ""
 
-    # Compute base width of each column from all cell texts
-    # Consider multi-line cells: take max width of all lines in each cell
-    col_widths = [0] * max_cols
+    # --- 2. Intelligent Column Sizing ---
+    
+    # Configuration for visual limits
+    # 110 chars is usually safe for most editors at 100% zoom without wrapping
+    MAX_TOTAL_WIDTH = 120 
+    MIN_COL_WIDTH = 7  # Minimum width to avoid illegible vertical columns
+    
+    # Calculate overhead: "|" + " " (start) + per_column(" " + "|")
+    # Pattern is "| Text | Text |" -> 1 char boundary per column + 1 at end + 2 spaces padding per column
+    # Actually current implementation uses "| Text |".
+    # Structure: "| " + text + " |" for each column? No, implementation is "| " + text + " |" ? 
+    # Let's verify build_content_line logic below. It uses: text.ljust(width) + "|"
+    # So overhead is 1 char (start pipe) + per_col(1 char end pipe).
+    # Plus, we usually want 1 space padding inside if possible.
+    # Let's assume strictly: |text|text| -> Overhead is max_cols + 1.
+    
+    border_overhead = max_cols + 1
+    available_text_space = MAX_TOTAL_WIDTH - border_overhead
+
+    # Determine "Natural" required width for each column (longest word/line)
+    natural_widths = [0] * max_cols
     for row in row_texts:
         for idx_col in range(max_cols):
             text = row[idx_col] if idx_col < len(row) else ""
-            # For multi-line cells, find the longest line
-            if "\n" in text:
-                lines = text.split("\n")
-                # Fix: Ensure lines are stripped too when calculating width
-                max_line_len = max(len(line.strip()) for line in lines) if lines else 0
-                col_widths[idx_col] = max(col_widths[idx_col], max_line_len)
-            else:
-                col_widths[idx_col] = max(col_widths[idx_col], len(text))
+            if not text: continue
+            # Check longest unbroken word to avoid ugly splits if possible
+            words = text.split()
+            max_word = max([len(w) for w in words]) if words else 0
+            # Also check longest existing line (if pre-formatted)
+            lines = text.split('\n')
+            max_line = max([len(l) for l in lines]) if lines else 0
+            
+            # Use the greater of the two as natural need
+            natural_widths[idx_col] = max(natural_widths[idx_col], max_word, max_line)
 
-    # Helper to build a content line respecting colspan and rowspan
-    def build_content_line(row_index, line_in_cell=0):
-        """Build a content line for a row, optionally for a specific line within multi-line cells.
+    # Calculate Total Natural Width
+    total_natural = sum(natural_widths)
+    
+    # Determine Final Widths
+    final_widths = []
+    
+    if total_natural <= available_text_space:
+        # If it fits naturally, use natural widths (padded slightly if huge space remains?)
+        # Let's just use natural to be compact.
+        final_widths = [max(w, MIN_COL_WIDTH) for w in natural_widths]
+    else:
+        # It doesn't fit. We must compress.
+        # We assume total_natural > 0
+        if total_natural == 0: total_natural = 1
         
-        Args:
-            row_index: Index of the row
-            line_in_cell: Which line within multi-line cells to render (0 = first line)
-        """
-        cells = row_cells[row_index]
-        texts = row_texts[row_index]
-        parts = []
-        col = 0
-        while col < max_cols:
-            cell = cells[col] if col < len(cells) else None
-
-            # Check if this position is covered by a cell above with rowspan
-            covered_by_above = None
-            if row_index > 0:
-                for check_row in range(row_index - 1, -1, -1):
-                    if check_row < len(row_cells):
-                        # Check all cells in this row to see if any covers the current column
-                        for check_col in range(len(row_cells[check_row])):
-                            check_cell = row_cells[check_row][check_col]
-                            if isinstance(check_cell, dict):
-                                # Only check primary cells (not merged secondary cells)
-                                is_merged_secondary = check_cell.get("is_merged", False)
-                                if not is_merged_secondary:
-                                    check_rowspan = check_cell.get("rowspan", 1)
-                                    check_colspan = check_cell.get("colspan", 1)
-                                    if check_rowspan > 1:
-                                        rows_covered = check_row + check_rowspan
-                                        cols_covered = check_col + check_colspan
-                                        # Check if this cell covers the current position
-                                        if (rows_covered > row_index and 
-                                            check_col <= col < cols_covered):
-                                            # This cell above covers the current position
-                                            covered_by_above = check_cell
-                                            break
-                        if covered_by_above is not None:
-                            break
-
-            # Secondary merged cell: check if it's covered by a cell above with rowspan
-            if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
-                # Get the primary cell that this is merged from
-                merged_from = cell.get("merged_from")
-                if merged_from and isinstance(merged_from, (list, tuple)) and len(merged_from) >= 2:
-                    primary_row, primary_col = merged_from[0], merged_from[1]
-                    if primary_row < len(row_cells) and primary_col < len(row_cells[primary_row]):
-                        primary_cell = row_cells[primary_row][primary_col]
-                        if isinstance(primary_cell, dict):
-                            primary_rowspan = primary_cell.get("rowspan", 1)
-                            primary_colspan = primary_cell.get("colspan", 1)
-                            # Check if the primary cell's rowspan covers this row
-                            if primary_rowspan > 1:
-                                rows_covered = primary_row + primary_rowspan
-                                cols_covered = primary_col + primary_colspan
-                                if (rows_covered > row_index and 
-                                    primary_col <= col < cols_covered):
-                                    # This position is covered by the primary cell's rowspan
-                                    dummy = "".ljust(col_widths[col]) + "|"
-                                    parts.append(dummy)
-                                    col += 1
-                                    continue
+        # Initial proportional compression
+        raw_widths = []
+        for w in natural_widths:
+            ratio = w / total_natural
+            target = int(available_text_space * ratio)
+            raw_widths.append(target)
+            
+        # Enforce Minimum Widths
+        # This is tricky: if we enforce min width, we might exceed MAX_TOTAL_WIDTH again.
+        # Strategy: Set everything to MIN_WIDTH first. Distribute remaining space proportionally to larger cols.
+        
+        required_min = max_cols * MIN_COL_WIDTH
+        
+        if required_min >= available_text_space:
+            # Extreme case: Table has so many columns it barely fits even at min width
+            # Just set all to min width or slightly less
+            final_widths = [int(available_text_space / max_cols)] * max_cols
+        else:
+            # We have surplus space to distribute
+            surplus = available_text_space - required_min
+            final_widths = [MIN_COL_WIDTH] * max_cols
+            
+            # Distribute surplus based on weight of natural widths
+            for i, w in enumerate(natural_widths):
+                share = (w / total_natural) * surplus
+                final_widths[i] += int(share)
                 
-                # If not covered by rowspan, check if covered by any cell above
-                if covered_by_above is not None:
-                    # This position is covered by a cell above with rowspan
-                    dummy = "".ljust(col_widths[col]) + "|"
-                    parts.append(dummy)
-                    col += 1
-                    continue
-                else:
-                    # It's a merged cell but not covered by rowspan above
-                    # This might be a colspan merge, reserve space but show empty
-                    dummy = "".ljust(col_widths[col]) + "|"
-                    parts.append(dummy)
-                    col += 1
-                    continue
+            # Due to rounding, we might be slightly under/over. Adjust last col.
+            current_sum = sum(final_widths)
+            diff = available_text_space - current_sum
+            # Add/subtract diff to the widest column to minimize visual impact
+            if diff != 0 and final_widths:
+                # Find index of max width
+                max_w_idx = final_widths.index(max(final_widths))
+                final_widths[max_w_idx] += diff
 
-            # Normal cell or primary merged cell
-            text = texts[col] if col < len(texts) else ""
-            
-            # If this position is covered by a cell above with rowspan, don't show text here
-            if covered_by_above is not None:
-                # The cell above is occupying this space, so show empty
-                text = ""
-            else:
-                # Extract specific line if cell has multiple lines
-                if "\n" in text:
-                    lines = text.split("\n")
-                    if line_in_cell < len(lines):
-                        text = lines[line_in_cell].strip() # Ensure displayed line is stripped
-                    else:
-                        text = ""  # No more lines in this cell
-                else:
-                    # Cell has only one line
-                    if line_in_cell > 0:
-                        text = ""
-            
+    col_widths = final_widths
+
+    # --- 3. Content Wrapping & Processing ---
+    
+    # Process text wrapping based on NEW calculated widths
+    for r_idx in range(len(row_texts)):
+        for c_idx in range(max_cols):
+            text = row_texts[r_idx][c_idx]
+            cell = row_cells[r_idx][c_idx]
+            if not text: continue
+
+            # Determine effective width for this specific cell (handling merged cols)
             colspan = 1
             if isinstance(cell, dict):
                 colspan = max(1, int(cell.get("colspan", 1)))
-
-            # Do not exceed available columns
-            colspan = min(colspan, max_cols - col)
-
-            if colspan == 1:
-                segment = text.ljust(col_widths[col]) + "|"
-                parts.append(segment)
+            
+            # Calculate width available for this cell text
+            # Sum of widths of columns it spans + (colspan - 1) for the skipped separators
+            eff_width = 0
+            if c_idx + colspan <= max_cols:
+                for k in range(c_idx, c_idx + colspan):
+                    eff_width += col_widths[k]
+                eff_width += (colspan - 1) # Add space for merged borders
             else:
-                # Total width of merged cell = sum of involved column widths
-                # Adjust for the separators being skipped inside the merge
-                total_width = 0
-                for c in range(col, col + colspan):
-                    total_width += col_widths[c]
-                
-                # Add space for the inner separators that are merged
-                total_width += (colspan - 1)
-                
-                segment = text.ljust(total_width) + "|"
-                parts.append(segment)
-            col += colspan
+                eff_width = col_widths[c_idx]
 
-        # Add "|" at the beginning of the line
-        return "|" + "".join(parts)
+            # Safety margin: subtract 1 or 2 chars to ensure it doesn't touch borders tightly
+            wrap_width = max(1, eff_width)
 
-    def build_separator_line(row_index):
-        """Build a separator line dynamically checking for vertical merges."""
+            # Wrap text
+            # break_long_words=True ensures we NEVER exceed width, 
+            # effectively fixing the "zoom" issue by forcing breaks even in long chemical names.
+            paragraphs = text.split('\n')
+            wrapped_lines = []
+            for p in paragraphs:
+                if not p.strip():
+                    wrapped_lines.append("")
+                    continue
+                lines = textwrap.wrap(p, width=wrap_width, break_long_words=True)
+                wrapped_lines.extend(lines)
+            
+            row_texts[r_idx][c_idx] = "\n".join(wrapped_lines)
+
+    # --- 4. Render Helpers ---
+
+    def build_content_line(row_index, line_in_cell=0):
         parts = []
         col = 0
         while col < max_cols:
-            # Get the cell at the current position
+            cell = row_cells[row_index][col]
+            text = row_texts[row_index][col]
+            
+            # Check overlap from above (Rowspan)
+            covered_by_above = None
+            if row_index > 0:
+                # (Simplified check logic for performance, relying on previous robust logic pattern)
+                # Iterate upwards
+                r_up = row_index - 1
+                while r_up >= 0:
+                    c_check = row_cells[r_up][col]
+                    if isinstance(c_check, dict) and not c_check.get("is_merged"):
+                        r_span = c_check.get("rowspan", 1)
+                        if (r_up + r_span) > row_index:
+                            covered_by_above = c_check
+                        break # Found the physical cell governing this column
+                    r_up -= 1
+            
+            # Determine content to display
+            display_text = ""
+            if covered_by_above:
+                display_text = ""
+            elif isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
+                # Horizontal merge follower, already handled by primary logic loop skip
+                # But if we land here, it means we are inside a loop that shouldn't process this
+                # However, our loop jumps by colspan, so we should be on a primary cell or normal cell
+                pass 
+            else:
+                # Primary cell
+                if "\n" in text:
+                    lines = text.split("\n")
+                    if line_in_cell < len(lines):
+                        display_text = lines[line_in_cell]
+                else:
+                    if line_in_cell == 0:
+                        display_text = text
+
+            # Handle Colspan
+            colspan = 1
+            if isinstance(cell, dict):
+                colspan = max(1, int(cell.get("colspan", 1)))
+            colspan = min(colspan, max_cols - col)
+
+            # Calculate total display width
+            total_width = 0
+            for k in range(col, col + colspan):
+                total_width += col_widths[k]
+            total_width += (colspan - 1)
+
+            # Render segment
+            # Use ljust for alignment. 
+            segment = display_text.ljust(total_width) + "|"
+            parts.append(segment)
+            
+            col += colspan
+
+        return "|" + "".join(parts)
+
+    def build_separator_line(row_index):
+        parts = []
+        col = 0
+        while col < max_cols:
             cell = row_cells[row_index][col]
             
-            # Determine effective rowspan for this column position
-            is_crossing_vertical = False
+            # Check if this cell spans vertically into the NEXT row
+            is_crossing = False
             
-            # Find the primary cell to check rowspan
+            # Find primary to check rowspan
             primary = cell
             if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
                 p_row, p_col = cell.get("merged_from")
@@ -522,67 +564,54 @@ def matriz_to_ascii(matrix):
                     primary = row_cells[p_row][p_col]
             
             if isinstance(primary, dict):
-                start_row = primary.get("row", row_index)
+                start = primary.get("row", row_index)
                 span = primary.get("rowspan", 1)
-                end_row = start_row + span
-                
-                # If the merged block ends AFTER the next row, it crosses the boundary
-                if end_row > row_index + 1:
-                    is_crossing_vertical = True
+                if start + span > row_index + 1:
+                    is_crossing = True
             
             colspan = 1
             if isinstance(cell, dict):
                 colspan = max(1, int(cell.get("colspan", 1)))
             colspan = min(colspan, max_cols - col)
             
-            # Calculate width
-            total_width = 0
-            for c in range(col, col + colspan):
-                total_width += col_widths[c]
-            total_width += (colspan - 1)
+            width = 0
+            for k in range(col, col + colspan):
+                width += col_widths[k]
+            width += (colspan - 1)
             
-            # Choose character: space if merged vertically, dash otherwise
-            char = " " if is_crossing_vertical else "-"
-            junction = "|"
-            
-            segment = char * total_width
-            parts.append(segment + junction)
+            char = " " if is_crossing else "-"
+            parts.append((char * width) + "|")
             
             col += colspan
             
         return "|" + "".join(parts)
 
-    # Find maximum number of lines in any cell of the row
-    def get_max_lines_in_row(row_index):
-        max_lines = 1
-        texts = row_texts[row_index]
-        for text in texts:
-            if "\n" in text:
-                lines = text.split("\n")
-                max_lines = max(max_lines, len(lines))
-        return max_lines
+    def get_max_lines(row_index):
+        m = 1
+        for t in row_texts[row_index]:
+            m = max(m, len(t.split('\n')))
+        return m
 
-    output_lines = []
+    # --- 5. Final Assembly ---
+    output = []
     
-    # Static top separator using simple dash string based on first row width
-    sample = build_content_line(0, 0)
-    top_separator = "-" * len(sample)
+    # Top Border
+    # Calculate exact length based on columns
+    total_table_width = sum(col_widths) + max_cols + 1 # widths + N separators + 1 start
+    output.append("-" * total_table_width)
     
-    output_lines.append(top_separator)
-    
-    for row_index in range(len(row_texts)):
-        max_lines = get_max_lines_in_row(row_index)
-        for line_num in range(max_lines):
-            output_lines.append(build_content_line(row_index, line_num))
+    for r in range(len(row_texts)):
+        lines = get_max_lines(r)
+        for l in range(lines):
+            output.append(build_content_line(r, l))
         
-        # Build dynamic separator for the bottom of this row
-        if row_index < len(row_texts) - 1:
-            sep = build_separator_line(row_index)
-            output_lines.append(sep)
-
-    output_lines.append(top_separator)
-
-    return "\n".join(output_lines)
+        # Bottom separator for this row
+        if r < len(row_texts) - 1:
+            output.append(build_separator_line(r))
+            
+    output.append("-" * total_table_width)
+    
+    return "\n".join(output)
 
 def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: float = 0.05):
     """Merge table metadata entries that are parts of the same logical table.

@@ -1,3 +1,4 @@
+
 import pytest
 from pathlib import Path
 import sys
@@ -31,7 +32,7 @@ def pdf_test(tmp_path):
     return pdf_path
 
 
-def extract_first_table_llm(pdf_path: Path, strategy="lines_strict", page=26):
+def extract_first_table_llm(pdf_path: Path, strategy="lines_strict", page=27):
     """
     Extracts the table from the specified page using PyMuPDF4LLM (local fork).
     Returns a tuple (table_data, complete_structure) where:
@@ -76,7 +77,7 @@ def extract_first_table_llm(pdf_path: Path, strategy="lines_strict", page=26):
     return None, None
 
 
-def extract_first_table_pymupdf(pdf_path: Path, strategy="lines_strict", page=26):
+def extract_first_table_pymupdf(pdf_path: Path, strategy="lines_strict", page=27):
     """
     Extracts the first table from the specified page using PyMuPDF directly (fallback).
     Returns a tuple (table_data, complete_structure).
@@ -119,6 +120,7 @@ def extract_first_table_pymupdf(pdf_path: Path, strategy="lines_strict", page=26
 
 
 
+
 def test_ascii_matrix_comparison(pdf_test):
     """
     Tests if the extracted ASCII matrix matches
@@ -126,61 +128,31 @@ def test_ascii_matrix_comparison(pdf_test):
     """
     
     # Define the exact expected result
-    expected_ascii_matrix = """------------------------------------------------------------------------------------------------------------
-|Intended route of administration/Use of the substance: Oral                                               |
-|----------------------------------------------------------------------------------------------------------|
-|Element                                                    |Class  |Intentionally|Considered in|Conclusion|
-|                                                           |       |added?       |risk         |          |
-|                                                           |       |             |management?  |          |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Cd                                                         |1      |No           |Yes          |Absent    |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Pb                                                         |1      |No           |Yes          |Absent    |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|As                                                         |1      |No           |Yes          |Absent    |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Hg                                                         |1      |No           |Yes          |Absent    |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Co                                                         |2A     |No           |Yes          |Absent    |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|V                                                          |2A     |No           |Yes          |Absent    |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Ni                                                         |2A     |No           |Yes          |Absent    |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Tl                                                         |2B     |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Au                                                         |2B     |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Pd                                                         |2B     |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Ir                                                         |2B     |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Os                                                         |2B     |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Rh                                                         |2B     |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Ru                                                         |2B     |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Se                                                         |2B     |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Ag                                                         |2B     |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Pt                                                         |2B     |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Li                                                         |3      |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Sb                                                         |3      |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Ba                                                         |3      |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Mo                                                         |3      |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Cu                                                         |3      |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Sn                                                         |3      |No           |No           |*         |
-|-----------------------------------------------------------|-------|-------------|-------------|----------|
-|Cr                                                         |3      |No           |No           |*         |
-------------------------------------------------------------------------------------------------------------"""
+    expected_ascii_matrix = """------------------------------------------------------------------------------------------------------------------------
+|Compound |Source   |Limit    |Class    |Batch results in the                 |Methodolo|LOD  (%) |LOQ  (%) |Remark    |
+|/impurity|         |(ppm)    |         |final API                            |gy       |         |         |          |
+|         |         |         |         |                                     |used     |         |         |          |
+|         |         |         |         |-------------------------------------|         |         |         |          |
+|         |         |         |         |3APR3/12001      |3APR3/120|3APR3/120|         |         |         |          |
+|         |         |         |         |                 |02       |03       |         |         |         |          |
+|---------|---------|---------|---------|-----------------|---------|---------|---------|---------|---------|----------|
+|Benzene  |Isopropyl|NMT 2 ppm|ICH,     |Below            |Below    |Below    |HS-GC    |0.2      |0.7      |No        |
+|         |alcohol  |         |Class- 1.|detection        |detection|detection|         |         |         |carry-over|
+|         |and      |         |         |limit            |limit    |limit    |         |         |         |to  the   |
+|         |Cyclohexa|         |         |                 |         |         |         |         |         |Aripiprazo|
+|         |ne       |         |         |                 |         |         |         |         |         |le.       |
+|         |         |         |         |                 |         |         |         |         |         |Hence     |
+|         |         |         |         |                 |         |         |         |         |         |control   |
+|         |         |         |         |                 |         |         |         |         |         |in  the   |
+|         |         |         |         |                 |         |         |         |         |         |Aripiprazo|
+|         |         |         |         |                 |         |         |         |         |         |le        |
+|         |         |         |         |                 |         |         |         |         |         |is not    |
+|         |         |         |         |                 |         |         |         |         |         |proposed. |
+|---------|---------|---------|---------|-----------------|---------|---------|---------|---------|---------|          |
+|Aluminium|7-HDQ    |NMT 50   |Non-     |Below            |Below    |Below    |ICP-MS   |2.2      |6.5      |          |
+|         |         |ppm      |Genotoxic|detection        |detection|detection|         |         |         |          |
+|         |         |         |         |limit            |limit    |limit    |         |         |         |          |
+------------------------------------------------------------------------------------------------------------------------"""
     
     # Try different strategies with pymupdf4llm
     strategies = ["lines_strict", "lines", "text"]
@@ -191,8 +163,7 @@ def test_ascii_matrix_comparison(pdf_test):
     for strategy in strategies:
         chunks = llm.to_markdown(str(pdf_test), page_chunks=True, table_strategy=strategy)
         
-        # Search specifically on page 26 
-        page_idx = 26 - 1
+        page_idx = 27 - 1
         if page_idx < len(chunks):
             chunk = chunks[page_idx]
             tables = chunk.get("tables") or []
@@ -210,8 +181,8 @@ def test_ascii_matrix_comparison(pdf_test):
         for strategy in strategies:
             doc = fitz.open(str(pdf_test))
             try:
-                # Search specifically on page 26 
-                page_idx = 26 - 1
+                # Search specifically on page 14 
+                page_idx = 14 - 1
                 if page_idx < len(doc):
                     page_obj = doc[page_idx]
                     tables = page_obj.find_tables(strategy=strategy)
@@ -353,5 +324,4 @@ def test_ascii_matrix_comparison(pdf_test):
         print(normalized_ascii_matrix)
         print("-"*80)
         pytest.fail(f"The extracted ASCII matrix does not match exactly the expected format.\nTotal errors: {len(errors)}")
-
 
