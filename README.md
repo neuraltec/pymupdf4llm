@@ -1,10 +1,23 @@
 ## PyMuPDF4LLM (fork local)
 
-Este README contém instruções básicas para importar o projeto e ler um PDF.
+Guia rápido para instalar, importar e ler PDFs com o fork local.
 
 ### Português
 
+#### Requisitos
+
+- Python 3.10+
+
 #### Instalação (modo desenvolvimento)
+
+Recomendado usar o script:
+
+```bash
+cd /caminho/para/pymupdf4llm
+./install.sh
+```
+
+Instalação manual:
 
 ```bash
 cd /caminho/para/pymupdf4llm/pymupdf4llm
@@ -63,7 +76,20 @@ pytest -q
 
 ### English
 
+#### Requirements
+
+- Python 3.10+
+
 #### Install (development mode)
+
+Recommended to use the script:
+
+```bash
+cd /path/to/pymupdf4llm
+./install.sh
+```
+
+Manual install:
 
 ```bash
 cd /path/to/pymupdf4llm/pymupdf4llm
