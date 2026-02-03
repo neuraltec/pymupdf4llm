@@ -328,7 +328,6 @@ def matriz_to_ascii(matrix):
     if not matrix:
         return ""
 
-    # --- 1. Pre-process text and setup ---
     row_cells = []
     row_texts = []
     max_cols = 0
@@ -353,22 +352,8 @@ def matriz_to_ascii(matrix):
 
     if max_cols == 0:
         return ""
-
-    # --- 2. Intelligent Column Sizing ---
-    
-    # Configuration for visual limits
-    # 110 chars is usually safe for most editors at 100% zoom without wrapping
     MAX_TOTAL_WIDTH = 120 
-    MIN_COL_WIDTH = 7  # Minimum width to avoid illegible vertical columns
-    
-    # Calculate overhead: "|" + " " (start) + per_column(" " + "|")
-    # Pattern is "| Text | Text |" -> 1 char boundary per column + 1 at end + 2 spaces padding per column
-    # Actually current implementation uses "| Text |".
-    # Structure: "| " + text + " |" for each column? No, implementation is "| " + text + " |" ? 
-    # Let's verify build_content_line logic below. It uses: text.ljust(width) + "|"
-    # So overhead is 1 char (start pipe) + per_col(1 char end pipe).
-    # Plus, we usually want 1 space padding inside if possible.
-    # Let's assume strictly: |text|text| -> Overhead is max_cols + 1.
+    MIN_COL_WIDTH = 7  
     
     border_overhead = max_cols + 1
     available_text_space = MAX_TOTAL_WIDTH - border_overhead
@@ -396,12 +381,8 @@ def matriz_to_ascii(matrix):
     final_widths = []
     
     if total_natural <= available_text_space:
-        # If it fits naturally, use natural widths (padded slightly if huge space remains?)
-        # Let's just use natural to be compact.
         final_widths = [max(w, MIN_COL_WIDTH) for w in natural_widths]
     else:
-        # It doesn't fit. We must compress.
-        # We assume total_natural > 0
         if total_natural == 0: total_natural = 1
         
         # Initial proportional compression
@@ -411,15 +392,10 @@ def matriz_to_ascii(matrix):
             target = int(available_text_space * ratio)
             raw_widths.append(target)
             
-        # Enforce Minimum Widths
-        # This is tricky: if we enforce min width, we might exceed MAX_TOTAL_WIDTH again.
-        # Strategy: Set everything to MIN_WIDTH first. Distribute remaining space proportionally to larger cols.
         
         required_min = max_cols * MIN_COL_WIDTH
         
         if required_min >= available_text_space:
-            # Extreme case: Table has so many columns it barely fits even at min width
-            # Just set all to min width or slightly less
             final_widths = [int(available_text_space / max_cols)] * max_cols
         else:
             # We have surplus space to distribute
@@ -436,13 +412,10 @@ def matriz_to_ascii(matrix):
             diff = available_text_space - current_sum
             # Add/subtract diff to the widest column to minimize visual impact
             if diff != 0 and final_widths:
-                # Find index of max width
                 max_w_idx = final_widths.index(max(final_widths))
                 final_widths[max_w_idx] += diff
 
     col_widths = final_widths
-
-    # --- 3. Content Wrapping & Processing ---
     
     # Process text wrapping based on NEW calculated widths
     for r_idx in range(len(row_texts)):
@@ -456,8 +429,6 @@ def matriz_to_ascii(matrix):
             if isinstance(cell, dict):
                 colspan = max(1, int(cell.get("colspan", 1)))
             
-            # Calculate width available for this cell text
-            # Sum of widths of columns it spans + (colspan - 1) for the skipped separators
             eff_width = 0
             if c_idx + colspan <= max_cols:
                 for k in range(c_idx, c_idx + colspan):
@@ -469,9 +440,7 @@ def matriz_to_ascii(matrix):
             # Safety margin: subtract 1 or 2 chars to ensure it doesn't touch borders tightly
             wrap_width = max(1, eff_width)
 
-            # Wrap text
-            # break_long_words=True ensures we NEVER exceed width, 
-            # effectively fixing the "zoom" issue by forcing breaks even in long chemical names.
+        
             paragraphs = text.split('\n')
             wrapped_lines = []
             for p in paragraphs:
@@ -483,7 +452,6 @@ def matriz_to_ascii(matrix):
             
             row_texts[r_idx][c_idx] = "\n".join(wrapped_lines)
 
-    # --- 4. Render Helpers ---
 
     def build_content_line(row_index, line_in_cell=0):
         parts = []
@@ -495,8 +463,6 @@ def matriz_to_ascii(matrix):
             # Check overlap from above (Rowspan)
             covered_by_above = None
             if row_index > 0:
-                # (Simplified check logic for performance, relying on previous robust logic pattern)
-                # Iterate upwards
                 r_up = row_index - 1
                 while r_up >= 0:
                     c_check = row_cells[r_up][col]
@@ -512,9 +478,6 @@ def matriz_to_ascii(matrix):
             if covered_by_above:
                 display_text = ""
             elif isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
-                # Horizontal merge follower, already handled by primary logic loop skip
-                # But if we land here, it means we are inside a loop that shouldn't process this
-                # However, our loop jumps by colspan, so we should be on a primary cell or normal cell
                 pass 
             else:
                 # Primary cell
@@ -538,8 +501,6 @@ def matriz_to_ascii(matrix):
                 total_width += col_widths[k]
             total_width += (colspan - 1)
 
-            # Render segment
-            # Use ljust for alignment. 
             segment = display_text.ljust(total_width) + "|"
             parts.append(segment)
             
@@ -553,7 +514,6 @@ def matriz_to_ascii(matrix):
         while col < max_cols:
             cell = row_cells[row_index][col]
             
-            # Check if this cell spans vertically into the NEXT row
             is_crossing = False
             
             # Find primary to check rowspan
@@ -592,7 +552,6 @@ def matriz_to_ascii(matrix):
             m = max(m, len(t.split('\n')))
         return m
 
-    # --- 5. Final Assembly ---
     output = []
     
     # Top Border
