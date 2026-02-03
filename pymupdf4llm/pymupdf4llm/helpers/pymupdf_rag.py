@@ -95,33 +95,28 @@ class IdentifyHeaders:
         else:
             mydoc = pymupdf.open(doc)
 
-        if pages is None:  # use all pages if omitted
+        if pages is None:
             pages = range(mydoc.page_count)
 
         fontsizes = defaultdict(int)
         for pno in pages:
             page = mydoc.load_page(pno)
             blocks = page.get_text("dict", flags=pymupdf.TEXTFLAGS_TEXT)["blocks"]
-            for span in [  # look at all non-empty horizontal spans
+            for span in [
                 s
                 for b in blocks
                 for l in b["lines"]
                 for s in l["spans"]
                 if not is_white(s["text"])
             ]:
-                fontsz = round(span["size"])  # # compute rounded fontsize
-                fontsizes[fontsz] += len(span["text"].strip())  # add character count
+                fontsz = round(span["size"])
+                fontsizes[fontsz] += len(span["text"].strip())
 
         if mydoc != doc:
             # if opened here, close it now
             mydoc.close()
 
-        # maps a fontsize to a string of multiple # header tag characters
         self.header_id = {}
-
-        # If not provided, choose the most frequent font size as body text.
-        # If no text at all on all pages, just use body_limit.
-        # In any case all fonts not exceeding
         temp = sorted(
             [(k, v) for k, v in fontsizes.items()], key=lambda i: (i[1], i[0])
         )
@@ -149,7 +144,7 @@ class IdentifyHeaders:
         Given a text span from a "dict"/"rawdict" extraction, determine the
         markdown header prefix string of 0 to n concatenated '#' characters.
         """
-        fontsize = round(span["size"])  # compute fontsize
+        fontsize = round(span["size"])
         if fontsize <= self.body_limit:
             return ""
         hdr_id = self.header_id.get(fontsize, "")
@@ -716,11 +711,9 @@ def refine_boxes(boxes, enlarge=0):
     Use a positive "enlarge" parameter to enlarge rectangle by these many
     points in every direction.
 
-    TODO: Consider using a sweeping line algorithm for this.
     """
     delta = (-enlarge, -enlarge, enlarge, enlarge)
     new_rects = []
-    # list of all vector graphic rectangles
     prects = boxes[:]
 
     while prects:  # the algorithm will empty this list
@@ -1120,7 +1113,6 @@ def to_markdown(
                 if hdr_string != prev_hdr_string:
                     out_string += hdr_string + text + "\n"
                 else:
-                    # intercept if header text has been broken in multiple lines
                     while out_string.endswith("\n"):
                         out_string = out_string[:-1]
                     out_string += " " + text + "\n"
@@ -1131,40 +1123,37 @@ def to_markdown(
 
             # start or extend a code block
             if all_mono and not IGNORE_CODE:
-                if not code:  # if not already in code output mode:
-                    out_string += "```\n"  # switch on "code" mode
+                if not code:
+                    out_string += "```\n"
                     code = True
-                # compute approx. distance from left - assuming a width
-                # of 0.5*fontsize.
                 delta = int((lrect.x0 - clip.x0) / (spans[0]["size"] * 0.5))
                 indent = " " * delta
 
                 out_string += indent + text + "\n"
-                continue  # done with this line
+                continue
 
             if code and not all_mono:
-                out_string += "```\n"  # switch off code mode
+                out_string += "```\n"
                 code = False
 
             span0 = spans[0]
-            bno = span0["block"]  # block number of line
+            bno = span0["block"]
             if bno != prev_bno:
                 out_string += "\n"
                 prev_bno = bno
 
-            if (  # check if we need another line break
+            if (
                 prev_lrect
                 and lrect.y1 - prev_lrect.y1 > lrect.height * 1.5
                 or span0["text"].startswith("[")
                 or span0["text"].startswith(bullet)
-                or span0["flags"] & 1  # superscript?
+                or span0["flags"] & 1
             ):
                 out_string += "\n"
             prev_lrect = lrect
 
-            # this line is not all-mono, so switch off "code" mode
-            if code:  # in code output mode?
-                out_string += "```\n"  # switch of code mode
+            if code:
+                out_string += "```\n"
                 code = False
 
             for i, s in enumerate(spans):  # iterate spans of the line
@@ -1212,7 +1201,6 @@ def to_markdown(
             out_string += "```\n"  # switch of code mode
             code = False
         out_string += "\n\n"
-        # Remove múltiplos espaços entre palavras, mantendo apenas um espaço
         out_string = re.sub(r' +', ' ', out_string)
         return (
             out_string.replace(" \n", "\n").replace("\n\n\n", "\n\n")
@@ -2135,13 +2123,6 @@ def to_markdown(
                 ignore_images=IGNORE_IMAGES,
             )
 
-        """
-        ------------------------------------------------------------------
-        Extract markdown text iterating over text rectangles.
-        We also output any tables. They may live above, below or inside
-        the text rectangles.
-        ------------------------------------------------------------------
-        """
         for text_rect in text_rects:
             # output tables above this rectangle
             parms.md_string += output_tables(parms, text_rect)
@@ -2157,10 +2138,8 @@ def to_markdown(
             )
 
         parms.md_string = parms.md_string.replace(" ,", ",").replace("-\n", "")
-        # Remove múltiplos espaços entre palavras, mantendo apenas um espaço
         parms.md_string = re.sub(r' +', ' ', parms.md_string)
 
-        # write any remaining tables and images
         parms.md_string += output_tables(parms, None)
         parms.md_string += output_images(parms, None, force_text)
 
@@ -2256,25 +2235,21 @@ def to_markdown(
 
 
 def extract_images_on_page_simple(page, parms, image_size_limit):
-    # extract images on page
-    # ignore images contained in some other one (simplified mechanism)
     img_info = page.get_image_info()
     for i in range(len(img_info)):
         item = img_info[i]
         item["bbox"] = pymupdf.Rect(item["bbox"]) & parms.clip
         img_info[i] = item
 
-    # sort descending by image area size
     img_info.sort(key=lambda i: abs(i["bbox"]), reverse=True)
-    # run from back to front (= small to large)
     for i in range(len(img_info) - 1, 0, -1):
         r = img_info[i]["bbox"]
         if r.is_empty:
             del img_info[i]
             continue
-        for j in range(i):  # image areas larger than r
+        for j in range(i):
             if r in img_info[j]["bbox"]:
-                del img_info[i]  # contained in some larger image
+                del img_info[i]
                 break
 
     return img_info
@@ -2297,17 +2272,15 @@ def filter_small_images(page, parms, image_size_limit):
 def extract_images_on_page_simple_drop(page, parms, image_size_limit):
     img_info = filter_small_images(page, parms, image_size_limit)
 
-    # sort descending by image area size
     img_info.sort(key=lambda i: abs(i["bbox"]), reverse=True)
-    # run from back to front (= small to large)
     for i in range(len(img_info) - 1, 0, -1):
         r = img_info[i]["bbox"]
         if r.is_empty:
             del img_info[i]
             continue
-        for j in range(i):  # image areas larger than r
+        for j in range(i):
             if r in img_info[j]["bbox"]:
-                del img_info[i]  # contained in some larger image
+                del img_info[i]
                 break
 
     return img_info
@@ -2324,15 +2297,13 @@ if __name__ == "__main__":
         print(f"Usage:\npython {os.path.basename(__file__)} input.pdf")
         sys.exit()
 
-    t0 = time.perf_counter()  # start a time
+    t0 = time.perf_counter()
 
-    doc = pymupdf.open(filename)  # open input file
-    parms = sys.argv[2:]  # contains ["-pages", "PAGES"] or empty list
-    pages = range(doc.page_count)  # default page range
-    if len(parms) == 2 and parms[0] == "-pages":  # page sub-selection given
-        pages = []  # list of desired page numbers
-
-        # replace any variable "N" by page count
+    doc = pymupdf.open(filename)
+    parms = sys.argv[2:]
+    pages = range(doc.page_count)
+    if len(parms) == 2 and parms[0] == "-pages":
+        pages = []
         pages_spec = parms[1].replace("N", f"{doc.page_count}")
         for spec in pages_spec.split(","):
             if "-" in spec:
@@ -2341,19 +2312,15 @@ if __name__ == "__main__":
             else:
                 pages.append(int(spec) - 1)
 
-        # make a set of invalid page numbers
         wrong_pages = set([n + 1 for n in pages if n >= doc.page_count][:4])
-        if wrong_pages != set():  # if any invalid numbers given, exit.
+        if wrong_pages:
             sys.exit(f"Page number(s) {wrong_pages} not in '{doc}'.")
-
-    # get the markdown string
     md_string = to_markdown(
         doc,
         pages=pages,
     )
     FILENAME = doc.name
-    # output to a text file with extension ".md"
     outname = FILENAME + ".md"
     pathlib.Path(outname).write_bytes(md_string.encode())
-    t1 = time.perf_counter()  # stop timer
+    t1 = time.perf_counter()
     print(f"Markdown creation time for {FILENAME=} {round(t1-t0,2)} sec.")
