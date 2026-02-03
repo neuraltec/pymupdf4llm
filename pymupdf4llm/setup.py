@@ -15,7 +15,12 @@ classifiers = [
 ]
 
 version = "0.2.2"
-requires = ["pymupdf>=1.26.6", "tabulate"]
+requires = [
+    "pymupdf>=1.26.6",
+    "tabulate",
+    "opencv-python",  # For OCR checking functionality
+    "numpy",  # For image processing in OCR checking
+]
 
 text = requires[0].split("=")[1]
 text = tuple(map(int, text.split(".")))
