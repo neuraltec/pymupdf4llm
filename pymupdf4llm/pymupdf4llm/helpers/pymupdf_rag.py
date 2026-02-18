@@ -37,6 +37,7 @@ CA 94129, USA, for further information.
 import os
 import re
 import string
+import unicodedata
 from binascii import b2a_base64
 from collections import defaultdict
 from dataclasses import dataclass
@@ -311,7 +312,7 @@ def wrap_text_by_bbox(text, cell_rect, textpage=None, avg_font_size=None):
     
     return '\n'.join(lines)
 
-def matriz_to_ascii(matrix):
+def matrix_to_ascii(matrix):
     """Convert a matrix (list of lists) into a simple ASCII table.
     
     This version enforces a STRICT maximum width to prevent line wrapping
@@ -322,6 +323,52 @@ def matriz_to_ascii(matrix):
 
     if not matrix:
         return ""
+
+    def _display_width(text: str) -> int:
+        width = 0
+        for ch in text:
+            if ch == "\n":
+                continue
+            if unicodedata.combining(ch):
+                continue
+            # Treat Ambiguous width as wide to match terminal rendering for symbols like ℃, Ⅱ.
+            width += 2 if unicodedata.east_asian_width(ch) in ("W", "F", "A") else 1
+        return width
+
+    def _pad_display(text: str, width: int) -> str:
+        # Pad by display width to keep column alignment consistent.
+        pad = width - _display_width(text)
+        if pad <= 0:
+            return text
+        return text + (" " * pad)
+
+    def _max_word_width(text: str) -> int:
+        words = text.split()
+        return max((_display_width(w) for w in words), default=0)
+
+    def _max_line_width(text: str) -> int:
+        lines = text.split("\n")
+        return max((_display_width(l) for l in lines), default=0)
+
+    def _wrap_by_display_width(text: str, width: int) -> list:
+        if width <= 0:
+            return [text] if text else [""]
+        words = text.split(" ")
+        lines = []
+        current = ""
+        for word in words:
+            if not current:
+                current = word
+                continue
+            trial = f"{current} {word}"
+            if _display_width(trial) <= width:
+                current = trial
+            else:
+                lines.append(current)
+                current = word
+        if current or not lines:
+            lines.append(current)
+        return lines
 
     row_cells = []
     row_texts = []
@@ -340,6 +387,12 @@ def matriz_to_ascii(matrix):
                     text = raw_text.strip()
             else:
                 text = "" if cell is None else str(cell).strip()
+            if text:
+                # Normalize whitespace for ASCII layout without extra cost.
+                text = text.replace("\u00a0", " ").replace("\t", " ")
+                text = re.sub(r"[ \t]+", " ", text)
+                # Keep explicit line breaks, but trim each line.
+                text = "\n".join(line.strip() for line in text.split("\n"))
             current_row_texts.append(text)
         row_cells.append(current_row_cells)
         row_texts.append(current_row_texts)
@@ -354,20 +407,34 @@ def matriz_to_ascii(matrix):
     available_text_space = MAX_TOTAL_WIDTH - border_overhead
 
     # Determine "Natural" required width for each column (longest word/line)
+    # For colspan cells, distribute required width across the spanned columns.
     natural_widths = [0] * max_cols
-    for row in row_texts:
+    for r_idx, row in enumerate(row_texts):
         for idx_col in range(max_cols):
             text = row[idx_col] if idx_col < len(row) else ""
-            if not text: continue
+            if not text:
+                continue
+            cell = row_cells[r_idx][idx_col] if idx_col < len(row_cells[r_idx]) else None
+            if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
+                continue
+
+            colspan = 1
+            if isinstance(cell, dict):
+                colspan = max(1, int(cell.get("colspan", 1)))
+            colspan = min(colspan, max_cols - idx_col)
+
             # Check longest unbroken word to avoid ugly splits if possible
-            words = text.split()
-            max_word = max([len(w) for w in words]) if words else 0
+            max_word = _max_word_width(text)
             # Also check longest existing line (if pre-formatted)
-            lines = text.split('\n')
-            max_line = max([len(l) for l in lines]) if lines else 0
-            
-            # Use the greater of the two as natural need
-            natural_widths[idx_col] = max(natural_widths[idx_col], max_word, max_line)
+            max_line = _max_line_width(text)
+            required = max(max_word, max_line)
+
+            # Account for merged column separators when distributing width
+            required_no_separators = max(0, required - (colspan - 1))
+            per_col = int(math.ceil(required_no_separators / colspan)) if colspan > 1 else required_no_separators
+
+            for k in range(idx_col, idx_col + colspan):
+                natural_widths[k] = max(natural_widths[k], per_col)
 
     # Calculate Total Natural Width
     total_natural = sum(natural_widths)
@@ -442,7 +509,7 @@ def matriz_to_ascii(matrix):
                 if not p.strip():
                     wrapped_lines.append("")
                     continue
-                lines = textwrap.wrap(p, width=wrap_width, break_long_words=True)
+                lines = _wrap_by_display_width(p, wrap_width)
                 wrapped_lines.extend(lines)
             
             row_texts[r_idx][c_idx] = "\n".join(wrapped_lines)
@@ -496,7 +563,7 @@ def matriz_to_ascii(matrix):
                 total_width += col_widths[k]
             total_width += (colspan - 1)
 
-            segment = display_text.ljust(total_width) + "|"
+            segment = _pad_display(display_text, total_width) + "|"
             parts.append(segment)
             
             col += colspan
@@ -564,8 +631,19 @@ def matriz_to_ascii(matrix):
             output.append(build_separator_line(r))
             
     output.append("-" * total_table_width)
-    
-    return "\n".join(output)
+
+    # Ensure all lines have exactly the same length.
+    max_len = max(len(line) for line in output) if output else 0
+    normalized_output = []
+    for line in output:
+        if set(line) == {"-"}:
+            normalized_output.append("-" * max_len)
+            continue
+        if len(line) < max_len:
+            line = line + (" " * (max_len - len(line)))
+        normalized_output.append(line)
+
+    return "\n".join(normalized_output)
 
 def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: float = 0.05):
     """Merge table metadata entries that are parts of the same logical table.
@@ -599,7 +677,7 @@ def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: fl
         base = tables[idx]
         base_bbox = pymupdf.Rect(base["bbox"])
         base_cols = base.get("columns", 0)
-        base_matrix = [row[:] for row in (base.get("matriz") or [])]
+        base_matrix = [row[:] for row in (base.get("matrix") or [])]
         base_rows = base.get("rows", 0) or len(base_matrix)
 
         # Average row height to calibrate the acceptable vertical gap
@@ -647,7 +725,7 @@ def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: fl
 
             # If we get here, the gap is small enough and columns are aligned.
             # This is sufficient to merge. Headers check is only to avoid duplicating header row.
-            other_matrix = other.get("matriz") or []
+            other_matrix = other.get("matrix") or []
             if not other_matrix:
                 used.add(j)
                 continue
@@ -692,9 +770,9 @@ def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: fl
         new_table = dict(base)
         new_table["bbox"] = (base_bbox.x0, base_bbox.y0, base_bbox.x1, base_bbox.y1)
         new_table["rows"] = base_rows
-        # Keep public keys "matriz" and "matriz_ascii" for backward compatibility
-        new_table["matriz"] = base_matrix
-        new_table["matriz_ascii"] = matriz_to_ascii(base_matrix)
+        # Keep public keys "matrix" and "matrix_ascii" for backward compatibility
+        new_table["matrix"] = base_matrix
+        new_table["matrix_ascii"] = matrix_to_ascii(base_matrix)
 
         merged_tables.append(new_table)
         used.add(idx)
@@ -931,6 +1009,32 @@ def to_markdown(
             text = f'[{span["text"].strip()}]({link["uri"]})'
             return text
 
+    def _collapse_table_spaces(value: str) -> str:
+        """Collapse excessive spaces while keeping newlines intact."""
+        if not value:
+            return value
+        # Collapse multiple spaces/tabs while keeping newlines intact.
+        value = re.sub(r"[ \t]+", " ", value)
+        return value
+
+    def normalize_table_text(text, *, keep_newlines=False):
+        """Normalize whitespace for table cell text to avoid layout breaks."""
+        if not text:
+            return text
+        value = (
+            text.replace("<br />", " ")
+            .replace("<br/>", " ")
+            .replace("<br>", " ")
+        )
+        if not keep_newlines:
+            value = value.replace("\n", " ")
+            value = _collapse_table_spaces(value).strip()
+            return value
+        # Keep line breaks but normalize spaces within each line
+        value = _collapse_table_spaces(value)
+        value = "\n".join(line.strip() for line in value.split("\n"))
+        return value
+
     def save_image(parms, rect, i):
         """Optionally render the rect part of a page.
 
@@ -969,6 +1073,7 @@ def to_markdown(
         tables=True,
         images=True,
         force_text=force_text,
+        base_offset: int = 0,
     ):
         """Output the text found inside the given clip.
 
@@ -986,6 +1091,7 @@ def to_markdown(
         if clip is None:
             clip = parms.clip
         out_string = ""
+        out_string_ascii = ""
 
         # This is a list of tuples (linerect, spanlist)
         nlines = get_raw_lines(
@@ -1027,7 +1133,15 @@ def to_markdown(
                     )
                 ]
                 for i, _ in tab_candidates:
-                    out_string += "\n" + parms.tabs[i].to_markdown(clean=False) + "\n"
+                    table_md = parms.tabs[i].to_markdown(clean=False)
+                    table_ascii = parms.tables_by_tab[i].get("matrix_ascii", "")
+                    md_segment = "\n" + table_md + "\n"
+                    ascii_segment = "\n" + (table_ascii or "") + "\n"
+                    span_start = base_offset + len(out_string) + 1
+                    span_end = span_start + len(table_md)
+                    parms.tables_by_tab[i]["markdown_span"] = (span_start, span_end)
+                    out_string += md_segment
+                    out_string_ascii += ascii_segment
                     if EXTRACT_WORDS:
                         # for "words" extraction, add table cells as line rects
                         cells = sorted(
@@ -1061,7 +1175,9 @@ def to_markdown(
                     ):
                         pathname = save_image(parms, r, i)
                         if pathname:
-                            out_string += GRAPHICS_TEXT % pathname
+                            img_md = GRAPHICS_TEXT % pathname
+                            out_string += img_md
+                            out_string_ascii += img_md
 
                         # recursive invocation
                         if force_text is True:
@@ -1075,6 +1191,7 @@ def to_markdown(
 
                             if not is_white(img_txt):
                                 out_string += img_txt
+                                out_string_ascii += img_txt
                         parms.written_images.append(i)
                         prev_hdr_string = None
 
@@ -1085,6 +1202,7 @@ def to_markdown(
                 and lrect.y1 - parms.line_rects[-2].y1 > lrect.height * 1.5
             ):
                 out_string += "\n"
+                out_string_ascii += "\n"
             # make text string for the full line
             text = " ".join([s["text"] for s in spans]).strip()
 
@@ -1112,10 +1230,14 @@ def to_markdown(
                     text = "~~" + text + "~~"
                 if hdr_string != prev_hdr_string:
                     out_string += hdr_string + text + "\n"
+                    out_string_ascii += hdr_string + text + "\n"
                 else:
                     while out_string.endswith("\n"):
                         out_string = out_string[:-1]
+                    while out_string_ascii.endswith("\n"):
+                        out_string_ascii = out_string_ascii[:-1]
                     out_string += " " + text + "\n"
+                    out_string_ascii += " " + text + "\n"
                 prev_hdr_string = hdr_string
                 continue
 
@@ -1125,21 +1247,25 @@ def to_markdown(
             if all_mono and not IGNORE_CODE:
                 if not code:
                     out_string += "```\n"
+                    out_string_ascii += "```\n"
                     code = True
                 delta = int((lrect.x0 - clip.x0) / (spans[0]["size"] * 0.5))
                 indent = " " * delta
 
                 out_string += indent + text + "\n"
+                out_string_ascii += indent + text + "\n"
                 continue
 
             if code and not all_mono:
                 out_string += "```\n"
+                out_string_ascii += "```\n"
                 code = False
 
             span0 = spans[0]
             bno = span0["block"]
             if bno != prev_bno:
                 out_string += "\n"
+                out_string_ascii += "\n"
                 prev_bno = bno
 
             if (
@@ -1150,10 +1276,12 @@ def to_markdown(
                 or span0["flags"] & 1
             ):
                 out_string += "\n"
+                out_string_ascii += "\n"
             prev_lrect = lrect
 
             if code:
                 out_string += "```\n"
+                out_string_ascii += "```\n"
                 code = False
 
             for i, s in enumerate(spans):  # iterate spans of the line
@@ -1194,16 +1322,22 @@ def to_markdown(
                     text = " " * int(round(dist / cwidth)) + text
 
                 out_string += text
+                out_string_ascii += text
             if not code:
                 out_string += "\n"
+                out_string_ascii += "\n"
         out_string += "\n"
+        out_string_ascii += "\n"
         if code:
             out_string += "```\n"  # switch of code mode
+            out_string_ascii += "```\n"
             code = False
         out_string += "\n\n"
-        out_string = re.sub(r' +', ' ', out_string)
+        out_string_ascii += "\n\n"
+        out_string = re.sub(r" +", " ", out_string)
         return (
-            out_string.replace(" \n", "\n").replace("\n\n\n", "\n\n")
+            out_string.replace(" \n", "\n").replace("\n\n\n", "\n\n"),
+            out_string_ascii,
         )
 
     def is_in_rects(rect, rect_list):
@@ -1226,6 +1360,8 @@ def to_markdown(
     def output_tables(parms, text_rect):
         """Output tables above given text rectangle."""
         this_md = ""  # markdown string for table(s) content
+        this_ascii = ""
+        base_offset = len(parms.md_string)
         if text_rect is not None:  # select tables above the text block
             for i, trect in sorted(
                 [j for j in parms.tab_rects.items() if j[1].y1 <= text_rect.y0],
@@ -1233,7 +1369,13 @@ def to_markdown(
             ):
                 if i in parms.written_tables:
                     continue
-                this_md += parms.tabs[i].to_markdown(clean=False) + "\n"
+                table_md = parms.tabs[i].to_markdown(clean=False)
+                table_ascii = parms.tables_by_tab[i].get("matrix_ascii", "")
+                span_start = base_offset + len(this_md)
+                span_end = span_start + len(table_md)
+                parms.tables_by_tab[i]["markdown_span"] = (span_start, span_end)
+                this_md += table_md + "\n"
+                this_ascii += (table_ascii or "") + "\n"
                 if EXTRACT_WORDS:
                     # for "words" extraction, add table cells as line rects
                     cells = sorted(
@@ -1254,7 +1396,13 @@ def to_markdown(
             for i, trect in parms.tab_rects.items():
                 if i in parms.written_tables:
                     continue
-                this_md += parms.tabs[i].to_markdown(clean=False) + "\n"
+                table_md = parms.tabs[i].to_markdown(clean=False)
+                table_ascii = parms.tables_by_tab[i].get("matrix_ascii", "")
+                span_start = base_offset + len(this_md)
+                span_end = span_start + len(table_md)
+                parms.tables_by_tab[i]["markdown_span"] = (span_start, span_end)
+                this_md += table_md + "\n"
+                this_ascii += (table_ascii or "") + "\n"
                 if EXTRACT_WORDS:
                     # for "words" extraction, add table cells as line rects
                     cells = sorted(
@@ -1270,13 +1418,14 @@ def to_markdown(
                     )
                     parms.line_rects.extend(cells)
                 parms.written_tables.append(i)  # do not touch this table twice
-        return this_md
+        return this_md, this_ascii
 
     def output_images(parms, text_rect, force_text):
         """Output images and graphics above text rectangle."""
         if not parms.img_rects:
-            return ""
+            return "", ""
         this_md = ""  # markdown string
+        this_ascii = ""
         if text_rect is not None:  # select images above the text block
             for i, img_rect in enumerate(parms.img_rects):
                 if img_rect.y0 > text_rect.y0:
@@ -1288,7 +1437,9 @@ def to_markdown(
                 pathname = save_image(parms, img_rect, i)
                 parms.written_images.append(i)  # do not touch this image twice
                 if pathname:
-                    this_md += GRAPHICS_TEXT % pathname
+                    img_md = GRAPHICS_TEXT % pathname
+                    this_md += img_md
+                    this_ascii += img_md
                 if force_text:
                     img_txt = write_text(
                         parms,
@@ -1296,9 +1447,11 @@ def to_markdown(
                         tables=False,  # we have no tables here
                         images=False,  # we have no other images here
                         force_text=True,
+                        base_offset=0,
                     )
-                    if not is_white(img_txt):  # was there text at all?
-                        this_md += img_txt
+                    if not is_white(img_txt[0]):  # was there text at all?
+                        this_md += img_txt[0]
+                        this_ascii += img_txt[1]
         else:  # output all remaining images
             for i, img_rect in enumerate(parms.img_rects):
                 if i in parms.written_images:
@@ -1306,7 +1459,9 @@ def to_markdown(
                 pathname = save_image(parms, img_rect, i)
                 parms.written_images.append(i)  # do not touch this image twice
                 if pathname:
-                    this_md += GRAPHICS_TEXT % pathname
+                    img_md = GRAPHICS_TEXT % pathname
+                    this_md += img_md
+                    this_ascii += img_md
                 if force_text:
                     img_txt = write_text(
                         parms,
@@ -1314,11 +1469,13 @@ def to_markdown(
                         tables=False,  # we have no tables here
                         images=False,  # we have no other images here
                         force_text=True,
+                        base_offset=0,
                     )
-                    if not is_white(img_txt):
-                        this_md += img_txt
+                    if not is_white(img_txt[0]):
+                        this_md += img_txt[0]
+                        this_ascii += img_txt[1]
 
-        return this_md
+        return this_md, this_ascii
 
     def page_is_ocr(page):
         """Check if page exclusivley contains OCR text.
@@ -1426,6 +1583,7 @@ def to_markdown(
         parms.page = page
         parms.filename = FILENAME
         parms.md_string = ""
+        parms.md_string_ascii = ""
         parms.images = []
         parms.tables = []
         parms.graphics = []
@@ -1617,7 +1775,7 @@ def to_markdown(
                                 avg_cell_width = min(avg_cell_width, avg_col_width_from_spacing) if avg_cell_width > 0 else avg_col_width_from_spacing
                 
                 # Initialize matrix with None
-                matriz = [[None for _ in range(col_count)] for _ in range(row_count)]
+                matrix = [[None for _ in range(col_count)] for _ in range(row_count)]
                 # Extract text from each cell using extract_cells
                 for row_idx, row in enumerate(cell_boxes):
                     if row_idx >= row_count:
@@ -1631,8 +1789,8 @@ def to_markdown(
                                 cell_text = extract_cells(
                                     parms.textpage, cell, markdown=False
                                 )
-                                # Replace newlines with spaces and strip
-                                cell_text = cell_text.replace("\n", " ").strip()
+                                # Normalize whitespace/HTML breaks before wrapping
+                                cell_text = normalize_table_text(cell_text)
                                 
                                 # Wrap text to fit cell width based on bbox
                                 if cell_text and not cell_rect.is_empty:
@@ -1788,7 +1946,7 @@ def to_markdown(
                                     "is_merged": False,  # This is the primary cell
                                     "merged_from": None,  # No parent cell
                                 }
-                                matriz[row_idx][col_idx] = cell_dict
+                                matrix[row_idx][col_idx] = cell_dict
                                 
                                 # Fill all positions covered by this merged cell
                                 # If cell is merged, mark all covered positions
@@ -1805,7 +1963,7 @@ def to_markdown(
                                             # Only fill if within bounds and not already filled
                                             if (covered_row < row_count and 
                                                 covered_col < col_count and
-                                                matriz[covered_row][covered_col] is None):
+                                                matrix[covered_row][covered_col] is None):
                                                 # Create a merged cell reference
                                                 merged_cell_dict = {
                                                     "text": cell_text if cell_text else "",  # Same text as primary
@@ -1819,7 +1977,7 @@ def to_markdown(
                                                     "primary_row": row_idx,  # Row of primary cell
                                                     "primary_col": col_idx,  # Col of primary cell
                                                 }
-                                                matriz[covered_row][covered_col] = merged_cell_dict
+                                                matrix[covered_row][covered_col] = merged_cell_dict
                             except Exception:
                                 # Create empty cell dict on error
                                 cell_dict = {
@@ -1832,7 +1990,7 @@ def to_markdown(
                                     "is_merged": False,
                                     "merged_from": None,
                                 }
-                                matriz[row_idx][col_idx] = cell_dict
+                                matrix[row_idx][col_idx] = cell_dict
                 
                 # Detect empty cells (None) that should be merged with cells above them
                 # This handles cases where PyMuPDF returns None for merged cell positions
@@ -1890,7 +2048,7 @@ def to_markdown(
                 # This is important for detecting merged cells that start at the top of the table
                 for row_idx in range(row_count):  # Start from row 0, not row 1
                     for col_idx in range(col_count):
-                        if matriz[row_idx][col_idx] is None:
+                        if matrix[row_idx][col_idx] is None:
                             # Check if this empty cell should be merged with a cell above or to the left
                             merged_with = None
                             empty_pos = (row_idx, col_idx)
@@ -1901,7 +2059,7 @@ def to_markdown(
                             # First, check for cells above that might span to this position
                             if row_idx > 0:
                                 for check_row in range(row_idx - 1, -1, -1):  # Check rows above, from closest to furthest
-                                    check_cell = matriz[check_row][col_idx]
+                                    check_cell = matrix[check_row][col_idx]
                                     if check_cell is not None and isinstance(check_cell, dict) and not check_cell.get("is_merged", False):
                                         # Check if cell above has rowspan that would cover this row
                                         check_rowspan = check_cell.get("rowspan", 1)
@@ -1932,7 +2090,7 @@ def to_markdown(
                             # If not merged vertically, check for horizontal merging (colspan from left)
                             if merged_with is None and col_idx > 0:
                                 for check_col in range(col_idx - 1, -1, -1):
-                                    check_cell = matriz[row_idx][check_col]
+                                    check_cell = matrix[row_idx][check_col]
                                     if check_cell is not None and isinstance(check_cell, dict) and not check_cell.get("is_merged", False):
                                         # Check if cell to the left has colspan that would cover this column
                                         check_colspan = check_cell.get("colspan", 1)
@@ -1963,7 +2121,7 @@ def to_markdown(
                                 # Update rowspan/colspan of the primary cell if needed
                                 primary_row = merged_with["row"]
                                 primary_col = merged_with["col"]
-                                primary_cell = matriz[primary_row][primary_col]
+                                primary_cell = matrix[primary_row][primary_col]
                                 if primary_cell is not None and isinstance(primary_cell, dict):
                                     # Check if we need to update rowspan (vertical merge)
                                     if row_idx > primary_row:
@@ -1971,8 +2129,8 @@ def to_markdown(
                                         required_rowspan = row_idx - primary_row + 1
                                         if required_rowspan > current_rowspan:
                                             primary_cell["rowspan"] = required_rowspan
-                                            # Update the matriz reference
-                                            matriz[primary_row][primary_col] = primary_cell
+                                            # Update the matrix reference
+                                            matrix[primary_row][primary_col] = primary_cell
                                     
                                     # Check if we need to update colspan (horizontal merge)
                                     if col_idx > primary_col:
@@ -1980,11 +2138,11 @@ def to_markdown(
                                         required_colspan = col_idx - primary_col + 1
                                         if required_colspan > current_colspan:
                                             primary_cell["colspan"] = required_colspan
-                                            # Update the matriz reference
-                                            matriz[primary_row][primary_col] = primary_cell
+                                            # Update the matrix reference
+                                            matrix[primary_row][primary_col] = primary_cell
                                 
                                 # Mark as merged cell
-                                matriz[row_idx][col_idx] = {
+                                matrix[row_idx][col_idx] = {
                                     "text": merged_with.get("text", ""),
                                     "row": row_idx,
                                     "col": col_idx,
@@ -2000,8 +2158,8 @@ def to_markdown(
                 # Replace remaining None with empty cell dictionaries for consistency
                 for row_idx in range(row_count):
                     for col_idx in range(col_count):
-                        if matriz[row_idx][col_idx] is None:
-                            matriz[row_idx][col_idx] = {
+                        if matrix[row_idx][col_idx] is None:
+                            matrix[row_idx][col_idx] = {
                                 "text": "",
                                 "row": row_idx,
                                 "col": col_idx,
@@ -2016,9 +2174,9 @@ def to_markdown(
                 try:
                     extracted = t.extract()
                     # Convert simple matrix to rich format
-                    matriz = []
+                    matrix = []
                     for row_idx, row in enumerate(extracted):
-                        matriz_row = []
+                        matrix_row = []
                         for col_idx, cell in enumerate(row):
                             cell_text = cell if cell is not None else ""
                             cell_dict = {
@@ -2031,10 +2189,17 @@ def to_markdown(
                                 "is_merged": False,
                                 "merged_from": None,
                             }
-                            matriz_row.append(cell_dict)
-                        matriz.append(matriz_row)
+                            matrix_row.append(cell_dict)
+                        matrix.append(matrix_row)
                 except Exception:
-                    matriz = []
+                    matrix = []
+            # Final cleanup: normalize any remaining HTML line breaks in table text
+            for row in matrix:
+                for cell in row:
+                    if isinstance(cell, dict) and cell.get("text"):
+                        cell["text"] = normalize_table_text(
+                            cell["text"], keep_newlines=True
+                        )
             # Extract markdown representation
             try:
                 markdown = t.to_markdown(clean=False)
@@ -2044,12 +2209,14 @@ def to_markdown(
                 "bbox": tuple(tab_rects[i]),
                 "rows": t.row_count,
                 "columns": t.col_count,
-                "matriz": matriz,
+                "matrix": matrix,
                 "markdown": markdown,
                 # Optional representation in a simple ASCII table
-                "matriz_ascii": matriz_to_ascii(matriz),
+                "matrix_ascii": matrix_to_ascii(matrix),
             }
             parms.tables.append(tab_dict)
+        # Keep a per-table list aligned to tabs before merging.
+        parms.tables_by_tab = list(parms.tables)
         # After building the list of tables for this page, merge those that
         # are parts of the same logical table (same columns, aligned and close).
         parms.tables = merge_split_tables(parms.tables)
@@ -2125,27 +2292,34 @@ def to_markdown(
 
         for text_rect in text_rects:
             # output tables above this rectangle
-            parms.md_string += output_tables(parms, text_rect)
-            parms.md_string += output_images(parms, text_rect, force_text)
+            md_tables, ascii_tables = output_tables(parms, text_rect)
+            md_images, ascii_images = output_images(parms, text_rect, force_text)
+            parms.md_string += md_tables + md_images
+            parms.md_string_ascii += ascii_tables + ascii_images
 
             # output text inside this rectangle
-            parms.md_string += write_text(
+            md_text, ascii_text = write_text(
                 parms,
                 text_rect,
                 force_text=force_text,
                 images=True,
                 tables=True,
+                base_offset=len(parms.md_string),
             )
+            parms.md_string += md_text
+            parms.md_string_ascii += ascii_text
 
-        parms.md_string = parms.md_string.replace(" ,", ",").replace("-\n", "")
-        parms.md_string = re.sub(r' +', ' ', parms.md_string)
-
-        parms.md_string += output_tables(parms, None)
-        parms.md_string += output_images(parms, None, force_text)
+        md_tables, ascii_tables = output_tables(parms, None)
+        md_images, ascii_images = output_images(parms, None, force_text)
+        parms.md_string += md_tables + md_images
+        parms.md_string_ascii += ascii_tables + ascii_images
 
         while parms.md_string.startswith("\n"):
             parms.md_string = parms.md_string[1:]
         parms.md_string = parms.md_string.replace(chr(0), chr(0xFFFD))
+        while parms.md_string_ascii.startswith("\n"):
+            parms.md_string_ascii = parms.md_string_ascii[1:]
+        parms.md_string_ascii = parms.md_string_ascii.replace(chr(0), chr(0xFFFD))
 
         if EXTRACT_WORDS is True:
             # output words in sequence compliant with Markdown text
@@ -2226,6 +2400,7 @@ def to_markdown(
                     "images": parms.images,
                     "graphics": parms.graphics,
                     "text": parms.md_string,
+                    "text_ascii": parms.md_string_ascii,
                     "words": parms.words,
                 }
             )
