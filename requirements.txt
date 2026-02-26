@@ -13,4 +13,7 @@ opencv-python
 # NumPy - Used for image processing (check_ocr.py)
 numpy
 
+# wcwidth - Accurate display width for table alignment with special chars
+wcwidth
+
 

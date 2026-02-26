@@ -22,12 +22,28 @@ def read_pdf_to_txt(pdf_path: Path, output_txt: Path) -> None:
         str(pdf_path),
         page_chunks=True,
         table_strategy="lines_strict",
+        show_progress=True,
     )
 
     output_parts = []
     for idx_chunk, chunk in enumerate(chunks, start=1):
         page_text = chunk.get("text_ascii") or chunk.get("text", "")
-        output_parts.append(f"Page {idx_chunk}\n{page_text}")
+        page_sections = [f"Page {idx_chunk}", page_text]
+
+        if idx_chunk == 16:
+            tables = chunk.get("tables") or []
+            if tables:
+                page_sections.append("Table Markdown (Page 16)")
+                for table_idx, table in enumerate(tables, start=1):
+                    if isinstance(table, dict):
+                        table_md = table.get("markdown") or table.get("md") or ""
+                    else:
+                        table_md = ""
+                    if not table_md:
+                        table_md = str(table)
+                    page_sections.append(f"Table {table_idx} (Markdown)\n{table_md}")
+
+        output_parts.append("\n".join(page_sections))
 
     output_txt.write_text("\n\n".join(output_parts), encoding="utf-8")
 
