@@ -2350,8 +2350,15 @@ def to_markdown(
                             sep_idx = j + 1
                             break
                     if sep_idx is not None:
+                        header_line = md_lines[sep_idx - 1] if sep_idx > 0 else ""
                         data_lines = md_lines[sep_idx + 1 :]
                         parsed_rows = []
+                        if header_line:
+                            header_parts = [
+                                p.strip()
+                                for p in header_line.strip().strip("|").split("|")
+                            ]
+                            parsed_rows.append(header_parts)
                         for dl in data_lines:
                             parts = [p.strip() for p in dl.strip().strip("|").split("|")]
                             parsed_rows.append(parts)
