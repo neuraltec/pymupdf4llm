@@ -2601,7 +2601,8 @@ def to_markdown(
         | pymupdf.TEXT_MEDIABOX_CLIP
     )
     # optionally replace REPLACEMENT_CHARACTER by glyph number
-pdf.FZ_STEXT_USE_GID_FOR_UNKNOWN_UNICODE
+    if use_glyphs and hasattr(mupdf, "FZ_STEXT_USE_GID_FOR_UNKNOWN_UNICODE"):
+        mupdf.FZ_STEXT_USE_GID_FOR_UNKNOWN_UNICODE = 1
 
     if show_progress:
         print(f"Processing {FILENAME}...")
