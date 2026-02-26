@@ -1,3 +1,4 @@
+import re
 import pymupdf
 
 WHITE_CHARS = set(
@@ -632,6 +633,87 @@ def complete_table_structure(page):
     return all_lines, all_boxes
 
 
+def _normalize_table_br_tags(value: str) -> str:
+    """Replace <br> tags based on adjacent characters."""
+    if not value:
+        return value
+
+    br_pattern = re.compile(r"\s*<br\s*/?>\s*", re.IGNORECASE)
+
+    def replace_br(match: re.Match) -> str:
+        left_idx = match.start() - 1
+        while left_idx >= 0 and value[left_idx].isspace():
+            left_idx -= 1
+
+        right_idx = match.end()
+        while right_idx < len(value) and value[right_idx].isspace():
+            right_idx += 1
+
+        def word_len_left(idx: int) -> int:
+            if idx < 0 or not value[idx].isalpha():
+                return 0
+            start = idx
+            while start - 1 >= 0 and value[start - 1].isalpha():
+                start -= 1
+            return idx - start + 1
+
+        def word_len_right(idx: int) -> int:
+            if idx >= len(value) or not value[idx].isalpha():
+                return 0
+            end = idx
+            while end + 1 < len(value) and value[end + 1].isalpha():
+                end += 1
+            return end - idx + 1
+
+        left_len = word_len_left(left_idx)
+        right_len = word_len_right(right_idx)
+
+        def has_next_br_after_right(idx: int) -> bool:
+            pos = idx + 1
+            while pos < len(value) and value[pos].isspace():
+                pos += 1
+            return value[pos : pos + 3].lower() == "<br"
+
+        if left_len >= 2 and right_len == 1 and has_next_br_after_right(right_idx):
+            return " "
+
+        if (left_len == 1 and right_len >= 2) or (
+            left_len >= 2 and right_len == 1
+        ):
+            return ""
+        return " "
+
+    return br_pattern.sub(replace_br, value)
+
+
+def _merge_single_letter_word_splits(value: str) -> str:
+    """Merge whitespace splits when one side is a single letter."""
+    if not value:
+        return value
+
+    letter = r"[^\W\d_]"
+    # Use explicit space/tab classes instead of \s to avoid matching newlines.
+    mid_single = re.compile(
+        rf"({letter}{{2,}})[ \t]+({letter})[ \t]+({letter}{{2,}})", re.UNICODE
+    )
+    left_single = re.compile(
+        rf"(?<!{letter})({letter})[ \t]+({letter}{{2,}})", re.UNICODE
+    )
+    # don't merge if the single-letter token is immediately followed by a newline
+    right_single = re.compile(
+        rf"({letter}{{2,}})[ \t]+({letter})(?!{letter})(?![ \t]+{letter})(?!\n)",
+        re.UNICODE,
+    )
+
+    previous = None
+    while value != previous:
+        previous = value
+        value = mid_single.sub(r"\1\2 \3", value)
+        value = left_single.sub(r"\1\2", value)
+        value = right_single.sub(r"\1\2", value)
+    return value
+
+
 def extract_cells(textpage, cell, markdown=False):
     """Extract text from a rect-like 'cell' as plain or MD styled text.
 
@@ -758,6 +840,7 @@ def table_to_markdown(textpage, table_item, markdown=True):
             else:
                 cells[0][i] = ""
 
+
     header = "|" + "|".join(cells[0]) + "|\n"
     output += header
     # insert GitHub header line separator
@@ -777,7 +860,7 @@ def table_to_markdown(textpage, table_item, markdown=True):
             line += cell + "|"
         line += "\n"
         output += line
-    return output + "\n"
+    return _normalize_table_br_tags(output) + "\n"
 
 
 def table_extract(textpage, table_item):
