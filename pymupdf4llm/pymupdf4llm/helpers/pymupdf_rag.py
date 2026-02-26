@@ -44,13 +44,21 @@ from dataclasses import dataclass
 
 import pymupdf
 from pymupdf import mupdf
-from pymupdf4llm.helpers.get_text_lines import get_raw_lines, is_white
+from pymupdf4llm.helpers.get_text_lines import get_raw_lines
 from pymupdf4llm.helpers.multi_column import column_boxes
 from pymupdf4llm.helpers.utils import (
     BULLETS,
     _merge_single_letter_word_splits,
     _normalize_table_br_tags,
     extract_cells,
+    REPLACEMENT_CHARACTER,
+    startswith_bullet,
+    is_white,
+    bbox_is_empty,
+    almost_in_bbox,
+    outside_bbox,
+    bbox_in_bbox,
+    intersect_rects,
 )
 
 try:
@@ -59,9 +67,6 @@ except ImportError:
     from pymupdf4llm.helpers.progress import ProgressBar
 
 pymupdf.TOOLS.unset_quad_corrections(True)
-
-# Characters assumed as bullets when starting a line.
-bullet = tuple(BULLETS | {"- ", "* ", "> "})
 
 GRAPHICS_TEXT = "\n![](%s)\n"
 
@@ -106,7 +111,15 @@ class IdentifyHeaders:
         else:
             mydoc = pymupdf.open(doc)
 
-        if pages is None:
+
+        if mydoc.is_pdf:
+            # remove StructTreeRoot to avoid possible performance degradation
+            mypdf = pymupdf._as_pdf_document(mydoc)
+            root = mupdf.pdf_dict_get(
+                mupdf.pdf_trailer(mypdf), pymupdf.PDF_NAME("Root")
+            )
+            root.pdf_dict_del(pymupdf.PDF_NAME("StructTreeRoot"))
+
             pages = range(mydoc.page_count)
 
         fontsizes = defaultdict(int)
@@ -939,8 +952,8 @@ def is_significant(box, paths):
         return False  # all paths are horizontal or vertical lines / rectangles
     for p in my_paths:
         rect = p["rect"]
-        if (
-            not (rect & nbox).is_empty and not p["rect"].is_empty
+        if not (
+            bbox_is_empty(rect) or bbox_is_empty(intersect_rects(rect, nbox))
         ):  # intersects interior: significant!
             return True
         # Remaining case: a horizontal or vertical line
@@ -963,6 +976,18 @@ def is_significant(box, paths):
         ):
             pass  # return True
     return False
+
+
+def to_json(*args, **kwargs):
+    raise NotImplementedError(
+        "Function 'to_json' is only available in PyMuPDF-Layout mode"
+    )
+
+
+def to_text(*args, **kwargs):
+    raise NotImplementedError(
+        "Function 'to_text' is only available in PyMuPDF-Layout mode"
+    )
 
 
 def to_markdown(
@@ -994,6 +1019,7 @@ def to_markdown(
     show_progress=False,
     use_glyphs=False,
     ignore_alpha=False,
+    **kwargs,
 ) -> str:
     """Process the document and return the text of the selected pages.
 
@@ -1021,8 +1047,11 @@ def to_markdown(
         ignore_alpha: (bool, True) ignore text with alpha = 0 (transparent).
 
     """
+    if kwargs.keys():
+        print(f"Warning - arguments ignored in legacy mode: {set(kwargs.keys())}.")
+
     if write_images is False and embed_images is False and force_text is False:
-        raise ValueError("Image and text on images cannot both be suppressed.")
+        raise ValueError("Images and text on images cannot both be suppressed.")
     if embed_images is True:
         write_images = False
         image_path = ""
@@ -1037,7 +1066,7 @@ def to_markdown(
         ignore_code = True
     IMG_PATH = image_path
     if IMG_PATH and write_images is True and not os.path.exists(IMG_PATH):
-        os.mkdir(IMG_PATH)
+        os.makedirs(IMG_PATH, exist_ok=True)
 
     if not isinstance(doc, pymupdf.Document):
         doc = pymupdf.open(doc)
@@ -1203,7 +1232,7 @@ def to_markdown(
             ignore_invisible=not parms.accept_invisible,
         )
         nlines = [
-            l for l in nlines if not intersects_rects(l[0], parms.tab_rects.values())
+            l for l in nlines if outside_all_bboxes(l[0], parms.tab_rects.values())
         ]
 
         parms.line_rects.extend([l[0] for l in nlines])  # store line rectangles
@@ -1215,7 +1244,7 @@ def to_markdown(
 
         for lrect, spans in nlines:
             # there may be tables or images inside the text block: skip them
-            if intersects_rects(lrect, parms.img_rects):
+            if not outside_all_bboxes(lrect, parms.img_rects):
                 continue
 
             # ------------------------------------------------------------
@@ -1377,8 +1406,8 @@ def to_markdown(
                 prev_lrect
                 and lrect.y1 - prev_lrect.y1 > lrect.height * 1.5
                 or span0["text"].startswith("[")
-                or span0["text"].startswith(bullet)
-                or span0["flags"] & 1
+                or startswith_bullet(span0["text"])
+                or span0["flags"] & 1  # superscript?
             ):
                 out_string.append("\n")
                 out_string_ascii.append("\n")
@@ -1417,7 +1446,7 @@ def to_markdown(
                     text = f"{hdr_string}{prefix}{ltext}{suffix} "
                 else:
                     text = f"{hdr_string}{prefix}{s['text'].strip()}{suffix} "
-                if text.startswith(bullet):
+                if startswith_bullet(text):
                     text = "- " + text[1:]
                     text = re.sub(r' +', ' ', text)
                     dist = span0["bbox"][0] - clip.x0
@@ -1448,22 +1477,19 @@ def to_markdown(
             out_str_ascii,
         )
 
-    def is_in_rects(rect, rect_list):
+    def bbox_in_any_bbox(rect, rect_list):
         """Check if rect is contained in a rect of the list."""
-        for i, r in enumerate(rect_list, start=1):
-            if rect in r:
-                return i
-        return 0
+        return any(bbox_in_bbox(rect, r) for r in rect_list)
 
-    def intersects_rects(rect, rect_list):
+    def outside_all_bboxes(rect, rect_list):
+        """Check if rect is outside all rects in the list."""
+        return all(outside_bbox(rect, r) for r in rect_list)
+
+    def almost_in_any_bbox(rect, rect_list):
         """Check if middle of rect is contained in a rect of the list."""
-        delta = (-1, -1, 1, 1)  # enlarge rect_list members somewhat by this
-        enlarged = rect + delta
-        abs_enlarged = abs(enlarged) * 0.5
-        for i, r in enumerate(rect_list, start=1):
-            if abs(enlarged & r) > abs_enlarged:
-                return i
-        return 0
+        # enlarge rect somewhat
+        enlarged = [rect[0] - 1, rect[1] - 1, rect[2] + 1, rect[3] + 1]
+        return any(almost_in_bbox(enlarged, r, portion=0.5) for r in rect_list)
 
     def output_tables(parms, text_rect):
         """Output tables above given text rectangle."""
@@ -2433,8 +2459,8 @@ def to_markdown(
                 and p["rect"].height < parms.clip.height
                 and (p["rect"].width > 3 or p["rect"].height > 3)
                 and not (p["type"] == "f" and p["fill"] == parms.bg_color)
-                and not intersects_rects(p["rect"], parms.tab_rects0)
-                and not intersects_rects(p["rect"], parms.annot_rects)
+                and outside_all_bboxes(p["rect"], parms.tab_rects0)
+                and outside_all_bboxes(p["rect"], parms.annot_rects)
             ]
         else:
             paths = []
@@ -2453,7 +2479,9 @@ def to_markdown(
                 vg_clusters0.append(bbox)
 
         # remove paths that are not in some relevant graphic
-        parms.actual_paths = [p for p in paths if is_in_rects(p["rect"], vg_clusters0)]
+        parms.actual_paths = [
+            p for p in paths if bbox_in_any_bbox(p["rect"], vg_clusters0)
+        ]
 
         # also add image rectangles to the list and vice versa
         vg_clusters0.extend(parms.img_rects)
@@ -2513,10 +2541,11 @@ def to_markdown(
 
         while parms.md_string.startswith("\n"):
             parms.md_string = parms.md_string[1:]
-        parms.md_string = parms.md_string.replace(chr(0), chr(0xFFFD))
+
+        parms.md_string = parms.md_string.replace(chr(0), REPLACEMENT_CHARACTER)
         while parms.md_string_ascii.startswith("\n"):
             parms.md_string_ascii = parms.md_string_ascii[1:]
-        parms.md_string_ascii = parms.md_string_ascii.replace(chr(0), chr(0xFFFD))
+        parms.md_string_ascii = parms.md_string_ascii.replace(chr(0), REPLACEMENT_CHARACTER)
 
         if EXTRACT_WORDS is True:
             # output words in sequence compliant with Markdown text
@@ -2560,14 +2589,19 @@ def to_markdown(
     # omit clipped text, collect styles, use accurate bounding boxes
     textflags = (
         0
-        | mupdf.FZ_STEXT_CLIP
-        | mupdf.FZ_STEXT_ACCURATE_BBOXES
-        # | mupdf.FZ_STEXT_IGNORE_ACTUALTEXT
-        | 32768  # mupdf.FZ_STEXT_COLLECT_STYLES
+        | pymupdf.TEXT_MEDIABOX_CLIP
+        # | pymupdf.TEXT_ACCURATE_BBOXES
+        | pymupdf.TEXT_COLLECT_STYLES
     )
-    # optionally replace 0xFFFD by glyph number
-    if use_glyphs:
-        textflags |= mupdf.FZ_STEXT_USE_GID_FOR_UNKNOWN_UNICODE
+    pymupdf.table.FLAGS = (
+        0
+        | pymupdf.TEXTFLAGS_TEXT
+        | pymupdf.TEXT_COLLECT_STYLES
+        # | pymupdf.TEXT_ACCURATE_BBOXES
+        | pymupdf.TEXT_MEDIABOX_CLIP
+    )
+    # optionally replace REPLACEMENT_CHARACTER by glyph number
+pdf.FZ_STEXT_USE_GID_FOR_UNKNOWN_UNICODE
 
     if show_progress:
         print(f"Processing {FILENAME}...")
