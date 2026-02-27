@@ -14,36 +14,49 @@ def ensure_local_import():
     import pymupdf4llm  # noqa: F401
 
 
-def read_pdf_to_txt(pdf_path: Path, output_txt: Path) -> None:
+def read_pdf_to_txt(
+    pdf_path: Path,
+    output_txt: Path,
+    page_number: int | None = None,
+    show_progress: bool = False,
+) -> None:
     """Read a PDF with PyMuPDF4LLM and write the extracted text to a .txt file."""
+    import pymupdf
     import pymupdf4llm as llm
 
-    chunks = llm.to_markdown(
-        str(pdf_path),
-        page_chunks=True,
-        table_strategy="lines_strict",
-        show_progress=True,
-    )
-
     output_parts = []
-    for idx_chunk, chunk in enumerate(chunks, start=1):
-        page_text = chunk.get("text_ascii") or chunk.get("text", "")
-        page_sections = [f"Page {idx_chunk}", page_text]
+    doc = pymupdf.open(str(pdf_path))
+    try:
+        if page_number is None:
+            pages = doc
+        else:
+            if not 1 <= page_number <= doc.page_count:
+                raise ValueError(
+                    f"Page must be between 1 and {doc.page_count}, got {page_number}"
+                )
+            pages = [doc[page_number - 1]]
 
-        if idx_chunk == 16:
-            tables = chunk.get("tables") or []
-            if tables:
-                page_sections.append("Table Markdown (Page 16)")
-                for table_idx, table in enumerate(tables, start=1):
-                    if isinstance(table, dict):
-                        table_md = table.get("markdown") or table.get("md") or ""
-                    else:
-                        table_md = ""
-                    if not table_md:
-                        table_md = str(table)
-                    page_sections.append(f"Table {table_idx} (Markdown)\n{table_md}")
+        if show_progress:
+            print("Starting processing with progress enabled...")
 
-        output_parts.append("\n".join(page_sections))
+        for page in pages:
+            chunks = llm.to_markdown(
+                page.parent,
+                pages=[page.number],
+                page_chunks=True,
+                table_strategy="lines_strict",
+                show_progress=show_progress,
+            )
+
+            for chunk in chunks:
+                page_number = page.number + 1
+                page_text = chunk.get("text_ascii") or chunk.get("text", "")
+                page_sections = [f"Page {page_number}", page_text]
+
+                
+                output_parts.append("\n".join(page_sections))
+    finally:
+        doc.close()
 
     output_txt.write_text("\n\n".join(output_parts), encoding="utf-8")
 
@@ -55,11 +68,26 @@ if __name__ == "__main__":
     pdf_file = Path(sys.argv[1]) if len(sys.argv) > 1 else default_pdf
     out_file = Path(sys.argv[2]) if len(sys.argv) > 2 else pdf_file.with_suffix(".txt")
 
+    print("Choose processing mode:")
+    print("1) Entire document")
+    print("2) Specific page")
+    choice = input("Enter 1 or 2: ").strip()
+    if choice == "2":
+        page_input = input("Enter page number (1-based): ").strip()
+        page_number = int(page_input)
+    else:
+        page_number = None
+
     if not pdf_file.exists():
         raise FileNotFoundError(f"PDF not found: {pdf_file}")
 
     start_time = time.perf_counter()
-    read_pdf_to_txt(pdf_file, out_file)
+    read_pdf_to_txt(
+        pdf_file,
+        out_file,
+        page_number=page_number,
+        show_progress=True,
+    )
     elapsed = time.perf_counter() - start_time
-    print(f"Done! Results in: {out_file} (tempo: {elapsed:.2f}s)")
+    print(f"Done! Results in: {out_file} (elapsed: {elapsed:.2f}s)")
 
