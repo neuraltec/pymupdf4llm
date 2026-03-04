@@ -28,33 +28,72 @@ def read_pdf_to_txt(
     doc = pymupdf.open(str(pdf_path))
     try:
         if page_number is None:
-            pages = doc
+            pages = None
         else:
             if not 1 <= page_number <= doc.page_count:
                 raise ValueError(
                     f"Page must be between 1 and {doc.page_count}, got {page_number}"
                 )
-            pages = [doc[page_number - 1]]
+            pages = [page_number - 1]
 
         if show_progress:
             print("Starting processing with progress enabled...")
 
-        for page in pages:
-            chunks = llm.to_markdown(
-                page.parent,
-                pages=[page.number],
-                page_chunks=True,
-                table_strategy="lines_strict",
-                show_progress=show_progress,
+        debug_tables = page_number is not None
+        chunks = llm.to_markdown(
+            doc,
+            pages=pages,
+            page_chunks=True,
+            table_strategy="lines_strict",
+            show_progress=show_progress,
+        )
+
+        for idx, chunk in enumerate(chunks):
+            metadata = chunk.get("metadata") or {}
+            current_page_number = (
+                metadata.get("page_number")
+                or metadata.get("page")
+                or chunk.get("page_number")
+                or chunk.get("page")
             )
+            if current_page_number is None:
+                if pages is None:
+                    current_page_number = idx + 1
+                else:
+                    current_page_number = pages[idx] + 1
 
-            for chunk in chunks:
-                page_number = page.number + 1
-                page_text = chunk.get("text_ascii") or chunk.get("text", "")
-                page_sections = [f"Page {page_number}", page_text]
+            page_text = chunk.get("text_ascii") or chunk.get("text", "")
+            page_sections = [f"Page {current_page_number}", page_text]
 
-                
-                output_parts.append("\n".join(page_sections))
+            tables = chunk.get("tables", []) or []
+            if debug_tables:
+                debug_parts = ["", "### Tabelas (debug)", f"Total: {len(tables)}"]
+                import json
+                for idx, table in enumerate(tables, start=1):
+                    debug_parts.append(f"\n[Table {idx}]")
+                    debug_parts.append(
+                        json.dumps(table, indent=2, ensure_ascii=True, default=str)
+                    )
+                    markdown = table.get("markdown", "") or ""
+                    ascii_table = table.get("matrix_ascii", "") or ""
+                    if markdown:
+                        debug_parts.append("\n-- markdown --")
+                        debug_parts.append(markdown)
+                    if ascii_table:
+                        debug_parts.append("\n-- ascii --")
+                        debug_parts.append(ascii_table)
+                page_sections.append("\n".join(debug_parts))
+            else:
+                ascii_tables = [
+                    table.get("matrix_ascii", "") or ""
+                    for table in tables
+                    if table.get("matrix_ascii")
+                ]
+                if ascii_tables:
+                    page_sections.append("")
+                    page_sections.append("\n\n".join(ascii_tables))
+
+            output_parts.append("\n".join(page_sections))
     finally:
         doc.close()
 

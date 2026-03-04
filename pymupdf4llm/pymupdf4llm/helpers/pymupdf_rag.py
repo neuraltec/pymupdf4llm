@@ -400,9 +400,35 @@ def matrix_to_ascii(matrix):
             return text
         return text + (" " * pad)
 
-    def _max_word_width(text: str) -> int:
+    def _split_breakable(word: str) -> list:
+        # Split tokens on safe break characters without cutting letters.
+        if not word:
+            return [word]
+        parts = re.split(r"([\-/_\u2013\u2014])", word)
+        segments = []
+        buf = ""
+        for part in parts:
+            if part in ("-", "/", "_", "\u2013", "\u2014"):
+                buf += part
+                segments.append(buf)
+                buf = ""
+            else:
+                if buf:
+                    segments.append(buf)
+                    buf = ""
+                buf += part
+        if buf:
+            segments.append(buf)
+        return [s for s in segments if s]
+
+    def _max_token_width(text: str) -> int:
         words = text.split()
-        return max((_display_width(w) for w in words), default=0)
+        max_width = 0
+        for w in words:
+            segments = _split_breakable(w)
+            for seg in segments:
+                max_width = max(max_width, _display_width(seg))
+        return max_width
 
     def _max_line_width(text: str) -> int:
         lines = text.split("\n")
@@ -422,11 +448,33 @@ def matrix_to_ascii(matrix):
             if _display_width(trial) <= width:
                 current = trial
             else:
-                lines.append(current)
-                current = word
+                # If the next word is too long, try breaking on safe delimiters
+                if _display_width(word) > width:
+                    if current:
+                        lines.append(current)
+                        current = ""
+                    segments = _split_breakable(word)
+                    if len(segments) > 1:
+                        seg_current = ""
+                        for seg in segments:
+                            if not seg_current:
+                                seg_current = seg
+                            elif _display_width(seg_current + seg) <= width:
+                                seg_current += seg
+                            else:
+                                lines.append(seg_current)
+                                seg_current = seg
+                        if seg_current:
+                            current = seg_current
+                    else:
+                        current = word
+                else:
+                    lines.append(current)
+                    current = word
         if current or not lines:
             lines.append(current)
         return lines
+
 
     row_cells = []
     row_texts = []
@@ -453,9 +501,113 @@ def matrix_to_ascii(matrix):
 
     if max_cols == 0:
         return ""
+
+    def _ensure_cell_dict(row_idx: int, col_idx: int, text: str):
+        cell = row_cells[row_idx][col_idx]
+        if isinstance(cell, dict):
+            return cell
+        cell_dict = {
+            "text": text,
+            "row": row_idx,
+            "col": col_idx,
+            "rowspan": 1,
+            "colspan": 1,
+            "bbox": None,
+            "is_merged": False,
+            "merged_from": None,
+        }
+        row_cells[row_idx][col_idx] = cell_dict
+        return cell_dict
+
+    def _coalesce_row_colspan():
+        # Heuristic: if a row repeats the same text across columns (or only the
+        # first cell has text), treat it as a single merged cell spanning the row.
+        for r_idx in range(len(row_texts)):
+            if len(row_texts[r_idx]) < max_cols:
+                row_texts[r_idx] += [""] * (max_cols - len(row_texts[r_idx]))
+                row_cells[r_idx] += [None] * (max_cols - len(row_cells[r_idx]))
+
+            texts = row_texts[r_idx]
+            non_empty = [i for i, t in enumerate(texts) if t]
+            if not non_empty:
+                continue
+
+            start = min(non_empty)
+            end = max(non_empty)
+            first_text = texts[start]
+            all_same = all(texts[i] == first_text for i in non_empty)
+            all_empty_else = all((not texts[i]) or (texts[i] == first_text) for i in range(start, end + 1))
+
+            if all_same and all_empty_else and end > start:
+                primary = _ensure_cell_dict(r_idx, start, first_text)
+                primary["colspan"] = end - start + 1
+                primary["is_merged"] = False
+                primary["merged_from"] = None
+                for c in range(start + 1, end + 1):
+                    merged = _ensure_cell_dict(r_idx, c, first_text)
+                    merged["is_merged"] = True
+                    merged["merged_from"] = (r_idx, start)
+                    merged["colspan"] = 1
+                    merged["rowspan"] = 1
+                    row_texts[r_idx][c] = ""
+                continue
+
+            if len(non_empty) == 1 and non_empty[0] == 0 and all(not texts[i] for i in range(1, max_cols)):
+                primary = _ensure_cell_dict(r_idx, 0, texts[0])
+                primary["colspan"] = max_cols
+                primary["is_merged"] = False
+                primary["merged_from"] = None
+                for c in range(1, max_cols):
+                    merged = _ensure_cell_dict(r_idx, c, texts[0])
+                    merged["is_merged"] = True
+                    merged["merged_from"] = (r_idx, 0)
+                    merged["colspan"] = 1
+                    merged["rowspan"] = 1
+                    row_texts[r_idx][c] = ""
+
+            # If the last non-empty cell has only empty cells to the right,
+            # merge it to the end of the row (common in multi-line headers).
+            last_idx = non_empty[-1]
+            if last_idx < max_cols - 1 and all(not texts[i] for i in range(last_idx + 1, max_cols)):
+                primary = _ensure_cell_dict(r_idx, last_idx, texts[last_idx])
+                primary["colspan"] = max_cols - last_idx
+                primary["is_merged"] = False
+                primary["merged_from"] = None
+                for c in range(last_idx + 1, max_cols):
+                    merged = _ensure_cell_dict(r_idx, c, texts[last_idx])
+                    merged["is_merged"] = True
+                    merged["merged_from"] = (r_idx, last_idx)
+                    merged["colspan"] = 1
+                    merged["rowspan"] = 1
+                    row_texts[r_idx][c] = ""
+
+    _coalesce_row_colspan()
+
+    def _normalize_row_colspan_from_merged():
+        # Ensure primary cells span all merged positions in the same row.
+        for r_idx in range(len(row_cells)):
+            for c_idx in range(len(row_cells[r_idx])):
+                cell = row_cells[r_idx][c_idx]
+                if not isinstance(cell, dict):
+                    continue
+                if cell.get("is_merged") and cell.get("merged_from"):
+                    p_row, p_col = cell.get("merged_from")
+                    if p_row != r_idx:
+                        continue
+                    primary = _ensure_cell_dict(p_row, p_col, row_texts[p_row][p_col])
+                    span = (c_idx - p_col) + 1
+                    if span > primary.get("colspan", 1):
+                        primary["colspan"] = span
+                    # ensure merged positions don't render text
+                    row_texts[r_idx][c_idx] = ""
+
+    _normalize_row_colspan_from_merged()
     
     border_overhead = max_cols + 1
-    available_text_space = MAX_TOTAL_WIDTH - border_overhead
+    available_text_space = max(0, MAX_TOTAL_WIDTH - border_overhead)
+    min_col_width = MIN_COL_WIDTH
+    if max_cols > 0 and (max_cols * MIN_COL_WIDTH) > available_text_space:
+        min_col_width = max(1, available_text_space // max_cols)
 
     # Determine "Natural" required width for each column (longest word/line)
     # For colspan cells, distribute required width across the spanned columns.
@@ -475,7 +627,7 @@ def matrix_to_ascii(matrix):
             colspan = min(colspan, max_cols - idx_col)
 
             # Check longest unbroken word to avoid ugly splits if possible
-            max_word = _max_word_width(text)
+            max_word = _max_token_width(text)
             # Also check longest existing line (if pre-formatted)
             max_line = _max_line_width(text)
             required = max(max_word, max_line)
@@ -489,7 +641,7 @@ def matrix_to_ascii(matrix):
 
     # Determine Final Widths.
     # To avoid breaking words, keep columns at least their natural width.
-    final_widths = [max(w, MIN_COL_WIDTH) for w in natural_widths]
+    final_widths = [max(w, min_col_width) for w in natural_widths]
 
     col_widths = final_widths
 
@@ -498,67 +650,65 @@ def matrix_to_ascii(matrix):
     available_text_space = MAX_TOTAL_WIDTH - border_overhead
     total = sum(col_widths)
     if total > available_text_space:
-        # greedily reduce the widest column until the table fits
-        while total > available_text_space:
-            idx = max(
-                (i for i, w in enumerate(col_widths) if w > MIN_COL_WIDTH),
-                default=None,
-            )
-            if idx is None:
-                break
-            col_widths[idx] -= 1
-            total -= 1
+        # reduce widths proportionally, prioritizing wider columns
+        excess = total - available_text_space
+        reducible = [max(0, w - min_col_width) for w in col_widths]
+        reducible_total = sum(reducible)
+        if reducible_total > 0:
+            reductions = [
+                int(math.floor(excess * (r / reducible_total))) if r > 0 else 0
+                for r in reducible
+            ]
+            applied = 0
+            for i, red in enumerate(reductions):
+                if red > 0:
+                    col_widths[i] -= red
+                    applied += red
+            remaining = excess - applied
+            while remaining > 0:
+                idx = max(
+                    (i for i, w in enumerate(col_widths) if w > min_col_width),
+                    default=None,
+                )
+                if idx is None:
+                    break
+                col_widths[idx] -= 1
+                remaining -= 1
 
-    # wrap text into cells; widen columns when a wrap would split a word
-    changed = True
-    while changed:
-        changed = False
-        for r_idx in range(len(row_texts)):
-            for c_idx in range(max_cols):
-                text = row_texts[r_idx][c_idx]
-                cell = row_cells[r_idx][c_idx]
-                if not text:
+    # wrap text into cells; keep words intact
+    for r_idx in range(len(row_texts)):
+        for c_idx in range(max_cols):
+            text = row_texts[r_idx][c_idx]
+            cell = row_cells[r_idx][c_idx]
+            if not text:
+                continue
+
+            # Determine effective width for this specific cell (handling merged cols)
+            colspan = 1
+            if isinstance(cell, dict):
+                colspan = max(1, int(cell.get("colspan", 1)))
+
+            eff_width = 0
+            if c_idx + colspan <= max_cols:
+                for k in range(c_idx, c_idx + colspan):
+                    eff_width += col_widths[k]
+                eff_width += (colspan - 1)
+            else:
+                eff_width = col_widths[c_idx]
+
+            wrap_width = max(1, eff_width)
+
+            paragraphs = text.split("\n")
+            all_lines = []
+            for p in paragraphs:
+                if not p.strip():
+                    all_lines.append("")
                     continue
+                lines = _wrap_by_display_width(p, wrap_width)
+                all_lines.extend(lines)
 
-                # Determine effective width for this specific cell (handling merged cols)
-                colspan = 1
-                if isinstance(cell, dict):
-                    colspan = max(1, int(cell.get("colspan", 1)))
-                
-                eff_width = 0
-                if c_idx + colspan <= max_cols:
-                    for k in range(c_idx, c_idx + colspan):
-                        eff_width += col_widths[k]
-                    eff_width += (colspan - 1)
-                else:
-                    eff_width = col_widths[c_idx]
-
-                wrap_width = max(1, eff_width)
-
-                paragraphs = text.split("\n")
-                all_lines = []
-                for p in paragraphs:
-                    if not p.strip():
-                        all_lines.append("")
-                        continue
-                    lines = _wrap_by_display_width(p, wrap_width)
-                    all_lines.extend(lines)
-
-                # Record wrapped text
-                row_texts[r_idx][c_idx] = "\n".join(all_lines)
-
-                # check if any wrapped line exceeded our budget
-                used = max((_display_width(l) for l in all_lines), default=0)
-                if used > wrap_width:
-                    extra = used - wrap_width
-                    if colspan == 1:
-                        col_widths[c_idx] += extra
-                    else:
-                        per = int(math.ceil(extra / colspan))
-                        for k in range(c_idx, c_idx + colspan):
-                            col_widths[k] += per
-                    changed = True
-        # if we increased any column widths, rerun the wrapping to ensure consistency
+            # Record wrapped text
+            row_texts[r_idx][c_idx] = "\n".join(all_lines)
 
 
     def build_content_line(row_index, line_in_cell=0):
@@ -2325,6 +2475,53 @@ def to_markdown(
                                 "is_merged": False,
                                 "merged_from": None,
                             }
+
+                def _apply_row_colspan_heuristics():
+                    # Heuristic for header-like rows where a cell should span
+                    # across empty cells to the right but isn't marked as merged.
+                    for row_idx in range(row_count):
+                        row = matrix[row_idx]
+                        texts = [
+                            (c.get("text") or "").strip() if isinstance(c, dict) else ""
+                            for c in row
+                        ]
+                        non_empty = [i for i, t in enumerate(texts) if t]
+                        if not non_empty:
+                            continue
+
+                        last_idx = non_empty[-1]
+                        if last_idx >= col_count - 1:
+                            continue
+                        if not all(not texts[i] for i in range(last_idx + 1, col_count)):
+                            continue
+
+                        # Avoid merging numeric-only headers (e.g., data rows).
+                        last_text = texts[last_idx]
+                        if len(last_text) < 5 and all(ch.isdigit() or ch in ".:%" for ch in last_text):
+                            continue
+
+                        primary = matrix[row_idx][last_idx]
+                        if not isinstance(primary, dict) or primary.get("is_merged"):
+                            continue
+
+                        primary["colspan"] = col_count - last_idx
+                        primary["is_merged"] = False
+                        primary["merged_from"] = None
+                        for c in range(last_idx + 1, col_count):
+                            matrix[row_idx][c] = {
+                                "text": primary.get("text", ""),
+                                "row": row_idx,
+                                "col": c,
+                                "rowspan": 1,
+                                "colspan": 1,
+                                "bbox": primary.get("bbox"),
+                                "is_merged": True,
+                                "merged_from": (row_idx, last_idx),
+                                "primary_row": row_idx,
+                                "primary_col": last_idx,
+                            }
+
+                _apply_row_colspan_heuristics()
             except Exception as e:
                 # Fallback to t.extract() if something goes wrong
                 try:
@@ -2410,6 +2607,199 @@ def to_markdown(
                                     sanitized.append(srow)
                 except Exception:
                     sanitized = None
+
+            def _matrix_all_text_empty(mtx) -> bool:
+                for row in mtx:
+                    for cell in row:
+                        if isinstance(cell, dict) and (cell.get("text") or "").strip():
+                            return False
+                        if isinstance(cell, str) and cell.strip():
+                            return False
+                return True
+
+            def _is_placeholder(text: str) -> bool:
+                if not text:
+                    return True
+                t = text.strip()
+                return bool(re.match(r"^col\d+$", t, re.IGNORECASE))
+
+            def _ensure_cell(row_idx: int, col_idx: int, mtx, text: str):
+                cell = mtx[row_idx][col_idx]
+                if isinstance(cell, dict):
+                    return cell
+                cell_dict = {
+                    "text": text,
+                    "row": row_idx,
+                    "col": col_idx,
+                    "rowspan": 1,
+                    "colspan": 1,
+                    "bbox": None,
+                    "is_merged": False,
+                    "merged_from": None,
+                }
+                mtx[row_idx][col_idx] = cell_dict
+                return cell_dict
+
+            def _apply_markdown_merge_heuristics(mtx):
+                if not mtx:
+                    return
+                row_count = len(mtx)
+                col_count = max(len(r) for r in mtx)
+                for r_idx in range(row_count):
+                    row = mtx[r_idx]
+                    if len(row) < col_count:
+                        row.extend([{"text": "", "row": r_idx, "col": c, "rowspan": 1, "colspan": 1, "bbox": None, "is_merged": False, "merged_from": None}
+                                    for c in range(len(row), col_count)])
+
+                    texts = [
+                        (cell.get("text") or "").strip() if isinstance(cell, dict) else str(cell).strip()
+                        for cell in row
+                    ]
+                    non_empty = [i for i, t in enumerate(texts) if t]
+                    if not non_empty:
+                        continue
+
+                    # Case 0: merge placeholder runs into preceding real header
+                    i = 0
+                    while i < col_count:
+                        if _is_placeholder(texts[i]):
+                            run_start = i
+                            while i + 1 < col_count and _is_placeholder(texts[i + 1]):
+                                i += 1
+                            run_end = i
+                            prev_idx = run_start - 1
+                            next_idx = run_end + 1 if run_end + 1 < col_count else None
+                            if prev_idx >= 0 and texts[prev_idx] and not _is_placeholder(texts[prev_idx]):
+                                # only merge when placeholders are between real headers
+                                primary = _ensure_cell(r_idx, prev_idx, mtx, texts[prev_idx])
+                                span_end = run_end
+                                if next_idx is not None and texts[next_idx]:
+                                    # keep next real header separate
+                                    span_end = run_end
+                                primary["colspan"] = span_end - prev_idx + 1
+                                primary["is_merged"] = False
+                                primary["merged_from"] = None
+                                for c in range(prev_idx + 1, span_end + 1):
+                                    mtx[r_idx][c] = {
+                                        "text": primary.get("text", ""),
+                                        "row": r_idx,
+                                        "col": c,
+                                        "rowspan": 1,
+                                        "colspan": 1,
+                                        "bbox": primary.get("bbox"),
+                                        "is_merged": True,
+                                        "merged_from": (r_idx, prev_idx),
+                                        "primary_row": r_idx,
+                                        "primary_col": prev_idx,
+                                    }
+                        i += 1
+
+                    # Case 1: identical text repeated across row -> merge all
+                    first_text = texts[non_empty[0]]
+                    if len(non_empty) > 1 and all(texts[i] == first_text for i in non_empty):
+                        start = non_empty[0]
+                        end = non_empty[-1]
+                        primary = _ensure_cell(r_idx, start, mtx, first_text)
+                        primary["colspan"] = end - start + 1
+                        primary["is_merged"] = False
+                        primary["merged_from"] = None
+                        for c in range(start + 1, end + 1):
+                            mtx[r_idx][c] = {
+                                "text": primary.get("text", ""),
+                                "row": r_idx,
+                                "col": c,
+                                "rowspan": 1,
+                                "colspan": 1,
+                                "bbox": primary.get("bbox"),
+                                "is_merged": True,
+                                "merged_from": (r_idx, start),
+                                "primary_row": r_idx,
+                                "primary_col": start,
+                            }
+                        continue
+
+                    # Case 2: last non-placeholder should span to the right
+                    non_placeholder = [i for i in non_empty if not _is_placeholder(texts[i])]
+                    if non_placeholder:
+                        last_idx = non_placeholder[-1]
+                        if last_idx < col_count - 1 and all(_is_placeholder(texts[i]) for i in range(last_idx + 1, col_count)):
+                            last_text = texts[last_idx]
+                            # Require at least some letters to avoid merging numeric rows
+                            if re.search(r"[A-Za-z]", last_text):
+                                primary = _ensure_cell(r_idx, last_idx, mtx, last_text)
+                                primary["colspan"] = col_count - last_idx
+                                primary["is_merged"] = False
+                                primary["merged_from"] = None
+                                for c in range(last_idx + 1, col_count):
+                                    mtx[r_idx][c] = {
+                                        "text": primary.get("text", ""),
+                                        "row": r_idx,
+                                        "col": c,
+                                        "rowspan": 1,
+                                        "colspan": 1,
+                                        "bbox": primary.get("bbox"),
+                                        "is_merged": True,
+                                        "merged_from": (r_idx, last_idx),
+                                        "primary_row": r_idx,
+                                        "primary_col": last_idx,
+                                    }
+
+            if sanitized:
+                _apply_markdown_merge_heuristics(sanitized)
+                def _ensure_matrix_cell(mtx, r_idx, c_idx, text=""):
+                    cell = mtx[r_idx][c_idx]
+                    if isinstance(cell, dict):
+                        return cell
+                    cell_dict = {
+                        "text": text,
+                        "row": r_idx,
+                        "col": c_idx,
+                        "rowspan": 1,
+                        "colspan": 1,
+                        "bbox": None,
+                        "is_merged": False,
+                        "merged_from": None,
+                    }
+                    mtx[r_idx][c_idx] = cell_dict
+                    return cell_dict
+
+                def _apply_sanitized_merges_to_matrix(src, dst):
+                    if not src or not dst:
+                        return
+                    row_count = min(len(src), len(dst))
+                    col_count = min(max(len(r) for r in src), max(len(r) for r in dst))
+                    for r_idx in range(row_count):
+                        for c_idx in range(col_count):
+                            cell = src[r_idx][c_idx]
+                            if not isinstance(cell, dict):
+                                continue
+                            if cell.get("is_merged"):
+                                continue
+                            colspan = int(cell.get("colspan", 1) or 1)
+                            if colspan <= 1:
+                                continue
+                            # apply colspan on destination matrix
+                            primary = _ensure_matrix_cell(dst, r_idx, c_idx, cell.get("text", ""))
+                            primary["colspan"] = colspan
+                            primary["is_merged"] = False
+                            primary["merged_from"] = None
+                            for c in range(c_idx + 1, min(c_idx + colspan, col_count)):
+                                dst[r_idx][c] = {
+                                    "text": primary.get("text", ""),
+                                    "row": r_idx,
+                                    "col": c,
+                                    "rowspan": 1,
+                                    "colspan": 1,
+                                    "bbox": primary.get("bbox"),
+                                    "is_merged": True,
+                                    "merged_from": (r_idx, c_idx),
+                                    "primary_row": r_idx,
+                                    "primary_col": c_idx,
+                                }
+
+                _apply_sanitized_merges_to_matrix(sanitized, matrix)
+                if _matrix_all_text_empty(matrix):
+                    matrix = sanitized
             if sanitized is None:
                 # fallback: just normalise each cell text (collapse newlines)
                 try:

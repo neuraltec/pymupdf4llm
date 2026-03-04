@@ -2,16 +2,22 @@
 Shared logic to validate supplier tables.
 """
 from pathlib import Path
+import json
 import os
 import sys
 
 import pytest
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+except Exception:
+    def load_dotenv() -> None:
+        return None
 
 load_dotenv()
 
 base_path = Path(__file__).parent.parent.parent.parent
-pymupdf_path = base_path / "pymupdf4llm" / "pymupdf4llm"
+# Point to repo package root so local pymupdf4llm is imported.
+pymupdf_path = base_path / "pymupdf4llm"
 if str(pymupdf_path) not in sys.path:
     sys.path.insert(0, str(pymupdf_path))
 
@@ -32,44 +38,48 @@ def _get_pdf_path(pdf_env_var: str) -> Path:
     return pdf_path
 
 
-def _extract_table_llm(pdf_path: Path, strategy: str, page: int = None, table_index: int = 0):
-    chunks = llm.to_markdown(str(pdf_path), page_chunks=True, table_strategy=strategy)
-
-    if page is None:
-        for chunk in chunks:
-            tables = chunk.get("tables") or []
-            if tables:
-                return _extract_table_data(tables[table_index]), tables[table_index]
-    else:
-        page_idx = page - 1
-        if page_idx < len(chunks):
-            chunk = chunks[page_idx]
-            tables = chunk.get("tables") or []
-            if len(tables) > table_index:
-                return _extract_table_data(tables[table_index]), tables[table_index]
-
-    return None, None
+def _extract_ascii_from_table(table: dict):
+    ascii_matrix = table.get("matriz_ascii") or table.get("matrix_ascii")
+    if ascii_matrix:
+        return ascii_matrix
+    matrix = _extract_table_data(table)
+    if matrix is None:
+        return None
+    try:
+        return matrix_to_ascii(matrix)
+    except Exception:
+        return None
 
 
-def _extract_table_pymupdf(pdf_path: Path, strategy: str, page: int = None, table_index: int = 0):
+def _extract_table_from_txt_like_output(
+    pdf_path: Path,
+    page: int = None,
+    table_index: int = 0
+):
     doc = fitz.open(str(pdf_path))
-
     try:
         if page is None:
-            for page_num in range(len(doc)):
-                page_obj = doc[page_num]
-                tables = page_obj.find_tables(strategy=strategy)
-                if tables.tables:
-                    table = tables.tables[table_index]
-                    return _extract_table_from_pymupdf(table)
+            chunks = llm.to_markdown(
+                doc,
+                page_chunks=True,
+                table_strategy="lines_strict",
+            )
         else:
             page_idx = page - 1
-            if page_idx < len(doc):
-                page_obj = doc[page_idx]
-                tables = page_obj.find_tables(strategy=strategy)
-                if len(tables.tables) > table_index:
-                    table = tables.tables[table_index]
-                    return _extract_table_from_pymupdf(table)
+            if page_idx >= len(doc):
+                return None, None
+            chunks = llm.to_markdown(
+                doc,
+                pages=[page_idx],
+                page_chunks=True,
+                table_strategy="lines_strict",
+            )
+
+        for chunk in chunks:
+            tables = chunk.get("tables") or []
+            if len(tables) > table_index:
+                table = tables[table_index]
+                return _extract_ascii_from_table(table), table
     finally:
         doc.close()
 
@@ -124,20 +134,15 @@ def _extract_table_from_pymupdf(table):
         return None, None
 
 
-def _find_table_with_fallback(pdf_path: Path, page: int = None, table_index: int = 0):
-    strategies = ["lines_strict", "lines", "text"]
-
-    for strategy in strategies:
-        complete_structure = _extract_table_llm(pdf_path, strategy, page, table_index)[1]
-        if complete_structure:
-            return complete_structure, strategy, "pymupdf4llm"
-
-    for strategy in strategies:
-        complete_structure = _extract_table_pymupdf(pdf_path, strategy, page, table_index)[1]
-        if complete_structure:
-            return complete_structure, strategy, "pymupdf_direto"
-
-    return None, None, None
+def _find_table_from_txt_output(pdf_path: Path, page: int = None, table_index: int = 0):
+    table_ascii, complete_structure = _extract_table_from_txt_like_output(
+        pdf_path,
+        page,
+        table_index,
+    )
+    if complete_structure:
+        return table_ascii, complete_structure, "lines_strict", "pymupdf4llm_txt"
+    return None, None, None, None
 
 
 def _compare_ascii_matrices(expected: str, obtained: str, test_name: str = "", page: int = None):
@@ -193,15 +198,62 @@ def _compare_ascii_matrices(expected: str, obtained: str, test_name: str = "", p
     return differences, are_equal
 
 
+def _generate_fixture(
+    fixture_path: Path,
+    pdf_env_var: str,
+    test_configurations,
+) -> None:
+    pdf_path = _get_pdf_path(pdf_env_var)
+    results: dict[str, dict[str, object]] = {}
+    for test_id, page, table_index, _expected in test_configurations:
+        table_ascii, _structure, _strategy, _method = _find_table_from_txt_output(
+            pdf_path, page, table_index
+        )
+        if not table_ascii:
+            pytest.fail(f"No ASCII table found for {test_id}")
+        results[test_id] = {
+            "ascii": table_ascii,
+            "page": page,
+            "table_index": table_index,
+        }
+
+    fixture_path.parent.mkdir(parents=True, exist_ok=True)
+    fixture_path.write_text(
+        json.dumps(results, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def _load_expected_from_fixture(fixture_path: Path, test_id: str) -> str:
+    if not fixture_path.exists():
+        pytest.fail(
+            f"Fixture file not found at {fixture_path}. "
+            "Generate it with: python tests/pymupdf4llm/tables/update_table_fixtures.py jubilant"
+        )
+    try:
+        data = json.loads(fixture_path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        pytest.fail(f"Failed to read fixture file {fixture_path}: {exc}")
+
+    if test_id not in data:
+        pytest.fail(
+            f"Test id '{test_id}' not found in fixture file {fixture_path}. "
+            "Regenerate fixtures with: python tests/pymupdf4llm/tables/update_table_fixtures.py jubilant"
+        )
+    return data[test_id]["ascii"]
+
+
 def run_table_test(
     pdf_env_var: str,
     test_id: str,
     page: int,
     table_index: int,
-    expected_ascii_matrix: str
+    expected_ascii_matrix: str | None,
+    fixture_path: Path | None = None,
+    test_configurations=None,
 ):
     pdf_path = _get_pdf_path(pdf_env_var)
-    complete_structure, used_strategy, used_method = _find_table_with_fallback(
+    table_ascii, complete_structure, used_strategy, used_method = _find_table_from_txt_output(
         pdf_path, page, table_index
     )
 
@@ -211,17 +263,29 @@ def run_table_test(
         print("ERROR: No table detected in PDF.")
         pytest.fail(f"No table was detected in the PDF for {test_id}.")
 
-    ascii_matrix = (
-        complete_structure.get("matriz_ascii")
-        or complete_structure.get("matrix_ascii")
-    )
+    ascii_matrix = table_ascii
 
     if ascii_matrix is None:
         page_info = f"Page {page}" if page is not None else "First table found"
         print(f"\nTest: {test_id} ({page_info})")
-        print("ERROR: Extracted table does not have 'matriz_ascii' or 'matrix_ascii' field.")
+        print("ERROR: Could not generate ASCII table from txt-like output.")
         print(f"Available keys: {list(complete_structure.keys())}")
         pytest.fail(f"The extracted table does not have the ASCII matrix field for {test_id}.")
+
+    if expected_ascii_matrix is None:
+        if fixture_path is None:
+            pytest.fail(
+                "Expected ASCII matrix is None and no fixture_path was provided. "
+                "Provide a fixture file or inline expected data."
+            )
+        if not fixture_path.exists():
+            if not test_configurations:
+                pytest.fail(
+                    f"Fixture file not found at {fixture_path} and no test_configurations were provided "
+                    "to auto-generate it."
+                )
+            _generate_fixture(fixture_path, pdf_env_var, test_configurations)
+        expected_ascii_matrix = _load_expected_from_fixture(fixture_path, test_id)
 
     differences, are_equal = _compare_ascii_matrices(expected_ascii_matrix, ascii_matrix, test_id, page)
 
