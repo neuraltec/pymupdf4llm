@@ -453,7 +453,50 @@ def matrix_to_ascii(matrix):
 
     if max_cols == 0:
         return ""
-    
+
+    # Horizontal merge heuristic:
+    # - If a run of neighboring cells on the same row has exactly the same text
+    #   and that text looks like "ColX" (X is a number), keep it only in the
+    #   first column and blank the others.
+    # - If a run has the same non‑numeric, paragraph‑like text (contains
+    #   letters and at least one space), also keep it only in the first cell.
+    for r_idx, texts in enumerate(row_texts):
+        if not texts:
+            continue
+
+        # First, drop technical placeholders like "Col4", "Col10", etc.
+        for i, txt in enumerate(texts):
+            if txt:
+                stripped = txt.strip()
+                if re.match(r"^Col\d+\b", stripped, re.IGNORECASE):
+                    row_texts[r_idx][i] = ""
+
+        # Then, for true horizontal merges, collapse runs of identical text
+        # (paragraphs or repeated headers) to the first cell only.
+        c = 0
+        n = len(texts)
+        while c < n:
+            txt = row_texts[r_idx][c]
+            if not txt:
+                c += 1
+                continue
+            run_start = c
+            c += 1
+            while c < n and row_texts[r_idx][c] == txt:
+                c += 1
+            run_end = c
+            run_len = run_end - run_start
+            if run_len <= 1:
+                continue
+            stripped = txt.strip()
+            alpha = sum(ch.isalpha() for ch in stripped)
+            digit = sum(ch.isdigit() for ch in stripped)
+            is_paragraph = alpha > digit and " " in stripped
+            if not is_paragraph:
+                continue
+            for k in range(run_start + 1, run_end):
+                row_texts[r_idx][k] = ""
+
     border_overhead = max_cols + 1
     available_text_space = MAX_TOTAL_WIDTH - border_overhead
 
@@ -561,13 +604,46 @@ def matrix_to_ascii(matrix):
         # if we increased any column widths, rerun the wrapping to ensure consistency
 
 
+    full_span_cache = {}
+    header_span_cache = {}
+
     def build_content_line(row_index, line_in_cell=0):
+        # Detect rows that should visually span all columns:
+        # exactly one non-empty cell in the row.
+        non_empty_indices = [
+            i for i, t in enumerate(row_texts[row_index]) if t.strip()
+        ]
+        if len(non_empty_indices) == 1:
+            main_idx = non_empty_indices[0]
+            if row_index not in full_span_cache:
+                width = total_table_width - 2
+                # Use the raw cell text and ignore prior wrapping in row_texts.
+                cell0 = row_cells[row_index][main_idx]
+                if isinstance(cell0, dict):
+                    raw_text = _sanitize(str(cell0.get("text", "") or ""))
+                else:
+                    raw_text = row_texts[row_index][main_idx]
+                raw_text = raw_text.replace("\n", " ")
+                wrapped = []
+                for p in raw_text.split("\n"):
+                    if not p.strip():
+                        wrapped.append("")
+                    else:
+                        wrapped.extend(_wrap_by_display_width(p, width))
+                full_span_cache[row_index] = wrapped or [""]
+            lines = full_span_cache[row_index]
+            if line_in_cell >= len(lines):
+                return "|" + " " * (total_table_width - 2) + "|"
+            return (
+                "|" + _pad_display(lines[line_in_cell], total_table_width - 2) + "|"
+            )
+
         parts = []
         col = 0
         while col < max_cols:
             cell = row_cells[row_index][col]
             text = row_texts[row_index][col]
-            
+
             # Check overlap from above (Rowspan)
             covered_by_above = None
             if row_index > 0:
@@ -578,15 +654,15 @@ def matrix_to_ascii(matrix):
                         r_span = c_check.get("rowspan", 1)
                         if (r_up + r_span) > row_index:
                             covered_by_above = c_check
-                        break # Found the physical cell governing this column
+                        break  # Found the physical cell governing this column
                     r_up -= 1
-            
+
             # Determine content to display
             display_text = ""
             if covered_by_above:
                 display_text = ""
             elif isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
-                pass 
+                pass
             else:
                 # Primary cell
                 if "\n" in text:
@@ -601,6 +677,38 @@ def matrix_to_ascii(matrix):
             colspan = 1
             if isinstance(cell, dict):
                 colspan = max(1, int(cell.get("colspan", 1)))
+            base_has_text = bool(display_text.strip())
+
+            # Extra horizontal merge for header-like patterns:
+            # - if a cell tem texto e está em uma linha de topo (provável header),
+            #   expande para a direita sobre células vazias consecutivas;
+            # - se a célula estiver vazia, também expande sobre vazias (caso anterior).
+            if (
+                not covered_by_above
+                and not (isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"))
+                and (not base_has_text or row_index <= 2)
+            ):
+                extra = 0
+                scan_col = col + colspan
+                while scan_col < max_cols:
+                    next_text = row_texts[row_index][scan_col]
+                    next_cell = row_cells[row_index][scan_col]
+                    # se começamos numa célula com texto, não atravessar outra célula com texto
+                    if next_text.strip():
+                        break
+                    if isinstance(next_cell, dict) and not next_cell.get("is_merged"):
+                        # real separate cell, but still empty: we can merge visually
+                        extra += 1
+                        scan_col += 1
+                        continue
+                    if next_cell is None:
+                        extra += 1
+                        scan_col += 1
+                        continue
+                    # merged-from cells are already part of another logical span
+                    break
+                colspan += extra
+
             colspan = min(colspan, max_cols - col)
 
             # Calculate total display width
@@ -609,9 +717,36 @@ def matrix_to_ascii(matrix):
                 total_width += col_widths[k]
             total_width += (colspan - 1)
 
+            # Para QUALQUER célula mesclada com texto (não só header),
+            # reencaixotar o texto considerando a largura TOTAL do span,
+            # e não apenas a primeira coluna. Use sempre o texto "cru" da
+            # célula, sem depender de quebras anteriores em row_texts.
+            if base_has_text and colspan > 1 and not covered_by_above:
+                key = (row_index, col)
+                if key not in header_span_cache:
+                    if isinstance(cell, dict):
+                        raw = _sanitize(str(cell.get("text", "") or ""))
+                    else:
+                        raw = row_texts[row_index][col]
+                    raw = raw.replace("\n", " ")
+                    wrapped = []
+                    for p in raw.split("\n"):
+                        p = p.strip()
+                        if not p:
+                            wrapped.append("")
+                        else:
+                            wrapped.extend(
+                                _wrap_by_display_width(p, total_width)
+                            )
+                    header_span_cache[key] = wrapped or [""]
+                lines = header_span_cache[key]
+                display_text = (
+                    lines[line_in_cell] if line_in_cell < len(lines) else ""
+                )
+
             segment = _pad_display(display_text, total_width) + "|"
             parts.append(segment)
-            
+
             col += colspan
 
         return "|" + "".join(parts)
