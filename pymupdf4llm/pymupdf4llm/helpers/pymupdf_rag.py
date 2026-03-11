@@ -790,9 +790,15 @@ def matrix_to_ascii(matrix):
         return "|" + "".join(parts)
 
     def get_max_lines(row_index):
+        # Se a linha é tratada como "full-span" (texto ocupando toda a tabela),
+        # use exatamente a quantidade de linhas realmente geradas para ela,
+        # evitando linhas em branco extras no final.
+        if row_index in full_span_cache:
+            return len(full_span_cache[row_index])
+
         m = 1
         for t in row_texts[row_index]:
-            m = max(m, len(t.split('\n')))
+            m = max(m, len(t.split("\n")))
         return m
 
     output = []
