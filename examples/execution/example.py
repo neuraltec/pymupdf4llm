@@ -95,7 +95,7 @@ if __name__ == "__main__":
 
 import pymupdf4llm as llm
 
-text = llm.to_markdown("Finerenona_Hinye.pdf", show_progress=True)
+text = llm.to_markdown("Jubilant.pdf", show_progress=True)
 
-with open("documento.txt", "w", encoding="utf-8") as file:
+with open("Jubilant.txt", "w", encoding="utf-8") as file:
     file.write(text)

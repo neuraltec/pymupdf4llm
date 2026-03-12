@@ -33,7 +33,14 @@ def _get_pdf_path(pdf_env_var: str) -> Path:
 
 
 def _extract_table_llm(pdf_path: Path, strategy: str, page: int = None, table_index: int = 0):
-    chunks = llm.to_markdown(str(pdf_path), page_chunks=True, table_strategy=strategy)
+    # Process only the requested page to avoid processing the entire PDF (e.g. 226 pages).
+    pages_arg = [page - 1] if page is not None else None  # API uses 0-based page numbers
+    chunks = llm.to_markdown(
+        str(pdf_path),
+        page_chunks=True,
+        table_strategy=strategy,
+        pages=pages_arg,
+    )
 
     if page is None:
         for chunk in chunks:
@@ -41,9 +48,10 @@ def _extract_table_llm(pdf_path: Path, strategy: str, page: int = None, table_in
             if tables:
                 return _extract_table_data(tables[table_index]), tables[table_index]
     else:
-        page_idx = page - 1
-        if page_idx < len(chunks):
-            chunk = chunks[page_idx]
+        # When pages_arg was set, chunks has only that page (one element).
+        chunk_index = 0 if pages_arg else page - 1
+        if chunk_index < len(chunks):
+            chunk = chunks[chunk_index]
             tables = chunk.get("tables") or []
             if len(tables) > table_index:
                 return _extract_table_data(tables[table_index]), tables[table_index]
