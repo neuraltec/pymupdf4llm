@@ -200,30 +200,75 @@ TEST_CONFIGURATIONS = [
         "table_page226",
         226,
         1,
-        """---------------------------------------------------------------------------------------------------------------------------
-|Investigati on Items                          |Impurity|Reference solution                                       |RSD %  |
-|                                              |names   |                                                         |       |
-|----------------------------------------------|--------|---------|-------|-------|-------|-------|-------|-------|-------|
-|Investigati on Items                          |Impurity|0h       |8h     |19h    |39h    |46h    |59h    |100h   |100h   |
-|                                              |names   |         |       |       |       |       |       |       |       |
-|----------------------------------------------|--------|---------|-------|-------|-------|-------|-------|-------|-------|
-|Peak area                                     |YA2304- |1103 7   |1099 0 |1104 2 |1109 6 |1100 6 |1123 5 |1103 1 |0.8    |
-|                                              |17      |         |       |       |       |       |       |       |       |
-|----------------------------------------------|--------|---------|-------|-------|-------|-------|-------|-------|-------|
-|Peak area                                     |YA2304- |8322     |8233   |8327   |8411   |8336   |8361   |8219   |0.9    |
-|                                              |10      |         |       |       |       |       |       |       |       |
-|----------------------------------------------|--------|---------|-------|-------|-------|-------|-------|-------|-------|
-|Conclusion: When the control solution was placed at 5℃for 100h, the chromatogram of the control solution (230nm) was     |
-|followed by YA2304-17 and YA2304-10, and the RSD of the peak-peak area of each impurity in the chromatogram was no more  |
-|than 0.9% (required to be no more than 10%). The verification requirements were met, indicating that the control solution|
-|was stable within 100hunder 5℃.                                                                                          |
-|                                                                                                                         |
-|                                                                                                                         |
-|                                                                                                                         |
-|                                                                                                                         |
-|                                                                                                                         |
-|                                                                                                                         |
----------------------------------------------------------------------------------------------------------------------------"""
+        """---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+|Investigati on Items                          |Impurity    |Reference   |Col4        |Col5        |Col6        |Col7        |Col8        |Col9        |RSD %       |
+|                                              |names       |solution    |            |            |            |            |            |            |            |
+|----------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|
+|Investigati on Items                          |Impurity    |0h          |8h          |19h         |39h         |46h         |59h         |100h        |100h        |
+|                                              |names       |            |            |            |            |            |            |            |            |
+|----------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|
+|Peak area                                     |YA2304-     |1103 7      |1099 0      |1104 2      |1109 6      |1100 6      |1123 5      |1103 1      |0.8         |
+|                                              |17          |            |            |            |            |            |            |            |            |
+|----------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|
+|Peak area                                     |YA2304-     |8322        |8233        |8327        |8411        |8336        |8361        |8219        |0.9         |
+|                                              |10          |            |            |            |            |            |            |            |            |
+|----------------------------------------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|
+|Conclusion: When the control solution was     |Conclusion: |Conclusion: |Conclusion: |Conclusion: |Conclusion: |Conclusion: |Conclusion: |Conclusion: |Conclusion: |
+|placed at 5℃for 100h, the chromatogram of the |When the    |When the    |When        |When        |When        |When        |When        |When        |When        |
+|control solution (230nm) was followed by      |control     |control     |the         |the         |the         |the         |the         |the         |the         |
+|YA2304-17 and YA2304-10, and the RSD of the   |solution    |solution    |control     |control     |control     |control     |control     |control     |control     |
+|peak-peak area of each impurity in the        |was         |was         |solution    |solution    |solution    |solution    |solution    |solution    |solution    |
+|chromatogram was no more than 0.9% (required  |placed      |placed at   |was         |was         |was         |was         |was         |was         |was         |
+|to be no more than 10%). The verification     |at 5℃for    |5℃for       |placed      |placed      |placed      |placed      |placed      |placed      |placed      |
+|requirements were met, indicating that the    |100h,       |100h, the   |at          |at          |at          |at          |at          |at          |at          |
+|control solution was stable within 100hunder  |the         |chromatogram|5℃for       |5℃for       |5℃for       |5℃for       |5℃for       |5℃for       |5℃for       |
+|5℃.                                           |chromatogram|of the      |100h,       |100h,       |100h,       |100h,       |100h,       |100h,       |100h,       |
+|                                              |of the      |control     |the         |the         |the         |the         |the         |the         |the         |
+|                                              |control     |solution    |chromatogram|chromatogram|chromatogram|chromatogram|chromatogram|chromatogram|chromatogram|
+|                                              |solution    |(230nm)     |of the      |of the      |of the      |of the      |of the      |of the      |of the      |
+|                                              |(230nm)     |was         |control     |control     |control     |control     |control     |control     |control     |
+|                                              |was         |followed    |solution    |solution    |solution    |solution    |solution    |solution    |solution    |
+|                                              |followed    |by          |(230nm)     |(230nm)     |(230nm)     |(230nm)     |(230nm)     |(230nm)     |(230nm)     |
+|                                              |by          |YA2304-17   |was         |was         |was         |was         |was         |was         |was         |
+|                                              |YA2304-17   |and         |followed    |followed    |followed    |followed    |followed    |followed    |followed    |
+|                                              |and         |YA2304-10,  |by          |by          |by          |by          |by          |by          |by          |
+|                                              |YA2304-10,  |and the     |YA2304-17   |YA2304-17   |YA2304-17   |YA2304-17   |YA2304-17   |YA2304-17   |YA2304-17   |
+|                                              |and the     |RSD of      |and         |and         |and         |and         |and         |and         |and         |
+|                                              |RSD of      |the         |YA2304-10,  |YA2304-10,  |YA2304-10,  |YA2304-10,  |YA2304-10,  |YA2304-10,  |YA2304-10,  |
+|                                              |the         |peak-peak   |and the     |and the     |and the     |and the     |and the     |and the     |and the     |
+|                                              |peak-peak   |area of     |RSD of      |RSD of      |RSD of      |RSD of      |RSD of      |RSD of      |RSD of      |
+|                                              |area of     |each        |the         |the         |the         |the         |the         |the         |the         |
+|                                              |each        |impurity    |peak-peak   |peak-peak   |peak-peak   |peak-peak   |peak-peak   |peak-peak   |peak-peak   |
+|                                              |impurity    |in the      |area of     |area of     |area of     |area of     |area of     |area of     |area of     |
+|                                              |in the      |chromatogram|each        |each        |each        |each        |each        |each        |each        |
+|                                              |chromatogram|was no      |impurity    |impurity    |impurity    |impurity    |impurity    |impurity    |impurity    |
+|                                              |was no      |more than   |in the      |in the      |in the      |in the      |in the      |in the      |in the      |
+|                                              |more        |0.9%        |chromatogram|chromatogram|chromatogram|chromatogram|chromatogram|chromatogram|chromatogram|
+|                                              |than        |(required   |was no      |was no      |was no      |was no      |was no      |was no      |was no      |
+|                                              |0.9%        |to be no    |more        |more        |more        |more        |more        |more        |more        |
+|                                              |(required   |more than   |than        |than        |than        |than        |than        |than        |than        |
+|                                              |to be no    |10%). The   |0.9%        |0.9%        |0.9%        |0.9%        |0.9%        |0.9%        |0.9%        |
+|                                              |more        |verification|(required   |(required   |(required   |(required   |(required   |(required   |(required   |
+|                                              |than        |requirements|to be       |to be       |to be       |to be       |to be       |to be       |to be       |
+|                                              |10%).       |were met,   |no more     |no more     |no more     |no more     |no more     |no more     |no more     |
+|                                              |The         |indicating  |than        |than        |than        |than        |than        |than        |than        |
+|                                              |verification|that the    |10%).       |10%).       |10%).       |10%).       |10%).       |10%).       |10%).       |
+|                                              |requirements|control     |The         |The         |The         |The         |The         |The         |The         |
+|                                              |were        |solution    |verification|verification|verification|verification|verification|verification|verification|
+|                                              |met,        |was         |requirements|requirements|requirements|requirements|requirements|requirements|requirements|
+|                                              |indicating  |stable      |were        |were        |were        |were        |were        |were        |were        |
+|                                              |that the    |within      |met,        |met,        |met,        |met,        |met,        |met,        |met,        |
+|                                              |control     |100hunder   |indicating  |indicating  |indicating  |indicating  |indicating  |indicating  |indicating  |
+|                                              |solution    |5℃.         |that        |that        |that        |that        |that        |that        |that        |
+|                                              |was         |            |the         |the         |the         |the         |the         |the         |the         |
+|                                              |stable      |            |control     |control     |control     |control     |control     |control     |control     |
+|                                              |within      |            |solution    |solution    |solution    |solution    |solution    |solution    |solution    |
+|                                              |100hunder   |            |was         |was         |was         |was         |was         |was         |was         |
+|                                              |5℃.         |            |stable      |stable      |stable      |stable      |stable      |stable      |stable      |
+|                                              |            |            |within      |within      |within      |within      |within      |within      |within      |
+|                                              |            |            |100hunder   |100hunder   |100hunder   |100hunder   |100hunder   |100hunder   |100hunder   |
+|                                              |            |            |5℃.         |5℃.         |5℃.         |5℃.         |5℃.         |5℃.         |5℃.         |
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------"""
     ),
      (
         "table_page226",

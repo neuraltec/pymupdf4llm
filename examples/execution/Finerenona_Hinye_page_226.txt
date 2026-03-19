@@ -1,0 +1,1357 @@
+=== Page: page_226 ===
+
+--- Page text (markdown/ascii) ---
+
+**Drug** **Master** **File** **of** **Finerenone** 
+Document: YA2304-Quality Version: 001 Date:Sep. 2024 
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------
+|Main peak area |6709   |6535   |6563   |6771   |6836   |6606   |6732   |1.7    |
+|---------------|-------|-------|-------|-------|-------|-------|-------|-------|
+|Principal peak |75.4   |65.3   |92.2   |89.8   |54.0   |103.0  |92.8   |/      |
+|signal-to-noise|       |       |       |       |       |       |       |       |
+|ratio          |       |       |       |       |       |       |       |       |
+|---------------|-------|-------|-------|-------|-------|-------|-------|-------|
+|Conclusion: When the control solution was placed at 5℃ for 100h, the           |
+|chromatogram of the control solution (251nm) showed that the main peak         |
+|signal-to-noise ratio (S/N) was NLT 54.0 (required to be NLT 20), and the RSD  |
+|of the peak area was 1.7% (required to be no more than 10%). All of the above  |
+|meet the verification requirements, indicating that the control solution is    |
+|stable within 100hunder 5℃.                                                    |
+---------------------------------------------------------------------------------
+
+Stability test results of control solution: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------
+|Investigati|Impurity|Reference solution                                     |RSD %  |
+|on Items   |names   |                                                       |       |
+|           |        |                                                       |       |
+|                                                                                     
+|                                                                                     
+|        |1103 7 |1099 0 |1104 2 |1109 6 |1100 6 |1123 5 |1103 1 |                    
+|--------|-------|-------|-------|-------|-------|-------|-------|                    
+|           |YA2304- |8322   |8233   |8327   |8411   |8336   |8361   |8219   |0.9    |
+|           |10      |       |       |       |       |       |       |       |       |
+|-----------|--------|-------|-------|-------|-------|-------|-------|-------|-------|
+|                                                                                    |
+--------------------------------------------------------------------------------------
+
+Stability test results of system suitability solution: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------
+|Investigation|Time of visit                                          |
+|Items        |                                                       |
+|-------------|-------|-------|-------|-------|-------|-------|-------|
+|             |0h     |8h     |19h    |26.5 h.|46h    |59h    |100h   |
+|-------------|-------|-------|-------|-------|-------|-------|-------|
+|Degree of    |5.9    |6.0    |5.9    |5.9    |5.9    |5.8    |5.8    |
+|separation   |       |       |       |       |       |       |       |
+|between      |       |       |       |       |       |       |       |
+|YA2304 and   |       |       |       |       |       |       |       |
+|YA2304-14    |       |       |       |       |       |       |       |
+|-------------|-------|-------|-------|-------|-------|-------|-------|
+|Degree of    |6.8    |6.9    |6.8    |6.8    |6.8    |6.8    |6.7    |
+|separation   |       |       |       |       |       |       |       |
+|between      |       |       |       |       |       |       |       |
+|YA2304 and   |       |       |       |       |       |       |       |
+|YA2304-15    |       |       |       |       |       |       |       |
+|-------------|-------|-------|-------|-------|-------|-------|-------|
+|Minimum      |1.6    |1.6    |1.6    |1.6    |1.6    |2.2    |2.2    |
+|separation   |       |       |       |       |       |       |       |
+|between      |       |       |       |       |       |       |       |
+|YA2304-17 and|       |       |       |       |       |       |       |
+|adjacent     |       |       |       |       |       |       |       |
+|peaks        |       |       |       |       |       |       |       |
+|-------------|-------|-------|-------|-------|-------|-------|-------|
+|Minimum      |1.6    |1.6    |1.6    |1.6    |1.6    |1.6    |1.6    |
+|separation   |       |       |       |       |       |       |       |
+|degree       |       |       |       |       |       |       |       |
+|between      |       |       |       |       |       |       |       |
+|YA2304-16 and|       |       |       |       |       |       |       |
+|adjacent     |       |       |       |       |       |       |       |
+|peaks        |       |       |       |       |       |       |       |
+|-------------|-------|-------|-------|-------|-------|-------|-------|
+|Verdict: The system suitable solution was placed at 5℃ for 100h, and |
+|the                                                                  |
+-----------------------------------------------------------------------
+
+Finerenone 
+Confidential Hinye Pharmaceutical Co., Ltd. 
+
+
+
+Page 226 of 542 
+
+
+
+
+
+============================================================
+
+--- Table 1 ---
+  bbox: (84.6300048828125, 87.97000122070312, 510.8699951171875, 272.30999755859375)
+  rows: 3, columns: 9
+
+  Markdown:
+|Main peak
+area|6709|6535|6563|6771|6836|6606|6732|1.7|
+|---|---|---|---|---|---|---|---|---|
+|Principal
+peak
+signal-to-n
+oise ratio|75.4|65.3|92.2|89.8|54.0|103.0|92.8|/|
+|Conclusion: When the control solution was placed at 5℃ for 100h, the chromatogram
+of the control solution (251nm) showed that the main peak signal-to-noise ratio (S/N)
+was NLT 54.0 (required to be NLT 20), and the RSD of the peak area was 1.7%
+(required to be no more than 10%). All of the above meet the verification requirements,
+indicating that the control solution is stable within 100h under 5℃.|
+
+  ASCII:
+-----------------------------------------------------------------------------
+|Main peaka |6709   |6535   |6563   |6771   |6836   |6606   |6732   |1.7    |
+|rea        |       |       |       |       |       |       |       |       |
+|-----------|-------|-------|-------|-------|-------|-------|-------|-------|
+|Principalp |75.4   |65.3   |92.2   |89.8   |54.0   |103.0  |92.8   |/      |
+|eaks       |       |       |       |       |       |       |       |       |
+|ignal-to-no|       |       |       |       |       |       |       |       |
+|ise ratio  |       |       |       |       |       |       |       |       |
+|-----------|-------|-------|-------|-------|-------|-------|-------|-------|
+|Conclusion: When the control solution was placed at 5℃ for 100h, the       |
+|chromatogramof the control solution (251nm) showed that the main peak      |
+|signal-to-noise ratio (S/N) was NLT 54.0 (required to be NLT 20), and the  |
+|RSD of the peak area was 1.7% (required to be no more than 10%). All of the|
+|above meet the verification requirements, indicating that the control      |
+|solution is stable within 100hunder 5℃.                                    |
+-----------------------------------------------------------------------------
+
+  Cells (attributes per cell):
+  [row=0, col=0]
+  content: 'Main peak\narea'
+  row=0, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(84.63000106811523, 87.96999740600586, 149.75, 121.79000091552734)
+
+  [row=0, col=1]
+  content: '6709'
+  row=0, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(149.75, 87.96999740600586, 195.5500030517578, 121.79000091552734)
+
+  [row=0, col=2]
+  content: '6535'
+  row=0, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(195.5500030517578, 87.96999740600586, 241.60000610351562, 121.79000091552734)
+
+  [row=0, col=3]
+  content: '6563'
+  row=0, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(241.60000610351562, 87.96999740600586, 287.6499938964844, 121.79000091552734)
+
+  [row=0, col=4]
+  content: '6771'
+  row=0, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(287.6499938964844, 87.96999740600586, 335.20001220703125, 121.79000091552734)
+
+  [row=0, col=5]
+  content: '6836'
+  row=0, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(335.20001220703125, 87.96999740600586, 379.75, 121.79000091552734)
+
+  [row=0, col=6]
+  content: '6606'
+  row=0, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(379.75, 87.96999740600586, 425.79998779296875, 121.79000091552734)
+
+  [row=0, col=7]
+  content: '6732'
+  row=0, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(425.79998779296875, 87.96999740600586, 473.2000020345052, 121.79000091552734)
+
+  [row=0, col=8]
+  content: '1.7'
+  row=0, col=8
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(473.2000020345052, 87.96999740600586, 510.8700002034505, 121.79000091552734)
+
+  [row=1, col=0]
+  content: 'Principal\npeak\nsignal-to-n\noise ratio'
+  row=1, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(84.63000106811523, 87.96999740600586, 149.75, 121.79000091552734)
+
+  [row=1, col=1]
+  content: '75.4'
+  row=1, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(149.75, 87.96999740600586, 195.5500030517578, 121.79000091552734)
+
+  [row=1, col=2]
+  content: '65.3'
+  row=1, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(195.5500030517578, 87.96999740600586, 241.60000610351562, 121.79000091552734)
+
+  [row=1, col=3]
+  content: '92.2'
+  row=1, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(241.60000610351562, 87.96999740600586, 287.6499938964844, 121.79000091552734)
+
+  [row=1, col=4]
+  content: '89.8'
+  row=1, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(287.6499938964844, 87.96999740600586, 335.20001220703125, 121.79000091552734)
+
+  [row=1, col=5]
+  content: '54.0'
+  row=1, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(335.20001220703125, 87.96999740600586, 379.75, 121.79000091552734)
+
+  [row=1, col=6]
+  content: '103.0'
+  row=1, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(379.75, 87.96999740600586, 425.79998779296875, 121.79000091552734)
+
+  [row=1, col=7]
+  content: '92.8'
+  row=1, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(425.79998779296875, 87.96999740600586, 473.2000020345052, 121.79000091552734)
+
+  [row=1, col=8]
+  content: '/'
+  row=1, col=8
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(473.2000020345052, 87.96999740600586, 510.8700002034505, 121.79000091552734)
+
+  [row=2, col=0]
+  content: 'Conclusion: When the control solution was placed at 5℃ for 100h, the chromatogram\nof the control solution (251nm) showed that the main peak signal-to-noise ratio (S/N)\nwas NLT 54.0 (required to be NLT 20), and the RSD of the peak area was 1.7%\n(required to be no more than 10%). All of the above meet the verification requirements,\nindicating that the control solution is stable within 100h under 5℃.'
+  row=2, col=0
+  rowspan=1, colspan=9
+  is_merged=True
+  merged_from=None
+  bbox=(84.63000106811523, 121.79000091552734, 149.75, 188.69000244140625)
+
+  [row=2, col=1]
+  content: ''
+  row=2, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=None
+
+  [row=2, col=2]
+  content: ''
+  row=2, col=2
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=None
+
+  [row=2, col=3]
+  content: ''
+  row=2, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=None
+
+  [row=2, col=4]
+  content: ''
+  row=2, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=None
+
+  [row=2, col=5]
+  content: ''
+  row=2, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=None
+
+  [row=2, col=6]
+  content: ''
+  row=2, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=None
+
+  [row=2, col=7]
+  content: ''
+  row=2, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=None
+
+  [row=2, col=8]
+  content: ''
+  row=2, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=None
+
+
+--- Table 2 ---
+  bbox: (84.6300048828125, 305.77001953125, 510.8699951171875, 496.1099853515625)
+  rows: 5, columns: 10
+
+  Markdown:
+|Investigati
+on Items|Impurity
+names|Reference solution|Reference solution|Reference solution|Reference solution|Reference solution|Reference solution|Reference solution|RSD %|
+|---|---|---|---|---|---|---|---|---|---|
+|Investigati
+on Items|Impurity
+names|Reference solution|Reference solution|Reference solution|Reference solution|Reference solution|Reference solution|Reference solution|RSD %|
+|Investigati
+on Items||1103 7|1099 0|1104 2|1109 6|1100 6|1123 5|1103 1|RSD %|
+||YA2304- 10|8322|8233|8327|8411|8336|8361|8219|0.9|
+|||||||||||
+
+  ASCII:
+-----------------------------------------------------------------------------------------
+|Investigation|Impurityn|Reference solution                                     |RSD %  |
+|Items        |ames     |                                                       |       |
+|             |         |                                                       |       |
+|                                                                                        
+|                                                                                        
+|         |1103 7 |1099 0 |1104 2 |1109 6 |1100 6 |1123 5 |1103 1 |                      
+|---------|-------|-------|-------|-------|-------|-------|-------|                      
+|             |YA2304-  |8322   |8233   |8327   |8411   |8336   |8361   |8219   |0.9    |
+|             |10       |       |       |       |       |       |       |       |       |
+|-------------|---------|-------|-------|-------|-------|-------|-------|-------|-------|
+|                                                                                       |
+-----------------------------------------------------------------------------------------
+
+  Cells (attributes per cell):
+  [row=0, col=0]
+  content: 'Investigati\non Items'
+  row=0, col=0
+  rowspan=3, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(84.63000106811523, 305.77000427246094, 149.75, 342.5899963378906)
+
+  [row=0, col=1]
+  content: 'Impurity\nnames'
+  row=0, col=1
+  rowspan=2, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(149.75, 305.77000427246094, 208.1999969482422, 342.5899963378906)
+
+  [row=0, col=2]
+  content: 'Reference solution'
+  row=0, col=2
+  rowspan=2, colspan=7
+  is_merged=False
+  merged_from=None
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=0, col=3]
+  content: 'Reference solution'
+  row=0, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=0, col=4]
+  content: 'Reference solution'
+  row=0, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=0, col=5]
+  content: 'Reference solution'
+  row=0, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=0, col=6]
+  content: 'Reference solution'
+  row=0, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=0, col=7]
+  content: 'Reference solution'
+  row=0, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=0, col=8]
+  content: 'Reference solution'
+  row=0, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=0, col=9]
+  content: 'RSD %'
+  row=0, col=9
+  rowspan=3, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(473.2000020345052, 305.77000427246094, 510.8700002034505, 342.5899963378906)
+
+  [row=1, col=0]
+  content: 'Investigati\non Items'
+  row=1, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 0)
+  bbox=(84.63000106811523, 305.77000427246094, 149.75, 342.5899963378906)
+
+  [row=1, col=1]
+  content: 'Impurity\nnames'
+  row=1, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 1)
+  bbox=(149.75, 305.77000427246094, 208.1999969482422, 342.5899963378906)
+
+  [row=1, col=2]
+  content: 'Reference solution'
+  row=1, col=2
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=1, col=3]
+  content: 'Reference solution'
+  row=1, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=1, col=4]
+  content: 'Reference solution'
+  row=1, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=1, col=5]
+  content: 'Reference solution'
+  row=1, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=1, col=6]
+  content: 'Reference solution'
+  row=1, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=1, col=7]
+  content: 'Reference solution'
+  row=1, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=1, col=8]
+  content: 'Reference solution'
+  row=1, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(208.1999969482422, 305.77000427246094, 473.2000020345052, 322.989990234375)
+
+  [row=1, col=9]
+  content: 'RSD %'
+  row=1, col=9
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 9)
+  bbox=(473.2000020345052, 305.77000427246094, 510.8700002034505, 342.5899963378906)
+
+  [row=2, col=0]
+  content: 'Investigati\non Items'
+  row=2, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 0)
+  bbox=(84.63000106811523, 305.77000427246094, 149.75, 342.5899963378906)
+
+  [row=2, col=1]
+  content: ''
+  row=2, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=2, col=2]
+  content: '1103 7'
+  row=2, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(208.1999969482422, 322.989990234375, 246.0, 342.5899963378906)
+
+  [row=2, col=3]
+  content: '1099 0'
+  row=2, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(246.0, 322.989990234375, 283.79998779296875, 342.5899963378906)
+
+  [row=2, col=4]
+  content: '1104 2'
+  row=2, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(283.79998779296875, 322.989990234375, 321.6000061035156, 342.5899963378906)
+
+  [row=2, col=5]
+  content: '1109 6'
+  row=2, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(321.6000061035156, 322.989990234375, 359.3999938964844, 342.5899963378906)
+
+  [row=2, col=6]
+  content: '1100 6'
+  row=2, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(359.3999938964844, 322.989990234375, 397.20001220703125, 342.5899963378906)
+
+  [row=2, col=7]
+  content: '1123 5'
+  row=2, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(397.20001220703125, 322.989990234375, 435.0, 342.5899963378906)
+
+  [row=2, col=8]
+  content: '1103 1'
+  row=2, col=8
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(435.0, 322.989990234375, 473.2000020345052, 342.5899963378906)
+
+  [row=2, col=9]
+  content: 'RSD %'
+  row=2, col=9
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 9)
+  bbox=(473.2000020345052, 305.77000427246094, 510.8700002034505, 342.5899963378906)
+
+  [row=3, col=0]
+  content: ''
+  row=3, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(84.63000106811523, 342.5899963378906, 149.75, 412.489990234375)
+
+  [row=3, col=1]
+  content: 'YA2304- 10'
+  row=3, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(149.75, 342.5899963378906, 208.1999969482422, 378.7900085449219)
+
+  [row=3, col=2]
+  content: '8322'
+  row=3, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(208.1999969482422, 342.5899963378906, 246.0, 378.7900085449219)
+
+  [row=3, col=3]
+  content: '8233'
+  row=3, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(246.0, 342.5899963378906, 283.79998779296875, 378.7900085449219)
+
+  [row=3, col=4]
+  content: '8327'
+  row=3, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(283.79998779296875, 342.5899963378906, 321.6000061035156, 378.7900085449219)
+
+  [row=3, col=5]
+  content: '8411'
+  row=3, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(321.6000061035156, 342.5899963378906, 359.3999938964844, 378.7900085449219)
+
+  [row=3, col=6]
+  content: '8336'
+  row=3, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(359.3999938964844, 342.5899963378906, 397.20001220703125, 378.7900085449219)
+
+  [row=3, col=7]
+  content: '8361'
+  row=3, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(397.20001220703125, 342.5899963378906, 435.0, 378.7900085449219)
+
+  [row=3, col=8]
+  content: '8219'
+  row=3, col=8
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(435.0, 342.5899963378906, 473.2000020345052, 378.7900085449219)
+
+  [row=3, col=9]
+  content: '0.9'
+  row=3, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(473.2000020345052, 342.5899963378906, 510.8700002034505, 378.7900085449219)
+
+  [row=4, col=0]
+  content: ''
+  row=4, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=4, col=1]
+  content: ''
+  row=4, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(149.75, 378.7900085449219, 208.1999969482422, 412.489990234375)
+
+  [row=4, col=2]
+  content: ''
+  row=4, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(208.1999969482422, 378.7900085449219, 246.0, 412.489990234375)
+
+  [row=4, col=3]
+  content: ''
+  row=4, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(246.0, 378.7900085449219, 283.79998779296875, 412.489990234375)
+
+  [row=4, col=4]
+  content: ''
+  row=4, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(283.79998779296875, 378.7900085449219, 321.6000061035156, 412.489990234375)
+
+  [row=4, col=5]
+  content: ''
+  row=4, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(321.6000061035156, 378.7900085449219, 359.3999938964844, 412.489990234375)
+
+  [row=4, col=6]
+  content: ''
+  row=4, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(359.3999938964844, 378.7900085449219, 397.20001220703125, 412.489990234375)
+
+  [row=4, col=7]
+  content: ''
+  row=4, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(397.20001220703125, 378.7900085449219, 435.0, 412.489990234375)
+
+  [row=4, col=8]
+  content: ''
+  row=4, col=8
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(435.0, 378.7900085449219, 473.2000020345052, 412.489990234375)
+
+  [row=4, col=9]
+  content: ''
+  row=4, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(473.2000020345052, 378.7900085449219, 510.8700002034505, 412.489990234375)
+
+
+--- Table 3 ---
+  bbox: (84.6300048828125, 529.5700073242188, 510.8699951171875, 752.010009765625)
+  rows: 7, columns: 8
+
+  Markdown:
+|Investigation Items|Time of visit|||||||
+|---|---|---|---|---|---|---|---|
+||0h|8h|19h|26.5
+h.|46h|59h|100h|
+|Degree of separation between
+YA2304 and YA2304-14|5.9|6.0|5.9|5.9|5.9|5.8|5.8|
+|Degree of separation between
+YA2304 and YA2304-15|6.8|6.9|6.8|6.8|6.8|6.8|6.7|
+|Minimum separation between
+YA2304-17 and adjacent peaks|1.6|1.6|1.6|1.6|1.6|2.2|2.2|
+|Minimum separation degree
+between YA2304-16 and adjacent
+peaks|1.6|1.6|1.6|1.6|1.6|1.6|1.6|
+|Verdict: The system suitable solution was placed at 5℃ for 100h, and the|
+
+  ASCII:
+--------------------------------------------------------------------------
+|Investigation   |Time of visit                                          |
+|Items           |                                                       |
+|----------------|-------|-------|-------|-------|-------|-------|-------|
+|                |0h     |8h     |19h    |26.5 h.|46h    |59h    |100h   |
+|----------------|-------|-------|-------|-------|-------|-------|-------|
+|Degree of       |5.9    |6.0    |5.9    |5.9    |5.9    |5.8    |5.8    |
+|separation      |       |       |       |       |       |       |       |
+|betweenYA2304   |       |       |       |       |       |       |       |
+|and YA2304-14   |       |       |       |       |       |       |       |
+|----------------|-------|-------|-------|-------|-------|-------|-------|
+|Degree of       |6.8    |6.9    |6.8    |6.8    |6.8    |6.8    |6.7    |
+|separation      |       |       |       |       |       |       |       |
+|betweenYA2304   |       |       |       |       |       |       |       |
+|and YA2304-15   |       |       |       |       |       |       |       |
+|----------------|-------|-------|-------|-------|-------|-------|-------|
+|Minimum         |1.6    |1.6    |1.6    |1.6    |1.6    |2.2    |2.2    |
+|separation      |       |       |       |       |       |       |       |
+|betweenYA2304-17|       |       |       |       |       |       |       |
+|and adjacent    |       |       |       |       |       |       |       |
+|peaks           |       |       |       |       |       |       |       |
+|----------------|-------|-------|-------|-------|-------|-------|-------|
+|Minimum         |1.6    |1.6    |1.6    |1.6    |1.6    |1.6    |1.6    |
+|separation      |       |       |       |       |       |       |       |
+|degreeb etween  |       |       |       |       |       |       |       |
+|YA2304-16 and   |       |       |       |       |       |       |       |
+|adjacentp eaks  |       |       |       |       |       |       |       |
+|----------------|-------|-------|-------|-------|-------|-------|-------|
+|Verdict: The system suitable solution was placed at 5℃ for 100h, and the|
+--------------------------------------------------------------------------
+
+  Cells (attributes per cell):
+  [row=0, col=0]
+  content: 'Investigation Items'
+  row=0, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(84.63000106811523, 529.5700073242188, 267.79998779296875, 582.989990234375)
+
+  [row=0, col=1]
+  content: 'Time of visit'
+  row=0, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(267.79998779296875, 529.5700073242188, 510.8700002034505, 546.7899780273438)
+
+  [row=0, col=2]
+  content: ''
+  row=0, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=0, col=3]
+  content: ''
+  row=0, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=0, col=4]
+  content: ''
+  row=0, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=0, col=5]
+  content: ''
+  row=0, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=0, col=6]
+  content: ''
+  row=0, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=0, col=7]
+  content: ''
+  row=0, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=1, col=0]
+  content: ''
+  row=1, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(84.63000106811523, 529.5700073242188, 267.79998779296875, 582.989990234375)
+
+  [row=1, col=1]
+  content: '0h'
+  row=1, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(267.79998779296875, 529.5700073242188, 510.8700002034505, 546.7899780273438)
+
+  [row=1, col=2]
+  content: '8h'
+  row=1, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=1, col=3]
+  content: '19h'
+  row=1, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=1, col=4]
+  content: '26.5\nh.'
+  row=1, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=1, col=5]
+  content: '46h'
+  row=1, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=1, col=6]
+  content: '59h'
+  row=1, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=1, col=7]
+  content: '100h'
+  row=1, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=2, col=0]
+  content: 'Degree of separation between\nYA2304 and YA2304-14'
+  row=2, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=2, col=1]
+  content: '5.9'
+  row=2, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(267.79998779296875, 546.7899780273438, 302.25, 582.989990234375)
+
+  [row=2, col=2]
+  content: '6.0'
+  row=2, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(302.25, 546.7899780273438, 335.20001220703125, 582.989990234375)
+
+  [row=2, col=3]
+  content: '5.9'
+  row=2, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(335.20001220703125, 546.7899780273438, 371.20001220703125, 582.989990234375)
+
+  [row=2, col=4]
+  content: '5.9'
+  row=2, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(371.20001220703125, 546.7899780273438, 405.75, 582.989990234375)
+
+  [row=2, col=5]
+  content: '5.9'
+  row=2, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(405.75, 546.7899780273438, 440.25, 582.989990234375)
+
+  [row=2, col=6]
+  content: '5.8'
+  row=2, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(440.25, 546.7899780273438, 473.2000020345052, 582.989990234375)
+
+  [row=2, col=7]
+  content: '5.8'
+  row=2, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(473.2000020345052, 546.7899780273438, 510.8700002034505, 582.989990234375)
+
+  [row=3, col=0]
+  content: 'Degree of separation between\nYA2304 and YA2304-15'
+  row=3, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(84.63000106811523, 582.989990234375, 267.79998779296875, 616.6900024414062)
+
+  [row=3, col=1]
+  content: '6.8'
+  row=3, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(267.79998779296875, 582.989990234375, 302.25, 616.6900024414062)
+
+  [row=3, col=2]
+  content: '6.9'
+  row=3, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(302.25, 582.989990234375, 335.20001220703125, 616.6900024414062)
+
+  [row=3, col=3]
+  content: '6.8'
+  row=3, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(335.20001220703125, 582.989990234375, 371.20001220703125, 616.6900024414062)
+
+  [row=3, col=4]
+  content: '6.8'
+  row=3, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(371.20001220703125, 582.989990234375, 405.75, 616.6900024414062)
+
+  [row=3, col=5]
+  content: '6.8'
+  row=3, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(405.75, 582.989990234375, 440.25, 616.6900024414062)
+
+  [row=3, col=6]
+  content: '6.8'
+  row=3, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(440.25, 582.989990234375, 473.2000020345052, 616.6900024414062)
+
+  [row=3, col=7]
+  content: '6.7'
+  row=3, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(473.2000020345052, 582.989990234375, 510.8700002034505, 616.6900024414062)
+
+  [row=4, col=0]
+  content: 'Minimum separation between\nYA2304-17 and adjacent peaks'
+  row=4, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(84.63000106811523, 616.6900024414062, 267.79998779296875, 650.3900146484375)
+
+  [row=4, col=1]
+  content: '1.6'
+  row=4, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(267.79998779296875, 616.6900024414062, 302.25, 650.3900146484375)
+
+  [row=4, col=2]
+  content: '1.6'
+  row=4, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(302.25, 616.6900024414062, 335.20001220703125, 650.3900146484375)
+
+  [row=4, col=3]
+  content: '1.6'
+  row=4, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(335.20001220703125, 616.6900024414062, 371.20001220703125, 650.3900146484375)
+
+  [row=4, col=4]
+  content: '1.6'
+  row=4, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(371.20001220703125, 616.6900024414062, 405.75, 650.3900146484375)
+
+  [row=4, col=5]
+  content: '1.6'
+  row=4, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(405.75, 616.6900024414062, 440.25, 650.3900146484375)
+
+  [row=4, col=6]
+  content: '2.2'
+  row=4, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(440.25, 616.6900024414062, 473.2000020345052, 650.3900146484375)
+
+  [row=4, col=7]
+  content: '2.2'
+  row=4, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(473.2000020345052, 616.6900024414062, 510.8700002034505, 650.3900146484375)
+
+  [row=5, col=0]
+  content: 'Minimum separation degree\nbetween YA2304-16 and adjacent\npeaks'
+  row=5, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(84.63000106811523, 650.3900146484375, 267.79998779296875, 684.0900268554688)
+
+  [row=5, col=1]
+  content: '1.6'
+  row=5, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(267.79998779296875, 650.3900146484375, 302.25, 684.0900268554688)
+
+  [row=5, col=2]
+  content: '1.6'
+  row=5, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(302.25, 650.3900146484375, 335.20001220703125, 684.0900268554688)
+
+  [row=5, col=3]
+  content: '1.6'
+  row=5, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(335.20001220703125, 650.3900146484375, 371.20001220703125, 684.0900268554688)
+
+  [row=5, col=4]
+  content: '1.6'
+  row=5, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(371.20001220703125, 650.3900146484375, 405.75, 684.0900268554688)
+
+  [row=5, col=5]
+  content: '1.6'
+  row=5, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(405.75, 650.3900146484375, 440.25, 684.0900268554688)
+
+  [row=5, col=6]
+  content: '1.6'
+  row=5, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(440.25, 650.3900146484375, 473.2000020345052, 684.0900268554688)
+
+  [row=5, col=7]
+  content: '1.6'
+  row=5, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(473.2000020345052, 650.3900146484375, 510.8700002034505, 684.0900268554688)
+
+  [row=6, col=0]
+  content: 'Verdict: The system suitable solution was placed at 5℃ for 100h, and the'
+  row=6, col=0
+  rowspan=1, colspan=8
+  is_merged=True
+  merged_from=None
+  bbox=(84.63000106811523, 684.0900268554688, 267.79998779296875, 734.3900146484375)
+
+  [row=6, col=1]
+  content: ''
+  row=6, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 0)
+  bbox=None
+
+  [row=6, col=2]
+  content: ''
+  row=6, col=2
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 0)
+  bbox=None
+
+  [row=6, col=3]
+  content: ''
+  row=6, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 0)
+  bbox=None
+
+  [row=6, col=4]
+  content: ''
+  row=6, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 0)
+  bbox=None
+
+  [row=6, col=5]
+  content: ''
+  row=6, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 0)
+  bbox=None
+
+  [row=6, col=6]
+  content: ''
+  row=6, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 0)
+  bbox=None
+
+  [row=6, col=7]
+  content: ''
+  row=6, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 0)
+  bbox=None
+
