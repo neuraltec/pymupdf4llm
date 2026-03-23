@@ -681,8 +681,13 @@ def matrix_to_ascii(matrix):
             # originating (primary) cell and should not generate additional columns
             # or separators in the ASCII output.
             if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
-                col += 1
-                continue
+                p_row, _p_col = cell.get("merged_from")
+                # Skip only horizontal placeholders created on the same row.
+                # For vertical merges (origin row above), keep the column and
+                # render it as an empty covered cell to preserve table geometry.
+                if p_row == row_index:
+                    col += 1
+                    continue
             text = row_texts[row_index][col]
 
             # Check overlap from above (Rowspan)
@@ -791,14 +796,28 @@ def matrix_to_ascii(matrix):
         return "|" + "".join(parts)
 
     def build_separator_line(row_index):
+        # If the next row is a full-span row (single non-empty cell), force a
+        # complete separator across all columns to keep the visual demarcation
+        # before rows like "Verdict".
+        force_full_separator = False
+        if row_index + 1 < len(row_texts):
+            next_non_empty = [
+                i for i, t in enumerate(row_texts[row_index + 1]) if t.strip()
+            ]
+            force_full_separator = len(next_non_empty) == 1
+
         parts = []
         col = 0
         while col < max_cols:
             cell = row_cells[row_index][col]
             # Skip merged positions; the separator is drawn by the primary spanning cell
             if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
-                col += 1
-                continue
+                p_row, _p_col = cell.get("merged_from")
+                # Keep vertical-merge columns to preserve separator alignment.
+                # Skip only same-row horizontal merged placeholders.
+                if p_row == row_index:
+                    col += 1
+                    continue
             
             is_crossing = False
             
@@ -825,7 +844,7 @@ def matrix_to_ascii(matrix):
                 width += col_widths[k]
             width += (colspan - 1)
             
-            char = " " if is_crossing else "-"
+            char = "-" if force_full_separator else (" " if is_crossing else "-")
             parts.append((char * width) + "|")
             
             col += colspan
@@ -882,6 +901,7 @@ def matrix_to_markdown(matrix):
     
     This generates consistent markdown format from the same matrix source
     used for ASCII table generation, ensuring both representations match.
+    Handles merged cells (rowspan/colspan) correctly.
     
     Args:
         matrix: List of rows, each row is list of cells (dict or str)
@@ -893,6 +913,7 @@ def matrix_to_markdown(matrix):
         return ""
     
     markdown_lines = []
+    
     for row_idx, row in enumerate(matrix):
         # Detect full-span rows (only one non-empty cell)
         non_empty = [
@@ -908,20 +929,30 @@ def matrix_to_markdown(matrix):
             text = main_cell["text"] if isinstance(main_cell, dict) else str(main_cell)
             markdown_lines.append("|" + text + "|")
         else:
-            # Normal row
+            # Normal row - but skip cells that are merged secondary cells
             cells = []
             for cell in row:
-                if isinstance(cell, dict):
+                # Skip cells that are part of a merged cell (not the primary cell)
+                if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
+                    # This is a secondary cell in a merge - render as empty or use placeholder
+                    cells.append("")
+                elif isinstance(cell, dict):
                     cell_text = cell.get("text", "")
+                    # If this cell has rowspan/colspan > 1, we can add a visual indicator
+                    # but markdown doesn't natively support this
+                    colspan = cell.get("colspan", 1)
+                    rowspan = cell.get("rowspan", 1)
+                    # For now, just use the text
+                    cells.append(cell_text)
                 else:
                     cell_text = str(cell) if cell else ""
-                cells.append(cell_text)
+                    cells.append(cell_text)
             line = "|" + "|".join(cells) + "|"
             markdown_lines.append(line)
     
     # Insert separator after header (first row)
     if len(markdown_lines) > 0:
-        # Count columns from first row
+        # Count columns from first row (excluding merged cells in count for display purposes)
         num_cols = len(matrix[0]) if matrix else 1
         sep = "|" + "|".join(["---"] * num_cols) + "|"
         markdown_lines.insert(1, sep)
@@ -2111,6 +2142,32 @@ def to_markdown(
                     if not col_count and cell_boxes:
                         col_count = max(len(r) for r in cell_boxes) if cell_boxes else 0
 
+                # Some PyMuPDF versions may return an extra duplicated header row
+                # in cell_boxes. When that happens, keep cell_boxes aligned with
+                # row_count by removing adjacent duplicate rows.
+                if cell_boxes and row_count and len(cell_boxes) > row_count:
+                    def _row_signature(row):
+                        sig = []
+                        for c in row:
+                            if c is None:
+                                sig.append(None)
+                                continue
+                            rc = pymupdf.Rect(c) if not isinstance(c, pymupdf.Rect) else c
+                            sig.append((round(rc.x0, 1), round(rc.y0, 1), round(rc.x1, 1), round(rc.y1, 1)))
+                        return tuple(sig)
+
+                    deduped_rows = []
+                    previous_sig = None
+                    for row in cell_boxes:
+                        sig = _row_signature(row)
+                        if sig == previous_sig:
+                            continue
+                        deduped_rows.append(row)
+                        previous_sig = sig
+
+                    if len(deduped_rows) >= row_count:
+                        cell_boxes = deduped_rows[:row_count]
+
                 # Attempt to get the cell text from PyMuPDF's table extractor.
                 # This is often more reliable than manual bbox-based text extraction.
                 raw_matrix = None
@@ -2195,6 +2252,32 @@ def to_markdown(
                 
                 # Initialize matrix with None
                 matrix = [[None for _ in range(col_count)] for _ in range(row_count)]
+                
+                # Pre-process: detect and handle duplicate/overlapping cells from cell_boxes
+                # (happens when PyMuPDF reports same physical cell in both header and row)
+                processed_bboxes = {}  # Map bbox_key -> (row_idx, col_idx) of first occurrence
+                primary_cells = {}  # Map (row, col) -> (primary_row, primary_col) if merged
+                bbox_positions = {}  # Map bbox_key -> list[(row_idx, col_idx)]
+                
+                for row_idx, row in enumerate(cell_boxes):
+                    for col_idx, cell in enumerate(row):
+                        if cell is not None:
+                            cell_rect = pymupdf.Rect(cell) if not isinstance(cell, pymupdf.Rect) else cell
+                            if not cell_rect.is_empty:
+                                # Create a key for this bbox (rounded for robustness)
+                                bbox_key = (round(cell_rect.x0, 1), round(cell_rect.y0, 1), 
+                                           round(cell_rect.x1, 1), round(cell_rect.y1, 1))
+
+                                bbox_positions.setdefault(bbox_key, []).append((row_idx, col_idx))
+                                
+                                if bbox_key in processed_bboxes:
+                                    # This bbox was already seen - it's a duplicate/merged cell
+                                    primary_row, primary_col = processed_bboxes[bbox_key]
+                                    primary_cells[(row_idx, col_idx)] = (primary_row, primary_col)
+                                else:
+                                    # First time seeing this bbox
+                                    processed_bboxes[bbox_key] = (row_idx, col_idx)
+                
                 # Extract text from each cell using extract_cells
                 for row_idx, row in enumerate(cell_boxes):
                     if row_idx >= row_count:
@@ -2202,6 +2285,11 @@ def to_markdown(
                     for col_idx, cell in enumerate(row):
                         if col_idx >= col_count:
                             break
+                        
+                        # If this is a duplicate cell, skip it (will be handled as merge)
+                        if (row_idx, col_idx) in primary_cells:
+                            continue
+                        
                         # If this position is already filled (e.g. by a merged cell),
                         # do not overwrite it.
                         if matrix[row_idx][col_idx] is not None:
@@ -2232,6 +2320,34 @@ def to_markdown(
                                 rowspan = 1
                                 colspan = 1
                                 
+                                # Method 0: Check for same bbox in multiple consecutive rows (primary indicator of rowspan)
+                                # This handles the case where PyMuPDF reports the same physical cell multiple times
+                                bbox_key = (round(cell_rect.x0, 1), round(cell_rect.y0, 1), 
+                                           round(cell_rect.x1, 1), round(cell_rect.y1, 1))
+                                
+                                # Count how many consecutive rows in this column share this same bbox
+                                rowspan_from_bbox = 1
+                                positions = bbox_positions.get(bbox_key, [])
+                                positions_same_col = sorted(
+                                    [r for (r, c) in positions if c == col_idx and r >= row_idx]
+                                )
+                                next_row = row_idx
+                                for r in positions_same_col:
+                                    if r == next_row:
+                                        rowspan_from_bbox += 1 if r != row_idx else 0
+                                        next_row += 1
+                                    elif r > next_row:
+                                        break
+                                
+                                if rowspan_from_bbox > 1:
+                                    rowspan = rowspan_from_bbox
+                                    # Mark all rows after this one with the same bbox as secondary cells
+                                    for r_offset in range(1, rowspan):
+                                        covered_row = row_idx + r_offset
+                                        if covered_row < row_count and matrix[covered_row][col_idx] is None:
+                                            # Will be marked as merged cell later
+                                            pass
+                                
                                 # Method 1: Analyze cell size compared to average
                                 if avg_cell_height > 0 and avg_cell_width > 0:
                                     height_ratio = cell_rect.height / avg_cell_height
@@ -2239,9 +2355,49 @@ def to_markdown(
                                     
                                     # Use a threshold of 1.2x to detect merged cells (more sensitive)
                                     if height_ratio > 1.2:
-                                        rowspan = max(1, round(height_ratio))
+                                        suggested_rowspan = max(2, round(height_ratio))
+                                        rowspan = max(rowspan, suggested_rowspan)
                                     if width_ratio > 1.2:
-                                        colspan = max(1, round(width_ratio))
+                                        suggested_colspan = max(2, round(width_ratio))
+                                        colspan = max(colspan, suggested_colspan)
+                                
+                                # Additional detection: height-based rowspan detection
+                                # If cell is significantly taller than average, it's likely merged vertically
+                                if rowspan == 1 and avg_cell_height > 0:
+                                    height_ratio = cell_rect.height / avg_cell_height
+                                    # If height is >1.3x average, suggest it spans multiple rows
+                                    if height_ratio > 1.3:
+                                        suggested_rowspan = max(2, round(height_ratio))
+                                        # Verify by checking cell_boxes for presence/absence of cells
+                                        can_merge = True
+                                        for check_row in range(row_idx + 1, min(row_idx + suggested_rowspan, row_count)):
+                                            if (check_row < len(cell_boxes) and 
+                                                col_idx < len(cell_boxes[check_row])):
+                                                # If there's a physical cell below, don't merge
+                                                if cell_boxes[check_row][col_idx] is not None:
+                                                    can_merge = False
+                                                    break
+                                        if can_merge:
+                                            rowspan = suggested_rowspan
+                                
+                                # Additional detection: width-based colspan detection
+                                # If cell is significantly wider than average, it's likely merged horizontally
+                                if colspan == 1 and avg_cell_width > 0:
+                                    width_ratio = cell_rect.width / avg_cell_width
+                                    # If width is >1.3x average, suggest it spans multiple columns
+                                    if width_ratio > 1.3:
+                                        suggested_colspan = max(2, round(width_ratio))
+                                        # Verify by checking cell_boxes for presence/absence of cells
+                                        can_merge = True
+                                        for check_col in range(col_idx + 1, min(col_idx + suggested_colspan, col_count)):
+                                            if (row_idx < len(cell_boxes) and 
+                                                check_col < len(cell_boxes[row_idx])):
+                                                # If there's a physical cell to the right, don't merge
+                                                if cell_boxes[row_idx][check_col] is not None:
+                                                    can_merge = False
+                                                    break
+                                        if can_merge:
+                                            colspan = suggested_colspan
                                 
                                 # Method 2: Check for overlapping cells that indicate merging
                                 # Look for cells in adjacent positions that significantly overlap
@@ -2261,13 +2417,19 @@ def to_markdown(
                                             cell_area = abs(cell_rect)
                                             other_area = abs(other_rect)
                                             
-                                            # If overlap is significant (>70% of smaller cell), they're likely merged
+                                            # Improved detection: check multiple conditions
                                             if cell_area > 0 and other_area > 0:
+                                                # Percentage of smaller cell covered
                                                 overlap_ratio_smaller = overlap_area / min(cell_area, other_area)
-                                                # Also check if the other cell is mostly contained within this cell's vertical span
+                                                # Percentage of vertical overlap (key indicator for rowspan)
                                                 vertical_overlap_ratio = intersection.height / min(cell_rect.height, other_rect.height) if min(cell_rect.height, other_rect.height) > 0 else 0
+                                                # Check horizontal alignment (should be in same column)
+                                                horizontal_alignment = (abs(cell_rect.x0 - other_rect.x0) < 2 and 
+                                                                      abs(cell_rect.x1 - other_rect.x1) < 2)
                                                 
-                                                if overlap_ratio_smaller > 0.7 or vertical_overlap_ratio > 0.8:
+                                                # Lower threshold (0.5 instead of 0.7) for better detection
+                                                # Also check if cells are horizontally aligned (key for rowspan)
+                                                if (overlap_ratio_smaller > 0.5 or vertical_overlap_ratio > 0.6) and horizontal_alignment:
                                                     # Cells are merged vertically
                                                     # Calculate how many rows this cell spans
                                                     estimated_rowspan = check_row - row_idx + 1
@@ -2310,8 +2472,12 @@ def to_markdown(
                                                 overlap_ratio_smaller = overlap_area / min(cell_area, other_area)
                                                 # Also check horizontal overlap
                                                 horizontal_overlap_ratio = intersection.width / min(cell_rect.width, other_rect.width) if min(cell_rect.width, other_rect.width) > 0 else 0
+                                                # Check vertical alignment (should be in same row)
+                                                vertical_alignment = (abs(cell_rect.y0 - other_rect.y0) < 2 and 
+                                                                    abs(cell_rect.y1 - other_rect.y1) < 2)
                                                 
-                                                if overlap_ratio_smaller > 0.7 or horizontal_overlap_ratio > 0.8:
+                                                # Lower threshold (0.5 instead of 0.7) and check alignment
+                                                if (overlap_ratio_smaller > 0.5 or horizontal_overlap_ratio > 0.6) and vertical_alignment:
                                                     # Cells are merged horizontally
                                                     estimated_colspan = check_col - col_idx + 1
                                                     colspan = max(colspan, estimated_colspan)
@@ -2613,9 +2779,9 @@ def to_markdown(
                         cell = matrix[row_idx][c_idx]
                         if isinstance(cell, dict) and not cell.get("is_merged", False):
                             # Make this cell span all remaining columns
-                            cell["colspan"] = max_cols - c_idx
+                            cell["colspan"] = col_count - c_idx
                             # Mark subsequent cells as merged
-                            for k in range(c_idx + 1, max_cols):
+                            for k in range(c_idx + 1, col_count):
                                 matrix[row_idx][k] = {
                                     "text": "",
                                     "row": row_idx,
