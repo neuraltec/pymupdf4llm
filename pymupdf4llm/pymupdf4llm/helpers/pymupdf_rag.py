@@ -466,8 +466,19 @@ def matrix_to_ascii(matrix):
     for r_idx, row in enumerate(matrix):
         current_row_cells = []
         current_row_texts = []
-        # Detect full-span row: apenas uma célula não vazia
-        non_empty = [i for i, cell in enumerate(row) if (isinstance(cell, dict) and cell.get("text", "").strip()) or (not isinstance(cell, dict) and str(cell).strip())]
+        # Detect full-span row: exactly one non-empty primary cell.
+        # Ignore merged placeholders (`is_merged` with `merged_from`) because
+        # they are only visual references and should not block full-span mode.
+        non_empty = []
+        for i, cell in enumerate(row):
+            if isinstance(cell, dict):
+                if cell.get("is_merged") and cell.get("merged_from"):
+                    continue
+                if str(cell.get("text", "")).strip():
+                    non_empty.append(i)
+            else:
+                if str(cell).strip():
+                    non_empty.append(i)
         if len(non_empty) == 1:
             main_idx = non_empty[0]
             main_cell = row[main_idx]
@@ -641,6 +652,75 @@ def matrix_to_ascii(matrix):
 
     full_span_cache = {}
     header_span_cache = {}
+    cell_wrap_cache = {}
+
+    def _primary_covering_from_above(row_index, col_index):
+        """Return primary cell dict covering (row_index, col_index) from above, if any."""
+        if row_index <= 0:
+            return None
+        r_up = row_index - 1
+        while r_up >= 0:
+            c_check = row_cells[r_up][col_index]
+            if isinstance(c_check, dict) and not c_check.get("is_merged"):
+                r_span = int(c_check.get("rowspan", 1) or 1)
+                if (r_up + r_span) > row_index:
+                    return c_check
+                return None
+            r_up -= 1
+        return None
+
+    def _clamp_colspan_against_vertical_merges(row_index, col_index, cell, colspan):
+        """Clamp colspan so it does not cross columns covered by other rowspans."""
+        if colspan <= 1:
+            return 1
+        # Keep explicit full-span rows intact (e.g. table conclusions / verdicts).
+        if isinstance(cell, dict):
+            try:
+                if int(cell.get("colspan", 1) or 1) >= max_cols:
+                    return min(colspan, max_cols - col_index)
+            except Exception:
+                pass
+        allowed = 1
+        this_primary = cell if isinstance(cell, dict) else None
+        for k in range(col_index + 1, min(col_index + colspan, max_cols)):
+            covering = _primary_covering_from_above(row_index, k)
+            if covering is None:
+                allowed += 1
+                continue
+            same_primary = (
+                isinstance(this_primary, dict)
+                and this_primary.get("row") == covering.get("row")
+                and this_primary.get("col") == covering.get("col")
+            )
+            if same_primary:
+                allowed += 1
+                continue
+            break
+        return allowed
+
+    def _wrapped_lines_for_cell(row_index, col_index, total_width):
+        """Return wrapped lines for a primary cell under the effective width."""
+        key = (row_index, col_index, total_width)
+        if key in cell_wrap_cache:
+            return cell_wrap_cache[key]
+
+        cell = row_cells[row_index][col_index]
+        if isinstance(cell, dict):
+            raw_text = _sanitize(str(cell.get("text", "") or ""))
+        else:
+            raw_text = _sanitize(str(row_texts[row_index][col_index] or ""))
+
+        wrapped = []
+        for p in raw_text.split("\n"):
+            p = p.strip()
+            if not p:
+                wrapped.append("")
+            else:
+                wrapped.extend(_wrap_by_display_width(p, max(1, total_width)))
+
+        result = wrapped or [""]
+        cell_wrap_cache[key] = result
+        return result
 
     def build_content_line(row_index, line_in_cell=0):
         # Detect rows that should visually span all columns:
@@ -725,34 +805,35 @@ def matrix_to_ascii(matrix):
                 colspan = max(1, int(cell.get("colspan", 1)))
             base_has_text = bool(display_text.strip())
 
-            # Extra horizontal merge for header-like patterns: if a cell has text
-            # on a top row (likely header), expand right over consecutive empty
-            # cells; if the cell is empty, also expand over empty cells.
+            # Optional visual extension: only over explicit placeholders that
+            # already belong to this same row-primary cell. Never absorb plain
+            # empty primary cells, because they are real table columns.
             if (
                 not covered_by_above
                 and not (isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"))
-                and (not base_has_text or row_index <= 2)
             ):
                 extra = 0
                 scan_col = col + colspan
                 while scan_col < max_cols:
-                    next_text = row_texts[row_index][scan_col]
                     next_cell = row_cells[row_index][scan_col]
-                    # If we started on a cell with text, do not cross another cell with text
-                    if next_text.strip():
-                        break
-                    if isinstance(next_cell, dict) and not next_cell.get("is_merged"):
-                        # real separate cell, but still empty: we can merge visually
-                        extra += 1
-                        scan_col += 1
-                        continue
                     if next_cell is None:
                         extra += 1
                         scan_col += 1
                         continue
-                    # merged-from cells are already part of another logical span
+                    if (
+                        isinstance(next_cell, dict)
+                        and next_cell.get("is_merged")
+                        and next_cell.get("merged_from") == (row_index, col)
+                    ):
+                        extra += 1
+                        scan_col += 1
+                        continue
                     break
                 colspan += extra
+
+            # Do not let colspan invade columns already covered by a different
+            # vertical merge (rowspan) coming from an upper row.
+            colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
 
             colspan = min(colspan, max_cols - col)
 
@@ -762,31 +843,11 @@ def matrix_to_ascii(matrix):
                 total_width += col_widths[k]
             total_width += (colspan - 1)
 
-            # For any merged cell with text (not only header), re-wrap text using
-            # the total span width, not just the first column. Always use the
-            # raw cell text, independent of previous wraps in row_texts.
-            if base_has_text and colspan > 1 and not covered_by_above:
-                key = (row_index, col)
-                if key not in header_span_cache:
-                    if isinstance(cell, dict):
-                        raw = _sanitize(str(cell.get("text", "") or ""))
-                    else:
-                        raw = row_texts[row_index][col]
-                    raw = raw.replace("\n", " ")
-                    wrapped = []
-                    for p in raw.split("\n"):
-                        p = p.strip()
-                        if not p:
-                            wrapped.append("")
-                        else:
-                            wrapped.extend(
-                                _wrap_by_display_width(p, total_width)
-                            )
-                    header_span_cache[key] = wrapped or [""]
-                lines = header_span_cache[key]
-                display_text = (
-                    lines[line_in_cell] if line_in_cell < len(lines) else ""
-                )
+            # Always wrap with the final effective width so separators remain
+            # aligned even if a previously inferred colspan got reduced.
+            if not covered_by_above and not (isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from")):
+                lines = _wrapped_lines_for_cell(row_index, col, total_width)
+                display_text = lines[line_in_cell] if line_in_cell < len(lines) else ""
 
             segment = _pad_display(display_text, total_width) + "|"
             parts.append(segment)
@@ -837,6 +898,11 @@ def matrix_to_ascii(matrix):
             colspan = 1
             if isinstance(cell, dict):
                 colspan = max(1, int(cell.get("colspan", 1)))
+
+            # Same guard used for content: do not cross into columns covered
+            # by a different rowspan from above.
+            colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
+
             colspan = min(colspan, max_cols - col)
             
             width = 0
@@ -859,8 +925,34 @@ def matrix_to_ascii(matrix):
             return len(full_span_cache[row_index])
 
         m = 1
-        for t in row_texts[row_index]:
-            m = max(m, len(t.split("\n")))
+        col = 0
+        while col < max_cols:
+            cell = row_cells[row_index][col]
+            if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
+                p_row, _p_col = cell.get("merged_from")
+                if p_row == row_index:
+                    col += 1
+                    continue
+
+            covered_by_above = _primary_covering_from_above(row_index, col)
+
+            colspan = 1
+            if isinstance(cell, dict):
+                colspan = max(1, int(cell.get("colspan", 1)))
+            colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
+            colspan = min(colspan, max_cols - col)
+
+            total_width = 0
+            for k in range(col, col + colspan):
+                total_width += col_widths[k]
+            total_width += (colspan - 1)
+
+            if not covered_by_above and not (isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from")):
+                lines = _wrapped_lines_for_cell(row_index, col, total_width)
+                m = max(m, len(lines))
+
+            col += colspan
+
         return m
 
     output = []
