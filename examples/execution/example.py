@@ -78,9 +78,9 @@ if __name__ == "__main__":
 
     if choice == "1":
         text = llm.to_markdown(str(pdf_path), show_progress=True)
-        with open("documento_Finerenona.txt", "w", encoding="utf-8") as file:
+        with open("document_Finerenona_Hinye.txt", "w", encoding="utf-8") as file:
             file.write(text)
-        print("Done. Output: documento_Finerenona.txt")
+        print("Done. Output: document_Finerenona_Hinye.txt")
     elif choice == "2":
         import pymupdf
 

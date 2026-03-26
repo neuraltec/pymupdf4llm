@@ -389,8 +389,9 @@ def matrix_to_ascii(matrix):
                 continue
             if unicodedata.combining(ch):
                 continue
-            # Treat Ambiguous width as wide to match terminal rendering for symbols like ℃, Ⅱ.
-            width += 2 if unicodedata.east_asian_width(ch) in ("W", "F", "A") else 1
+            # Keep ambiguous-width symbols as single-width for editor alignment
+            # (e.g. VS Code rendering of characters like ℃, ≈, Ⅱ).
+            width += 2 if unicodedata.east_asian_width(ch) in ("W", "F") else 1
         return width
 
     def _pad_display(text: str, width: int) -> str:
@@ -412,35 +413,13 @@ def matrix_to_ascii(matrix):
         if width <= 0:
             return [text] if text else [""]
 
-        def _break_long_word(word: str, max_width: int) -> list:
-            # Break a single word into chunks that fit the given width.
-            if _display_width(word) <= max_width:
-                return [word]
-            parts = []
-            current = ""
-            for ch in word:
-                if _display_width(current + ch) <= max_width:
-                    current += ch
-                    continue
-                if current:
-                    parts.append(current)
-                current = ch
-            if current:
-                parts.append(current)
-            return parts
-
         words = text.split(" ")
         lines = []
         current = ""
         for word in words:
             if not current:
-                # If the first word does not fit, break it
-                if _display_width(word) <= width:
-                    current = word
-                else:
-                    parts = _break_long_word(word, width)
-                    lines.extend(parts[:-1])
-                    current = parts[-1]
+                # Never split words in the middle.
+                current = word
                 continue
 
             trial = f"{current} {word}"
@@ -448,13 +427,8 @@ def matrix_to_ascii(matrix):
                 current = trial
             else:
                 lines.append(current)
-                # Start new line with the next word, breaking it if necessary
-                if _display_width(word) <= width:
-                    current = word
-                else:
-                    parts = _break_long_word(word, width)
-                    lines.extend(parts[:-1])
-                    current = parts[-1]
+                # Never split words in the middle.
+                current = word
         if current or not lines:
             lines.append(current)
         return lines
@@ -483,7 +457,7 @@ def matrix_to_ascii(matrix):
             main_idx = non_empty[0]
             main_cell = row[main_idx]
             total_cols = len(row)
-            # Cria célula mesclada na primeira coluna
+            # Build a merged cell in the first column.
             merged_cell = {
                 "text": main_cell["text"] if isinstance(main_cell, dict) else str(main_cell),
                 "row": r_idx,
@@ -494,7 +468,7 @@ def matrix_to_ascii(matrix):
                 "merged_from": None,
                 "bbox": main_cell.get("bbox") if isinstance(main_cell, dict) else None
             }
-            # Preenche a linha com apenas a célula mesclada
+            # Fill row with merged cell and placeholders.
             current_row_cells = [merged_cell] + [None] * (total_cols - 1)
             current_row_texts = [_sanitize(merged_cell["text"])] + [""] * (total_cols - 1)
         else:
@@ -556,6 +530,7 @@ def matrix_to_ascii(matrix):
     # Determine Final Widths.
     # To avoid breaking words, keep columns at least their natural width.
     final_widths = [max(w, MIN_COL_WIDTH) for w in natural_widths]
+    min_required_widths = final_widths[:]
 
     col_widths = final_widths
 
@@ -564,10 +539,11 @@ def matrix_to_ascii(matrix):
     available_text_space = MAX_TOTAL_WIDTH - border_overhead
     total = sum(col_widths)
     if total > available_text_space:
-        # greedily reduce the widest column until the table fits
+        # Reduce only down to minimum required width (no mid-word splits).
         while total > available_text_space:
             idx = max(
-                (i for i, w in enumerate(col_widths) if w > MIN_COL_WIDTH),
+                (i for i, w in enumerate(col_widths) if w > min_required_widths[i]),
+                key=lambda i: col_widths[i] - min_required_widths[i],
                 default=None,
             )
             if idx is None:
@@ -626,23 +602,18 @@ def matrix_to_ascii(matrix):
                     changed = True
         # if we increased any column widths, rerun the wrapping to ensure consistency
 
-    # Ensure the final table does not exceed maximum allowed width.
+    # Ensure the final table does not exceed maximum allowed width whenever
+    # possible without violating minimum required widths.
     total = sum(col_widths)
     border_overhead = max_cols + 1
     available_text_space = MAX_TOTAL_WIDTH - border_overhead
     if available_text_space < 1:
         available_text_space = 1
     if total > available_text_space:
-        # scale down proportionally
-        scale = available_text_space / total
-        if scale < 1:
-            for i in range(len(col_widths)):
-                col_widths[i] = max(MIN_COL_WIDTH, int(col_widths[i] * scale))
-            total = sum(col_widths)
-        # make sure we definitively fit by shrinking the widest columns
         while total > available_text_space:
             idx = max(
-                (i for i, w in enumerate(col_widths) if w > MIN_COL_WIDTH),
+                (i for i, w in enumerate(col_widths) if w > min_required_widths[i]),
+                key=lambda i: col_widths[i] - min_required_widths[i],
                 default=None,
             )
             if idx is None:
@@ -955,10 +926,80 @@ def matrix_to_ascii(matrix):
 
         return m
 
+    # Final alignment pass: ensure no rendered cell line exceeds its effective
+    # width after rowspan/colspan clamping. This keeps '|' separators aligned
+    # across rows even for long unsplittable words.
+    adjusted = True
+    while adjusted:
+        adjusted = False
+        for row_index in range(len(row_texts)):
+            col = 0
+            while col < max_cols:
+                cell = row_cells[row_index][col]
+                if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
+                    p_row, _p_col = cell.get("merged_from")
+                    if p_row == row_index:
+                        col += 1
+                        continue
+
+                covered_by_above = _primary_covering_from_above(row_index, col)
+
+                colspan = 1
+                if isinstance(cell, dict):
+                    colspan = max(1, int(cell.get("colspan", 1)))
+
+                # Keep the same optional visual extension logic as content rendering.
+                if (
+                    not covered_by_above
+                    and not (isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"))
+                ):
+                    extra = 0
+                    scan_col = col + colspan
+                    while scan_col < max_cols:
+                        next_cell = row_cells[row_index][scan_col]
+                        if next_cell is None:
+                            extra += 1
+                            scan_col += 1
+                            continue
+                        if (
+                            isinstance(next_cell, dict)
+                            and next_cell.get("is_merged")
+                            and next_cell.get("merged_from") == (row_index, col)
+                        ):
+                            extra += 1
+                            scan_col += 1
+                            continue
+                        break
+                    colspan += extra
+
+                colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
+                colspan = min(colspan, max_cols - col)
+
+                total_width = 0
+                for k in range(col, col + colspan):
+                    total_width += col_widths[k]
+                total_width += (colspan - 1)
+
+                if not covered_by_above and not (isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from")):
+                    lines = _wrapped_lines_for_cell(row_index, col, total_width)
+                    used = max((_display_width(l) for l in lines), default=0)
+                    if used > total_width:
+                        diff = used - total_width
+                        target_col = col + colspan - 1
+                        col_widths[target_col] += diff
+                        cell_wrap_cache.clear()
+                        full_span_cache.clear()
+                        header_span_cache.clear()
+                        adjusted = True
+
+                col += colspan
+
+            if adjusted:
+                break
+
     output = []
-    
-    # Top Border
-    # Calculate exact length based on columns
+
+    # Build top border from column widths.
     total_table_width = sum(col_widths) + max_cols + 1 # widths + N separators + 1 start
     output.append("-" * total_table_width)
     
@@ -967,7 +1008,7 @@ def matrix_to_ascii(matrix):
         for l in range(lines):
             output.append(build_content_line(r, l))
         
-        # Bottom separator for this row
+        # Row separator.
         if r < len(row_texts) - 1:
             output.append(build_separator_line(r))
             
@@ -1213,8 +1254,7 @@ def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: fl
         new_table["rows"] = base_rows
         # Keep public keys "matrix" and "matrix_ascii" for backward compatibility
         new_table["matrix"] = base_matrix
-        # Prefer to build the ASCII matrix from the normalized base matrix so
-        # que merge metadata (rowspan / colspan / is_merged) seja respeitado.
+        # Build ASCII from normalized matrix so merge metadata is preserved.
         sanitized = []
         try:
             for row in base_matrix:
@@ -1233,7 +1273,7 @@ def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: fl
         except Exception:
             sanitized = base_matrix
 
-        # Pós-processamento: mesclar linhas de full-span
+        # Post-process full-span rows.
         for r_idx, row in enumerate(sanitized):
             non_empty = [i for i, cell in enumerate(row) if (isinstance(cell, dict) and cell.get("text", "").strip()) or (not isinstance(cell, dict) and str(cell).strip())]
             if len(non_empty) == 1:

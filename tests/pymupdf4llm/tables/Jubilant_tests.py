@@ -11,7 +11,7 @@ TABLES_DIR = Path(__file__).parent
 if str(TABLES_DIR) not in sys.path:
     sys.path.insert(0, str(TABLES_DIR))
 
-from test_table_runner import run_table_test
+from table_extractor import run_table_test
 
 SUPPLIER_ID = "jubilant"
 PDF_ENV_VAR = "JUBILANT_PDF_PATH"
@@ -64,49 +64,67 @@ TEST_CONFIGURATIONS = [
         "table11",
         21,
         0,
-        """---------------------------------------------------------------------------------------------------
-|Source                              |Are there   |Remarks                                        |
-|                                    |any direct  |                                               |
-|                                    |source of   |                                               |
-|                                    |nitrosamines|                                               |
-|                                    |(Like sodium|                                               |
-|                                    |nitrites and|                                               |
-|                                    |amines)     |                                               |
-|                                    |(Yes/No)    |                                               |
-|------------------------------------|------------|-----------------------------------------------|
-|Solvents used in key starting       |No          |Risk of formation of nitroso impurities due to |
-|materials and  drug substance       |            |solvents is eliminated.                        |
-|manufacturing                       |            |                                               |
-|------------------------------------|------------|-----------------------------------------------|
-|Reagents used in key starting       |No          |Risk of formation of nitroso impurities due to |
-|materials and drug substance        |            |reagents is eliminated.  There is a possibility|
-|manufacturing                       |            |for carryover of secondary amines (DBA) & Tetra|
-|                                    |            |Butyl Ammonium  Iodide (TBAI).  Since, there is|
-|                                    |            |no source of nitrite is used during the        |
-|                                    |            |manufacturing process of  drug substance, risk |
-|                                    |            |of formation of nitrosamine impurities due to  |
-|                                    |            |secondary amines  from DBA and TBAI is ruled   |
-|                                    |            |out.                                           |
-|------------------------------------|------------|-----------------------------------------------|
-|All the possible process and        |            |Risk of formation of nitroso impurities due to |
-|degradation                         |            |the possible process and                       |
-|------------------------------------|------------|-----------------------------------------------|
-|impurities in key starting materials|No          |degradation impurities in key starting         |
-|and drug substance                  |            |materials and drug substance is eliminated.    |
-|------------------------------------|------------|-----------------------------------------------|
-|Recovered solvents used             |No          |Risk of formation of nitroso impurities due to |
-|                                    |            |use of recovered solvents is eliminated  as    |
-|                                    |            |recovered solvents are not used in the         |
-|                                    |            |manufacturing process of  Aripiprazole.        |
-|------------------------------------|------------|-----------------------------------------------|
-|Is there a risk of nitrosamines     |No          |Risk of formation of nitroso impurities due    |
-|forming in the API synthetic process|            |combination of reagents, solvents, catalysts   |
-|taking  into consideration the      |            |and  starting materials used, intermediates    |
-|combination of reagents, solvents,  |            |formed, impurities and degradants is           |
-|catalysts  and starting materials   |            |eliminated.                                    |
-|used, intermediates formed,         |            |                                               |
-|impurities and  degradants          |            |                                               |
----------------------------------------------------------------------------------------------------"""
+        """------------------------------------------
+|Source       |Are there   |Remarks      |
+|             |any direct  |             |
+|             |source of   |             |
+|             |nitrosamines|             |
+|             |(Like sodium|             |
+|             |nitrites and|             |
+|             |amines)     |             |
+|             |(Yes/No)    |             |
+|-------------|------------|-------------|
+|Solvents used|No          |Risk of      |
+|in key       |            |formation of |
+|starting     |            |nitroso      |
+|materials and|            |impurities   |
+|drug         |            |due to       |
+|substance    |            |solvents is  |
+|manufacturing|            |eliminated.  |
+|-------------|------------|-------------|
+|Reagents used|No          |Risk of      |
+|in key       |            |formation of |
+|starting     |            |nitroso      |
+|materials and|            |impurities   |
+|drug         |            |due to       |
+|substance    |            |reagents is  |
+|manufacturing|            |eliminated.  |
+|             |            |There isa    |
+|             |            |possibility  |
+|             |            |for carryover|
+|             |            |of secondary |
+|             |            |amines (DBA) |
+|             |            |& Tetra Butyl|
+|             |            |Ammonium     |
+|             |            |Iodide       |
+|             |            |(TBAI).      |
+|             |            |Since, there |
+|             |            |is no source |
+|             |            |of nitrite is|
+|             |            |used during  |
+|             |            |the          |
+|             |            |manufacturing|
+|             |            |process of   |
+|             |            |drug         |
+|             |            |substance,   |
+|             |            |risk of      |
+|             |            |formation of |
+|             |            |nitrosamine  |
+|             |            |impurities   |
+|             |            |due to       |
+|             |            |secondary    |
+|             |            |amines from  |
+|             |            |DBA and TBAI |
+|             |            |is ruled out.|
+|-------------|------------|-------------|
+|All the      |            |Risk of      |
+|possible     |            |formation of |
+|process and  |            |nitroso      |
+|degradation  |            |impurities   |
+|             |            |due to the   |
+|             |            |possible     |
+|             |            |process and  |
+------------------------------------------"""
     ),
     (
         "table13",
@@ -283,26 +301,25 @@ TEST_CONFIGURATIONS = [
         "table19",
         27,
         0,
-        """---------------------------------------------------------------------------------------------------------------------
-|Compound |Source     |Limit  |Class    |Batch results in the final API   |Methodology|LOD (%)|LOQ (%)|Remark       |
-|/impurity|           |(ppm)  |         |                                 |used       |       |       |             |
-|         |           |       |         |---------------------------------|           |       |       |             |
-|         |           |       |         |3APR3/12001|3APR3/12002|3APR3/120|           |       |       |             |
-|         |           |       |         |           |           |03       |           |       |       |             |
-|---------|-----------|-------|---------|-----------|-----------|---------|-----------|-------|-------|-------------|
-|Benzene  |Isopropyl  |NMT 2  |ICH,     |Below      |Below      |Below    |HS-GC      |0.2    |0.7    |No carry-over|
-|         |alcohol and|ppm    |Class- 1.|detection  |detection  |detection|           |       |       |to the       |
-|         |Cyclohexane|       |         |limit      |limit      |limit    |           |       |       |Aripiprazole.|
-|         |           |       |         |           |           |         |           |       |       |Hence control|
-|         |           |       |         |           |           |         |           |       |       |in the       |
-|         |           |       |         |           |           |         |           |       |       |Aripiprazole |
-|         |           |       |         |           |           |         |           |       |       |is not       |
-|         |           |       |         |           |           |         |           |       |       |proposed.    |
-|---------|-----------|-------|---------|-----------|-----------|---------|-----------|-------|-------|             |
-|Aluminium|7-HDQ      |NMT 50 |Non-     |Below      |Below      |Below    |ICP-MS     |2.2    |6.5    |             |
-|         |           |ppm    |Genotoxic|detection  |detection  |detection|           |       |       |             |
-|         |           |       |         |limit      |limit      |limit    |           |       |       |             |
----------------------------------------------------------------------------------------------------------------------"""
+        """-----------------------------------------------------------------------------------------------------------------------
+|Compound |Source     |Limit  |Class    |Batch results in the final API     |Methodology|LOD (%)|LOQ (%)|Remark       |
+|/impurity|           |(ppm)  |         |                                   |used       |       |       |             |
+|         |           |       |         |-----------------------------------|           |       |       |             |
+|         |           |       |         |3APR3/12001|3APR3/12002|3APR3/12003|           |       |       |             |
+|---------|-----------|-------|---------|-----------|-----------|-----------|-----------|-------|-------|-------------|
+|Benzene  |Isopropyl  |NMT 2  |ICH,     |Below      |Below      |Below      |HS-GC      |0.2    |0.7    |No carry-over|
+|         |alcohol and|ppm    |Class- 1.|detection  |detection  |detection  |           |       |       |to the       |
+|         |Cyclohexane|       |         |limit      |limit      |limit      |           |       |       |Aripiprazole.|
+|         |           |       |         |           |           |           |           |       |       |Hence control|
+|         |           |       |         |           |           |           |           |       |       |in the       |
+|         |           |       |         |           |           |           |           |       |       |Aripiprazole |
+|         |           |       |         |           |           |           |           |       |       |is not       |
+|         |           |       |         |           |           |           |           |       |       |proposed.    |
+|---------|-----------|-------|---------|-----------|-----------|-----------|-----------|-------|-------|             |
+|Aluminium|7-HDQ      |NMT 50 |Non-     |Below      |Below      |Below      |ICP-MS     |2.2    |6.5    |             |
+|         |           |ppm    |Genotoxic|detection  |detection  |detection  |           |       |       |             |
+|         |           |       |         |limit      |limit      |limit      |           |       |       |             |
+-----------------------------------------------------------------------------------------------------------------------"""
     ),
 ]
 

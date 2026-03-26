@@ -533,37 +533,37 @@ The structural formula with IUPAC names of organic impurities in Aripiprazole ar
 -------------------------------------------------------------------------
 |Sl no. |Name of the impurity             |Structure|Origin  |Control   |
 |-------|---------------------------------|---------|--------|----------|
-|1      |7-HDQ [7-Hydroxy-3,4-dihydroquinolin-      |Key     |Existing  |
-|       |2(1H)-one]                                 |starting|HPLC      |
-|       |                                           |material|method,   |
-|       |                                           |        |employed  |
-|       |                                           |        |to detect |
-|       |                                           |        |related   |
-|       |                                           |        |substances|
-|       |                                           |        |in the    |
-|       |                                           |        |drug      |
-|       |                                           |        |substance |
-|       |                                           |        |is capable|
-|       |                                           |        |of        |
-|       |                                           |        |resolving |
-|       |                                           |        |7-HDQ, if |
-|       |                                           |        |present.  |
+|1      |7-HDQ                            |         |Key     |Existing  |
+|       |[7-Hydroxy-3,4-dihydroquinolin-  |         |starting|HPLC      |
+|       |2(1H)-one]                       |         |material|method,   |
+|       |                                 |         |        |employed  |
+|       |                                 |         |        |to detect |
+|       |                                 |         |        |related   |
+|       |                                 |         |        |substances|
+|       |                                 |         |        |in the    |
+|       |                                 |         |        |drug      |
+|       |                                 |         |        |substance |
+|       |                                 |         |        |is capable|
+|       |                                 |         |        |of        |
+|       |                                 |         |        |resolving |
+|       |                                 |         |        |7-HDQ, if |
+|       |                                 |         |        |present.  |
 |-------|---------------------------------|---------|--------|----------|
-|2      |DCPP [1-(2,3-Dichlorophenyl)piperazine     |Key     |Existing  |
-|       |hydrochloride]                             |starting|HPLC      |
-|       |                                           |material|method,   |
-|       |                                           |        |employed  |
-|       |                                           |        |to detect |
-|       |                                           |        |related   |
-|       |                                           |        |substances|
-|       |                                           |        |in the    |
-|       |                                           |        |drug      |
-|       |                                           |        |substance |
-|       |                                           |        |is capable|
-|       |                                           |        |of        |
-|       |                                           |        |resolving |
-|       |                                           |        |DCPP, if  |
-|       |                                           |        |present.  |
+|2      |DCPP                             |         |Key     |Existing  |
+|       |[1-(2,3-Dichlorophenyl)piperazine|         |starting|HPLC      |
+|       |hydrochloride]                   |         |material|method,   |
+|       |                                 |         |        |employed  |
+|       |                                 |         |        |to detect |
+|       |                                 |         |        |related   |
+|       |                                 |         |        |substances|
+|       |                                 |         |        |in the    |
+|       |                                 |         |        |drug      |
+|       |                                 |         |        |substance |
+|       |                                 |         |        |is capable|
+|       |                                 |         |        |of        |
+|       |                                 |         |        |resolving |
+|       |                                 |         |        |DCPP, if  |
+|       |                                 |         |        |present.  |
 -------------------------------------------------------------------------
 
 **JUBILANT PHARMOVA LIMITED** 
@@ -573,40 +573,40 @@ _other mechanical means is not allowed._
 
 
 --------------------------------------------------------------------------------
-|3      |2-Chloro APR                                   |From KSM|Existing HPLC|
-|       |[7-[4-[4-(2-chlorophenyl)piperazin-1-          |DCPP    |method,      |
-|       |yl]butoxy]-3,4-dihydroquinolin-2(1H)- one]     |        |employed to  |
-|       |                                               |        |detect       |
-|       |                                               |        |related      |
-|       |                                               |        |substances in|
-|       |                                               |        |the drug     |
-|       |                                               |        |substance is |
-|       |                                               |        |capable of   |
-|       |                                               |        |resolving    |
-|       |                                               |        |2-Chloro APR,|
-|       |                                               |        |if present.  |
+|3      |2-Chloro APR                           |       |From KSM|Existing HPLC|
+|       |[7-[4-[4-(2-chlorophenyl)piperazin-1-  |       |DCPP    |method,      |
+|       |yl]butoxy]-3,4-dihydroquinolin-2(1H)-  |       |        |employed to  |
+|       |one]                                   |       |        |detect       |
+|       |                                       |       |        |related      |
+|       |                                       |       |        |substances in|
+|       |                                       |       |        |the drug     |
+|       |                                       |       |        |substance is |
+|       |                                       |       |        |capable of   |
+|       |                                       |       |        |resolving    |
+|       |                                       |       |        |2-Chloro APR,|
+|       |                                       |       |        |if present.  |
 |-------|---------------------------------------|-------|--------|-------------|
-|4      |3-Chloro APR                                   |From KSM|Existing HPLC|
-|       |[7-[4-[4-(3-chlorophenyl)piperazin-1-          |DCPP    |method,      |
-|       |yl]butoxy]-3,4-dihydroquinolin-2(1H)- one]     |        |employed to  |
-|       |                                               |        |detect       |
-|       |                                               |        |related      |
-|       |                                               |        |substances in|
-|       |                                               |        |the drug     |
-|       |                                               |        |substance is |
-|       |                                               |        |capable of   |
-|       |                                               |        |resolving    |
-|       |                                               |        |3-Chloro APR,|
-|       |                                               |        |if present.  |
+|4      |3-Chloro APR                           |       |From KSM|Existing HPLC|
+|       |[7-[4-[4-(3-chlorophenyl)piperazin-1-  |       |DCPP    |method,      |
+|       |yl]butoxy]-3,4-dihydroquinolin-2(1H)-  |       |        |employed to  |
+|       |one]                                   |       |        |detect       |
+|       |                                       |       |        |related      |
+|       |                                       |       |        |substances in|
+|       |                                       |       |        |the drug     |
+|       |                                       |       |        |substance is |
+|       |                                       |       |        |capable of   |
+|       |                                       |       |        |resolving    |
+|       |                                       |       |        |3-Chloro APR,|
+|       |                                       |       |        |if present.  |
 |-------|---------------------------------------|-------|--------|-------------|
-|5      |Aripiprazole Related compound- G [Dehydro      |Process |Controlled in|
-|       |Aripiprazole]                                  |related |drug         |
-|       |[7-[4-[4-(2,3-Dichlorophenyl)piperazin-        |impurity|substance    |
-|       |1-yl]butoxy)quinolin-2 (1H)-one]               |        |specification|
-|       |                                               |        |with the     |
-|       |                                               |        |limit of ‘Not|
-|       |                                               |        |more than    |
-|       |                                               |        |0.10%’       |
+|5      |Aripiprazole Related compound- G       |       |Process |Controlled in|
+|       |[Dehydro Aripiprazole]                 |       |related |drug         |
+|       |[7-[4-[4-(2,3-Dichlorophenyl)piperazin-|       |impurity|substance    |
+|       |1-yl]butoxy)quinolin-2 (1H)-one]       |       |        |specification|
+|       |                                       |       |        |with the     |
+|       |                                       |       |        |limit of ‘Not|
+|       |                                       |       |        |more than    |
+|       |                                       |       |        |0.10%’       |
 --------------------------------------------------------------------------------
 
 **JUBILANT PHARMOVA LIMITED** 
@@ -616,36 +616,36 @@ _other mechanical means is not allowed._
 
 
 ---------------------------------------------------------------------------------
-|6      |Aripiprazole Related compound- F [N-oxide]     |Degradant|Controlled in|
-|       |4-(2,3-Dichlorophenyl)-1-[4-(2-oxo-            |         |drug         |
-|       |1,2,3,4-tetrahydroquinolin-7-ylox-             |         |substance    |
-|       |y)butyl]piperazine 1-oxide                     |         |specification|
-|       |                                               |         |with the     |
-|       |                                               |         |limit of ‘Not|
-|       |                                               |         |more than    |
-|       |                                               |         |0.10%’       |
+|6      |Aripiprazole Related compound- F       |       |Degradant|Controlled in|
+|       |[N-oxide]                              |       |         |drug         |
+|       |4-(2,3-Dichlorophenyl)-1-[4-(2-oxo-    |       |         |substance    |
+|       |1,2,3,4-tetrahydroquinolin-7-ylox-     |       |         |specification|
+|       |y)butyl]piperazine 1-oxide             |       |         |with the     |
+|       |                                       |       |         |limit of ‘Not|
+|       |                                       |       |         |more than    |
+|       |                                       |       |         |0.10%’       |
 |-------|---------------------------------------|-------|---------|-------------|
-|7      |Aripiprazole 4,4-Dimer                         |Process  |Controlled in|
-|       |1,1’-(Ethane-1,1-diyl)bis(2,3-dichloro-        |related  |drug         |
-|       |4-(4-[3,4-dihydroquinolin-2(1H)-one-7-         |impurity |substance    |
-|       |yloxybutyl]piperazin-1-yl}benzene)             |         |specification|
-|       |                                               |         |with the     |
-|       |                                               |         |limit of ‘Not|
-|       |                                               |         |more than    |
-|       |                                               |         |0.10%’       |
+|7      |Aripiprazole 4,4-Dimer                 |       |Process  |Controlled in|
+|       |1,1’-(Ethane-1,1-diyl)bis(2,3-dichloro-|       |related  |drug         |
+|       |4-(4-[3,4-dihydroquinolin-2(1H)-one-7- |       |impurity |substance    |
+|       |yloxybutyl]piperazin-1-yl}benzene)     |       |         |specification|
+|       |                                       |       |         |with the     |
+|       |                                       |       |         |limit of ‘Not|
+|       |                                       |       |         |more than    |
+|       |                                       |       |         |0.10%’       |
 |-------|---------------------------------------|-------|---------|-------------|
-|8      |Dimer 7-(4-Hydroxy-butoxy)-bis-3,4-            |Process  |Existing HPLC|
-|       |dihydro-1H-quinolin-2-one                      |related  |method,      |
-|       |                                               |impurity |employed to  |
-|       |                                               |         |detect       |
-|       |                                               |         |related      |
-|       |                                               |         |substances in|
-|       |                                               |         |the drug     |
-|       |                                               |         |substance is |
-|       |                                               |         |capable of   |
-|       |                                               |         |resolving    |
-|       |                                               |         |Dimer, if    |
-|       |                                               |         |present.     |
+|8      |Dimer 7-(4-Hydroxy-butoxy)-bis-3,4-    |       |Process  |Existing HPLC|
+|       |dihydro-1H-quinolin-2-one              |       |related  |method,      |
+|       |                                       |       |impurity |employed to  |
+|       |                                       |       |         |detect       |
+|       |                                       |       |         |related      |
+|       |                                       |       |         |substances in|
+|       |                                       |       |         |the drug     |
+|       |                                       |       |         |substance is |
+|       |                                       |       |         |capable of   |
+|       |                                       |       |         |resolving    |
+|       |                                       |       |         |Dimer, if    |
+|       |                                       |       |         |present.     |
 ---------------------------------------------------------------------------------
 
 **JUBILANT PHARMOVA LIMITED** 
@@ -827,19 +827,19 @@ _other mechanical means is not allowed._
 |       |                      |       |       |              |          |             |3.2.S.4.1 for |
 |       |                      |       |       |              |          |             |CSO           |
 |-------|----------------------|-------|-------|--------------|----------|-------------|--------------|
-|2.     |7-(4-Bromobutoxy)-3,4-|APR    |APR-1                 |Derek:    |Mutagenic    |Controlled in |
-|       |dihydroquinolin-2(1H)-|       |                      |Plausible |             |Final         |
-|       |one                   |       |                      |Sarah:    |             |specification |
-|       |                      |       |                      |Positive  |             |as part of CSO|
-|       |                      |       |                      |          |             |with TTC limit|
-|       |                      |       |                      |          |             |[NMT 50 PPM]  |
-|       |                      |       |                      |          |             |[i.eCustomer  |
-|       |                      |       |                      |          |             |specific      |
-|       |                      |       |                      |          |             |order] CSO#   |
-|       |                      |       |                      |          |             |1566 Refer    |
-|       |                      |       |                      |          |             |section       |
-|       |                      |       |                      |          |             |3.2.S.4.1 for |
-|       |                      |       |                      |          |             |CSO           |
+|2.     |7-(4-Bromobutoxy)-3,4-|APR    |APR-1  |              |Derek:    |Mutagenic    |Controlled in |
+|       |dihydroquinolin-2(1H)-|       |       |              |Plausible |             |Final         |
+|       |one                   |       |       |              |Sarah:    |             |specification |
+|       |                      |       |       |              |Positive  |             |as part of CSO|
+|       |                      |       |       |              |          |             |with TTC limit|
+|       |                      |       |       |              |          |             |[NMT 50 PPM]  |
+|       |                      |       |       |              |          |             |[i.eCustomer  |
+|       |                      |       |       |              |          |             |specific      |
+|       |                      |       |       |              |          |             |order] CSO#   |
+|       |                      |       |       |              |          |             |1566 Refer    |
+|       |                      |       |       |              |          |             |section       |
+|       |                      |       |       |              |          |             |3.2.S.4.1 for |
+|       |                      |       |       |              |          |             |CSO           |
 |-------|----------------------|-------|-------|--------------|----------|-------------|--------------|
 |3.     |3-Hydroxyaniline      |7-HDQ  |HAN    |3             |Derek:    |Mutagenic    |Based on the  |
 |       |                      |       |       |              |Plausible |             |Justification |
@@ -1501,9 +1501,9 @@ provided below.
 |possible     |            |formation of |
 |process and  |            |nitroso      |
 |degradation  |            |impurities   |
-|                          |due to the   |
-|                          |possible     |
-|                          |process and  |
+|             |            |due to the   |
+|             |            |possible     |
+|             |            |process and  |
 ------------------------------------------
 
 -------------------------------------
@@ -1970,26 +1970,25 @@ _**Carryover of possible impurities (from key starting material, reagents, solve
 
 
 
----------------------------------------------------------------------------------------------------------------------
-|Compound |Source     |Limit  |Class    |Batch results in the final API   |Methodology|LOD (%)|LOQ (%)|Remark       |
-|/impurity|           |(ppm)  |         |                                 |used       |       |       |             |
-|         |           |       |         |---------------------------------|           |       |       |             |
-|         |           |       |         |3APR3/12001|3APR3/12002|3APR3/120|           |       |       |             |
-|         |           |       |         |           |           |03       |           |       |       |             |
-|---------|-----------|-------|---------|-----------|-----------|---------|-----------|-------|-------|-------------|
-|Benzene  |Isopropyl  |NMT 2  |ICH,     |Below      |Below      |Below    |HS-GC      |0.2    |0.7    |No carry-over|
-|         |alcohol and|ppm    |Class- 1.|detection  |detection  |detection|           |       |       |to the       |
-|         |Cyclohexane|       |         |limit      |limit      |limit    |           |       |       |Aripiprazole.|
-|         |           |       |         |           |           |         |           |       |       |Hence control|
-|         |           |       |         |           |           |         |           |       |       |in the       |
-|         |           |       |         |           |           |         |           |       |       |Aripiprazole |
-|         |           |       |         |           |           |         |           |       |       |is not       |
-|         |           |       |         |           |           |         |           |       |       |proposed.    |
-|---------|-----------|-------|---------|-----------|-----------|---------|-----------|-------|-------|             |
-|Aluminium|7-HDQ      |NMT 50 |Non-     |Below      |Below      |Below    |ICP-MS     |2.2    |6.5    |             |
-|         |           |ppm    |Genotoxic|detection  |detection  |detection|           |       |       |             |
-|         |           |       |         |limit      |limit      |limit    |           |       |       |             |
----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+|Compound |Source     |Limit  |Class    |Batch results in the final API   |Methodology|LOD (%)|LOQ (%)|Remark       |  
+|/impurity|           |(ppm)  |         |                                 |used       |       |       |             |  
+|         |           |       |         |---------------------------------|           |       |       |             |  
+|         |           |       |         |3APR3/12001|3APR3/12002|3APR3/12003|           |       |       |             |
+|---------|-----------|-------|---------|-----------|-----------|---------|-----------|-------|-------|-------------|  
+|Benzene  |Isopropyl  |NMT 2  |ICH,     |Below      |Below      |Below    |HS-GC      |0.2    |0.7    |No carry-over|  
+|         |alcohol and|ppm    |Class- 1.|detection  |detection  |detection|           |       |       |to the       |  
+|         |Cyclohexane|       |         |limit      |limit      |limit    |           |       |       |Aripiprazole.|  
+|         |           |       |         |           |           |         |           |       |       |Hence control|  
+|         |           |       |         |           |           |         |           |       |       |in the       |  
+|         |           |       |         |           |           |         |           |       |       |Aripiprazole |  
+|         |           |       |         |           |           |         |           |       |       |is not       |  
+|         |           |       |         |           |           |         |           |       |       |proposed.    |  
+|---------|-----------|-------|---------|-----------|-----------|---------|-----------|-------|-------|             |  
+|Aluminium|7-HDQ      |NMT 50 |Non-     |Below      |Below      |Below    |ICP-MS     |2.2    |6.5    |             |  
+|         |           |ppm    |Genotoxic|detection  |detection  |detection|           |       |       |             |  
+|         |           |       |         |limit      |limit      |limit    |           |       |       |             |  
+-----------------------------------------------------------------------------------------------------------------------
 
 **JUBILANT PHARMOVA LIMITED** 
 _This information is intended only for the person or entity to which it is addressed and contains confidential / privileged material. Any review, dissemination by persons or entities other than the intended recipients is prohibited. Photocopying or copying by any_ 

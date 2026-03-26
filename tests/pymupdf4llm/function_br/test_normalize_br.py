@@ -74,26 +74,25 @@ test_cases = [
 @pytest.mark.parametrize("input_str, expected", test_cases, ids=[f"case_{i}" for i in range(len(test_cases))])
 def test_normalize_table_br_tags(input_str, expected):
     """
-    Testa a lógica principal de junção de palavras com log detalhado em caso de falha.
+    Validate word-merge behavior with detailed failure output.
     """
-    resultado = normalize_table_text_mock(input_str)
+    normalized_result = normalize_table_text_mock(input_str)
     
-    # Mensagem customizada que será exibida apenas se o teste falhar
     error_message = (
-        f"\nERRO NA NORMALIZAÇÃO:"
-        f"\nEntrada:   '{input_str}'"
-        f"\nEsperado:  '{expected}'"
-        f"\nRecebido:  '{resultado}'"
+        f"\nNORMALIZATION ERROR:"
+        f"\nInput:     '{input_str}'"
+        f"\nExpected:  '{expected}'"
+        f"\nReceived:  '{normalized_result}'"
     )
     
-    assert resultado == expected, error_message
+    assert normalized_result == expected, error_message
 
 def test_integration_with_normalization_flow():
     """
-    Testa se a normalização de espaços extras funciona junto com o br_tags.
+    Validate extra-space normalization together with br tag normalization.
     """
     raw_text = "  Normal <br> ization  test <br/>ing  "
     expected = "Normal ization test ing"
     result = normalize_table_text_mock(raw_text)
     
-    assert result == expected, f"\nFalha na Integração:\nEsperado: '{expected}'\nRecebido: '{result}'"
+    assert result == expected, f"\nIntegration failure:\nExpected: '{expected}'\nReceived: '{result}'"
