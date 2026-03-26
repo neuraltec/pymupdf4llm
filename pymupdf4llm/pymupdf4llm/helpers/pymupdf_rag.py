@@ -389,8 +389,9 @@ def matrix_to_ascii(matrix):
                 continue
             if unicodedata.combining(ch):
                 continue
-            # Treat Ambiguous width as wide to match terminal rendering for symbols like ℃, Ⅱ.
-            width += 2 if unicodedata.east_asian_width(ch) in ("W", "F", "A") else 1
+            # Keep ambiguous-width symbols as single-width for editor alignment
+            # (e.g. VS Code rendering of characters like ℃, ≈, Ⅱ).
+            width += 2 if unicodedata.east_asian_width(ch) in ("W", "F") else 1
         return width
 
     def _pad_display(text: str, width: int) -> str:
@@ -411,18 +412,22 @@ def matrix_to_ascii(matrix):
     def _wrap_by_display_width(text: str, width: int) -> list:
         if width <= 0:
             return [text] if text else [""]
+
         words = text.split(" ")
         lines = []
         current = ""
         for word in words:
             if not current:
+                # Never split words in the middle.
                 current = word
                 continue
+
             trial = f"{current} {word}"
             if _display_width(trial) <= width:
                 current = trial
             else:
                 lines.append(current)
+                # Never split words in the middle.
                 current = word
         if current or not lines:
             lines.append(current)
@@ -432,28 +437,62 @@ def matrix_to_ascii(matrix):
     row_texts = []
     max_cols = 0
 
-    for row in matrix:
+    for r_idx, row in enumerate(matrix):
         current_row_cells = []
         current_row_texts = []
-        for cell in row:
-            current_row_cells.append(cell)
+        # Detect full-span row: exactly one non-empty primary cell.
+        # Ignore merged placeholders (`is_merged` with `merged_from`) because
+        # they are only visual references and should not block full-span mode.
+        non_empty = []
+        for i, cell in enumerate(row):
             if isinstance(cell, dict):
                 if cell.get("is_merged") and cell.get("merged_from"):
-                    text = ""
-                else:
-                    raw_text = str(cell.get("text", "") or "")
-                    text = _sanitize(raw_text)
+                    continue
+                if str(cell.get("text", "")).strip():
+                    non_empty.append(i)
             else:
-                raw_text = "" if cell is None else str(cell)
-                text = _sanitize(raw_text)
-            current_row_texts.append(text)
+                if str(cell).strip():
+                    non_empty.append(i)
+        if len(non_empty) == 1:
+            main_idx = non_empty[0]
+            main_cell = row[main_idx]
+            total_cols = len(row)
+            # Build a merged cell in the first column.
+            merged_cell = {
+                "text": main_cell["text"] if isinstance(main_cell, dict) else str(main_cell),
+                "row": r_idx,
+                "col": 0,
+                "rowspan": 1,
+                "colspan": total_cols,
+                "is_merged": True,
+                "merged_from": None,
+                "bbox": main_cell.get("bbox") if isinstance(main_cell, dict) else None
+            }
+            # Fill row with merged cell and placeholders.
+            current_row_cells = [merged_cell] + [None] * (total_cols - 1)
+            current_row_texts = [_sanitize(merged_cell["text"])] + [""] * (total_cols - 1)
+        else:
+            for cell in row:
+                current_row_cells.append(cell)
+                if isinstance(cell, dict):
+                    # merged-from cells should not contribute text or affect width
+                    if cell.get("is_merged") and cell.get("merged_from"):
+                        raw_text = ""
+                    else:
+                        raw_text = str(cell.get("text", "") or "")
+                    text = _sanitize(raw_text)
+                else:
+                    raw_text = "" if cell is None else str(cell)
+                    text = _sanitize(raw_text)
+                current_row_texts.append(text)
         row_cells.append(current_row_cells)
         row_texts.append(current_row_texts)
         max_cols = max(max_cols, len(current_row_texts))
 
     if max_cols == 0:
         return ""
-    
+
+
     border_overhead = max_cols + 1
     available_text_space = MAX_TOTAL_WIDTH - border_overhead
 
@@ -476,9 +515,10 @@ def matrix_to_ascii(matrix):
 
             # Check longest unbroken word to avoid ugly splits if possible
             max_word = _max_word_width(text)
-            # Also check longest existing line (if pre-formatted)
-            max_line = _max_line_width(text)
-            required = max(max_word, max_line)
+            # Prefer to wrap long lines rather than sizing columns to fit them.
+            # This allows the table to stay within MAX_TOTAL_WIDTH even when a
+            # cell contains many words.
+            required = max_word
 
             # Account for merged column separators when distributing width
             required_no_separators = max(0, required - (colspan - 1))
@@ -490,6 +530,7 @@ def matrix_to_ascii(matrix):
     # Determine Final Widths.
     # To avoid breaking words, keep columns at least their natural width.
     final_widths = [max(w, MIN_COL_WIDTH) for w in natural_widths]
+    min_required_widths = final_widths[:]
 
     col_widths = final_widths
 
@@ -498,10 +539,11 @@ def matrix_to_ascii(matrix):
     available_text_space = MAX_TOTAL_WIDTH - border_overhead
     total = sum(col_widths)
     if total > available_text_space:
-        # greedily reduce the widest column until the table fits
+        # Reduce only down to minimum required width (no mid-word splits).
         while total > available_text_space:
             idx = max(
-                (i for i, w in enumerate(col_widths) if w > MIN_COL_WIDTH),
+                (i for i, w in enumerate(col_widths) if w > min_required_widths[i]),
+                key=lambda i: col_widths[i] - min_required_widths[i],
                 default=None,
             )
             if idx is None:
@@ -560,14 +602,145 @@ def matrix_to_ascii(matrix):
                     changed = True
         # if we increased any column widths, rerun the wrapping to ensure consistency
 
+    # Ensure the final table does not exceed maximum allowed width whenever
+    # possible without violating minimum required widths.
+    total = sum(col_widths)
+    border_overhead = max_cols + 1
+    available_text_space = MAX_TOTAL_WIDTH - border_overhead
+    if available_text_space < 1:
+        available_text_space = 1
+    if total > available_text_space:
+        while total > available_text_space:
+            idx = max(
+                (i for i, w in enumerate(col_widths) if w > min_required_widths[i]),
+                key=lambda i: col_widths[i] - min_required_widths[i],
+                default=None,
+            )
+            if idx is None:
+                break
+            col_widths[idx] -= 1
+            total -= 1
+
+    full_span_cache = {}
+    header_span_cache = {}
+    cell_wrap_cache = {}
+
+    def _primary_covering_from_above(row_index, col_index):
+        """Return primary cell dict covering (row_index, col_index) from above, if any."""
+        if row_index <= 0:
+            return None
+        r_up = row_index - 1
+        while r_up >= 0:
+            c_check = row_cells[r_up][col_index]
+            if isinstance(c_check, dict) and not c_check.get("is_merged"):
+                r_span = int(c_check.get("rowspan", 1) or 1)
+                if (r_up + r_span) > row_index:
+                    return c_check
+                return None
+            r_up -= 1
+        return None
+
+    def _clamp_colspan_against_vertical_merges(row_index, col_index, cell, colspan):
+        """Clamp colspan so it does not cross columns covered by other rowspans."""
+        if colspan <= 1:
+            return 1
+        # Keep explicit full-span rows intact (e.g. table conclusions / verdicts).
+        if isinstance(cell, dict):
+            try:
+                if int(cell.get("colspan", 1) or 1) >= max_cols:
+                    return min(colspan, max_cols - col_index)
+            except Exception:
+                pass
+        allowed = 1
+        this_primary = cell if isinstance(cell, dict) else None
+        for k in range(col_index + 1, min(col_index + colspan, max_cols)):
+            covering = _primary_covering_from_above(row_index, k)
+            if covering is None:
+                allowed += 1
+                continue
+            same_primary = (
+                isinstance(this_primary, dict)
+                and this_primary.get("row") == covering.get("row")
+                and this_primary.get("col") == covering.get("col")
+            )
+            if same_primary:
+                allowed += 1
+                continue
+            break
+        return allowed
+
+    def _wrapped_lines_for_cell(row_index, col_index, total_width):
+        """Return wrapped lines for a primary cell under the effective width."""
+        key = (row_index, col_index, total_width)
+        if key in cell_wrap_cache:
+            return cell_wrap_cache[key]
+
+        cell = row_cells[row_index][col_index]
+        if isinstance(cell, dict):
+            raw_text = _sanitize(str(cell.get("text", "") or ""))
+        else:
+            raw_text = _sanitize(str(row_texts[row_index][col_index] or ""))
+
+        wrapped = []
+        for p in raw_text.split("\n"):
+            p = p.strip()
+            if not p:
+                wrapped.append("")
+            else:
+                wrapped.extend(_wrap_by_display_width(p, max(1, total_width)))
+
+        result = wrapped or [""]
+        cell_wrap_cache[key] = result
+        return result
 
     def build_content_line(row_index, line_in_cell=0):
+        # Detect rows that should visually span all columns:
+        # exactly one non-empty cell in the row.
+        non_empty_indices = [
+            i for i, t in enumerate(row_texts[row_index]) if t.strip()
+        ]
+        if len(non_empty_indices) == 1:
+            main_idx = non_empty_indices[0]
+            if row_index not in full_span_cache:
+                width = total_table_width - 2
+                # Use the raw cell text and ignore prior wrapping in row_texts.
+                cell0 = row_cells[row_index][main_idx]
+                if isinstance(cell0, dict):
+                    raw_text = _sanitize(str(cell0.get("text", "") or ""))
+                else:
+                    raw_text = row_texts[row_index][main_idx]
+                raw_text = raw_text.replace("\n", " ")
+                wrapped = []
+                for p in raw_text.split("\n"):
+                    if not p.strip():
+                        wrapped.append("")
+                    else:
+                        wrapped.extend(_wrap_by_display_width(p, width))
+                full_span_cache[row_index] = wrapped or [""]
+            lines = full_span_cache[row_index]
+            if line_in_cell >= len(lines):
+                return "|" + " " * (total_table_width - 2) + "|"
+            return (
+                "|" + _pad_display(lines[line_in_cell], total_table_width - 2) + "|"
+            )
+
         parts = []
         col = 0
         while col < max_cols:
             cell = row_cells[row_index][col]
+            # Skip cells that are part of a merged span; those are rendered by the
+            # originating (primary) cell and should not generate additional columns
+            # or separators in the ASCII output.
+            if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
+                p_row, _p_col = cell.get("merged_from")
+                # Skip only horizontal placeholders created on the same row.
+                # For vertical merges (origin row above), keep the column and
+                # render it as an empty covered cell to preserve table geometry.
+                if p_row == row_index:
+                    col += 1
+                    continue
             text = row_texts[row_index][col]
-            
+
             # Check overlap from above (Rowspan)
             covered_by_above = None
             if row_index > 0:
@@ -578,15 +751,15 @@ def matrix_to_ascii(matrix):
                         r_span = c_check.get("rowspan", 1)
                         if (r_up + r_span) > row_index:
                             covered_by_above = c_check
-                        break # Found the physical cell governing this column
+                        break  # Found the physical cell governing this column
                     r_up -= 1
-            
+
             # Determine content to display
             display_text = ""
             if covered_by_above:
                 display_text = ""
             elif isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
-                pass 
+                pass
             else:
                 # Primary cell
                 if "\n" in text:
@@ -601,6 +774,38 @@ def matrix_to_ascii(matrix):
             colspan = 1
             if isinstance(cell, dict):
                 colspan = max(1, int(cell.get("colspan", 1)))
+            base_has_text = bool(display_text.strip())
+
+            # Optional visual extension: only over explicit placeholders that
+            # already belong to this same row-primary cell. Never absorb plain
+            # empty primary cells, because they are real table columns.
+            if (
+                not covered_by_above
+                and not (isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"))
+            ):
+                extra = 0
+                scan_col = col + colspan
+                while scan_col < max_cols:
+                    next_cell = row_cells[row_index][scan_col]
+                    if next_cell is None:
+                        extra += 1
+                        scan_col += 1
+                        continue
+                    if (
+                        isinstance(next_cell, dict)
+                        and next_cell.get("is_merged")
+                        and next_cell.get("merged_from") == (row_index, col)
+                    ):
+                        extra += 1
+                        scan_col += 1
+                        continue
+                    break
+                colspan += extra
+
+            # Do not let colspan invade columns already covered by a different
+            # vertical merge (rowspan) coming from an upper row.
+            colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
+
             colspan = min(colspan, max_cols - col)
 
             # Calculate total display width
@@ -609,18 +814,42 @@ def matrix_to_ascii(matrix):
                 total_width += col_widths[k]
             total_width += (colspan - 1)
 
+            # Always wrap with the final effective width so separators remain
+            # aligned even if a previously inferred colspan got reduced.
+            if not covered_by_above and not (isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from")):
+                lines = _wrapped_lines_for_cell(row_index, col, total_width)
+                display_text = lines[line_in_cell] if line_in_cell < len(lines) else ""
+
             segment = _pad_display(display_text, total_width) + "|"
             parts.append(segment)
-            
+
             col += colspan
 
         return "|" + "".join(parts)
 
     def build_separator_line(row_index):
+        # If the next row is a full-span row (single non-empty cell), force a
+        # complete separator across all columns to keep the visual demarcation
+        # before rows like "Verdict".
+        force_full_separator = False
+        if row_index + 1 < len(row_texts):
+            next_non_empty = [
+                i for i, t in enumerate(row_texts[row_index + 1]) if t.strip()
+            ]
+            force_full_separator = len(next_non_empty) == 1
+
         parts = []
         col = 0
         while col < max_cols:
             cell = row_cells[row_index][col]
+            # Skip merged positions; the separator is drawn by the primary spanning cell
+            if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
+                p_row, _p_col = cell.get("merged_from")
+                # Keep vertical-merge columns to preserve separator alignment.
+                # Skip only same-row horizontal merged placeholders.
+                if p_row == row_index:
+                    col += 1
+                    continue
             
             is_crossing = False
             
@@ -640,6 +869,11 @@ def matrix_to_ascii(matrix):
             colspan = 1
             if isinstance(cell, dict):
                 colspan = max(1, int(cell.get("colspan", 1)))
+
+            # Same guard used for content: do not cross into columns covered
+            # by a different rowspan from above.
+            colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
+
             colspan = min(colspan, max_cols - col)
             
             width = 0
@@ -647,7 +881,7 @@ def matrix_to_ascii(matrix):
                 width += col_widths[k]
             width += (colspan - 1)
             
-            char = " " if is_crossing else "-"
+            char = "-" if force_full_separator else (" " if is_crossing else "-")
             parts.append((char * width) + "|")
             
             col += colspan
@@ -655,15 +889,117 @@ def matrix_to_ascii(matrix):
         return "|" + "".join(parts)
 
     def get_max_lines(row_index):
+        # If the row is treated as full-span (text spanning the whole table),
+        # use exactly the number of lines actually generated for it to avoid
+        # extra blank lines at the end.
+        if row_index in full_span_cache:
+            return len(full_span_cache[row_index])
+
         m = 1
-        for t in row_texts[row_index]:
-            m = max(m, len(t.split('\n')))
+        col = 0
+        while col < max_cols:
+            cell = row_cells[row_index][col]
+            if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
+                p_row, _p_col = cell.get("merged_from")
+                if p_row == row_index:
+                    col += 1
+                    continue
+
+            covered_by_above = _primary_covering_from_above(row_index, col)
+
+            colspan = 1
+            if isinstance(cell, dict):
+                colspan = max(1, int(cell.get("colspan", 1)))
+            colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
+            colspan = min(colspan, max_cols - col)
+
+            total_width = 0
+            for k in range(col, col + colspan):
+                total_width += col_widths[k]
+            total_width += (colspan - 1)
+
+            if not covered_by_above and not (isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from")):
+                lines = _wrapped_lines_for_cell(row_index, col, total_width)
+                m = max(m, len(lines))
+
+            col += colspan
+
         return m
 
+    # Final alignment pass: ensure no rendered cell line exceeds its effective
+    # width after rowspan/colspan clamping. This keeps '|' separators aligned
+    # across rows even for long unsplittable words.
+    adjusted = True
+    while adjusted:
+        adjusted = False
+        for row_index in range(len(row_texts)):
+            col = 0
+            while col < max_cols:
+                cell = row_cells[row_index][col]
+                if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
+                    p_row, _p_col = cell.get("merged_from")
+                    if p_row == row_index:
+                        col += 1
+                        continue
+
+                covered_by_above = _primary_covering_from_above(row_index, col)
+
+                colspan = 1
+                if isinstance(cell, dict):
+                    colspan = max(1, int(cell.get("colspan", 1)))
+
+                # Keep the same optional visual extension logic as content rendering.
+                if (
+                    not covered_by_above
+                    and not (isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"))
+                ):
+                    extra = 0
+                    scan_col = col + colspan
+                    while scan_col < max_cols:
+                        next_cell = row_cells[row_index][scan_col]
+                        if next_cell is None:
+                            extra += 1
+                            scan_col += 1
+                            continue
+                        if (
+                            isinstance(next_cell, dict)
+                            and next_cell.get("is_merged")
+                            and next_cell.get("merged_from") == (row_index, col)
+                        ):
+                            extra += 1
+                            scan_col += 1
+                            continue
+                        break
+                    colspan += extra
+
+                colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
+                colspan = min(colspan, max_cols - col)
+
+                total_width = 0
+                for k in range(col, col + colspan):
+                    total_width += col_widths[k]
+                total_width += (colspan - 1)
+
+                if not covered_by_above and not (isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from")):
+                    lines = _wrapped_lines_for_cell(row_index, col, total_width)
+                    used = max((_display_width(l) for l in lines), default=0)
+                    if used > total_width:
+                        diff = used - total_width
+                        target_col = col + colspan - 1
+                        col_widths[target_col] += diff
+                        cell_wrap_cache.clear()
+                        full_span_cache.clear()
+                        header_span_cache.clear()
+                        adjusted = True
+
+                col += colspan
+
+            if adjusted:
+                break
+
     output = []
-    
-    # Top Border
-    # Calculate exact length based on columns
+
+    # Build top border from column widths.
     total_table_width = sum(col_widths) + max_cols + 1 # widths + N separators + 1 start
     output.append("-" * total_table_width)
     
@@ -672,7 +1008,7 @@ def matrix_to_ascii(matrix):
         for l in range(lines):
             output.append(build_content_line(r, l))
         
-        # Bottom separator for this row
+        # Row separator.
         if r < len(row_texts) - 1:
             output.append(build_separator_line(r))
             
@@ -691,6 +1027,105 @@ def matrix_to_ascii(matrix):
         normalized_output.append(line)
 
     return "\n".join(normalized_output)
+
+
+def matrix_to_markdown(matrix):
+    """Convert a matrix (list of lists) into GitHub-style markdown table.
+    
+    This generates consistent markdown format from the same matrix source
+    used for ASCII table generation, ensuring both representations match.
+    Handles merged cells (rowspan/colspan) correctly.
+    
+    Args:
+        matrix: List of rows, each row is list of cells (dict or str)
+    
+    Returns:
+        Markdown formatted table string
+    """
+    if not matrix:
+        return ""
+    
+    markdown_lines = []
+    
+    for row_idx, row in enumerate(matrix):
+        # Detect full-span rows (only one non-empty cell)
+        non_empty = [
+            i for i, cell in enumerate(row)
+            if (isinstance(cell, dict) and cell.get("text", "").strip())
+            or (not isinstance(cell, dict) and str(cell).strip())
+        ]
+        
+        if len(non_empty) == 1:
+            # Full-span row
+            main_idx = non_empty[0]
+            main_cell = row[main_idx]
+            text = main_cell["text"] if isinstance(main_cell, dict) else str(main_cell)
+            markdown_lines.append("|" + text + "|")
+        else:
+            # Normal row - but skip cells that are merged secondary cells
+            cells = []
+            for cell in row:
+                # Skip cells that are part of a merged cell (not the primary cell)
+                if isinstance(cell, dict) and cell.get("is_merged") and cell.get("merged_from"):
+                    # This is a secondary cell in a merge - render as empty or use placeholder
+                    cells.append("")
+                elif isinstance(cell, dict):
+                    cell_text = cell.get("text", "")
+                    # If this cell has rowspan/colspan > 1, we can add a visual indicator
+                    # but markdown doesn't natively support this
+                    colspan = cell.get("colspan", 1)
+                    rowspan = cell.get("rowspan", 1)
+                    # For now, just use the text
+                    cells.append(cell_text)
+                else:
+                    cell_text = str(cell) if cell else ""
+                    cells.append(cell_text)
+            line = "|" + "|".join(cells) + "|"
+            markdown_lines.append(line)
+    
+    # Insert separator after header (first row)
+    if len(markdown_lines) > 0:
+        # Count columns from first row (excluding merged cells in count for display purposes)
+        num_cols = len(matrix[0]) if matrix else 1
+        sep = "|" + "|".join(["---"] * num_cols) + "|"
+        markdown_lines.insert(1, sep)
+    
+    return "\n".join(markdown_lines)
+
+
+def _get_table_cell_boxes(t):
+    """Return cell bboxes for table t: list of rows, each row list of bbox or None."""
+    cell_boxes = []
+    if hasattr(t, "table") and t.table:
+        cell_boxes = (t.table.get("cells") or [])[:]
+    if not cell_boxes and (hasattr(t, "header") or hasattr(t, "rows")):
+        cell_boxes = []
+        if hasattr(t, "header") and t.header is not None:
+            row_cells = []
+            for c in t.header.cells:
+                if c is None:
+                    row_cells.append(None)
+                elif hasattr(c, "bbox"):
+                    row_cells.append(c.bbox)
+                elif isinstance(c, (tuple, list)) and len(c) >= 4:
+                    row_cells.append(c)
+                else:
+                    row_cells.append(None)
+            cell_boxes.append(row_cells)
+        for row in getattr(t, "rows", []) or []:
+            row_cells = []
+            for c in row.cells:
+                if c is None:
+                    row_cells.append(None)
+                elif hasattr(c, "bbox"):
+                    row_cells.append(c.bbox)
+                elif isinstance(c, (tuple, list)) and len(c) >= 4:
+                    row_cells.append(c)
+                else:
+                    row_cells.append(None)
+            cell_boxes.append(row_cells)
+    return cell_boxes
+
 
 def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: float = 0.05):
     """Merge table metadata entries that are parts of the same logical table.
@@ -819,79 +1254,58 @@ def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: fl
         new_table["rows"] = base_rows
         # Keep public keys "matrix" and "matrix_ascii" for backward compatibility
         new_table["matrix"] = base_matrix
-        # Prefer to build the ASCII matrix from the already-normalized
-        # Markdown representation when available (this ensures ASCII uses
-        # the same cleaned text as the Markdown table). Fall back to
-        # collapsing newlines in the original matrix if Markdown parsing
-        # fails.
-        sanitized = None
-        md_text = base.get("markdown", "") or ""
-        if md_text:
-            try:
-                # collect non-empty lines
-                md_lines = [l for l in md_text.splitlines() if l.strip()]
-                sep_idx = None
-                for i in range(len(md_lines) - 1):
-                    # detect the header separator line e.g. |---|---|
-                    if re.match(r"^\|?[-:\s|]+\|?$", md_lines[i + 1]):
-                        sep_idx = i + 1
-                        break
-                if sep_idx is not None:
-                    header_line = md_lines[sep_idx - 1] if sep_idx > 0 else ""
-                    data_lines = md_lines[sep_idx + 1 :]
-                    parsed_rows = []
-                    if header_line:
-                        header_parts = [
-                            p.strip() for p in header_line.strip().strip("|").split("|")
-                        ]
-                        parsed_rows.append(header_parts)
-                    for dl in data_lines:
-                        # split on '|' and strip
-                        parts = [p.strip() for p in dl.strip().strip("|").split("|")]
-                        parsed_rows.append(parts)
-                    # verify column count matches
-                    if parsed_rows:
-                        cols = max(len(r) for r in parsed_rows)
-                        if cols == base.get("columns", cols):
-                            sanitized = []
-                            for r_idx, prow in enumerate(parsed_rows):
-                                srow = []
-                                for c_idx in range(cols):
-                                    txt = prow[c_idx] if c_idx < len(prow) else ""
-                                    cell_dict = {
-                                        "text": txt,
-                                        "row": r_idx,
-                                        "col": c_idx,
-                                        "rowspan": 1,
-                                        "colspan": 1,
-                                        "bbox": None,
-                                        "is_merged": False,
-                                        "merged_from": None,
-                                    }
-                                    srow.append(cell_dict)
-                                sanitized.append(srow)
-            except Exception:
-                sanitized = None
+        # Build ASCII from normalized matrix so merge metadata is preserved.
+        sanitized = []
+        try:
+            for row in base_matrix:
+                srow = []
+                for cell in row:
+                    if isinstance(cell, dict):
+                        c = dict(cell)
+                        txt = c.get("text", "") or ""
+                        c["text"] = normalize_table_text(txt, keep_newlines=False)
+                        srow.append(c)
+                    else:
+                        srow.append(
+                            normalize_table_text(str(cell) if cell is not None else "", keep_newlines=False)
+                        )
+                sanitized.append(srow)
+        except Exception:
+            sanitized = base_matrix
 
-        if sanitized is None:
-            # fallback: collapse newlines inside cell text
-            try:
-                sanitized = []
-                for row in base_matrix:
-                    srow = []
-                    for cell in row:
-                        if isinstance(cell, dict):
-                            c = dict(cell)
-                            txt = c.get("text", "") or ""
-                            c["text"] = normalize_table_text(txt, keep_newlines=False)
-                            srow.append(c)
-                        else:
-                            srow.append(normalize_table_text(str(cell) if cell is not None else "", keep_newlines=False))
-                    sanitized.append(srow)
-            except Exception:
-                sanitized = base_matrix
+        # Post-process full-span rows.
+        for r_idx, row in enumerate(sanitized):
+            non_empty = [i for i, cell in enumerate(row) if (isinstance(cell, dict) and cell.get("text", "").strip()) or (not isinstance(cell, dict) and str(cell).strip())]
+            if len(non_empty) == 1:
+                main_idx = non_empty[0]
+                main_cell = row[main_idx]
+                total_cols = len(row)
+                merged_cell = {
+                    "text": main_cell["text"] if isinstance(main_cell, dict) else str(main_cell),
+                    "row": r_idx,
+                    "col": 0,
+                    "rowspan": 1,
+                    "colspan": total_cols,
+                    "is_merged": True,
+                    "merged_from": None,
+                    "bbox": main_cell.get("bbox") if isinstance(main_cell, dict) else None
+                }
+                sanitized[r_idx][0] = merged_cell
+                for c in range(1, total_cols):
+                    sanitized[r_idx][c] = {
+                        "text": "",
+                        "row": r_idx,
+                        "col": c,
+                        "rowspan": 1,
+                        "colspan": 1,
+                        "is_merged": True,
+                        "merged_from": (r_idx, 0),
+                        "bbox": None
+                    }
 
+        # Use top-level functions for consistent markdown and ASCII generation
         new_table["matrix_ascii"] = matrix_to_ascii(sanitized)
+        new_table["markdown"] = matrix_to_markdown(sanitized)
 
         merged_tables.append(new_table)
         used.add(idx)
@@ -1507,9 +1921,13 @@ def to_markdown(
             ):
                 if i in parms.written_tables:
                     continue
-                table_md = _normalize_table_br_tags(
-                    parms.tabs[i].to_markdown(clean=False)
-                )
+                # Use stored markdown and ASCII to ensure consistency (both from same sanitized matrix)
+                table_md = parms.tables_by_tab[i].get("markdown", "")
+                if not table_md:
+                    # Fallback to MuPDF rendering if not available
+                    table_md = _normalize_table_br_tags(
+                        parms.tabs[i].to_markdown(clean=False)
+                    )
                 table_ascii = parms.tables_by_tab[i].get("matrix_ascii", "")
                 span_start = base_offset + sum(len(m) for m in this_md)
                 span_end = span_start + len(table_md)
@@ -1538,9 +1956,13 @@ def to_markdown(
             for i, trect in parms.tab_rects.items():
                 if i in parms.written_tables:
                     continue
-                table_md = _normalize_table_br_tags(
-                    parms.tabs[i].to_markdown(clean=False)
-                )
+                # Use stored markdown and ASCII to ensure consistency (both from same sanitized matrix)
+                table_md = parms.tables_by_tab[i].get("markdown", "")
+                if not table_md:
+                    # Fallback to MuPDF rendering if not available
+                    table_md = _normalize_table_br_tags(
+                        parms.tabs[i].to_markdown(clean=False)
+                    )
                 table_ascii = parms.tables_by_tab[i].get("matrix_ascii", "")
                 span_start = base_offset + sum(len(m) for m in this_md)
                 span_end = span_start + len(table_md)
@@ -1842,38 +2264,64 @@ def to_markdown(
                     col_count = table_dict.get("col_count", t.col_count)
                     cell_boxes = table_dict.get("cells", [])
                 else:
-                    # Fallback: use rows attribute
                     row_count = t.row_count
                     col_count = t.col_count
-                    # Build cell_boxes from rows
                     cell_boxes = []
-                    # Include header if it exists (PyMuPDF stores header separately)
-                    if hasattr(t, "header") and t.header is not None:
-                        row_cells = []
-                        for c in t.header.cells:
+                if not cell_boxes or len(cell_boxes) < row_count:
+                    cell_boxes = _get_table_cell_boxes(t)
+                    if not row_count and cell_boxes:
+                        row_count = len(cell_boxes)
+                    if not col_count and cell_boxes:
+                        col_count = max(len(r) for r in cell_boxes) if cell_boxes else 0
+
+                # Some PyMuPDF versions may return an extra duplicated header row
+                # in cell_boxes. When that happens, keep cell_boxes aligned with
+                # row_count by removing adjacent duplicate rows.
+                if cell_boxes and row_count and len(cell_boxes) > row_count:
+                    def _row_signature(row):
+                        sig = []
+                        for c in row:
                             if c is None:
-                                row_cells.append(None)
-                            elif hasattr(c, "bbox"):
-                                row_cells.append(c.bbox)
-                            elif isinstance(c, (tuple, list)) and len(c) >= 4:
-                                row_cells.append(c)
-                            else:
-                                row_cells.append(None)
-                        cell_boxes.append(row_cells)
-                    # Add regular rows
-                    for row in t.rows:
-                        row_cells = []
-                        for c in row.cells:
-                            if c is None:
-                                row_cells.append(None)
-                            elif hasattr(c, "bbox"):
-                                row_cells.append(c.bbox)
-                            elif isinstance(c, (tuple, list)) and len(c) >= 4:
-                                row_cells.append(c)
-                            else:
-                                row_cells.append(None)
-                        cell_boxes.append(row_cells)
-                
+                                sig.append(None)
+                                continue
+                            rc = pymupdf.Rect(c) if not isinstance(c, pymupdf.Rect) else c
+                            sig.append((round(rc.x0, 1), round(rc.y0, 1), round(rc.x1, 1), round(rc.y1, 1)))
+                        return tuple(sig)
+
+                    deduped_rows = []
+                    previous_sig = None
+                    for row in cell_boxes:
+                        sig = _row_signature(row)
+                        if sig == previous_sig:
+                            continue
+                        deduped_rows.append(row)
+                        previous_sig = sig
+
+                    if len(deduped_rows) >= row_count:
+                        cell_boxes = deduped_rows[:row_count]
+
+                # Attempt to get the cell text from PyMuPDF's table extractor.
+                # This is often more reliable than manual bbox-based text extraction.
+                raw_matrix = None
+                try:
+                    raw_matrix = t.extract() or []
+                except Exception:
+                    raw_matrix = []
+
+                # Normalize raw_matrix size to match row_count/col_count
+                if raw_matrix is None:
+                    raw_matrix = []
+                if len(raw_matrix) < row_count:
+                    raw_matrix = raw_matrix + [["" for _ in range(col_count)] for _ in range(row_count - len(raw_matrix))]
+                for r in raw_matrix:
+                    if len(r) < col_count:
+                        r += ["" for _ in range(col_count - len(r))]
+                    for j in range(len(r)):
+                        if r[j] is None:
+                            r[j] = ""
+                        else:
+                            r[j] = str(r[j])
+
                 # Calculate cell dimensions to detect merged cells
                 # First, collect all non-empty cell bboxes
                 all_cell_bboxes = []
@@ -1936,6 +2384,32 @@ def to_markdown(
                 
                 # Initialize matrix with None
                 matrix = [[None for _ in range(col_count)] for _ in range(row_count)]
+                
+                # Pre-process: detect and handle duplicate/overlapping cells from cell_boxes
+                # (happens when PyMuPDF reports same physical cell in both header and row)
+                processed_bboxes = {}  # Map bbox_key -> (row_idx, col_idx) of first occurrence
+                primary_cells = {}  # Map (row, col) -> (primary_row, primary_col) if merged
+                bbox_positions = {}  # Map bbox_key -> list[(row_idx, col_idx)]
+                
+                for row_idx, row in enumerate(cell_boxes):
+                    for col_idx, cell in enumerate(row):
+                        if cell is not None:
+                            cell_rect = pymupdf.Rect(cell) if not isinstance(cell, pymupdf.Rect) else cell
+                            if not cell_rect.is_empty:
+                                # Create a key for this bbox (rounded for robustness)
+                                bbox_key = (round(cell_rect.x0, 1), round(cell_rect.y0, 1), 
+                                           round(cell_rect.x1, 1), round(cell_rect.y1, 1))
+
+                                bbox_positions.setdefault(bbox_key, []).append((row_idx, col_idx))
+                                
+                                if bbox_key in processed_bboxes:
+                                    # This bbox was already seen - it's a duplicate/merged cell
+                                    primary_row, primary_col = processed_bboxes[bbox_key]
+                                    primary_cells[(row_idx, col_idx)] = (primary_row, primary_col)
+                                else:
+                                    # First time seeing this bbox
+                                    processed_bboxes[bbox_key] = (row_idx, col_idx)
+                
                 # Extract text from each cell using extract_cells
                 for row_idx, row in enumerate(cell_boxes):
                     if row_idx >= row_count:
@@ -1943,15 +2417,31 @@ def to_markdown(
                     for col_idx, cell in enumerate(row):
                         if col_idx >= col_count:
                             break
+                        
+                        # If this is a duplicate cell, skip it (will be handled as merge)
+                        if (row_idx, col_idx) in primary_cells:
+                            continue
+                        
+                        # If this position is already filled (e.g. by a merged cell),
+                        # do not overwrite it.
+                        if matrix[row_idx][col_idx] is not None:
+                            continue
                         if cell is not None:
                             try:
                                 cell_rect = pymupdf.Rect(cell) if not isinstance(cell, pymupdf.Rect) else cell
-                                cell_text = extract_cells(
-                                    parms.textpage, cell, markdown=False
-                                )
+
+                                # Prefer PyMuPDF's table text extraction (more accurate)
+                                cell_text = raw_matrix[row_idx][col_idx] if row_idx < len(raw_matrix) and col_idx < len(raw_matrix[row_idx]) else ""
+
+                                if not cell_text:
+                                    # Fallback: extract from textpage using bbox
+                                    cell_text = extract_cells(
+                                        parms.textpage, cell, markdown=False
+                                    )
+
                                 # Normalize whitespace/HTML breaks before wrapping
                                 cell_text = normalize_table_text(cell_text)
-                                
+
                                 # Wrap text to fit cell width based on bbox
                                 if cell_text and not cell_rect.is_empty:
                                     cell_text = wrap_text_by_bbox(
@@ -1962,6 +2452,34 @@ def to_markdown(
                                 rowspan = 1
                                 colspan = 1
                                 
+                                # Method 0: Check for same bbox in multiple consecutive rows (primary indicator of rowspan)
+                                # This handles the case where PyMuPDF reports the same physical cell multiple times
+                                bbox_key = (round(cell_rect.x0, 1), round(cell_rect.y0, 1), 
+                                           round(cell_rect.x1, 1), round(cell_rect.y1, 1))
+                                
+                                # Count how many consecutive rows in this column share this same bbox
+                                rowspan_from_bbox = 1
+                                positions = bbox_positions.get(bbox_key, [])
+                                positions_same_col = sorted(
+                                    [r for (r, c) in positions if c == col_idx and r >= row_idx]
+                                )
+                                next_row = row_idx
+                                for r in positions_same_col:
+                                    if r == next_row:
+                                        rowspan_from_bbox += 1 if r != row_idx else 0
+                                        next_row += 1
+                                    elif r > next_row:
+                                        break
+                                
+                                if rowspan_from_bbox > 1:
+                                    rowspan = rowspan_from_bbox
+                                    # Mark all rows after this one with the same bbox as secondary cells
+                                    for r_offset in range(1, rowspan):
+                                        covered_row = row_idx + r_offset
+                                        if covered_row < row_count and matrix[covered_row][col_idx] is None:
+                                            # Will be marked as merged cell later
+                                            pass
+                                
                                 # Method 1: Analyze cell size compared to average
                                 if avg_cell_height > 0 and avg_cell_width > 0:
                                     height_ratio = cell_rect.height / avg_cell_height
@@ -1969,9 +2487,49 @@ def to_markdown(
                                     
                                     # Use a threshold of 1.2x to detect merged cells (more sensitive)
                                     if height_ratio > 1.2:
-                                        rowspan = max(1, round(height_ratio))
+                                        suggested_rowspan = max(2, round(height_ratio))
+                                        rowspan = max(rowspan, suggested_rowspan)
                                     if width_ratio > 1.2:
-                                        colspan = max(1, round(width_ratio))
+                                        suggested_colspan = max(2, round(width_ratio))
+                                        colspan = max(colspan, suggested_colspan)
+                                
+                                # Additional detection: height-based rowspan detection
+                                # If cell is significantly taller than average, it's likely merged vertically
+                                if rowspan == 1 and avg_cell_height > 0:
+                                    height_ratio = cell_rect.height / avg_cell_height
+                                    # If height is >1.3x average, suggest it spans multiple rows
+                                    if height_ratio > 1.3:
+                                        suggested_rowspan = max(2, round(height_ratio))
+                                        # Verify by checking cell_boxes for presence/absence of cells
+                                        can_merge = True
+                                        for check_row in range(row_idx + 1, min(row_idx + suggested_rowspan, row_count)):
+                                            if (check_row < len(cell_boxes) and 
+                                                col_idx < len(cell_boxes[check_row])):
+                                                # If there's a physical cell below, don't merge
+                                                if cell_boxes[check_row][col_idx] is not None:
+                                                    can_merge = False
+                                                    break
+                                        if can_merge:
+                                            rowspan = suggested_rowspan
+                                
+                                # Additional detection: width-based colspan detection
+                                # If cell is significantly wider than average, it's likely merged horizontally
+                                if colspan == 1 and avg_cell_width > 0:
+                                    width_ratio = cell_rect.width / avg_cell_width
+                                    # If width is >1.3x average, suggest it spans multiple columns
+                                    if width_ratio > 1.3:
+                                        suggested_colspan = max(2, round(width_ratio))
+                                        # Verify by checking cell_boxes for presence/absence of cells
+                                        can_merge = True
+                                        for check_col in range(col_idx + 1, min(col_idx + suggested_colspan, col_count)):
+                                            if (row_idx < len(cell_boxes) and 
+                                                check_col < len(cell_boxes[row_idx])):
+                                                # If there's a physical cell to the right, don't merge
+                                                if cell_boxes[row_idx][check_col] is not None:
+                                                    can_merge = False
+                                                    break
+                                        if can_merge:
+                                            colspan = suggested_colspan
                                 
                                 # Method 2: Check for overlapping cells that indicate merging
                                 # Look for cells in adjacent positions that significantly overlap
@@ -1991,13 +2549,19 @@ def to_markdown(
                                             cell_area = abs(cell_rect)
                                             other_area = abs(other_rect)
                                             
-                                            # If overlap is significant (>70% of smaller cell), they're likely merged
+                                            # Improved detection: check multiple conditions
                                             if cell_area > 0 and other_area > 0:
+                                                # Percentage of smaller cell covered
                                                 overlap_ratio_smaller = overlap_area / min(cell_area, other_area)
-                                                # Also check if the other cell is mostly contained within this cell's vertical span
+                                                # Percentage of vertical overlap (key indicator for rowspan)
                                                 vertical_overlap_ratio = intersection.height / min(cell_rect.height, other_rect.height) if min(cell_rect.height, other_rect.height) > 0 else 0
+                                                # Check horizontal alignment (should be in same column)
+                                                horizontal_alignment = (abs(cell_rect.x0 - other_rect.x0) < 2 and 
+                                                                      abs(cell_rect.x1 - other_rect.x1) < 2)
                                                 
-                                                if overlap_ratio_smaller > 0.7 or vertical_overlap_ratio > 0.8:
+                                                # Lower threshold (0.5 instead of 0.7) for better detection
+                                                # Also check if cells are horizontally aligned (key for rowspan)
+                                                if (overlap_ratio_smaller > 0.5 or vertical_overlap_ratio > 0.6) and horizontal_alignment:
                                                     # Cells are merged vertically
                                                     # Calculate how many rows this cell spans
                                                     estimated_rowspan = check_row - row_idx + 1
@@ -2040,8 +2604,12 @@ def to_markdown(
                                                 overlap_ratio_smaller = overlap_area / min(cell_area, other_area)
                                                 # Also check horizontal overlap
                                                 horizontal_overlap_ratio = intersection.width / min(cell_rect.width, other_rect.width) if min(cell_rect.width, other_rect.width) > 0 else 0
+                                                # Check vertical alignment (should be in same row)
+                                                vertical_alignment = (abs(cell_rect.y0 - other_rect.y0) < 2 and 
+                                                                    abs(cell_rect.y1 - other_rect.y1) < 2)
                                                 
-                                                if overlap_ratio_smaller > 0.7 or horizontal_overlap_ratio > 0.8:
+                                                # Lower threshold (0.5 instead of 0.7) and check alignment
+                                                if (overlap_ratio_smaller > 0.5 or horizontal_overlap_ratio > 0.6) and vertical_alignment:
                                                     # Cells are merged horizontally
                                                     estimated_colspan = check_col - col_idx + 1
                                                     colspan = max(colspan, estimated_colspan)
@@ -2105,6 +2673,7 @@ def to_markdown(
                                     "bbox": tuple(cell_rect) if not cell_rect.is_empty else None,
                                     "is_merged": False,  # This is the primary cell
                                     "merged_from": None,  # No parent cell
+                                    "id_merged": (row_idx, col_idx),  # Identifier for merged cell group
                                 }
                                 matrix[row_idx][col_idx] = cell_dict
                                 
@@ -2136,19 +2705,21 @@ def to_markdown(
                                                     "merged_from": (row_idx, col_idx),  # Reference to primary cell
                                                     "primary_row": row_idx,  # Row of primary cell
                                                     "primary_col": col_idx,  # Col of primary cell
+                                                    "id_merged": (row_idx, col_idx),  # Identifier linking to primary cell
                                                 }
                                                 matrix[covered_row][covered_col] = merged_cell_dict
                             except Exception:
-                                # Create empty cell dict on error
+                                cell_rect = pymupdf.Rect(cell) if not isinstance(cell, pymupdf.Rect) else cell
                                 cell_dict = {
                                     "text": "",
                                     "row": row_idx,
                                     "col": col_idx,
                                     "rowspan": 1,
                                     "colspan": 1,
-                                    "bbox": None,
+                                    "bbox": tuple(cell_rect) if cell_rect and not cell_rect.is_empty else None,
                                     "is_merged": False,
                                     "merged_from": None,
+                                    "id_merged": None,
                                 }
                                 matrix[row_idx][col_idx] = cell_dict
                 
@@ -2328,26 +2899,63 @@ def to_markdown(
                                 "bbox": None,
                                 "is_merged": False,
                                 "merged_from": None,
+                                "id_merged": (row_idx, col_idx),
                             }
+                
+                # Post-process: for rows with only one non-empty cell, make it span all columns
+                for row_idx in range(row_count):
+                    non_empty = [c_idx for c_idx, cell in enumerate(matrix[row_idx]) 
+                               if isinstance(cell, dict) and str(cell.get("text", "")).strip()]
+                    if len(non_empty) == 1:
+                        c_idx = non_empty[0]
+                        cell = matrix[row_idx][c_idx]
+                        if isinstance(cell, dict) and not cell.get("is_merged", False):
+                            # Make this cell span all remaining columns
+                            cell["colspan"] = col_count - c_idx
+                            # Mark subsequent cells as merged
+                            for k in range(c_idx + 1, col_count):
+                                matrix[row_idx][k] = {
+                                    "text": "",
+                                    "row": row_idx,
+                                    "col": k,
+                                    "rowspan": 1,
+                                    "colspan": 1,
+                                    "bbox": cell.get("bbox"),
+                                    "is_merged": True,
+                                    "merged_from": (row_idx, c_idx),
+                                    "id_merged": (row_idx, c_idx),
+                                }
+
             except Exception as e:
-                # Fallback to t.extract() if something goes wrong
                 try:
                     extracted = t.extract()
-                    # Convert simple matrix to rich format
+                    cell_boxes = _get_table_cell_boxes(t)
                     matrix = []
                     for row_idx, row in enumerate(extracted):
                         matrix_row = []
                         for col_idx, cell in enumerate(row):
                             cell_text = cell if cell is not None else ""
+                            bbox = None
+                            if (
+                                cell_boxes
+                                and row_idx < len(cell_boxes)
+                                and col_idx < len(cell_boxes[row_idx])
+                            ):
+                                c = cell_boxes[row_idx][col_idx]
+                                if c is not None:
+                                    r = pymupdf.Rect(c) if not isinstance(c, pymupdf.Rect) else c
+                                    if not r.is_empty:
+                                        bbox = tuple(r)
                             cell_dict = {
                                 "text": cell_text if isinstance(cell_text, str) else str(cell_text),
                                 "row": row_idx,
                                 "col": col_idx,
                                 "rowspan": 1,
                                 "colspan": 1,
-                                "bbox": None,
+                                "bbox": bbox,
                                 "is_merged": False,
                                 "merged_from": None,
+                                "id_merged": (row_idx, col_idx),
                             }
                             matrix_row.append(cell_dict)
                         matrix.append(matrix_row)
@@ -2360,77 +2968,28 @@ def to_markdown(
                         cell["text"] = normalize_table_text(
                             cell["text"], keep_newlines=True
                         )
-            # Extract markdown representation
+            
+            # Build sanitized matrix: normalize cell text (collapse newlines)
             try:
-                markdown = _normalize_table_br_tags(t.to_markdown(clean=False))
+                sanitized = []
+                for row in matrix:
+                    srow = []
+                    for cell in row:
+                        if isinstance(cell, dict):
+                            c = dict(cell)
+                            txt = c.get("text", "") or ""
+                            c["text"] = normalize_table_text(txt, keep_newlines=False)
+                            srow.append(c)
+                        else:
+                            srow.append(normalize_table_text(str(cell) if cell is not None else "", keep_newlines=False))
+                    sanitized.append(srow)
             except Exception:
-                markdown = ""
-            # attempt to rebuild a sanitized matrix from the markdown
-            # string generated by MuPDF.  The markdown output has already had
-            # line breaks and hyphenation repaired by MuPDF's internal
-            # algorithm, so using it as the source for ASCII text guarantees
-            # the two representations will match.
-            sanitized = None
-            if markdown:
-                try:
-                    md_lines = [l for l in markdown.splitlines() if l.strip()]
-                    sep_idx = None
-                    for j in range(len(md_lines) - 1):
-                        if re.match(r"^\|?[-:\s|]+\|?$", md_lines[j + 1]):
-                            sep_idx = j + 1
-                            break
-                    if sep_idx is not None:
-                        header_line = md_lines[sep_idx - 1] if sep_idx > 0 else ""
-                        data_lines = md_lines[sep_idx + 1 :]
-                        parsed_rows = []
-                        if header_line:
-                            header_parts = [
-                                p.strip()
-                                for p in header_line.strip().strip("|").split("|")
-                            ]
-                            parsed_rows.append(header_parts)
-                        for dl in data_lines:
-                            parts = [p.strip() for p in dl.strip().strip("|").split("|")]
-                            parsed_rows.append(parts)
-                        if parsed_rows:
-                            cols = max(len(r) for r in parsed_rows)
-                            if cols == t.col_count:
-                                sanitized = []
-                                for r_idx, prow in enumerate(parsed_rows):
-                                    srow = []
-                                    for c_idx in range(cols):
-                                        txt = prow[c_idx] if c_idx < len(prow) else ""
-                                        cell_dict = {
-                                            "text": txt,
-                                            "row": r_idx,
-                                            "col": c_idx,
-                                            "rowspan": 1,
-                                            "colspan": 1,
-                                            "bbox": None,
-                                            "is_merged": False,
-                                            "merged_from": None,
-                                        }
-                                        srow.append(cell_dict)
-                                    sanitized.append(srow)
-                except Exception:
-                    sanitized = None
-            if sanitized is None:
-                # fallback: just normalise each cell text (collapse newlines)
-                try:
-                    sanitized = []
-                    for row in matrix:
-                        srow = []
-                        for cell in row:
-                            if isinstance(cell, dict):
-                                c = dict(cell)
-                                txt = c.get("text", "") or ""
-                                c["text"] = normalize_table_text(txt, keep_newlines=False)
-                                srow.append(c)
-                            else:
-                                srow.append(normalize_table_text(str(cell) if cell is not None else "", keep_newlines=False))
-                        sanitized.append(srow)
-                except Exception:
-                    sanitized = matrix
+                sanitized = matrix
+            
+            # Generate both markdown and ASCII from the same sanitized matrix
+            # This ensures they represent exactly the same data
+            markdown = matrix_to_markdown(sanitized)
+            matrix_ascii = matrix_to_ascii(sanitized)
 
             tab_dict = {
                 "bbox": tuple(tab_rects[i]),
@@ -2439,7 +2998,7 @@ def to_markdown(
                 "matrix": matrix,
                 "markdown": markdown,
                 # Optional representation in a simple ASCII table
-                "matrix_ascii": matrix_to_ascii(sanitized),
+                "matrix_ascii": matrix_ascii,
             }
             parms.tables.append(tab_dict)
         # Keep a per-table list aligned to tabs before merging.
@@ -2644,6 +3203,9 @@ def to_markdown(
                     "graphics": parms.graphics,
                     "text": page_text,
                     "text_markdown": parms.md_string,
+                "images": parms.images,
+                    "graphics": parms.graphics,
+                    "text": parms.md_string,
                     "text_ascii": parms.md_string_ascii,
                     "words": parms.words,
                 }

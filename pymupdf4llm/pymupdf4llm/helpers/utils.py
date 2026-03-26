@@ -1053,6 +1053,7 @@ def complete_table_structure(page):
     return all_lines, all_boxes
 
 
+
 def _normalize_table_br_tags(value: str) -> str:
     """Replace <br> tags based on adjacent characters."""
     if not value:
@@ -1142,9 +1143,10 @@ def extract_cells(table_blocks, cell, markdown=False, ocrpage=False):
     TEXT_COLLECT_STYLES is set.
 
     Args:
-        table_blocks: A list of PyMuPDF TextPage text blocks (type = 0). Must
-            have been created with TEXT_COLLECT_STYLE for correct markdown.
-            Format is either "dict" or "rawdict" depending on ocrpage.
+        table_blocks: A list of PyMuPDF TextPage text blocks (type = 0) or a
+            TextPage instance. Must have been created with TEXT_COLLECT_STYLE for
+            correct markdown. Format is either "dict" or "rawdict" depending on
+            ocrpage.
         cell: A tuple (x0, y0, x1, y1) defining the cell's bbox.
         markdown: If True, return text formatted for Markdown.
         ocrpage: If True, text is OCR-detected. In this case, table_blocks
@@ -1153,6 +1155,88 @@ def extract_cells(table_blocks, cell, markdown=False, ocrpage=False):
     Returns:
         A string with the text extracted from the cell.
     """
+
+    # Accept either a TextPage object or a list of block dicts.
+    if not isinstance(table_blocks, list):
+        if hasattr(table_blocks, "extractDICT"):
+            table_blocks = table_blocks.extractDICT().get("blocks", [])
+        elif isinstance(table_blocks, dict) and "blocks" in table_blocks:
+            table_blocks = table_blocks["blocks"]
+        else:
+            try:
+                table_blocks = list(table_blocks)
+            except Exception:
+                table_blocks = []
+
+    text = ""
+    for block in table_blocks:
+        if outside_bbox(block["bbox"], cell):
+            continue
+        for line in block["lines"]:
+            if outside_bbox(line["bbox"], cell):
+                continue
+            if text:  # this line is new in the cell
+                text += "<br>" if markdown else "\n"
+
+            # strikeout detection only works with axis-parallel text
+            horizontal = line["dir"] == (0, 1) or line["dir"] == (1, 0)
+
+            for span in line["spans"]:
+                if outside_bbox(span["bbox"], cell):
+                    continue
+                if ocrpage:
+                    span_text = span["text"]
+                else:
+                    # compose span text from chars
+                    # only include chars with more than 50% bbox overlap
+                    span_text = ""
+                    for char in span["chars"]:
+                        this_char = char["c"]
+                        if almost_in_bbox(char["bbox"], cell, portion=0.5):
+                            span_text += this_char
+                        elif this_char in WHITE_CHARS:
+                            span_text += " "
+
+                if not span_text:
+                    continue  # skip empty span
+
+                if not markdown:  # no MD styling
+                    text += span_text
+                    continue
+
+                prefix = ""
+                suffix = ""
+                if horizontal and span["char_flags"] & pymupdf.mupdf.FZ_STEXT_STRIKEOUT:
+                    prefix += "~~"
+                    suffix = "~~" + suffix
+                if span["char_flags"] & pymupdf.mupdf.FZ_STEXT_BOLD:
+                    prefix += "**"
+                    suffix = "**" + suffix
+                if span["flags"] & pymupdf.TEXT_FONT_ITALIC:
+                    prefix += "_"
+                    suffix = "_" + suffix
+                if not ocrpage and span["flags"] & pymupdf.TEXT_FONT_MONOSPACED:
+                    prefix += "`"
+                    suffix = "`" + suffix
+
+                if len(span_text) > 2:
+                    span_text = span_text.rstrip()
+
+                # if span continues previous styling: extend cell text
+                if (ls := len(suffix)) and text.endswith(suffix):
+                    text = text[:-ls] + span_text + suffix
+                else:  # append the span with new styling
+                    if not span_text.strip():
+                        text += " "
+                    else:
+                        text += prefix + span_text.strip() + suffix
+    text = (
+        text.replace("$<br>", "$ ")
+        .replace(" $ <br>", "$ ")
+        .replace("$\n", "$ ")
+        .replace(" $ \n", "$ ")
+    )
+    return text.strip()
 
     text = ""
     for block in table_blocks:

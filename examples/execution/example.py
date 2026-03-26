@@ -1,10 +1,8 @@
-'''import sys
-import time
+import sys
 from pathlib import Path
 
 
 def ensure_local_import():
-    """Allow running the example from the repo without installing the package."""
     repo_root = Path(__file__).resolve().parents[2]
     local_pkg_root = repo_root / "pymupdf4llm"
     sys.path.insert(0, str(local_pkg_root))
@@ -14,88 +12,105 @@ def ensure_local_import():
     import pymupdf4llm  # noqa: F401
 
 
-def read_pdf_to_txt(
-    pdf_path: Path,
-    output_txt: Path,
-    page_number: int | None = None,
-    show_progress: bool = False,
-) -> None:
-    """Read a PDF with PyMuPDF4LLM and write the extracted text to a .txt file."""
-    import pymupdf
-    import pymupdf4llm as llm
+def _format_cell(cell) -> str:
+    if not isinstance(cell, dict):
+        return f"  content: {cell!r}\n"
+    lines = [
+        f"  content: {cell.get('text', '')!r}",
+        f"  row={cell.get('row')}, col={cell.get('col')}",
+        f"  rowspan={cell.get('rowspan', 1)}, colspan={cell.get('colspan', 1)}",
+        f"  is_merged={cell.get('is_merged', False)}",
+        f"  merged_from={cell.get('merged_from')}",
+        f"  bbox={cell.get('bbox')}",
+    ]
+    return "\n".join(lines) + "\n"
 
-    output_parts = []
-    doc = pymupdf.open(str(pdf_path))
-    try:
-        if page_number is None:
-            pages = doc
-        else:
-            if not 1 <= page_number <= doc.page_count:
-                raise ValueError(
-                    f"Page must be between 1 and {doc.page_count}, got {page_number}"
-                )
-            pages = [doc[page_number - 1]]
 
-        if show_progress:
-            print("Starting processing with progress enabled...")
+def write_page_tables_dump(chunk: dict, page_label: str, output_txt: Path) -> None:
+    lines = [
+        f"=== Page: {page_label} ===",
+        "",
+        "--- Page text (markdown/ascii) ---",
+        "",
+        chunk.get("text_ascii") or chunk.get("text", ""),
+        "",
+        "=" * 60,
+        "",
+    ]
 
-        for page in pages:
-            chunks = llm.to_markdown(
-                page.parent,
-                pages=[page.number],
-                page_chunks=True,
-                table_strategy="lines_strict",
-                show_progress=show_progress,
-            )
+    tables = chunk.get("tables") or []
+    if not tables:
+        lines.append("(No tables detected on this page.)")
+    else:
+        for idx, tab in enumerate(tables):
+            lines.append(f"--- Table {idx + 1} ---")
+            lines.append(f"  bbox: {tab.get('bbox')}")
+            lines.append(f"  rows: {tab.get('rows')}, columns: {tab.get('columns')}")
+            lines.append("")
+            lines.append("  Markdown:")
+            lines.append(tab.get("markdown", "(not available)"))
+            lines.append("")
+            lines.append("  ASCII:")
+            lines.append(tab.get("matrix_ascii") or "(not available)")
+            lines.append("")
+            lines.append("  Cells (attributes per cell):")
+            matrix = tab.get("matrix") or []
+            for row_idx, row in enumerate(matrix):
+                for col_idx, cell in enumerate(row):
+                    lines.append(f"  [row={row_idx}, col={col_idx}]")
+                    lines.append(_format_cell(cell))
+            lines.append("")
 
-            for chunk in chunks:
-                page_number = page.number + 1
-                page_text = chunk.get("text_ascii") or chunk.get("text", "")
-                page_sections = [f"Page {page_number}", page_text]
-
-                
-                output_parts.append("\n".join(page_sections))
-    finally:
-        doc.close()
-
-    output_txt.write_text("\n\n".join(output_parts), encoding="utf-8")
+    output_txt.write_text("\n".join(lines), encoding="utf-8")
 
 
 if __name__ == "__main__":
     ensure_local_import()
 
-    default_pdf = Path(__file__).resolve().parent / "Finerenona_Hinye.pdf"
-    pdf_file = Path(sys.argv[1]) if len(sys.argv) > 1 else default_pdf
-    out_file = Path(sys.argv[2]) if len(sys.argv) > 2 else pdf_file.with_suffix(".txt")
+    import pymupdf4llm as llm
 
-    print("Choose processing mode:")
-    print("1) Entire document")
-    print("2) Specific page")
+    pdf_path = Path("Finerenona_Hinye.pdf")
+
+    print("Processing mode:")
+    print("  1) Entire document")
+    print("  2) Specific page (full table dump: markdown, cells, merged, etc.)")
     choice = input("Enter 1 or 2: ").strip()
-    if choice == "2":
-        page_input = input("Enter page number (1-based): ").strip()
+
+    if choice == "1":
+        text = llm.to_markdown(str(pdf_path), show_progress=True)
+        with open("document_Finerenona_Hinye.txt", "w", encoding="utf-8") as file:
+            file.write(text)
+        print("Done. Output: document_Finerenona_Hinye.txt")
+    elif choice == "2":
+        import pymupdf
+
+        page_input = input("Page number (1-based): ").strip()
         page_number = int(page_input)
+
+        doc = pymupdf.open(str(pdf_path))
+        try:
+            if not 1 <= page_number <= doc.page_count:
+                raise ValueError(
+                    f"Page must be between 1 and {doc.page_count}, got {page_number}"
+                )
+            pno = page_number - 1
+            chunks = llm.to_markdown(
+                doc,
+                pages=[pno],
+                page_chunks=True,
+                table_strategy="lines_strict",
+                show_progress=True,
+            )
+            if chunks:
+                page_name = f"page_{page_number}"
+                output_txt = pdf_path.with_name(f"{pdf_path.stem}_page_{page_number}.txt")
+                write_page_tables_dump(
+                    chunks[0],
+                    page_name,
+                    output_txt,
+                )
+                print(f"Done. Output: {output_txt}")
+        finally:
+            doc.close()
     else:
-        page_number = None
-
-    if not pdf_file.exists():
-        raise FileNotFoundError(f"PDF not found: {pdf_file}")
-
-    start_time = time.perf_counter()
-    read_pdf_to_txt(
-        pdf_file,
-        out_file,
-        page_number=page_number,
-        show_progress=True,
-    )
-    elapsed = time.perf_counter() - start_time
-    print(f"Done! Results in: {out_file} (elapsed: {elapsed:.2f}s)")
-
-'''
-
-import pymupdf4llm as llm
-
-text = llm.to_markdown("Finerenona_Hinye.pdf", show_progress=True)
-
-with open("documento.txt", "w", encoding="utf-8") as file:
-    file.write(text)
+        print("Invalid choice")
