@@ -2688,6 +2688,22 @@ def to_markdown(
                                             # Skip the primary cell position (already filled)
                                             if r_offset == 0 and c_offset == 0:
                                                 continue
+
+                                            # Preserve explicit text reported by PyMuPDF for
+                                            # covered positions. Some tables expose real header
+                                            # labels (for example "Time points") in raw_matrix
+                                            # even when geometry suggests a vertical merge.
+                                            raw_text_covered = ""
+                                            if (
+                                                covered_row < len(raw_matrix)
+                                                and covered_col < len(raw_matrix[covered_row])
+                                            ):
+                                                raw_value = raw_matrix[covered_row][covered_col]
+                                                raw_text_covered = normalize_table_text(
+                                                    str(raw_value) if raw_value else ""
+                                                )
+                                            if raw_text_covered:
+                                                continue
                                             
                                             # Only fill if within bounds and not already filled
                                             if (covered_row < row_count and 
@@ -2884,14 +2900,22 @@ def to_markdown(
                                     "merged_from": (merged_with["row"], merged_with["col"]),
                                     "primary_row": merged_with["row"],
                                     "primary_col": merged_with["col"],
-                                }
-                
-                # Replace remaining None with empty cell dictionaries for consistency
+                                }                # Replace remaining None with empty cell dictionaries for consistency
+                # CRITICAL FIX: Use raw_matrix instead of empty cells
                 for row_idx in range(row_count):
                     for col_idx in range(col_count):
                         if matrix[row_idx][col_idx] is None:
+                            # Try to get text from raw_matrix
+                            cell_text = ""
+                            if row_idx < len(raw_matrix) and col_idx < len(raw_matrix[row_idx]):
+                                raw_cell = raw_matrix[row_idx][col_idx]
+                                if raw_cell:
+                                    cell_text = str(raw_cell)
+                                    # Normalize to handle None and whitespace
+                                    cell_text = normalize_table_text(cell_text)
+                            
                             matrix[row_idx][col_idx] = {
-                                "text": "",
+                                "text": cell_text,
                                 "row": row_idx,
                                 "col": col_idx,
                                 "rowspan": 1,
