@@ -7648,49 +7648,50 @@ Table 3.2.S.3.2.1-2 Detection of each potential organic impurity in Finer
 
 
 
-----------------------------------------------
-|Batch No.        |231201  |240101  |240102  |
-|Impurity name    |        |        |        |
-|-----------------|--------|--------|--------|
-|Related subs     |Not     |Not     |Not     |
-|tance            |detected|detected|detected|
-|-----------------|--------|--------|--------|
-|       |YA2304-12|Not     |Not     |Not     |
-|       |         |detected|detected|detected|
-|-------|---------|--------|--------|--------|
-|       |YA2304-14|Not     |Not     |Not     |
-|       |         |detected|detected|detected|
-|-------|---------|--------|--------|--------|
-|       |YA2304-15|Not     |Not     |< 0.05% |
-|       |         |detected|detected|        |
-|-------|---------|--------|--------|--------|
-|       |YA2304-16|Not     |Not     |Not     |
-|       |         |detected|detected|detected|
-|-------|---------|--------|--------|--------|
-|       |YA2304-17|Not     |Not     |Not     |
-|       |         |detected|detected|detected|
-|-------|---------|--------|--------|--------|
-|       |YA2304-18|Not     |Not     |Not     |
-|       |         |detected|detected|detected|
-|-------|---------|--------|--------|--------|
-|       |YA2304-19|< 0.05% |< 0.05% |< 0.05% |
-|-------|---------|--------|--------|--------|
-|       |Other    |< 0.05% |< 0.05% |< 0.05% |
-|       |singlei  |        |        |        |
-|       |mpurities|        |        |        |
-|-------|---------|--------|--------|--------|
-|       |Total    |< 0.05% |< 0.05% |< 0.05% |
-|       |Miscella |        |        |        |
-|       |neous    |        |        |        |
-|-------|---------|--------|--------|--------|
-|       |YA2304-52|Not     |Not     |Not     |
-|       |         |detected|detected|detected|
-|-------|---------|--------|--------|--------|
-|       |Imidazole|Not     |Not     |Not     |
-|       |         |detected|detected|detected|
-|-------|---------|--------|--------|--------|
-|       |YA2304-20|0.03%   |0.03%   |0.02%   |
-----------------------------------------------
+-------------------------------------------------
+|Batch No. Impurity  |231201  |240101  |240102  |
+|name                |        |        |        |
+|--------------------|--------|--------|--------|
+|Related subs tance  |Not     |Not     |Not     |
+|                    |detected|detected|detected|
+|--------------------|--------|--------|--------|
+|          |YA2304-12|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|----------|---------|--------|--------|--------|
+|          |YA2304-14|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|----------|---------|--------|--------|--------|
+|          |YA2304-15|Not     |Not     |< 0.05% |
+|          |         |detected|detected|        |
+|----------|---------|--------|--------|--------|
+|          |YA2304-16|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|----------|---------|--------|--------|--------|
+|          |YA2304-17|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|----------|---------|--------|--------|--------|
+|          |YA2304-18|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|----------|---------|--------|--------|--------|
+|          |YA2304-19|< 0.05% |< 0.05% |< 0.05% |
+|----------|---------|--------|--------|--------|
+|          |Other    |< 0.05% |< 0.05% |< 0.05% |
+|          |singlei  |        |        |        |
+|          |mpurities|        |        |        |
+|----------|---------|--------|--------|--------|
+|          |Total    |< 0.05% |< 0.05% |< 0.05% |
+|          |Miscella |        |        |        |
+|          |neous    |        |        |        |
+|----------|---------|--------|--------|--------|
+|Related   |YA2304-52|Not     |Not     |Not     |
+|Sub stance|         |detected|detected|detected|
+|II        |         |        |        |        |
+|----------|---------|--------|--------|--------|
+|          |Imidazole|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|----------|---------|--------|--------|--------|
+|Enantiomer|YA2304-20|0.03%   |0.03%   |0.02%   |
+-------------------------------------------------
 
 **3.2.S.3.2.2** **Inorganic** **Impurities** 
 
@@ -25378,8 +25379,8 @@ Stability test results of reference solution
 |---------------|----------------------------------------------------------|-------|
 |0h                                                                                |
 |----------------------------------------------------------------------------------|
-|       |       |Not    |Not    |Not    |Not    |Not     |Not     |Not detected    |
-|       |       |detect |detect |detect |detect |detected|detected|                |
+|       |YA2304 |Not    |Not    |Not    |Not    |Not     |Not     |Not detected    |
+|       |-52    |detect |detect |detect |detect |detected|detected|                |
 |       |       |ed     |ed     |ed     |ed     |        |        |                |
 |-------|-------|-------|-------|-------|-------|--------|--------|----------------|
 |       |Imidazo|Not    |Not    |Not    |Not    |Not     |Not     |Not     |/      |
@@ -36013,114 +36014,124 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 
 
 
----------------------------------------------------------------------------------------------------------
-|         |successively,|peak in the specific mixed solution and the test solution is consistent|       |
-|         |and the      |with the retention time of each solvent positioning solution, and other|       |
-|         |separation   |solvent positioning solutions (benzene, piperidine) have no            |       |
-|         |degree       |interference with the target solvent peak. The percentage Compone      |       |
-|         |between the  |Degree of equivalent to the Soluti nt separatio Component concentration|       |
-|         |adjacent     |of on concentr Rt (min) nfrom the name the principal Name ation        |       |
-|         |peaks should |previous component in the (μg/ml) peak test solution Ethanol 250.278   |       |
-|         |be greater   |8.149 / 0.5% Isopropyl alcohol 250.410 9.504 8.2 0.5% Specifi Ethyl    |       |
-|         |than 1.5; The|acetate 248.695 14.145 28.2 0.5% csec-butanol 250.585 14.429 1.8 0.5%  |       |
-|         |separation   |mixed tetrahydrofuran 36.588 14.728 1.9 0.072% solutio Toluene 50.025  |       |
-|         |degree of    |20.061 37.5 0.089% n N-methylpyrroli 0.053% 27.6875 31.390 94.3 done   |       |
-|         |each solvent |                                                                       |       |
-|         |peak and     |                                                                       |       |
-|         |adjacent     |                                                                       |       |
-|         |peaks in the |                                                                       |       |
-|         |specific     |                                                                       |       |
-|         |mixed        |                                                                       |       |
-|         |solution and |                                                                       |       |
-|         |the test     |                                                                       |       |
-|         |product      |                                                                       |       |
-|         |solution is  |                                                                       |       |
-|         |NLT 1.5, the |                                                                       |       |
-|         |retention    |                                                                       |       |
-|         |time of each |                                                                       |       |
-|         |known solvent|                                                                       |       |
-|         |peak in the  |                                                                       |       |
-|         |specific     |                                                                       |       |
-|         |mixed        |                                                                       |       |
-|         |solution and |                                                                       |       |
-|         |the test     |                                                                       |       |
-|         |product      |                                                                       |       |
-|         |solution     |                                                                       |       |
-|         |should be    |                                                                       |       |
-|         |consistent   |                                                                       |       |
-|         |with the     |                                                                       |       |
-|         |retention    |                                                                       |       |
-|         |time of each |                                                                       |       |
-|         |solvent      |                                                                       |       |
-|         |positioning  |                                                                       |       |
-|         |solution, and|                                                                       |       |
-|         |the          |                                                                       |       |
-|         |positioning  |                                                                       |       |
-|         |solution of  |                                                                       |       |
-|         |other        |                                                                       |       |
-|         |solvents     |                                                                       |       |
-|         |(piperidine, |                                                                       |       |
-|         |benzene) has |                                                                       |       |
-|         |no           |                                                                       |       |
-|         |interference |                                                                       |       |
-|         |with the     |                                                                       |       |
-|         |target       |                                                                       |       |
-|         |solvent peak.|                                                                       |       |
-|         |             |                                                                       |-------|
-|         |             |       |       |       |       |       |       |       |       |       |       |
-|         |             |       |       |       |       |       |       |       |       |       |-------|
-|         |             |       |       |       |       |       |       |       |       |       |       |
-|         |             |       |       |       |       |       |       |       |       |       |-------|
-|         |             |       |       |       |       |       |       |       |       |       |       |
-|         |             |       |       |       |       |       |       |       |       |       |-------|
-|         |             |       |       |       |       |       |       |       |       |       |       |
-|         |             |       |       |       |       |       |       |       |       |       |-------|
-|         |             |       |       |       |       |       |       |       |       |       |       |
-|         |             |       |       |       |       |       |       |       |       |       |-------|
-|         |             |       |       |       |       |       |       |       |       |       |       |
-|         |             |       |       |       |       |       |       |       |       |       |-------|
-|         |             |       |       |       |       |       |       |       |       |       |       |
-|         |             |       |       |       |       |       |       |       |       |       |-------|
-|         |             |       |       |       |       |       |       |       |       |       |       |
-|---------|-------------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
-|Limits of|TheS/Nof each|       |Compone nt Name|Detection Limits       |Limit of quantitation  |       |
-|quantifi |solvent peak |       |               |                       |                       |       |
-|cation,  |in the 6 LOQ |       |               |                       |                       |       |
-|detection|solution maps|       |               |                       |                       |       |
-|         |should be NLT|       |               |                       |                       |       |
-|         |10, the RSD  |       |               |                       |                       |       |
-|         |of retention |       |               |                       |                       |       |
-|         |time should  |       |               |                       |                       |       |
-|         |be no more   |       |               |                       |                       |       |
-|         |than 2.0%,   |       |               |                       |                       |       |
-|         |and the RSD  |       |               |                       |                       |       |
-|         |of peak area |       |               |                       |                       |       |
-|         |should be no |       |               |                       |                       |       |
-|         |more than    |       |               |                       |                       |       |
-|         |10%. TheS/Nof|       |               |                       |                       |       |
-|         |each solvent |       |               |                       |                       |       |
-|         |peak in the  |       |               |                       |                       |       |
-|         |3-needle     |       |               |                       |                       |       |
-|         |Limit of     |       |               |                       |                       |       |
-|         |detection    |       |               |                       |                       |       |
-|         |(LOD)        |       |               |                       |                       |       |
-|         |solution     |       |               |                       |                       |       |
-|         |atlas should |       |               |                       |                       |       |
-|         |be NLT 3.    |       |               |                       |                       |       |
-|         |             |       |               |-----------------------|-----------------------|       |
-|         |             |       |       |       |Concentration          |Concentration          |       |
-|         |             |       |       |       |(equivalent to the     |(equivalent to the test|       |
-|         |             |       |       |       |percentage of solution |product solution       |       |
-|         |             |       |       |       |concentration of the   |concentration          |       |
-|         |             |       |       |       |test product)          |percentage)            |       |
-|         |             |       |-------|-------|-----------------------|-----------------------|       |
-|         |             |       |Ethyl alcohol  |1.502μg/ml (0.003%)    |5.006μg/ml (0.01%)     |       |
-|         |             |       |---------------|-----------------------|-----------------------|       |
-|         |             |       |Isopropyl      |1.502μg/ml (0.003%)    |5.008μg/ml (0.01%)     |       |
-|         |             |       |alcohol        |                       |                       |       |
-|         |             |       |---------------|-----------------------|-----------------------|       |
-|         |             |       |Ethyl          |1.492μg/ml (0.003%)    |4.974μg/ml (0.01%)     |       |
----------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------
+|         |successively,|peak in the specific mixed solution and the test solution is consistent with the   |       |
+|         |and the      |retention time of each solvent positioning solution, and other solvent positioning |       |
+|         |separation   |solutions (benzene, piperidine) have no interference with the target solvent peak. |       |
+|         |degree       |The percentage Compone Degree of equivalent to the Soluti nt separatio Component   |       |
+|         |between the  |concentration of on concentr Rt (min) nfrom the name the principal Name ation      |       |
+|         |adjacent     |previous component in the (μg/ml) peak test solution Ethanol 250.278 8.149 / 0.5%  |       |
+|         |peaks should |Isopropyl alcohol 250.410 9.504 8.2 0.5% Specifi Ethyl acetate 248.695 14.145 28.2 |       |
+|         |be greater   |0.5% csec-butanol 250.585 14.429 1.8 0.5% mixed tetrahydrofuran 36.588 14.728 1.9  |       |
+|         |than 1.5; The|0.072% solutio Toluene 50.025 20.061 37.5 0.089% n N-methylpyrroli 0.053% 27.6875  |       |
+|         |separation   |31.390 94.3 done                                                                   |       |
+|         |degree of    |                                                                                   |       |
+|         |each solvent |                                                                                   |       |
+|         |peak and     |                                                                                   |       |
+|         |adjacent     |                                                                                   |       |
+|         |peaks in the |                                                                                   |       |
+|         |specific     |                                                                                   |       |
+|         |mixed        |                                                                                   |       |
+|         |solution and |                                                                                   |       |
+|         |the test     |                                                                                   |       |
+|         |product      |                                                                                   |       |
+|         |solution is  |                                                                                   |       |
+|         |NLT 1.5, the |                                                                                   |       |
+|         |retention    |                                                                                   |       |
+|         |time of each |                                                                                   |       |
+|         |known solvent|                                                                                   |       |
+|         |peak in the  |                                                                                   |       |
+|         |specific     |                                                                                   |       |
+|         |mixed        |                                                                                   |       |
+|         |solution and |                                                                                   |       |
+|         |the test     |                                                                                   |       |
+|         |product      |                                                                                   |       |
+|         |solution     |                                                                                   |       |
+|         |should be    |                                                                                   |       |
+|         |consistent   |                                                                                   |       |
+|         |with the     |                                                                                   |       |
+|         |retention    |                                                                                   |       |
+|         |time of each |                                                                                   |       |
+|         |solvent      |                                                                                   |       |
+|         |positioning  |                                                                                   |       |
+|         |solution, and|                                                                                   |       |
+|         |the          |                                                                                   |       |
+|         |positioning  |                                                                                   |       |
+|         |solution of  |                                                                                   |       |
+|         |other        |                                                                                   |       |
+|         |solvents     |                                                                                   |       |
+|         |(piperidine, |                                                                                   |       |
+|         |benzene) has |                                                                                   |       |
+|         |no           |                                                                                   |       |
+|         |interference |                                                                                   |       |
+|         |with the     |                                                                                   |       |
+|         |target       |                                                                                   |       |
+|         |solvent peak.|                                                                                   |       |
+|         |             |                                                                                   |-------|
+|         |             |       |Soluti  |Component name   |Compone |Rt (min)            |Degree of |The percentage |
+|         |             |       |on Name |                 |nt      |                    |separation|equivalent to  |
+|         |             |       |        |                 |concentr|                    |from the  |the            |
+|         |             |       |        |                 |ation   |                    |previous  |concentration  |
+|         |             |       |        |                 |(μg/ml) |                    |peak      |of the         |
+|         |             |       |        |                 |        |                    |          |principal      |
+|         |             |       |        |                 |        |                    |          |component in   |
+|         |             |       |        |                 |        |                    |          |the test       |
+|         |             |       |        |                 |        |                    |          |solution       |
+|         |             |       |--------|-----------------|--------|--------------------|----------|---------------|
+|         |             |       |Specific|Ethanol          |250.278 |8.149               |/         |0.5%           |
+|         |             |       |mixed   |                 |        |                    |          |               |
+|         |             |       |solution|                 |        |                    |          |               |
+|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |       |        |Isopropyl alcohol|250.410 |9.504               |8.2       |0.5%           |
+|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |       |        |Ethyl acetate    |248.695 |14.145              |28.2      |0.5%           |
+|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |       |        |sec-butanol      |250.585 |14.429              |1.8       |0.5%           |
+|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |       |        |tetrahydrofuran  |36.588  |14.728              |1.9       |0.072%         |
+|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |       |        |Toluene          |50.025  |20.061              |37.5      |0.089%         |
+|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |       |        |N-methylpyrroli  |27.6875 |31.390              |94.3      |0.053%         |
+|         |             |       |        |done             |        |                    |          |               |
+|---------|-------------|-------|--------|                 |        |                    |          |               |
+|Limits of|TheS/Nof each|       |Compone |       |Detection|        |       |Limit of    |          |       |       |
+|quantifi |solvent peak |       |nt Name |       |Limits   |        |       |quantitation|          |       |       |
+|cation,  |in the 6 LOQ |       |        |       |         |        |       |            |          |       |       |
+|detection|solution maps|       |        |       |         |        |       |            |          |       |       |
+|         |should be NLT|       |        |       |         |        |       |            |          |       |       |
+|         |10, the RSD  |       |        |       |         |        |       |            |          |       |       |
+|         |of retention |       |        |       |         |        |       |            |          |       |       |
+|         |time should  |       |        |       |         |        |       |            |          |       |       |
+|         |be no more   |       |        |       |         |        |       |            |          |       |       |
+|         |than 2.0%,   |       |        |       |         |        |       |            |          |       |       |
+|         |and the RSD  |       |        |       |         |        |       |            |          |       |       |
+|         |of peak area |       |        |       |         |        |       |            |          |       |       |
+|         |should be no |       |        |       |         |        |       |            |          |       |       |
+|         |more than    |       |        |       |         |        |       |            |          |       |       |
+|         |10%. TheS/Nof|       |        |       |         |        |       |            |          |       |       |
+|         |each solvent |       |        |       |         |        |       |            |          |       |       |
+|         |peak in the  |       |        |       |         |        |       |            |          |       |       |
+|         |3-needle     |       |        |       |         |        |       |            |          |       |       |
+|         |Limit of     |       |        |       |         |        |       |            |          |       |       |
+|         |detection    |       |        |       |         |        |       |            |          |       |       |
+|         |(LOD)        |       |        |       |         |        |       |            |          |       |       |
+|         |solution     |       |        |       |         |        |       |            |          |       |       |
+|         |atlas should |       |        |       |         |        |       |            |          |       |       |
+|         |be NLT 3.    |       |        |       |         |        |       |            |          |       |       |
+|         |             |       |        |-------|---------|--------|-------|------------|----------|-------|-------|
+|         |             |       |        |       |Concentration (equivalent |Concentration (equivalent to the test  |
+|         |             |       |        |       |to the percentage of      |product solution concentration         |
+|         |             |       |        |       |solution concentration of |percentage)                            |
+|         |             |       |        |       |the test product)         |                                       |
+|         |             |       |--------|-------|--------------------------|---------------------------------------|
+|         |             |       |Ethyl alcohol   |1.502μg/ml (0.003%)       |5.006μg/ml (0.01%)                     |
+|         |             |       |----------------|--------------------------|---------------------------------------|
+|         |             |       |Isopropyl       |1.502μg/ml (0.003%)       |5.008μg/ml (0.01%)                     |
+|         |             |       |alcohol         |                          |                                       |
+|         |             |       |----------------|--------------------------|---------------------------------------|
+|         |             |       |Ethyl           |1.492μg/ml (0.003%)       |4.974μg/ml (0.01%)                     |
+---------------------------------------------------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -42673,106 +42684,107 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 
 
 
--------------------------------------------------------------------------
-|trailing factor NMT 1.5.                                               |
-|-----------------------------------------------------------------------|
-|Linearity|In the       |Concentration (equivalent to the Impuriti      |
-|and range|concentration|percentage of solution Linear equation es      |
-|         |range        |concentration of the test product)             |
-|         |equivalent to|12.3576μg/ml~28.8344μg/ml YA2304 y=16810x-256  |
-|         |60%~140% of  |(61.79%~144.17%)                               |
-|         |the control  |                                               |
-|         |solution, 5  |                                               |
-|         |concentration|                                               |
-|         |points were  |                                               |
-|         |evenly       |                                               |
-|         |selected, and|                                               |
-|         |the          |                                               |
-|         |concentration|                                               |
-|         |was taken as |                                               |
-|         |the          |                                               |
-|         |horizontal   |                                               |
-|         |coordinate   |                                               |
-|         |and the peak |                                               |
-|         |area was     |                                               |
-|         |taken as the |                                               |
-|         |vertical     |                                               |
-|         |coordinate as|                                               |
-|         |the linear   |                                               |
-|         |regression   |                                               |
-|         |curve. The   |                                               |
-|         |correlation  |                                               |
-|         |coefficient  |                                               |
-|         |(R) of the   |                                               |
-|         |regression   |                                               |
-|         |curve was NLT|                                               |
-|         |0.998, and   |                                               |
-|         |the RSD of   |                                               |
-|         |the response |                                               |
-|         |factor should|                                               |
-|         |NMT 2.0%. The|                                               |
-|         |absolute     |                                               |
-|         |value        |                                               |
-|         |ofY-axis     |                                               |
-|         |intercept    |                                               |
-|         |accounts for |                                               |
-|         |less than 2% |                                               |
-|         |of 100%      |                                               |
-|         |response     |                                               |
-|         |value.       |                                               |
-|---------|-------------|-----------------------------------------------|
-|Accuracy |Add YA2304   |Average Impurities Marking condition recovery  |
-|         |reference in |RSD rate Added 16.0038μg/ml to YA2304 99.9%,   |
-|         |the range of |n=9 0.6%, n=9 24.4963μg/ml                     |
-|         |80% reference|                                               |
-|         |solution     |                                               |
-|         |concentration|                                               |
-|         |to 120%      |                                               |
-|         |reference    |                                               |
-|         |solution     |                                               |
-|         |concentration|                                               |
-|         |to the       |                                               |
-|         |thinner; The |                                               |
-|         |recovery rate|                                               |
-|         |is required  |                                               |
-|         |to be between|                                               |
-|         |98% and 101%,|                                               |
-|         |and the RSD  |                                               |
-|         |of recovery  |                                               |
-|         |rate NMT     |                                               |
-|         |2.0%.        |                                               |
-|---------|-------------|-----------------------------------------------|
-|Precision|Repeatability|Principal Intermediate Repeatability Precisi   |
-|         |and          |Component precision YA2304 0.5%, n=6 0.4%, n=6 |
-|         |intermediate |0.4%, n                                        |
-|         |precision:   |                                               |
-|         |the RSD of   |                                               |
-|         |principal    |                                               |
-|         |component in |                                               |
-|         |6            |                                               |
-|         |repeatability|                                               |
-|         |(or          |                                               |
-|         |intermediate |                                               |
-|         |precision)   |                                               |
-|         |test product |                                               |
-|         |solution NMT |                                               |
-|         |1.0%.        |                                               |
-|         |Precision:   |                                               |
-|         |For the      |                                               |
-|         |results of 12|                                               |
-|         |repeatability|                                               |
-|         |and          |                                               |
-|         |intermediate |                                               |
-|         |precision    |                                               |
-|         |tests, the   |                                               |
-|         |RSD of       |                                               |
-|         |             |                                               |
-|         |             |       |       |       |       |       |       |
-|         |             |       |       |       |       |       |       |
-|         |             |       |       |       |       |       |       |
-|         |             |       |       |       |       |       |       |
-|         |             |       |       |       |       |       |       |
--------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+|trailing factor NMT 1.5.                                                            |
+|------------------------------------------------------------------------------------|
+|Linearity|In the       |Concentration (equivalent to the Impuriti percentage of     |
+|and range|concentration|solution Linear equation es concentration of the test       |
+|         |range        |product) 12.3576μg/ml~28.8344μg/ml YA2304 y=16810x-256      |
+|         |equivalent to|(61.79%~144.17%)                                            |
+|         |60%~140% of  |                                                            |
+|         |the control  |                                                            |
+|         |solution, 5  |                                                            |
+|         |concentration|                                                            |
+|         |points were  |                                                            |
+|         |evenly       |                                                            |
+|         |selected, and|                                                            |
+|         |the          |                                                            |
+|         |concentration|                                                            |
+|         |was taken as |                                                            |
+|         |the          |                                                            |
+|         |horizontal   |                                                            |
+|         |coordinate   |                                                            |
+|         |and the peak |                                                            |
+|         |area was     |                                                            |
+|         |taken as the |                                                            |
+|         |vertical     |                                                            |
+|         |coordinate as|                                                            |
+|         |the linear   |                                                            |
+|         |regression   |                                                            |
+|         |curve. The   |                                                            |
+|         |correlation  |                                                            |
+|         |coefficient  |                                                            |
+|         |(R) of the   |                                                            |
+|         |regression   |                                                            |
+|         |curve was NLT|                                                            |
+|         |0.998, and   |                                                            |
+|         |the RSD of   |                                                            |
+|         |the response |                                                            |
+|         |factor should|                                                            |
+|         |NMT 2.0%. The|                                                            |
+|         |absolute     |                                                            |
+|         |value        |                                                            |
+|         |ofY-axis     |                                                            |
+|         |intercept    |                                                            |
+|         |accounts for |                                                            |
+|         |less than 2% |                                                            |
+|         |of 100%      |                                                            |
+|         |response     |                                                            |
+|         |value.       |                                                            |
+|---------|-------------|------------------------------------------------------------|
+|Accuracy |Add YA2304   |Average Impurities Marking condition recovery RSD rate Added|
+|         |reference in |16.0038μg/ml to YA2304 99.9%, n=9 0.6%, n=9 24.4963μg/ml    |
+|         |the range of |                                                            |
+|         |80% reference|                                                            |
+|         |solution     |                                                            |
+|         |concentration|                                                            |
+|         |to 120%      |                                                            |
+|         |reference    |                                                            |
+|         |solution     |                                                            |
+|         |concentration|                                                            |
+|         |to the       |                                                            |
+|         |thinner; The |                                                            |
+|         |recovery rate|                                                            |
+|         |is required  |                                                            |
+|         |to be between|                                                            |
+|         |98% and 101%,|                                                            |
+|         |and the RSD  |                                                            |
+|         |of recovery  |                                                            |
+|         |rate NMT     |                                                            |
+|         |2.0%.        |                                                            |
+|---------|-------------|------------------------------------------------------------|
+|Precision|Repeatability|Principal Intermediate Repeatability Precisi Component      |
+|         |and          |precision YA2304 0.5%, n=6 0.4%, n=6 0.4%, n                |
+|         |intermediate |                                                            |
+|         |precision:   |                                                            |
+|         |the RSD of   |                                                            |
+|         |principal    |                                                            |
+|         |component in |                                                            |
+|         |6            |                                                            |
+|         |repeatability|                                                            |
+|         |(or          |                                                            |
+|         |intermediate |                                                            |
+|         |precision)   |                                                            |
+|         |test product |                                                            |
+|         |solution NMT |                                                            |
+|         |1.0%.        |                                                            |
+|         |Precision:   |                                                            |
+|         |For the      |                                                            |
+|         |results of 12|                                                            |
+|         |repeatability|                                                            |
+|         |and          |                                                            |
+|         |intermediate |                                                            |
+|         |precision    |                                                            |
+|         |tests, the   |                                                            |
+|         |RSD of       |                                                            |
+|         |             |                                                            |
+|         |             |       |Principal|Repeatability|Intermediate|Precisi|       |
+|         |             |       |Component|             |precision   |       |       |
+|         |             |       |---------|-------------|------------|-------|       |
+|         |             |       |YA2304   |0.5%, n=6    |0.4%, n=6   |0.4%, n|=      |
+|         |             |       |---------|-------------|------------|-------|-------|
+|         |             |       |         |             |            |       |       |
+--------------------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -52827,7 +52839,8 @@ Page 519 of 542
 |----------------------|----------------------------------------------------------------------------------------|
 |0                                                                                                              |
 |---------------------------------------------------------------------------------------------------------------|
-|          |           |0.03%   |0.03%  |0.04%          |       |               |       |       |       |       |
+|          |YA2304-20: |0.03%   |0.03%  |0.04%          |       |               |       |       |       |       |
+|          |NMT 0.15%  |        |       |               |       |               |       |       |       |       |
 |----------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |genotoxic |Dimethyl   |ND      |/      |ND             |       |               |       |       |       |       |
 |impurities|sulfate NMT|        |       |               |       |               |       |       |       |       |
@@ -52850,7 +52863,7 @@ Page 519 of 542
 |          |impurities |        |       |               |       |               |       |       |       |       |
 |          |NMT 250ppm |        |       |               |       |               |       |       |       |       |
 |----------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|          |NMT 0.5%   |0.05%   |0.1%   |0.05%          |       |               |       |       |       |       |
+|Water     |NMT 0.5%   |0.05%   |0.1%   |0.05%          |       |               |       |       |       |       |
 |----------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |Microbial |TAMC: NMT  |Complies|/      |Complies       |       |               |       |       |       |       |
 |limits    |103CFU/g   |        |       |               |       |               |       |       |       |       |
@@ -52862,7 +52875,7 @@ Page 519 of 542
 |          |Escherichia|        |       |               |       |               |       |       |       |       |
 |          |coli (1g)  |        |       |               |       |               |       |       |       |       |
 |----------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|          |98.0% to   |99.8%   |100.2% |100.7%         |       |               |       |       |       |       |
+|Assay     |98.0% to   |99.8%   |100.2% |100.7%         |       |               |       |       |       |       |
 |          |102.0%     |        |       |               |       |               |       |       |       |       |
 |          |(anhydrous |        |       |               |       |               |       |       |       |       |
 |          |substance).|        |       |               |       |               |       |       |       |       |
@@ -52930,7 +52943,11 @@ Page 520 of 542
 |-------------------|----------------------------------------------------------------------------------------|
 |0                                                                                                           |
 |------------------------------------------------------------------------------------------------------------|
-|        |          |Complies|/      |Complies       |       |               |       |       |       |       |
+|        |Basically |Complies|/      |Complies       |       |               |       |       |       |       |
+|        |consistent|        |       |               |       |               |       |       |       |       |
+|        |with the  |        |       |               |       |               |       |       |       |       |
+|        |results of|        |       |               |       |               |       |       |       |       |
+|        |0 month   |        |       |               |       |               |       |       |       |       |
 |--------|----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |Particle|Basically |D90:    |/      |D90: 6.163μm   |       |               |       |       |       |       |
 |size    |consistent|7.712μm |       |               |       |               |       |       |       |       |
@@ -53129,7 +53146,9 @@ Page 522 of 542
 |---------------------|----------------------------------------------------------------------------------------|
 |0                                                                                                             |
 |--------------------------------------------------------------------------------------------------------------|
-|         |           |ND      |/      |ND             |       |               |       |       |       |       |
+|         |Dimethyl   |ND      |/      |ND             |       |               |       |       |       |       |
+|         |sulfate NMT|        |       |               |       |               |       |       |       |       |
+|         |75ppm      |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |         |Diethyl    |ND      |/      |ND             |       |               |       |       |       |       |
 |         |sulfate NMT|        |       |               |       |               |       |       |       |       |
@@ -53148,7 +53167,7 @@ Page 522 of 542
 |         |impurities |        |       |               |       |               |       |       |       |       |
 |         |NMT 250ppm |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|         |NMT 0.5%   |0.04%   |0.1%   |0.04%          |       |               |       |       |       |       |
+|Water    |NMT 0.5%   |0.04%   |0.1%   |0.04%          |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |Microbial|TAMC: NMT  |Complies|/      |Complies       |       |               |       |       |       |       |
 |limits   |103CFU/g   |        |       |               |       |               |       |       |       |       |
@@ -53160,7 +53179,7 @@ Page 522 of 542
 |         |Escherichia|        |       |               |       |               |       |       |       |       |
 |         |coli (1g)  |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|         |98.0% to   |99.8%   |100.5% |99.5%          |       |               |       |       |       |       |
+|Assay    |98.0% to   |99.8%   |100.5% |99.5%          |       |               |       |       |       |       |
 |         |102.0%     |        |       |               |       |               |       |       |       |       |
 |         |(anhydrous |        |       |               |       |               |       |       |       |       |
 |         |substance).|        |       |               |       |               |       |       |       |       |
@@ -53214,28 +53233,30 @@ Page 523 of 542
 
 
 
----------------------------------------------------------------------------------------------------------
-|Batch No.      |240101                 |Batch size             |10 kg                                  |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Primary package|double-layered         |Storage condition      |30℃±2℃ / 65%RH±5%RH                    |
-|               |pharmaceutical grade   |                       |                                       |
-|               |low-density            |                       |                                       |
-|               |polyethylene (LDPE) bag|                       |                                       |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Manufacturing  |Jan. 19, 2024          |Stability starting date|Feb. 04, 2024                          |
-|date           |                       |                       |                                       |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Manufacturing  |API (II) Workshop,     |               |       |               |       |       |       |
-|site           |Hinye Pharmaceutical   |               |       |               |       |       |       |
-|               |Co., Ltd.              |               |       |               |       |       |       |
-|---------------|-----------------------|---------------|-------|---------------|-------|-------|-------|
-|Items          |Time points (Months)                                                                   |
-|---------------|---------------------------------------------------------------------------------------|
-|0                                                                                                      |
-|-------------------------------------------------------------------------------------------------------|
-|       |       |D90:   |/      |D90: 7.500μm   |       |               |       |       |       |       |
-|       |       |7.833μm|       |               |       |               |       |       |       |       |
----------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+|Batch No.         |240101                 |Batch size             |10 kg                                  |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Primary package   |double-layered         |Storage condition      |30℃±2℃ / 65%RH±5%RH                    |
+|                  |pharmaceutical grade   |                       |                                       |
+|                  |low-density            |                       |                                       |
+|                  |polyethylene (LDPE) bag|                       |                                       |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Manufacturing date|Jan. 19, 2024          |Stability starting date|Feb. 04, 2024                          |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Manufacturing site|API (II) Workshop,     |               |       |               |       |       |       |
+|                  |Hinye Pharmaceutical   |               |       |               |       |       |       |
+|                  |Co., Ltd.              |               |       |               |       |       |       |
+|------------------|-----------------------|---------------|-------|---------------|-------|-------|-------|
+|Items             |Time points (Months)                                                                   |
+|------------------|---------------------------------------------------------------------------------------|
+|0                                                                                                         |
+|----------------------------------------------------------------------------------------------------------|
+|       |Basically |D90:   |/      |D90: 7.500μm   |       |               |       |       |       |       |
+|       |consistent|7.833μm|       |               |       |               |       |       |       |       |
+|       |with the  |       |       |               |       |               |       |       |       |       |
+|       |results of|       |       |               |       |               |       |       |       |       |
+|       |0 month   |       |       |               |       |               |       |       |       |       |
+------------------------------------------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -53427,7 +53448,9 @@ Page 525 of 542
 |---------------------|----------------------------------------------------------------------------------------|
 |0                                                                                                             |
 |--------------------------------------------------------------------------------------------------------------|
-|         |           |ND      |/      |ND             |       |               |       |       |       |       |
+|         |Dimethyl   |ND      |/      |ND             |       |               |       |       |       |       |
+|         |sulfate NMT|        |       |               |       |               |       |       |       |       |
+|         |75ppm      |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |         |Diethyl    |ND      |/      |ND             |       |               |       |       |       |       |
 |         |sulfate NMT|        |       |               |       |               |       |       |       |       |
@@ -53446,7 +53469,7 @@ Page 525 of 542
 |         |impurities |        |       |               |       |               |       |       |       |       |
 |         |NMT 250ppm |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|         |NMT 0.5%   |0.2%    |0.1%   |0.1%           |       |               |       |       |       |       |
+|Water    |NMT 0.5%   |0.2%    |0.1%   |0.1%           |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |Microbial|TAMC: NMT  |Complies|/      |Complies       |       |               |       |       |       |       |
 |limits   |103CFU/g   |        |       |               |       |               |       |       |       |       |
@@ -53458,7 +53481,7 @@ Page 525 of 542
 |         |Escherichia|        |       |               |       |               |       |       |       |       |
 |         |coli (1g)  |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|         |98.0% to   |99.7%   |100.7% |99.5%          |       |               |       |       |       |       |
+|Assay    |98.0% to   |99.7%   |100.7% |99.5%          |       |               |       |       |       |       |
 |         |102.0%     |        |       |               |       |               |       |       |       |       |
 |         |(anhydrous |        |       |               |       |               |       |       |       |       |
 |         |substance).|        |       |               |       |               |       |       |       |       |
@@ -53512,28 +53535,30 @@ Page 526 of 542
 
 
 
----------------------------------------------------------------------------------------------------------
-|Batch No.      |240102                 |Batch size             |10 kg                                  |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Primary package|double-layered         |Storage condition      |30℃±2℃ / 65%RH±5%RH                    |
-|               |pharmaceutical grade   |                       |                                       |
-|               |low-density            |                       |                                       |
-|               |polyethylene (LDPE) bag|                       |                                       |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Manufacturing  |Jan. 30, 2024          |Stability starting date|Feb. 04, 2024                          |
-|date           |                       |                       |                                       |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Manufacturing  |API (II) Workshop,     |               |       |               |       |       |       |
-|site           |Hinye Pharmaceutical   |               |       |               |       |       |       |
-|               |Co., Ltd.              |               |       |               |       |       |       |
-|---------------|-----------------------|---------------|-------|---------------|-------|-------|-------|
-|Items          |Time points (Months)                                                                   |
-|---------------|---------------------------------------------------------------------------------------|
-|0                                                                                                      |
-|-------------------------------------------------------------------------------------------------------|
-|       |       |D90:   |/      |D90: 7.559μm   |       |               |       |       |       |       |
-|       |       |8.027μm|       |               |       |               |       |       |       |       |
----------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+|Batch No.         |240102                 |Batch size             |10 kg                                  |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Primary package   |double-layered         |Storage condition      |30℃±2℃ / 65%RH±5%RH                    |
+|                  |pharmaceutical grade   |                       |                                       |
+|                  |low-density            |                       |                                       |
+|                  |polyethylene (LDPE) bag|                       |                                       |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Manufacturing date|Jan. 30, 2024          |Stability starting date|Feb. 04, 2024                          |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Manufacturing site|API (II) Workshop,     |               |       |               |       |       |       |
+|                  |Hinye Pharmaceutical   |               |       |               |       |       |       |
+|                  |Co., Ltd.              |               |       |               |       |       |       |
+|------------------|-----------------------|---------------|-------|---------------|-------|-------|-------|
+|Items             |Time points (Months)                                                                   |
+|------------------|---------------------------------------------------------------------------------------|
+|0                                                                                                         |
+|----------------------------------------------------------------------------------------------------------|
+|       |Basically |D90:   |/      |D90: 7.559μm   |       |               |       |       |       |       |
+|       |consistent|8.027μm|       |               |       |               |       |       |       |       |
+|       |with the  |       |       |               |       |               |       |       |       |       |
+|       |results of|       |       |               |       |               |       |       |       |       |
+|       |0 month   |       |       |               |       |               |       |       |       |       |
+------------------------------------------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -53717,7 +53742,8 @@ Page 528 of 542
 |----------------------|----------------------------------------------------------------------------------------|
 |0                                                                                                              |
 |---------------------------------------------------------------------------------------------------------------|
-|          |           |0.03%   |0.03%  |0.04%          |       |               |       |       |       |       |
+|          |YA2304-20: |0.03%   |0.03%  |0.04%          |       |               |       |       |       |       |
+|          |NMT 0.15%  |        |       |               |       |               |       |       |       |       |
 |----------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |genotoxic |Dimethyl   |ND      |/      |ND             |       |               |       |       |       |       |
 |impurities|sulfate NMT|        |       |               |       |               |       |       |       |       |
@@ -53740,7 +53766,7 @@ Page 528 of 542
 |          |impurities |        |       |               |       |               |       |       |       |       |
 |          |NMT 250ppm |        |       |               |       |               |       |       |       |       |
 |----------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|          |NMT 0.5%   |0.05%   |0.1%   |0.04%          |       |               |       |       |       |       |
+|Water     |NMT 0.5%   |0.05%   |0.1%   |0.04%          |       |               |       |       |       |       |
 |----------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |Microbial |TAMC: NMT  |Complies|/      |Complies       |       |               |       |       |       |       |
 |limits    |103CFU/g   |        |       |               |       |               |       |       |       |       |
@@ -53752,7 +53778,7 @@ Page 528 of 542
 |          |Escherichia|        |       |               |       |               |       |       |       |       |
 |          |coli (1g)  |        |       |               |       |               |       |       |       |       |
 |----------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|          |98.0% to   |99.8%   |100.8% |99.8%          |       |               |       |       |       |       |
+|Assay     |98.0% to   |99.8%   |100.8% |99.8%          |       |               |       |       |       |       |
 |          |102.0%     |        |       |               |       |               |       |       |       |       |
 |          |(anhydrous |        |       |               |       |               |       |       |       |       |
 |          |substance).|        |       |               |       |               |       |       |       |       |
@@ -53820,7 +53846,11 @@ Page 529 of 542
 |-------------------|----------------------------------------------------------------------------------------|
 |0                                                                                                           |
 |------------------------------------------------------------------------------------------------------------|
-|        |          |Complies|/      |Complies       |       |               |       |       |       |       |
+|        |Basically |Complies|/      |Complies       |       |               |       |       |       |       |
+|        |consistent|        |       |               |       |               |       |       |       |       |
+|        |with the  |        |       |               |       |               |       |       |       |       |
+|        |results of|        |       |               |       |               |       |       |       |       |
+|        |0 month   |        |       |               |       |               |       |       |       |       |
 |--------|----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |Particle|Basically |D90:    |/      |D90: 6.235μm   |       |               |       |       |       |       |
 |size    |consistent|7.712μm |       |               |       |               |       |       |       |       |
@@ -54015,7 +54045,9 @@ Page 531 of 542
 |---------------------|----------------------------------------------------------------------------------------|
 |0                                                                                                             |
 |--------------------------------------------------------------------------------------------------------------|
-|         |           |ND      |/      |ND             |       |               |       |       |       |       |
+|         |Dimethyl   |ND      |/      |ND             |       |               |       |       |       |       |
+|         |sulfate NMT|        |       |               |       |               |       |       |       |       |
+|         |75ppm      |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |         |Diethyl    |ND      |/      |ND             |       |               |       |       |       |       |
 |         |sulfate NMT|        |       |               |       |               |       |       |       |       |
@@ -54034,7 +54066,7 @@ Page 531 of 542
 |         |impurities |        |       |               |       |               |       |       |       |       |
 |         |NMT 250ppm |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|         |NMT 0.5%   |0.05%   |0.1%   |0.04%          |       |               |       |       |       |       |
+|Water    |NMT 0.5%   |0.05%   |0.1%   |0.04%          |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |Microbial|TAMC: NMT  |Complies|/      |Complies       |       |               |       |       |       |       |
 |limits   |103CFU/g   |        |       |               |       |               |       |       |       |       |
@@ -54046,7 +54078,7 @@ Page 531 of 542
 |         |Escherichia|        |       |               |       |               |       |       |       |       |
 |         |coli (1g)  |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|         |98.0% to   |99.8%   |100.6% |99.6%          |       |               |       |       |       |       |
+|Assay    |98.0% to   |99.8%   |100.6% |99.6%          |       |               |       |       |       |       |
 |         |102.0%     |        |       |               |       |               |       |       |       |       |
 |         |(anhydrous |        |       |               |       |               |       |       |       |       |
 |         |substance).|        |       |               |       |               |       |       |       |       |
@@ -54100,28 +54132,30 @@ Page 532 of 542
 
 
 
----------------------------------------------------------------------------------------------------------
-|Batch No.      |240101                 |Batch size             |10 kg                                  |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Primary package|double-layered         |Storage condition      |40℃±2℃ / 75%RH±5%RH                    |
-|               |pharmaceutical grade   |                       |                                       |
-|               |low-density            |                       |                                       |
-|               |polyethylene (LDPE) bag|                       |                                       |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Manufacturing  |Jan. 19, 2024          |Stability starting date|Feb. 04, 2024                          |
-|date           |                       |                       |                                       |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Manufacturing  |API (II) Workshop,     |               |       |               |       |       |       |
-|site           |Hinye Pharmaceutical   |               |       |               |       |       |       |
-|               |Co., Ltd.              |               |       |               |       |       |       |
-|---------------|-----------------------|---------------|-------|---------------|-------|-------|-------|
-|Items          |Time points (Months)                                                                   |
-|---------------|---------------------------------------------------------------------------------------|
-|0                                                                                                      |
-|-------------------------------------------------------------------------------------------------------|
-|       |       |D90:   |/      |D90: 7.227μm   |       |               |       |       |       |       |
-|       |       |7.833μm|       |               |       |               |       |       |       |       |
----------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+|Batch No.         |240101                 |Batch size             |10 kg                                  |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Primary package   |double-layered         |Storage condition      |40℃±2℃ / 75%RH±5%RH                    |
+|                  |pharmaceutical grade   |                       |                                       |
+|                  |low-density            |                       |                                       |
+|                  |polyethylene (LDPE) bag|                       |                                       |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Manufacturing date|Jan. 19, 2024          |Stability starting date|Feb. 04, 2024                          |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Manufacturing site|API (II) Workshop,     |               |       |               |       |       |       |
+|                  |Hinye Pharmaceutical   |               |       |               |       |       |       |
+|                  |Co., Ltd.              |               |       |               |       |       |       |
+|------------------|-----------------------|---------------|-------|---------------|-------|-------|-------|
+|Items             |Time points (Months)                                                                   |
+|------------------|---------------------------------------------------------------------------------------|
+|0                                                                                                         |
+|----------------------------------------------------------------------------------------------------------|
+|       |Basically |D90:   |/      |D90: 7.227μm   |       |               |       |       |       |       |
+|       |consistent|7.833μm|       |               |       |               |       |       |       |       |
+|       |with the  |       |       |               |       |               |       |       |       |       |
+|       |results of|       |       |               |       |               |       |       |       |       |
+|       |0 month   |       |       |               |       |               |       |       |       |       |
+------------------------------------------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -54309,7 +54343,9 @@ Page 534 of 542
 |---------------------|----------------------------------------------------------------------------------------|
 |0                                                                                                             |
 |--------------------------------------------------------------------------------------------------------------|
-|         |           |ND      |/      |ND             |       |               |       |       |       |       |
+|         |Dimethyl   |ND      |/      |ND             |       |               |       |       |       |       |
+|         |sulfate NMT|        |       |               |       |               |       |       |       |       |
+|         |75ppm      |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |         |Diethyl    |ND      |/      |ND             |       |               |       |       |       |       |
 |         |sulfate NMT|        |       |               |       |               |       |       |       |       |
@@ -54328,7 +54364,7 @@ Page 534 of 542
 |         |impurities |        |       |               |       |               |       |       |       |       |
 |         |NMT 250ppm |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|         |NMT 0.5%   |0.2%    |0.1%   |0.05%          |       |               |       |       |       |       |
+|Water    |NMT 0.5%   |0.2%    |0.1%   |0.05%          |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
 |Microbial|TAMC: NMT  |Complies|/      |Complies       |       |               |       |       |       |       |
 |limits   |103CFU/g   |        |       |               |       |               |       |       |       |       |
@@ -54340,7 +54376,7 @@ Page 534 of 542
 |         |Escherichia|        |       |               |       |               |       |       |       |       |
 |         |coli (1g)  |        |       |               |       |               |       |       |       |       |
 |---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
-|         |98.0% to   |99.7%   |100.7% |101.1%         |       |               |       |       |       |       |
+|Assay    |98.0% to   |99.7%   |100.7% |101.1%         |       |               |       |       |       |       |
 |         |102.0%     |        |       |               |       |               |       |       |       |       |
 |         |(anhydrous |        |       |               |       |               |       |       |       |       |
 |         |substance).|        |       |               |       |               |       |       |       |       |
@@ -54394,28 +54430,30 @@ Page 535 of 542
 
 
 
----------------------------------------------------------------------------------------------------------
-|Batch No.      |240102                 |Batch size             |10 kg                                  |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Primary package|double-layered         |Storage condition      |40℃±2℃ / 75%RH±5%RH                    |
-|               |pharmaceutical grade   |                       |                                       |
-|               |low-density            |                       |                                       |
-|               |polyethylene (LDPE) bag|                       |                                       |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Manufacturing  |Jan. 30, 2024          |Stability starting date|Feb. 04, 2024                          |
-|date           |                       |                       |                                       |
-|---------------|-----------------------|-----------------------|---------------------------------------|
-|Manufacturing  |API (II) Workshop,     |               |       |               |       |       |       |
-|site           |Hinye Pharmaceutical   |               |       |               |       |       |       |
-|               |Co., Ltd.              |               |       |               |       |       |       |
-|---------------|-----------------------|---------------|-------|---------------|-------|-------|-------|
-|Items          |Time points (Months)                                                                   |
-|---------------|---------------------------------------------------------------------------------------|
-|0                                                                                                      |
-|-------------------------------------------------------------------------------------------------------|
-|       |       |D90:   |/      |D90: 7.246μm   |       |               |       |       |       |       |
-|       |       |8.027μm|       |               |       |               |       |       |       |       |
----------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+|Batch No.         |240102                 |Batch size             |10 kg                                  |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Primary package   |double-layered         |Storage condition      |40℃±2℃ / 75%RH±5%RH                    |
+|                  |pharmaceutical grade   |                       |                                       |
+|                  |low-density            |                       |                                       |
+|                  |polyethylene (LDPE) bag|                       |                                       |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Manufacturing date|Jan. 30, 2024          |Stability starting date|Feb. 04, 2024                          |
+|------------------|-----------------------|-----------------------|---------------------------------------|
+|Manufacturing site|API (II) Workshop,     |               |       |               |       |       |       |
+|                  |Hinye Pharmaceutical   |               |       |               |       |       |       |
+|                  |Co., Ltd.              |               |       |               |       |       |       |
+|------------------|-----------------------|---------------|-------|---------------|-------|-------|-------|
+|Items             |Time points (Months)                                                                   |
+|------------------|---------------------------------------------------------------------------------------|
+|0                                                                                                         |
+|----------------------------------------------------------------------------------------------------------|
+|       |Basically |D90:   |/      |D90: 7.246μm   |       |               |       |       |       |       |
+|       |consistent|8.027μm|       |               |       |               |       |       |       |       |
+|       |with the  |       |       |               |       |               |       |       |       |       |
+|       |results of|       |       |               |       |               |       |       |       |       |
+|       |0 month   |       |       |               |       |               |       |       |       |       |
+------------------------------------------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -54472,8 +54510,8 @@ Table 3.2.S.7.3-7 High Temperature Stress Test Data of Finerenone (Batch No. 231
 |                         |thickness of substance is 3 ~ 5 mm. Store the culture    |
 |                         |dish into constant temperature oven at 60℃.              |
 |-------------------------|                                                         |
-|Items     |Specifications|       |       |       |       |       |       |         |
-|          |              |-------|-------|-------|-------|-------|-------|---------|
+|Items     |Specifications|       |Time points                                      |
+|          |              |-------|-------------------------------------------------|
 |          |              |       |0d             |5d     |15d            |30d      |
 |----------|--------------|-------|---------------|-------|---------------|---------|
 |Appearance|White to yellow       |White powder   |Off    |Yellowish      |Yellowish|
@@ -54547,8 +54585,8 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |                          |thickness of substance is 3 ~ 5 mm. Store the culture  |
 |                          |dish into constant temperature oven at 60℃.            |
 |--------------------------|                                                       |
-|Items      |Specifications|       |       |       |       |       |       |       |
-|           |              |-------|-------|-------|-------|-------|-------|-------|
+|Items      |Specifications|       |Time points                                    |
+|           |              |-------|-----------------------------------------------|
 |           |              |       |0d             |5d     |15d            |30d    |
 |-----------|--------------|-------|---------------|-------|---------------|-------|
 |           |Total impurity: NMT   |＜0.05%        |＜0.05%|0.11%          |0.22%  |
@@ -54619,8 +54657,8 @@ Table 3.2.S.7.3-8 High Humidity Stress Test Data of Finerenone (Batch No. 231201
 |                         |thickness of substance is 3 ~ 5 mm. Store the culture  |
 |                         |dish at condition 92.5%RH, 25℃.                        |
 |-------------------------|                                                       |
-|Items     |Specifications|       |       |       |       |       |       |       |
-|          |              |-------|-------|-------|-------|-------|-------|-------|
+|Items     |Specifications|       |Time points                                    |
+|          |              |-------|-----------------------------------------------|
 |          |              |       |0d             |5d     |15d            |30d    |
 |----------|--------------|-------|---------------|-------|---------------|-------|
 |Appearance|White to yellow       |White powder   |White  |White powder   |White  |
@@ -54700,8 +54738,8 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |                          |thickness of substance is 3 ~ 5 mm. Store the culture  |
 |                          |dish at condition 92.5%RH, 25℃.                        |
 |--------------------------|                                                       |
-|Items      |Specifications|       |       |       |       |       |       |       |
-|           |              |-------|-------|-------|-------|-------|-------|-------|
+|Items      |Specifications|       |Time points                                    |
+|           |              |-------|-----------------------------------------------|
 |           |              |       |0d             |5d     |15d            |30d    |
 |-----------|--------------|-------|---------------|-------|---------------|-------|
 |Enantiomers|YA2304-20: NMT 0.15%  |0.03%          |0.02%  |0.02%          |0.02%  |
@@ -54771,8 +54809,8 @@ Table 3.2.S.7.3-9 Photostability Data of Finerenone (Batch No. 231201)
 |                         |light: 4500 ± 500 LX; near ultraviolet:|       |         |
 |                         |90±5 μW/cm2, 25℃.                      |       |         |
 |-------------------------|                                       |-------|---------|
-|Items     |Specifications|       |       |       |       |       |       |         |
-|          |              |-------|-------|-------|-------|-------|-------|---------|
+|Items     |Specifications|       |Time points                    |       |         |
+|          |              |-------|-------------------------------|-------|---------|
 |          |              |       |0d             |5d     |15d            |30d      |
 |----------|--------------|-------|---------------|-------|---------------|---------|
 |Appearance|White to yellow       |White powder   |Off    |Yellowish      |Yellowish|
@@ -54825,53 +54863,55 @@ Page 541 of 542
 
 
 
------------------------------------------------------------------------------
-|Batch No.          |231201         |Batch size     |       |10 kg          |
-|-------------------|---------------|---------------|-------|---------------|
-|Manufacturing date |Jan. 04, 2024  |Stability      |       |Feb. 24, 2024  |
-|                   |               |starting date  |       |               |
-|-------------------|---------------|---------------|-------|---------------|
-|Degradation        |Illumination   |               |       |               |
-|condition          |(visible light:|               |       |               |
-|                   |4500 ± 500 LX; |               |       |               |
-|                   |near           |               |       |               |
-|                   |ultraviolet:   |               |       |               |
-|                   |90±5 μW/cm2,   |               |       |               |
-|                   |25℃): place    |               |       |               |
-|                   |appropriate    |               |       |               |
-|                   |amount of      |               |       |               |
-|                   |substance      |               |       |               |
-|                   |without package|               |       |               |
-|                   |intoa container|               |       |               |
-|                   |evenly, the    |               |       |               |
-|                   |thickness of   |               |       |               |
-|                   |substance is 3 |               |       |               |
-|                   |~ 5 mm. Store  |               |       |               |
-|                   |the culture    |               |       |               |
-|                   |dish at        |               |       |               |
-|                   |condition:     |               |       |               |
-|                   |visible light: |               |       |               |
-|                   |4500 ± 500 LX; |               |       |               |
-|                   |near           |               |       |               |
-|                   |ultraviolet:   |               |       |               |
-|                   |90±5 μW/cm2,   |               |       |               |
-|                   |25℃.           |               |       |               |
-|-------------------|---------------|---------------|-------|---------------|
-|Items                                                                      |
-|---------------------------------------------------------------------------|
-|0d                                                                         |
-|---------------------------------------------------------------------------|
-|           |       |       |＜0.05%        |0.14%  |0.30%          |0.22%  |
-|-----------|-------|-------|---------------|-------|---------------|-------|
-|Enantiomers|YA2304-20: NMT |0.03%          |ND     |ND             |ND     |
-|           |0.15%          |               |       |               |       |
-|-----------|---------------|---------------|-------|---------------|-------|
-|Water      |NMT 0.5%       |0.05%          |0.04%  |0.07%          |0.08%  |
-|-----------|---------------|---------------|-------|---------------|-------|
-|Assay      |98.0% to 102.0%|99.8%          |99.7%  |99.1%          |100.0% |
-|           |(anhydrous     |               |       |               |       |
-|           |substance).    |               |       |               |       |
------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+|Batch No.            |231201         |Batch size     |       |10 kg          |
+|---------------------|---------------|---------------|-------|---------------|
+|Manufacturing date   |Jan. 04, 2024  |Stability      |       |Feb. 24, 2024  |
+|                     |               |starting date  |       |               |
+|---------------------|---------------|---------------|-------|---------------|
+|Degradation condition|Illumination   |               |       |               |
+|                     |(visible light:|               |       |               |
+|                     |4500 ± 500 LX; |               |       |               |
+|                     |near           |               |       |               |
+|                     |ultraviolet:   |               |       |               |
+|                     |90±5 μW/cm2,   |               |       |               |
+|                     |25℃): place    |               |       |               |
+|                     |appropriate    |               |       |               |
+|                     |amount of      |               |       |               |
+|                     |substance      |               |       |               |
+|                     |without package|               |       |               |
+|                     |intoa container|               |       |               |
+|                     |evenly, the    |               |       |               |
+|                     |thickness of   |               |       |               |
+|                     |substance is 3 |               |       |               |
+|                     |~ 5 mm. Store  |               |       |               |
+|                     |the culture    |               |       |               |
+|                     |dish at        |               |       |               |
+|                     |condition:     |               |       |               |
+|                     |visible light: |               |       |               |
+|                     |4500 ± 500 LX; |               |       |               |
+|                     |near           |               |       |               |
+|                     |ultraviolet:   |               |       |               |
+|                     |90±5 μW/cm2,   |               |       |               |
+|                     |25℃.           |               |       |               |
+|---------------------|---------------|---------------|-------|---------------|
+|Items                                                                        |
+|-----------------------------------------------------------------------------|
+|           |                 |0d                             |       |30d    |
+|           |-----------------|-------------------------------|-------|-------|
+|           |Total    |       |＜0.05%        |0.14%  |0.30%          |0.22%  |
+|           |impurity:|       |               |       |               |       |
+|           |NMT 1.0% |       |               |       |               |       |
+|-----------|---------|-------|---------------|-------|---------------|-------|
+|Enantiomers|YA2304-20: NMT   |0.03%          |ND     |ND             |ND     |
+|           |0.15%            |               |       |               |       |
+|-----------|-----------------|---------------|-------|---------------|-------|
+|Water      |NMT 0.5%         |0.05%          |0.04%  |0.07%          |0.08%  |
+|-----------|-----------------|---------------|-------|---------------|-------|
+|Assay      |98.0% to 102.0%  |99.8%          |99.7%  |99.1%          |100.0% |
+|           |(anhydrous       |               |       |               |       |
+|           |substance).      |               |       |               |       |
+-------------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 

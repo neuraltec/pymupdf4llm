@@ -33,31 +33,32 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 
 
 
-------------------------------------------------------------------------------------
-|Batch No.                 |231201         |Batch size     |       |10 kg          |
-|--------------------------|---------------|---------------|-------|---------------|
-|Manufacturing date        |Jan. 06, 2024  |Stability      |       |Feb. 24, 2024  |
-|                          |               |starting date  |       |               |
-|--------------------------|---------------|---------------|-------|---------------|
-|Degradation condition     |High humidity 92.5%RH: place appropriate amount of     |
-|                          |substance without package intoa container evenly, the  |
-|                          |thickness of substance is 3 ~ 5 mm. Store the culture  |
-|                          |dish at condition 92.5%RH, 25℃.                        |
-|--------------------------|                                                       |
-|Items      |Specifications|       |Time points                                    |
-|           |              |-------|-----------------------------------------------|
-|           |              |       |0d             |5d     |15d            |30d    |
-|-----------|--------------|-------|---------------|-------|---------------|-------|
-|Enantiomers|YA2304-20: NMT 0.15%  |0.03%          |0.02%  |0.02%          |0.02%  |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Water      |NMT 0.5%              |0.05%          |0.03%  |0.03%          |0.03%  |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Assay      |98.0% to 102.0%       |99.8%          |100.0% |100.3%         |100.0% |
-|           |(anhydrous substance).|               |       |               |       |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Hygroscopic|NMT 5%                |/              |0.04%  |0.02%          |0.05%  |
-|gain (%)   |                      |               |       |               |       |
-------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+|Batch No.          |231201         |Batch size             |10 kg          |
+|-------------------|---------------|-----------------------|---------------|
+|Manufacturing date |Jan. 06, 2024  |Stability starting date|Feb. 24, 2024  |
+|-------------------|---------------|-----------------------|---------------|
+|Degradation        |High humidity 92.5%RH: place appropriate amount of     |
+|condition          |substance without package intoa container evenly, the  |
+|                   |thickness of substance is 3 ~ 5 mm. Store the culture  |
+|                   |dish at condition 92.5%RH, 25℃.                        |
+|-------------------|-------------------------------------------------------|
+|Items      |Specifications |Time points                                    |
+|           |               |-----------------------------------------------|
+|           |               |0d             |5d     |15d            |30d    |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Enantiomers|YA2304-20: NMT |0.03%          |0.02%  |0.02%          |0.02%  |
+|           |0.15%          |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Water      |NMT 0.5%       |0.05%          |0.03%  |0.03%          |0.03%  |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Assay      |98.0% to 102.0%|99.8%          |100.0% |100.3%         |100.0% |
+|           |(anhydrous     |               |       |               |       |
+|           |substance).    |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Hygroscopic|NMT 5%         |/              |0.04%  |0.02%          |0.05%  |
+|gain (%)   |               |               |       |               |       |
+-----------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -92,31 +93,32 @@ substance).||99.8%||100.0%|100.3%||100.0%|
 (%)|NMT 5%||/||0.04%|0.02%||0.05%|
 
   ASCII:
-------------------------------------------------------------------------------------
-|Batch No.                 |231201         |Batch size     |       |10 kg          |
-|--------------------------|---------------|---------------|-------|---------------|
-|Manufacturing date        |Jan. 06, 2024  |Stability      |       |Feb. 24, 2024  |
-|                          |               |starting date  |       |               |
-|--------------------------|---------------|---------------|-------|---------------|
-|Degradation condition     |High humidity 92.5%RH: place appropriate amount of     |
-|                          |substance without package intoa containere venly, the  |
-|                          |thickness of substance is 3 ~ 5 mm. Store the culture  |
-|                          |dish at condition 92.5%RH, 25℃.                        |
-|--------------------------|                                                       |
-|Items      |Specifications|       |Time points                                    |
-|           |              |-------|-----------------------------------------------|
-|           |              |       |0d             |5d     |15d            |30d    |
-|-----------|--------------|-------|---------------|-------|---------------|-------|
-|Enantiomers|YA2304-20: NMT 0.15%  |0.03%          |0.02%  |0.02%          |0.02%  |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Water      |NMT 0.5%              |0.05%          |0.03%  |0.03%          |0.03%  |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Assay      |98.0% to 102.0%       |99.8%          |100.0% |100.3%         |100.0% |
-|           |(anhydrouss ubstance).|               |       |               |       |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Hygroscopic|NMT 5%                |/              |0.04%  |0.02%          |0.05%  |
-|gain (%)   |                      |               |       |               |       |
-------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+|Batch No.          |231201         |Batch size             |10 kg          |
+|-------------------|---------------|-----------------------|---------------|
+|Manufacturing date |Jan. 06, 2024  |Stability starting date|Feb. 24, 2024  |
+|-------------------|---------------|-----------------------|---------------|
+|Degradation        |High humidity 92.5%RH: place appropriate amount of     |
+|condition          |substance without package intoa containere venly, the  |
+|                   |thickness of substance is 3 ~ 5 mm. Store the culture  |
+|                   |dish at condition 92.5%RH, 25℃.                        |
+|-------------------|-------------------------------------------------------|
+|Items      |Specifications |Time points                                    |
+|           |               |-----------------------------------------------|
+|           |               |0d             |5d     |15d            |30d    |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Enantiomers|YA2304-20: NMT |0.03%          |0.02%  |0.02%          |0.02%  |
+|           |0.15%          |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Water      |NMT 0.5%       |0.05%          |0.03%  |0.03%          |0.03%  |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Assay      |98.0% to 102.0%|99.8%          |100.0% |100.3%         |100.0% |
+|           |(anhydrouss    |               |       |               |       |
+|           |ubstance).     |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Hygroscopic|NMT 5%         |/              |0.04%  |0.02%          |0.05%  |
+|gain (%)   |               |               |       |               |       |
+-----------------------------------------------------------------------------
 
   Cells (attributes per cell):
   [row=0, col=0]
@@ -154,7 +156,7 @@ substance).||99.8%||100.0%|100.3%||100.0%|
   [row=0, col=4]
   content: 'Batch size'
   row=0, col=4
-  rowspan=1, colspan=2
+  rowspan=1, colspan=3
   is_merged=False
   merged_from=None
   bbox=(419.1000061035156, 90.11999893188477, 594.9500122070312, 112.04000091552734)
@@ -168,12 +170,12 @@ substance).||99.8%||100.0%|100.3%||100.0%|
   bbox=(419.1000061035156, 90.11999893188477, 594.9500122070312, 112.04000091552734)
 
   [row=0, col=6]
-  content: ''
+  content: 'Batch size'
   row=0, col=6
   rowspan=1, colspan=1
-  is_merged=False
-  merged_from=None
-  bbox=None
+  is_merged=True
+  merged_from=(0, 4)
+  bbox=(419.1000061035156, 90.11999893188477, 594.9500122070312, 112.04000091552734)
 
   [row=0, col=7]
   content: '10 kg'
@@ -226,7 +228,7 @@ substance).||99.8%||100.0%|100.3%||100.0%|
   [row=1, col=4]
   content: 'Stability starting date'
   row=1, col=4
-  rowspan=1, colspan=2
+  rowspan=1, colspan=3
   is_merged=False
   merged_from=None
   bbox=(419.1000061035156, 112.04000091552734, 594.9500122070312, 133.83999633789062)
@@ -240,12 +242,12 @@ substance).||99.8%||100.0%|100.3%||100.0%|
   bbox=(419.1000061035156, 112.04000091552734, 594.9500122070312, 133.83999633789062)
 
   [row=1, col=6]
-  content: ''
+  content: 'Stability starting date'
   row=1, col=6
   rowspan=1, colspan=1
-  is_merged=False
-  merged_from=None
-  bbox=None
+  is_merged=True
+  merged_from=(1, 4)
+  bbox=(419.1000061035156, 112.04000091552734, 594.9500122070312, 133.83999633789062)
 
   [row=1, col=7]
   content: 'Feb. 24, 2024'
@@ -282,7 +284,7 @@ substance).||99.8%||100.0%|100.3%||100.0%|
   [row=2, col=2]
   content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
   row=2, col=2
-  rowspan=2, colspan=7
+  rowspan=1, colspan=7
   is_merged=False
   merged_from=None
   bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
@@ -352,12 +354,12 @@ substance).||99.8%||100.0%|100.3%||100.0%|
   bbox=(180.9499969482422, 171.24000549316406, 351.04998779296875, 214.83999633789062)
 
   [row=3, col=2]
-  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  content: 'Specifications'
   row=3, col=2
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(2, 2)
-  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+  merged_from=(3, 1)
+  bbox=(180.9499969482422, 171.24000549316406, 351.04998779296875, 214.83999633789062)
 
   [row=3, col=3]
   content: 'Time points'
@@ -368,44 +370,44 @@ substance).||99.8%||100.0%|100.3%||100.0%|
   bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
 
   [row=3, col=4]
-  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  content: 'Time points'
   row=3, col=4
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(2, 2)
-  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+  merged_from=(3, 3)
+  bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
 
   [row=3, col=5]
-  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  content: 'Time points'
   row=3, col=5
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(2, 2)
-  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+  merged_from=(3, 3)
+  bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
 
   [row=3, col=6]
-  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  content: 'Time points'
   row=3, col=6
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(2, 2)
-  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+  merged_from=(3, 3)
+  bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
 
   [row=3, col=7]
-  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  content: 'Time points'
   row=3, col=7
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(2, 2)
-  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+  merged_from=(3, 3)
+  bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
 
   [row=3, col=8]
-  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  content: 'Time points'
   row=3, col=8
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(2, 2)
-  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+  merged_from=(3, 3)
+  bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
 
   [row=4, col=0]
   content: 'Items'
