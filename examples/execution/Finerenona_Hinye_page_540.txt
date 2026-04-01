@@ -1,0 +1,771 @@
+=== Page: page_540 ===
+
+--- Page text (markdown/ascii) ---
+
+**Drug** **Master** **File** **of** **Finerenone** 
+
+Document: YA2304-Quality Version: 001 Date:Sep. 2024 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------
+|Batch No.          |231201         |Batch size             |10 kg          |
+|-------------------|---------------|-----------------------|---------------|
+|Manufacturing date |Jan. 06, 2024  |Stability starting date|Feb. 24, 2024  |
+|-------------------|---------------|-----------------------|---------------|
+|Degradation        |High humidity 92.5%RH: place appropriate amount of     |
+|condition          |substance without package intoa container evenly, the  |
+|                   |thickness of substance is 3 ~ 5 mm. Store the culture  |
+|                   |dish at condition 92.5%RH, 25℃.                        |
+|-------------------|-------------------------------------------------------|
+|Items      |Specifications |Time points                                    |
+|           |               |-----------------------------------------------|
+|           |               |0d             |5d     |15d            |30d    |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Enantiomers|YA2304-20: NMT |0.03%          |0.02%  |0.02%          |0.02%  |
+|           |0.15%          |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Water      |NMT 0.5%       |0.05%          |0.03%  |0.03%          |0.03%  |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Assay      |98.0% to 102.0%|99.8%          |100.0% |100.3%         |100.0% |
+|           |(anhydrous     |               |       |               |       |
+|           |substance).    |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Hygroscopic|NMT 5%         |/              |0.04%  |0.02%          |0.05%  |
+|gain (%)   |               |               |       |               |       |
+-----------------------------------------------------------------------------
+
+Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
+
+
+
+Page 540 of 542 
+
+
+
+
+
+============================================================
+
+--- Table 1 ---
+  bbox: (68.3800048828125, 90.1199951171875, 773.1199951171875, 317.760009765625)
+  rows: 9, columns: 9
+
+  Markdown:
+|Batch No.||231201||Batch size|||10 kg||
+|---|---|---|---|---|---|---|---|---|
+|Manufacturing date||Jan. 06, 2024||Stability starting date|||Feb. 24, 2024||
+|Degradation condition||High humidity 92.5%RH: place appropriate amount of substance without package into a container
+evenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,
+25℃.|||||||
+|Items|Specifications||Time points||||||
+||||0d||5d|15d||30d|
+|Enantiomers|YA2304-20: NMT 0.15%||0.03%||0.02%|0.02%||0.02%|
+|Water|NMT 0.5%||0.05%||0.03%|0.03%||0.03%|
+|Assay|98.0% to 102.0% (anhydrous
+substance).||99.8%||100.0%|100.3%||100.0%|
+|Hygroscopic gain
+(%)|NMT 5%||/||0.04%|0.02%||0.05%|
+
+  ASCII:
+-----------------------------------------------------------------------------
+|Batch No.          |231201         |Batch size             |10 kg          |
+|-------------------|---------------|-----------------------|---------------|
+|Manufacturing date |Jan. 06, 2024  |Stability starting date|Feb. 24, 2024  |
+|-------------------|---------------|-----------------------|---------------|
+|Degradation        |High humidity 92.5%RH: place appropriate amount of     |
+|condition          |substance without package intoa containere venly, the  |
+|                   |thickness of substance is 3 ~ 5 mm. Store the culture  |
+|                   |dish at condition 92.5%RH, 25℃.                        |
+|-------------------|-------------------------------------------------------|
+|Items      |Specifications |Time points                                    |
+|           |               |-----------------------------------------------|
+|           |               |0d             |5d     |15d            |30d    |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Enantiomers|YA2304-20: NMT |0.03%          |0.02%  |0.02%          |0.02%  |
+|           |0.15%          |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Water      |NMT 0.5%       |0.05%          |0.03%  |0.03%          |0.03%  |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Assay      |98.0% to 102.0%|99.8%          |100.0% |100.3%         |100.0% |
+|           |(anhydrouss    |               |       |               |       |
+|           |ubstance).     |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Hygroscopic|NMT 5%         |/              |0.04%  |0.02%          |0.05%  |
+|gain (%)   |               |               |       |               |       |
+-----------------------------------------------------------------------------
+
+  Cells (attributes per cell):
+  [row=0, col=0]
+  content: 'Batch No.'
+  row=0, col=0
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(68.38000106811523, 90.11999893188477, 242.9499969482422, 112.04000091552734)
+
+  [row=0, col=1]
+  content: 'Batch No.'
+  row=0, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 0)
+  bbox=(68.38000106811523, 90.11999893188477, 242.9499969482422, 112.04000091552734)
+
+  [row=0, col=2]
+  content: '231201'
+  row=0, col=2
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(242.9499969482422, 90.11999893188477, 419.1000061035156, 112.04000091552734)
+
+  [row=0, col=3]
+  content: '231201'
+  row=0, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(242.9499969482422, 90.11999893188477, 419.1000061035156, 112.04000091552734)
+
+  [row=0, col=4]
+  content: 'Batch size'
+  row=0, col=4
+  rowspan=1, colspan=3
+  is_merged=False
+  merged_from=None
+  bbox=(419.1000061035156, 90.11999893188477, 594.9500122070312, 112.04000091552734)
+
+  [row=0, col=5]
+  content: 'Batch size'
+  row=0, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 4)
+  bbox=(419.1000061035156, 90.11999893188477, 594.9500122070312, 112.04000091552734)
+
+  [row=0, col=6]
+  content: 'Batch size'
+  row=0, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 4)
+  bbox=(419.1000061035156, 90.11999893188477, 594.9500122070312, 112.04000091552734)
+
+  [row=0, col=7]
+  content: '10 kg'
+  row=0, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(594.9500122070312, 90.11999893188477, 773.1199951171875, 112.04000091552734)
+
+  [row=0, col=8]
+  content: '10 kg'
+  row=0, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 7)
+  bbox=(594.9500122070312, 90.11999893188477, 773.1199951171875, 112.04000091552734)
+
+  [row=1, col=0]
+  content: 'Manufacturing date'
+  row=1, col=0
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(68.38000106811523, 112.04000091552734, 242.9499969482422, 133.83999633789062)
+
+  [row=1, col=1]
+  content: 'Manufacturing date'
+  row=1, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 0)
+  bbox=(68.38000106811523, 112.04000091552734, 242.9499969482422, 133.83999633789062)
+
+  [row=1, col=2]
+  content: 'Jan. 06, 2024'
+  row=1, col=2
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(242.9499969482422, 112.04000091552734, 419.1000061035156, 133.83999633789062)
+
+  [row=1, col=3]
+  content: 'Jan. 06, 2024'
+  row=1, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 2)
+  bbox=(242.9499969482422, 112.04000091552734, 419.1000061035156, 133.83999633789062)
+
+  [row=1, col=4]
+  content: 'Stability starting date'
+  row=1, col=4
+  rowspan=1, colspan=3
+  is_merged=False
+  merged_from=None
+  bbox=(419.1000061035156, 112.04000091552734, 594.9500122070312, 133.83999633789062)
+
+  [row=1, col=5]
+  content: 'Stability starting date'
+  row=1, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 4)
+  bbox=(419.1000061035156, 112.04000091552734, 594.9500122070312, 133.83999633789062)
+
+  [row=1, col=6]
+  content: 'Stability starting date'
+  row=1, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 4)
+  bbox=(419.1000061035156, 112.04000091552734, 594.9500122070312, 133.83999633789062)
+
+  [row=1, col=7]
+  content: 'Feb. 24, 2024'
+  row=1, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(594.9500122070312, 112.04000091552734, 773.1199951171875, 133.83999633789062)
+
+  [row=1, col=8]
+  content: 'Feb. 24, 2024'
+  row=1, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 7)
+  bbox=(594.9500122070312, 112.04000091552734, 773.1199951171875, 133.83999633789062)
+
+  [row=2, col=0]
+  content: 'Degradation condition'
+  row=2, col=0
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(68.38000106811523, 133.83999633789062, 242.9499969482422, 171.24000549316406)
+
+  [row=2, col=1]
+  content: 'Degradation condition'
+  row=2, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=(68.38000106811523, 133.83999633789062, 242.9499969482422, 171.24000549316406)
+
+  [row=2, col=2]
+  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  row=2, col=2
+  rowspan=1, colspan=7
+  is_merged=False
+  merged_from=None
+  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+
+  [row=2, col=3]
+  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  row=2, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 2)
+  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+
+  [row=2, col=4]
+  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  row=2, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 2)
+  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+
+  [row=2, col=5]
+  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  row=2, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 2)
+  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+
+  [row=2, col=6]
+  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  row=2, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 2)
+  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+
+  [row=2, col=7]
+  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  row=2, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 2)
+  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+
+  [row=2, col=8]
+  content: 'High humidity 92.5%RH: place appropriate amount of substance without package into a container\nevenly, the thickness of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH,\n25℃.'
+  row=2, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 2)
+  bbox=(242.9499969482422, 133.83999633789062, 773.1199951171875, 171.24000549316406)
+
+  [row=3, col=0]
+  content: 'Items'
+  row=3, col=0
+  rowspan=2, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(68.38000106811523, 171.24000549316406, 180.9499969482422, 214.83999633789062)
+
+  [row=3, col=1]
+  content: 'Specifications'
+  row=3, col=1
+  rowspan=2, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(180.9499969482422, 171.24000549316406, 351.04998779296875, 214.83999633789062)
+
+  [row=3, col=2]
+  content: 'Specifications'
+  row=3, col=2
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 1)
+  bbox=(180.9499969482422, 171.24000549316406, 351.04998779296875, 214.83999633789062)
+
+  [row=3, col=3]
+  content: 'Time points'
+  row=3, col=3
+  rowspan=1, colspan=6
+  is_merged=False
+  merged_from=None
+  bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
+
+  [row=3, col=4]
+  content: 'Time points'
+  row=3, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 3)
+  bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
+
+  [row=3, col=5]
+  content: 'Time points'
+  row=3, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 3)
+  bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
+
+  [row=3, col=6]
+  content: 'Time points'
+  row=3, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 3)
+  bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
+
+  [row=3, col=7]
+  content: 'Time points'
+  row=3, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 3)
+  bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
+
+  [row=3, col=8]
+  content: 'Time points'
+  row=3, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 3)
+  bbox=(351.04998779296875, 171.24000549316406, 773.1199951171875, 193.0399932861328)
+
+  [row=4, col=0]
+  content: 'Items'
+  row=4, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 0)
+  bbox=(68.38000106811523, 171.24000549316406, 180.9499969482422, 214.83999633789062)
+
+  [row=4, col=1]
+  content: 'Specifications'
+  row=4, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 1)
+  bbox=(180.9499969482422, 171.24000549316406, 351.04998779296875, 214.83999633789062)
+
+  [row=4, col=2]
+  content: 'Specifications'
+  row=4, col=2
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 1)
+  bbox=(180.9499969482422, 171.24000549316406, 351.04998779296875, 214.83999633789062)
+
+  [row=4, col=3]
+  content: '0d'
+  row=4, col=3
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(351.04998779296875, 193.0399932861328, 456.45001220703125, 214.83999633789062)
+
+  [row=4, col=4]
+  content: '0d'
+  row=4, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 3)
+  bbox=(351.04998779296875, 193.0399932861328, 456.45001220703125, 214.83999633789062)
+
+  [row=4, col=5]
+  content: '5d'
+  row=4, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(456.45001220703125, 193.0399932861328, 561.8499755859375, 214.83999633789062)
+
+  [row=4, col=6]
+  content: '15d'
+  row=4, col=6
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(561.8499755859375, 193.0399932861328, 667.25, 214.83999633789062)
+
+  [row=4, col=7]
+  content: '15d'
+  row=4, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 6)
+  bbox=(561.8499755859375, 193.0399932861328, 667.25, 214.83999633789062)
+
+  [row=4, col=8]
+  content: '30d'
+  row=4, col=8
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(667.25, 193.0399932861328, 773.1199951171875, 214.83999633789062)
+
+  [row=5, col=0]
+  content: 'Enantiomers'
+  row=5, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(68.38000106811523, 214.83999633789062, 180.9499969482422, 236.63999938964844)
+
+  [row=5, col=1]
+  content: 'YA2304-20: NMT 0.15%'
+  row=5, col=1
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(180.9499969482422, 214.83999633789062, 351.04998779296875, 236.63999938964844)
+
+  [row=5, col=2]
+  content: 'YA2304-20: NMT 0.15%'
+  row=5, col=2
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 1)
+  bbox=(180.9499969482422, 214.83999633789062, 351.04998779296875, 236.63999938964844)
+
+  [row=5, col=3]
+  content: '0.03%'
+  row=5, col=3
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(351.04998779296875, 214.83999633789062, 456.45001220703125, 236.63999938964844)
+
+  [row=5, col=4]
+  content: '0.03%'
+  row=5, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 3)
+  bbox=(351.04998779296875, 214.83999633789062, 456.45001220703125, 236.63999938964844)
+
+  [row=5, col=5]
+  content: '0.02%'
+  row=5, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(456.45001220703125, 214.83999633789062, 561.8499755859375, 236.63999938964844)
+
+  [row=5, col=6]
+  content: '0.02%'
+  row=5, col=6
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(561.8499755859375, 214.83999633789062, 667.25, 236.63999938964844)
+
+  [row=5, col=7]
+  content: '0.02%'
+  row=5, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 6)
+  bbox=(561.8499755859375, 214.83999633789062, 667.25, 236.63999938964844)
+
+  [row=5, col=8]
+  content: '0.02%'
+  row=5, col=8
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(667.25, 214.83999633789062, 773.1199951171875, 236.63999938964844)
+
+  [row=6, col=0]
+  content: 'Water'
+  row=6, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(68.38000106811523, 236.63999938964844, 180.9499969482422, 258.44000244140625)
+
+  [row=6, col=1]
+  content: 'NMT 0.5%'
+  row=6, col=1
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(180.9499969482422, 236.63999938964844, 351.04998779296875, 258.44000244140625)
+
+  [row=6, col=2]
+  content: 'NMT 0.5%'
+  row=6, col=2
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 1)
+  bbox=(180.9499969482422, 236.63999938964844, 351.04998779296875, 258.44000244140625)
+
+  [row=6, col=3]
+  content: '0.05%'
+  row=6, col=3
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(351.04998779296875, 236.63999938964844, 456.45001220703125, 258.44000244140625)
+
+  [row=6, col=4]
+  content: '0.05%'
+  row=6, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 3)
+  bbox=(351.04998779296875, 236.63999938964844, 456.45001220703125, 258.44000244140625)
+
+  [row=6, col=5]
+  content: '0.03%'
+  row=6, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(456.45001220703125, 236.63999938964844, 561.8499755859375, 258.44000244140625)
+
+  [row=6, col=6]
+  content: '0.03%'
+  row=6, col=6
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(561.8499755859375, 236.63999938964844, 667.25, 258.44000244140625)
+
+  [row=6, col=7]
+  content: '0.03%'
+  row=6, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 6)
+  bbox=(561.8499755859375, 236.63999938964844, 667.25, 258.44000244140625)
+
+  [row=6, col=8]
+  content: '0.03%'
+  row=6, col=8
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(667.25, 236.63999938964844, 773.1199951171875, 258.44000244140625)
+
+  [row=7, col=0]
+  content: 'Assay'
+  row=7, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(68.38000106811523, 258.44000244140625, 180.9499969482422, 295.8399963378906)
+
+  [row=7, col=1]
+  content: '98.0% to 102.0% (anhydrous\nsubstance).'
+  row=7, col=1
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(180.9499969482422, 258.44000244140625, 351.04998779296875, 295.8399963378906)
+
+  [row=7, col=2]
+  content: '98.0% to 102.0% (anhydrous\nsubstance).'
+  row=7, col=2
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(7, 1)
+  bbox=(180.9499969482422, 258.44000244140625, 351.04998779296875, 295.8399963378906)
+
+  [row=7, col=3]
+  content: '99.8%'
+  row=7, col=3
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(351.04998779296875, 258.44000244140625, 456.45001220703125, 295.8399963378906)
+
+  [row=7, col=4]
+  content: '99.8%'
+  row=7, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(7, 3)
+  bbox=(351.04998779296875, 258.44000244140625, 456.45001220703125, 295.8399963378906)
+
+  [row=7, col=5]
+  content: '100.0%'
+  row=7, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(456.45001220703125, 258.44000244140625, 561.8499755859375, 295.8399963378906)
+
+  [row=7, col=6]
+  content: '100.3%'
+  row=7, col=6
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(561.8499755859375, 258.44000244140625, 667.25, 295.8399963378906)
+
+  [row=7, col=7]
+  content: '100.3%'
+  row=7, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(7, 6)
+  bbox=(561.8499755859375, 258.44000244140625, 667.25, 295.8399963378906)
+
+  [row=7, col=8]
+  content: '100.0%'
+  row=7, col=8
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(667.25, 258.44000244140625, 773.1199951171875, 295.8399963378906)
+
+  [row=8, col=0]
+  content: 'Hygroscopic gain\n(%)'
+  row=8, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(68.38000106811523, 295.8399963378906, 180.9499969482422, 317.760009765625)
+
+  [row=8, col=1]
+  content: 'NMT 5%'
+  row=8, col=1
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(180.9499969482422, 295.8399963378906, 351.04998779296875, 317.760009765625)
+
+  [row=8, col=2]
+  content: 'NMT 5%'
+  row=8, col=2
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(8, 1)
+  bbox=(180.9499969482422, 295.8399963378906, 351.04998779296875, 317.760009765625)
+
+  [row=8, col=3]
+  content: '/'
+  row=8, col=3
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(351.04998779296875, 295.8399963378906, 456.45001220703125, 317.760009765625)
+
+  [row=8, col=4]
+  content: '/'
+  row=8, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(8, 3)
+  bbox=(351.04998779296875, 295.8399963378906, 456.45001220703125, 317.760009765625)
+
+  [row=8, col=5]
+  content: '0.04%'
+  row=8, col=5
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(456.45001220703125, 295.8399963378906, 561.8499755859375, 317.760009765625)
+
+  [row=8, col=6]
+  content: '0.02%'
+  row=8, col=6
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(561.8499755859375, 295.8399963378906, 667.25, 317.760009765625)
+
+  [row=8, col=7]
+  content: '0.02%'
+  row=8, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(8, 6)
+  bbox=(561.8499755859375, 295.8399963378906, 667.25, 317.760009765625)
+
+  [row=8, col=8]
+  content: '0.05%'
+  row=8, col=8
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(667.25, 295.8399963378906, 773.1199951171875, 317.760009765625)
+

@@ -1,0 +1,51 @@
+Document: YA2304-Quality
+Date:Sep. 2024
+Version: 001
+Drug Master File of Finerenone
+Page 540 of 542
+Finerenone
+Hinye Pharmaceutical Co., Ltd.
+Confidential
+Batch No.
+231201
+Batch size
+10 kg
+Manufacturing date
+Jan. 06, 2024
+Stability starting date
+Feb. 24, 2024
+Degradation condition
+High humidity 92.5%RH: place appropriate amount of substance without package into a container evenly, the thickness
+of substance is 3 ~ 5 mm. Store the culture dish at condition 92.5%RH, 25℃.
+Items
+Specifications
+Time points
+0d
+5d
+15d
+30d
+Enantiomers
+YA2304-20: NMT 0.15%
+0.03%
+0.02%
+0.02%
+0.02%
+Water
+NMT 0.5%
+0.05%
+0.03%
+0.03%
+0.03%
+Assay
+98.0% to 102.0% (anhydrous
+substance).
+99.8%
+100.0%
+100.3%
+100.0%
+Hygroscopic gain (%)
+NMT 5%
+/
+0.04%
+0.02%
+0.05%

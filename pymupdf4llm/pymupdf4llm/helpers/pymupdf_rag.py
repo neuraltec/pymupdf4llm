@@ -754,6 +754,19 @@ def matrix_to_ascii(matrix):
                         break  # Found the physical cell governing this column
                     r_up -= 1
 
+            # If consecutive columns are covered by the same spanning cell from
+            # above, render only once to avoid internal separators inside the
+            # covered area (e.g. under a colspan header like "Specifications").
+            if covered_by_above and col > 0:
+                prev_cover = _primary_covering_from_above(row_index, col - 1)
+                if (
+                    prev_cover
+                    and prev_cover.get("row") == covered_by_above.get("row")
+                    and prev_cover.get("col") == covered_by_above.get("col")
+                ):
+                    col += 1
+                    continue
+
             # Determine content to display
             display_text = ""
             if covered_by_above:
@@ -775,6 +788,13 @@ def matrix_to_ascii(matrix):
             if isinstance(cell, dict):
                 colspan = max(1, int(cell.get("colspan", 1)))
             base_has_text = bool(display_text.strip())
+
+            if covered_by_above and isinstance(covered_by_above, dict):
+                p_col = int(covered_by_above.get("col", col) or col)
+                p_span = max(1, int(covered_by_above.get("colspan", 1) or 1))
+                remaining = p_col + p_span - col
+                if remaining > 1:
+                    colspan = remaining
 
             # Optional visual extension: only over explicit placeholders that
             # already belong to this same row-primary cell. Never absorb plain
@@ -804,7 +824,8 @@ def matrix_to_ascii(matrix):
 
             # Do not let colspan invade columns already covered by a different
             # vertical merge (rowspan) coming from an upper row.
-            colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
+            if not covered_by_above:
+                colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
 
             colspan = min(colspan, max_cols - col)
 
@@ -850,6 +871,17 @@ def matrix_to_ascii(matrix):
                 if p_row == row_index:
                     col += 1
                     continue
+
+            cover_from_above = _primary_covering_from_above(row_index, col)
+            if cover_from_above and col > 0:
+                prev_cover = _primary_covering_from_above(row_index, col - 1)
+                if (
+                    prev_cover
+                    and prev_cover.get("row") == cover_from_above.get("row")
+                    and prev_cover.get("col") == cover_from_above.get("col")
+                ):
+                    col += 1
+                    continue
             
             is_crossing = False
             
@@ -870,9 +902,17 @@ def matrix_to_ascii(matrix):
             if isinstance(cell, dict):
                 colspan = max(1, int(cell.get("colspan", 1)))
 
+            if cover_from_above and isinstance(cover_from_above, dict):
+                p_col = int(cover_from_above.get("col", col) or col)
+                p_span = max(1, int(cover_from_above.get("colspan", 1) or 1))
+                remaining = p_col + p_span - col
+                if remaining > 1:
+                    colspan = remaining
+
             # Same guard used for content: do not cross into columns covered
             # by a different rowspan from above.
-            colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
+            if not cover_from_above:
+                colspan = _clamp_colspan_against_vertical_merges(row_index, col, cell, colspan)
 
             colspan = min(colspan, max_cols - col)
             
@@ -2662,6 +2702,35 @@ def to_markdown(
                                 # Cap at reasonable values
                                 rowspan = min(rowspan, row_count - row_idx)
                                 colspan = min(colspan, col_count - col_idx)
+
+                                # Guard against false vertical merges: if rows below
+                                # contain explicit text different from this cell in the
+                                # covered column range, this cell must not span there.
+                                if rowspan > 1:
+                                    primary_text_norm = normalize_table_text(
+                                        cell_text if cell_text else ""
+                                    )
+                                    max_rowspan = rowspan
+                                    for check_row in range(row_idx + 1, row_idx + rowspan):
+                                        conflict = False
+                                        for check_col in range(
+                                            col_idx, min(col_idx + colspan, col_count)
+                                        ):
+                                            raw_txt = ""
+                                            if (
+                                                check_row < len(raw_matrix)
+                                                and check_col < len(raw_matrix[check_row])
+                                            ):
+                                                raw_val = raw_matrix[check_row][check_col]
+                                                if raw_val:
+                                                    raw_txt = normalize_table_text(str(raw_val))
+                                            if raw_txt and raw_txt != primary_text_norm:
+                                                max_rowspan = check_row - row_idx
+                                                conflict = True
+                                                break
+                                        if conflict:
+                                            break
+                                    rowspan = max(1, max_rowspan)
                                 
                                 # Create cell dictionary with all information
                                 cell_dict = {
@@ -2687,6 +2756,22 @@ def to_markdown(
                                             
                                             # Skip the primary cell position (already filled)
                                             if r_offset == 0 and c_offset == 0:
+                                                continue
+
+                                            # Preserve explicit text reported by PyMuPDF for
+                                            # covered positions. Some tables expose real header
+                                            # labels (for example "Time points") in raw_matrix
+                                            # even when geometry suggests a vertical merge.
+                                            raw_text_covered = ""
+                                            if (
+                                                covered_row < len(raw_matrix)
+                                                and covered_col < len(raw_matrix[covered_row])
+                                            ):
+                                                raw_value = raw_matrix[covered_row][covered_col]
+                                                raw_text_covered = normalize_table_text(
+                                                    str(raw_value) if raw_value else ""
+                                                )
+                                            if raw_text_covered:
                                                 continue
                                             
                                             # Only fill if within bounds and not already filled
@@ -2884,14 +2969,22 @@ def to_markdown(
                                     "merged_from": (merged_with["row"], merged_with["col"]),
                                     "primary_row": merged_with["row"],
                                     "primary_col": merged_with["col"],
-                                }
-                
-                # Replace remaining None with empty cell dictionaries for consistency
+                                }                # Replace remaining None with empty cell dictionaries for consistency
+                # CRITICAL FIX: Use raw_matrix instead of empty cells
                 for row_idx in range(row_count):
                     for col_idx in range(col_count):
                         if matrix[row_idx][col_idx] is None:
+                            # Try to get text from raw_matrix
+                            cell_text = ""
+                            if row_idx < len(raw_matrix) and col_idx < len(raw_matrix[row_idx]):
+                                raw_cell = raw_matrix[row_idx][col_idx]
+                                if raw_cell:
+                                    cell_text = str(raw_cell)
+                                    # Normalize to handle None and whitespace
+                                    cell_text = normalize_table_text(cell_text)
+                            
                             matrix[row_idx][col_idx] = {
-                                "text": "",
+                                "text": cell_text,
                                 "row": row_idx,
                                 "col": col_idx,
                                 "rowspan": 1,
@@ -2925,6 +3018,64 @@ def to_markdown(
                                     "merged_from": (row_idx, c_idx),
                                     "id_merged": (row_idx, c_idx),
                                 }
+
+                # Merge empty spacer cells (without bbox) between two real text
+                # blocks on the same row. This avoids artificial split columns
+                # like the blank column between "Batch size" and "10 kg".
+                for row_idx in range(row_count):
+                    for col_idx in range(1, col_count - 1):
+                        cell = matrix[row_idx][col_idx]
+                        if not isinstance(cell, dict) or cell.get("is_merged"):
+                            continue
+                        if cell.get("bbox") is not None:
+                            continue
+                        if str(cell.get("text", "") or "").strip():
+                            continue
+                        right = matrix[row_idx][col_idx + 1]
+                        if not isinstance(right, dict):
+                            continue
+                        if right.get("is_merged"):
+                            continue
+                        if not str(right.get("text", "") or "").strip():
+                            continue
+
+                        left = None
+                        left_col = None
+                        for k in range(col_idx - 1, -1, -1):
+                            cand = matrix[row_idx][k]
+                            if not isinstance(cand, dict):
+                                continue
+                            if cand.get("is_merged"):
+                                continue
+                            if not str(cand.get("text", "") or "").strip():
+                                continue
+                            cand_col = int(cand.get("col", k) or k)
+                            cand_span = max(1, int(cand.get("colspan", 1) or 1))
+                            if cand_col + cand_span == col_idx:
+                                left = cand
+                                left_col = cand_col
+                                break
+
+                        if left is None or left_col is None:
+                            continue
+
+                        left_span = max(1, int(left.get("colspan", 1) or 1))
+
+                        left["colspan"] = left_span + 1
+                        matrix[row_idx][left_col] = left
+                        matrix[row_idx][col_idx] = {
+                            "text": left.get("text", ""),
+                            "row": row_idx,
+                            "col": col_idx,
+                            "rowspan": 1,
+                            "colspan": 1,
+                            "bbox": left.get("bbox"),
+                            "is_merged": True,
+                            "merged_from": (row_idx, left_col),
+                            "primary_row": row_idx,
+                            "primary_col": left_col,
+                            "id_merged": (row_idx, left_col),
+                        }
 
             except Exception as e:
                 try:
