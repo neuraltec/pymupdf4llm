@@ -11077,8 +11077,8 @@ Page 143 of 542
 |       |          |(1g)               |determination|
 |       |          |                   |(in-house    |
 |       |          |                   |method)      |
-|       |----------|-------------------|-------------|
-|       |          |98.0% to 102.0%    |Operating    |
+|-------|----------|-------------------|-------------|
+|Assay  |          |98.0% to 102.0%    |Operating    |
 |       |          |(anhydrous         |procedures of|
 |       |          |substance)         |HPLC         |
 |       |          |                   |(in-house    |
@@ -12527,13 +12527,11 @@ Results of System Suitability:
 |solution   |         |         |       |        |                       |        |
 |(251nm)    |         |         |       |        |                       |        |
 |           |---------|---------|-------|--------|-----------------------|--------|
-|           |Minimum separation |4.9    |Minimum         |               |1.2     |
-|           |between YA2304 and |       |separation      |               |        |
-|           |YA2304-14 and      |       |between         |               |        |
-|           |YA2304-15          |       |YA2304-17 and   |               |        |
-|           |                   |       |YA2304-16 and   |               |        |
-|           |                   |       |adjacent peaks  |               |        |
-|-----------|-------------------|       |----------------|---------------|        |
+|           |Minimum separation |4.9    |Minimum separation between      |1.2     |
+|           |between YA2304 and |       |YA2304-17 and YA2304-16 and     |        |
+|           |YA2304-14 and      |       |adjacent peaks                  |        |
+|           |YA2304-15          |       |                                |        |
+|-----------|-------------------|       |--------------------------------|        |
 |Map name   |Number of|Main peak|       |Main peak area  |Principal peak |        |
 |           |samples  |retention|       |                |signal-to-noise|        |
 |           |injected |time     |       |                |ratio (S/N)    |        |
@@ -14459,9 +14457,9 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |           |Limited quantification|       |8.178  |200 7  |11. 2  |
 |           |solution⑤             |       |       |       |       |
 |-----------|----------------------|-------|-------|-------|-------|
-|           |Limited quantification|       |8.174  |199 7  |11. 7  |
-|           |solution⑥             |       |       |       |       |
-|-----------|----------------------|-------|-------|-------|-------|
+|           |Limited quantification        |8.174  |199 7  |11. 7  |
+|           |solution⑥                     |       |       |       |
+|-----------|------------------------------|-------|-------|-------|
 |           |RSD                           |0.06%  |4%     |/      |
 |-----------|------------------------------|-------|-------|-------|
 |Verdict: The limiting solution concentration of impurity YA2304-14|
@@ -14484,7 +14482,7 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |           |quantitation  |       |       |       |       |       |
 |           |solution③     |       |       |       |       |       |
 |-----------|--------------|-------|-------|-------|-------|-------|
-|           |Limited               |       |9.324  |210    |15.    |
+|           |Limited                       |9.324  |210    |15.    |
 --------------------------------------------------------------------
 
 Finerenone 
@@ -14748,7 +14746,7 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |         |quantification|       |       |       |       |       |
 |         |solution②     |       |       |       |       |       |
 |---------|--------------|-------|-------|-------|-------|-------|
-|         |Limited               |       |13.177 |186    |14.    |
+|         |Limited                       |13.177 |186    |14.    |
 ------------------------------------------------------------------
 
 Finerenone 
@@ -18618,13 +18616,11 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |solution   |         |         |       |        |                       |        |
 |(251nm)    |         |         |       |        |                       |        |
 |           |---------|---------|-------|--------|-----------------------|--------|
-|           |Minimum separation |5.7    |Minimum         |               |1.6     |
-|           |between YA2304 and |       |separation      |               |        |
-|           |YA2304-14 and      |       |between         |               |        |
-|           |YA2304-15          |       |YA2304-17 and   |               |        |
-|           |                   |       |YA2304-16 and   |               |        |
-|           |                   |       |adjacent peaks  |               |        |
-|-----------|-------------------|       |----------------|---------------|        |
+|           |Minimum separation |5.7    |Minimum separation between      |1.6     |
+|           |between YA2304 and |       |YA2304-17 and YA2304-16 and     |        |
+|           |YA2304-14 and      |       |adjacent peaks                  |        |
+|           |YA2304-15          |       |                                |        |
+|-----------|-------------------|       |--------------------------------|        |
 |Map name   |Number of|Main peak|       |Main peak area  |Principal peak |        |
 |           |samples  |retention|       |                |signal-to-noise|        |
 |           |injected |time     |       |                |ratio (S/N)    |        |
@@ -22216,8 +22212,8 @@ Results of system suitability test
 |Investigation     |Control solution was injected                  |RSD    |
 |parameters        |                                               |       |
 |                  |-----------------------------------------------|       |
-|          |       |1      |2      |3      |4      |5      |6      |       |
-|----------|-------|-------|-------|-------|-------|-------|-------|-------|
+|                  |1      |2      |3      |4      |5      |6      |       |
+|------------------|-------|-------|-------|-------|-------|-------|-------|
 |YA230 4-52|RT     |6.348  |6.354  |6.361  |6.357  |6.347  |6.347  |0.10%  |
 |          |(min)  |       |       |       |       |       |       |       |
 |          |-------|-------|-------|-------|-------|-------|-------|-------|
@@ -24640,18 +24636,18 @@ the 6 repetitive test product solutions, and the chromatogram was recorded.
 
 
 ------------------------------------------------------------------------------------
-|Name of      |Inspection items         |Sample number            |        |RESU   |
-|solution     |                         |                         |        |LTS    |
-|-------------|-------------------------|-------------------------|--------|-------|
-|Reference    |Degree of separation     |1                        |        |2.0    |
-|solution     |between imidazole peaks  |                         |        |       |
-|             |and YA2304-52 peaks      |                         |        |       |
-|             |                         |-------------------------|--------|-------|
-|             |        |        |       |2                        |        |2.0    |
-|-------------|--------|--------|-------|-------------------------|--------|-------|
-|Investigation|Solution name                                      |        |RSD    |
-|Items        |                                                   |        |       |
-|             |---------------------------------------------------|--------|       |
+|Name of      |Inspection items         |Sample number                     |RESU   |
+|solution     |                         |                                  |LTS    |
+|-------------|-------------------------|----------------------------------|-------|
+|Reference    |Degree of separation     |1                                 |2.0    |
+|solution     |between imidazole peaks  |                                  |       |
+|             |and YA2304-52 peaks      |                                  |       |
+|             |                         |----------------------------------|-------|
+|             |                         |2                                 |2.0    |
+|-------------|-------------------------|----------------------------------|-------|
+|Investigation|Solution name                                               |RSD    |
+|Items        |                                                            |       |
+|             |------------------------------------------------------------|       |
 |             |Repeated|Repetiti|Repetiti ve    |Repetiti|Repetiti|Repetiti|       |
 |             |test    |ve test |test product   |ve test |ve test |ve test |       |
 |             |product |product |solution 3     |product |product |product |       |
@@ -24948,8 +24944,8 @@ Results of intermediate precision - system suitability test
 |Investigation     |Control solution was injected                  |RSD    |
 |parameters        |                                               |       |
 |                  |-----------------------------------------------|       |
-|          |       |1      |2      |3      |4      |5      |6      |       |
-|----------|-------|-------|-------|-------|-------|-------|-------|-------|
+|                  |1      |2      |3      |4      |5      |6      |       |
+|------------------|-------|-------|-------|-------|-------|-------|-------|
 |YA230 4-52|RT     |6.348  |6.348  |6.351  |6.351  |6.354  |6.351  |0.04%  |
 |          |(min)  |       |       |       |       |       |       |       |
 |          |-------|-------|-------|-------|-------|-------|-------|-------|
@@ -25072,12 +25068,12 @@ Results of repeatability test
 |Investigati|Solution name                                              |RSD (n=6)      |
 |on items   |                                                           |               |
 |           |-----------------------------------------------------------|               |
-|           |RSD (n = |Repetiti |Repetiti |Repetiti |Repeat ed|Repetiti |       |       |
-|           |6) 1     |ve test  |ve test  |ve test  |test     |ve test  |       |       |
-|           |Repeat   |product  |product  |product  |product  |product  |       |       |
-|           |test     |solution |solution |solution |solution |solution |       |       |
-|           |solution |2        |3        |4        |5        |6        |       |       |
-|-----------|---------|---------|---------|---------|---------|---------|-------|-------|
+|           |RSD (n = |Repetiti |Repetiti |Repetiti |Repeat ed|Repetiti |               |
+|           |6) 1     |ve test  |ve test  |ve test  |test     |ve test  |               |
+|           |Repeat   |product  |product  |product  |product  |product  |               |
+|           |test     |solution |solution |solution |solution |solution |               |
+|           |solution |2        |3        |4        |5        |6        |               |
+|-----------|---------|---------|---------|---------|---------|---------|---------------|
 |YA2304-52  |0.11%    |0.10%    |0.10%    |0.10%    |0.10%    |0.11%    |1.2%           |
 |content    |         |         |         |         |         |         |               |
 |-----------|---------|---------|---------|---------|---------|---------|---------------|
@@ -25313,8 +25309,8 @@ Stability test results of reference solution
 |Investigation  |Reference solution                                     |RSD    |
 |Items          |                                                       |       |
 |               |-------------------------------------------------------|-------|
-|       |       |0h     |2h     |4h     |16h    |24h    |40h    |48h            |
-|-------|-------|-------|-------|-------|-------|-------|-------|---------------|
+|               |0h     |2h     |4h     |16h    |24h    |40h    |48h            |
+|---------------|-------|-------|-------|-------|-------|-------|---------------|
 |Peak   |YA230  |24168  |24129  |23898  |24389  |24371  |24282  |24439  |0.8 %  |
 |area   |4-52   |       |       |       |       |       |       |       |       |
 |       |-------|-------|-------|-------|-------|-------|-------|-------|-------|
@@ -28477,8 +28473,8 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |Reference        |1              |91.4                           |
 |solution         |               |                               |
 |                 |---------------|-------------------------------|
-|         |       |2              |68.2                           |
-|---------|-------|---------------|-------------------------------|
+|                 |2              |68.2                           |
+|-----------------|---------------|-------------------------------|
 |Repeat   |1      |2      |3      |4      |5      |6      |RSD/%  |
 |test     |       |       |       |       |       |       |       |
 |product  |       |       |       |       |       |       |       |
@@ -31487,9 +31483,9 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |       |Limited quantitative  |       |9.611  |5.1899 |14.8   |
 |       |Solution 5            |       |       |       |       |
 |-------|----------------------|-------|-------|-------|-------|
-|       |Limited quantitative  |       |9.614  |4.7570 |13.8   |
-|       |solution 6            |       |       |       |       |
-|-------|----------------------|-------|-------|-------|-------|
+|       |Limited quantitative solution |9.614  |4.7570 |13.8   |
+|       |6                             |       |       |       |
+|-------|------------------------------|-------|-------|-------|
 |       |RSD (%)                       |0.021  |5      |/      |
 |-------|------------------------------|-------|-------|-------|
 |Verdict: TheS/Nof isopropyl alcohol in 6 limited              |
@@ -31666,9 +31662,9 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |       |Limited quantitative|       |14.810 |4.1467 |16.2   |
 |       |Solution 5          |       |       |       |       |
 |-------|--------------------|-------|-------|-------|-------|
-|       |Limited quantitative|       |14.811 |4.2390 |15.4   |
-|       |solution 6          |       |       |       |       |
-|-------|--------------------|-------|-------|-------|-------|
+|       |Limited quantitative        |14.811 |4.2390 |15.4   |
+|       |solution 6                  |       |       |       |
+|-------|----------------------------|-------|-------|-------|
 |       |RSD (%)                     |0.012  |1.6    |/      |
 |-------|----------------------------|-------|-------|-------|
 |Conclusion: TheS/Nof tetrahydrofuran in 6 limited           |
@@ -32006,8 +32002,8 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 ------------------------------------------------------------------------
 |5                                                                     |
 |----------------------------------------------------------------------|
-|            |         |3              |       |8.263  |1.932 4|3.2    |
-|------------|---------|---------------|-------|-------|-------|-------|
+|            |         |3                      |8.263  |1.932 4|3.2    |
+|------------|---------|-----------------------|-------|-------|-------|
 |Conclusion: TheS/Nof ethanol in the 3-needle detection limit solution |
 |chromatogram was between 3.2-3.7 (the requirement was NLT 3), and the |
 |detection limit concentration of ethanol was 1.502μg/ml, which was    |
@@ -35231,10 +35227,10 @@ Precision (repeatability and reproducibility) test results
 |name                     |                                                       |
 |-------------------------|-------------------------------------------------------|
 |Repeatability                                                                    |
-|---------------------------------------------------------------------------------|
-|         |               |1      |2      |3      |4      |5      |6      |RSD    |
-|         |               |       |       |       |       |       |       |(n=6)  |
-|---------|---------------|-------|-------|-------|-------|-------|-------|-------|
+|-------------------------|-------|-------|-------|-------|-------|-------|-------|
+|                         |1      |2      |3      |4      |5      |6      |RSD    |
+|                         |       |       |       |       |       |       |(n=6)  |
+|-------------------------|-------|-------|-------|-------|-------|-------|-------|
 |Repeata  |Ethanol        |0.5754 |0.5806 |0.5779 |0.5758 |0.5773 |0.5687 |0.7%   |
 |bi lity  |               |       |       |       |       |       |       |       |
 |         |---------------|-------|-------|-------|-------|-------|-------|-------|
@@ -35708,10 +35704,10 @@ Durability test results
 |               |injec  |                                                         |
 |               |tions  |                                                         |
 |               |       |---------------------------------------------------------|
-|       |       |       |Ethanol|Isopro |Ethyl  |sec-bu |tetrahy|Tolue  |N-methy  |
-|       |       |       |       |pyl    |acetate|tanol  |drofur |ne     |lpyrrolid|
-|       |       |       |       |alcohol|       |       |an     |       |one      |
-|-------|-------|-------|-------|-------|-------|-------|-------|-------|---------|
+|               |       |Ethanol|Isopro |Ethyl  |sec-bu |tetrahy|Tolue  |N-methy  |
+|               |       |       |pyl    |acetate|tanol  |drofur |ne     |lpyrrolid|
+|               |       |       |alcohol|       |       |an     |       |one      |
+|---------------|-------|-------|-------|-------|-------|-------|-------|---------|
 |Velo ci|3.4    |1      |0.5963 |0.5123 |0.5227 |0.5077 |0.0764 |0.105 3|0.0556   |
 |ty of  |ml/min |       |       |       |       |       |       |       |         |
 |fl o w |       |       |       |       |       |       |       |       |         |
@@ -36067,7 +36063,7 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |         |with the     |                                                                                   |       |
 |         |target       |                                                                                   |       |
 |         |solvent peak.|                                                                                   |       |
-|         |             |                                                                                   |-------|
+|         |             |-----------------------------------------------------------------------------------|-------|
 |         |             |       |Soluti  |Component name   |Compone |Rt (min)            |Degree of |The percentage |
 |         |             |       |on Name |                 |nt      |                    |separation|equivalent to  |
 |         |             |       |        |                 |concentr|                    |from the  |the            |
@@ -36077,54 +36073,54 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |         |             |       |        |                 |        |                    |          |component in   |
 |         |             |       |        |                 |        |                    |          |the test       |
 |         |             |       |        |                 |        |                    |          |solution       |
-|         |             |       |--------|-----------------|--------|--------------------|----------|---------------|
+|         |             |-------|--------|-----------------|--------|--------------------|----------|---------------|
 |         |             |       |Specific|Ethanol          |250.278 |8.149               |/         |0.5%           |
 |         |             |       |mixed   |                 |        |                    |          |               |
 |         |             |       |solution|                 |        |                    |          |               |
-|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |-------|        |-----------------|--------|--------------------|----------|---------------|
 |         |             |       |        |Isopropyl alcohol|250.410 |9.504               |8.2       |0.5%           |
-|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |-------|        |-----------------|--------|--------------------|----------|---------------|
 |         |             |       |        |Ethyl acetate    |248.695 |14.145              |28.2      |0.5%           |
-|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |-------|        |-----------------|--------|--------------------|----------|---------------|
 |         |             |       |        |sec-butanol      |250.585 |14.429              |1.8       |0.5%           |
-|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |-------|        |-----------------|--------|--------------------|----------|---------------|
 |         |             |       |        |tetrahydrofuran  |36.588  |14.728              |1.9       |0.072%         |
-|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |-------|        |-----------------|--------|--------------------|----------|---------------|
 |         |             |       |        |Toluene          |50.025  |20.061              |37.5      |0.089%         |
-|         |             |       |        |-----------------|--------|--------------------|----------|---------------|
+|         |             |-------|        |-----------------|--------|--------------------|----------|---------------|
 |         |             |       |        |N-methylpyrroli  |27.6875 |31.390              |94.3      |0.053%         |
 |         |             |       |        |done             |        |                    |          |               |
-|---------|-------------|-------|--------|                 |        |                    |          |               |
-|Limits of|TheS/Nof each|       |Compone |       |Detection|        |       |Limit of    |          |       |       |
-|quantifi |solvent peak |       |nt Name |       |Limits   |        |       |quantitation|          |       |       |
-|cation,  |in the 6 LOQ |       |        |       |         |        |       |            |          |       |       |
-|detection|solution maps|       |        |       |         |        |       |            |          |       |       |
-|         |should be NLT|       |        |       |         |        |       |            |          |       |       |
-|         |10, the RSD  |       |        |       |         |        |       |            |          |       |       |
-|         |of retention |       |        |       |         |        |       |            |          |       |       |
-|         |time should  |       |        |       |         |        |       |            |          |       |       |
-|         |be no more   |       |        |       |         |        |       |            |          |       |       |
-|         |than 2.0%,   |       |        |       |         |        |       |            |          |       |       |
-|         |and the RSD  |       |        |       |         |        |       |            |          |       |       |
-|         |of peak area |       |        |       |         |        |       |            |          |       |       |
-|         |should be no |       |        |       |         |        |       |            |          |       |       |
-|         |more than    |       |        |       |         |        |       |            |          |       |       |
-|         |10%. TheS/Nof|       |        |       |         |        |       |            |          |       |       |
-|         |each solvent |       |        |       |         |        |       |            |          |       |       |
-|         |peak in the  |       |        |       |         |        |       |            |          |       |       |
-|         |3-needle     |       |        |       |         |        |       |            |          |       |       |
-|         |Limit of     |       |        |       |         |        |       |            |          |       |       |
-|         |detection    |       |        |       |         |        |       |            |          |       |       |
-|         |(LOD)        |       |        |       |         |        |       |            |          |       |       |
-|         |solution     |       |        |       |         |        |       |            |          |       |       |
-|         |atlas should |       |        |       |         |        |       |            |          |       |       |
-|         |be NLT 3.    |       |        |       |         |        |       |            |          |       |       |
-|         |             |       |        |-------|---------|--------|-------|------------|----------|-------|-------|
-|         |             |       |        |       |Concentration (equivalent |Concentration (equivalent to the test  |
-|         |             |       |        |       |to the percentage of      |product solution concentration         |
-|         |             |       |        |       |solution concentration of |percentage)                            |
-|         |             |       |        |       |the test product)         |                                       |
-|         |             |       |--------|-------|--------------------------|---------------------------------------|
+|---------|-------------|-------|--------|-----------------|        |--------------------|          |               |
+|Limits of|TheS/Nof each|       |Compone nt Name |Detection|        |Limit of    |          |               |        
+|quantifi |solvent peak |       |                |Limits   |        |quantitation|          |               |        
+|cation,  |in the 6 LOQ |       |                |         |        |            |          |               |        
+|detection|solution maps|       |                |         |        |            |          |               |        
+|         |should be NLT|       |                |         |        |            |          |               |        
+|         |10, the RSD  |       |                |         |        |            |          |               |        
+|         |of retention |       |                |         |        |            |          |               |        
+|         |time should  |       |                |         |        |            |          |               |        
+|         |be no more   |       |                |         |        |            |          |               |        
+|         |than 2.0%,   |       |                |         |        |            |          |               |        
+|         |and the RSD  |       |                |         |        |            |          |               |        
+|         |of peak area |       |                |         |        |            |          |               |        
+|         |should be no |       |                |         |        |            |          |               |        
+|         |more than    |       |                |         |        |            |          |               |        
+|         |10%. TheS/Nof|       |                |         |        |            |          |               |        
+|         |each solvent |       |                |         |        |            |          |               |        
+|         |peak in the  |       |                |         |        |            |          |               |        
+|         |3-needle     |       |                |         |        |            |          |               |        
+|         |Limit of     |       |                |         |        |            |          |               |        
+|         |detection    |       |                |         |        |            |          |               |        
+|         |(LOD)        |       |                |         |        |            |          |               |        
+|         |solution     |       |                |         |        |            |          |               |        
+|         |atlas should |       |                |         |        |            |          |               |        
+|         |be NLT 3.    |       |                |         |        |            |          |               |        
+|         |             |       |                |---------|--------|------------|----------|---------------|        
+|         |             |       |                |Concentration (equivalent |Concentration (equivalent to the test  |
+|         |             |       |                |to the percentage of      |product solution concentration         |
+|         |             |       |                |solution concentration of |percentage)                            |
+|         |             |       |                |the test product)         |                                       |
+|         |             |       |----------------|--------------------------|---------------------------------------|
 |         |             |       |Ethyl alcohol   |1.502μg/ml (0.003%)       |5.006μg/ml (0.01%)                     |
 |         |             |       |----------------|--------------------------|---------------------------------------|
 |         |             |       |Isopropyl       |1.502μg/ml (0.003%)       |5.008μg/ml (0.01%)                     |
@@ -36441,49 +36437,49 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |       |                   |                      |N-methylpyrrol|2.0%,  |5%, n=6|9%,    |       |
 |       |                   |                      |idone         |n=6    |       |n=12   |       |
 |-------|-------------------|----------------------|              |       |       |       |       |
-|Durabil|By changing the    |The initial flow rate |              |       |       |       |       |
-|ity    |chromatographic    |was                   |              |       |       |       |       |
-|       |conditions         |3.5ml/min±0.1ml/min,  |              |       |       |       |       |
-|       |(changing the      |the initial column    |              |       |       |       |       |
-|       |initial            |temperature was       |              |       |       |       |       |
-|       |temperature, flow  |40℃±5℃, and the       |              |       |       |       |       |
-|       |rate, column) and  |chromatographic       |              |       |       |       |       |
-|       |normal             |columns with different|              |       |       |       |       |
-|       |chromatographic    |batches were          |              |       |       |       |       |
-|       |conditions to test |investigated as       |              |       |       |       |       |
-|       |the solvent content|follows: System       |              |       |       |       |       |
-|       |of each test       |applicability: no     |              |       |       |       |       |
-|       |product solution to|interference from     |              |       |       |       |       |
-|       |achieve, the       |blank solution;       |              |       |       |       |       |
-|       |chromatographic    |Ethanol, isopropyl    |              |       |       |       |       |
-|       |diagram obtained by|alcohol, ethyl        |              |       |       |       |       |
-|       |the control product|acetate, secondary    |              |       |       |       |       |
-|       |solution, ethanol, |butanol,              |              |       |       |       |       |
-|       |isopropyl alcohol, |tetrahydrofuran,      |              |       |       |       |       |
-|       |ethyl acetate,     |toluene               |              |       |       |       |       |
-|       |secondary butanol, |andn-methylpyrrolidone|              |       |       |       |       |
-|       |tetrahydrofuran,   |peaked in sequence in |              |       |       |       |       |
-|       |toluene,           |the chromatogram      |              |       |       |       |       |
-|       |n-methylpyrrolidone|obtained from the     |              |       |       |       |       |
-|       |peaks in turn, the |control solution under|              |       |       |       |       |
-|       |separation degree  |different conditions  |              |       |       |       |       |
-|       |between the        |of the same           |              |       |       |       |       |
-|       |adjacent peaks     |chromatographic       |              |       |       |       |       |
-|       |should be greater  |parameters, and the   |              |       |       |       |       |
-|       |than 1.5. Under    |separation degree     |              |       |       |       |       |
-|       |different          |between each adjacent |              |       |       |       |       |
-|       |conditions of the  |solvent peak was      |              |       |       |       |       |
-|       |same               |greater than 1.5. Test|              |       |       |       |       |
-|       |chromatographic    |product solution: RSDS|              |       |       |       |       |
-|       |parameters, the RSD|of each solvent       |              |       |       |       |       |
-|       |of the content of  |content in test       |              |       |       |       |       |
-|       |each solvent to be |product solution under|              |       |       |       |       |
-|       |measured in the    |the same              |              |       |       |       |       |
-|       |test product       |chromatographic       |              |       |       |       |       |
-|       |solution NMT 10%.  |parameters and        |              |       |       |       |       |
-|       |                   |different conditions  |              |       |       |       |       |
-|       |                   |were all less than    |              |       |       |       |       |
-|       |                   |10%.                  |              |       |       |       |       |
+|Durabil|By changing the    |The initial flow rate |              |       |       |               |
+|ity    |chromatographic    |was                   |              |       |       |               |
+|       |conditions         |3.5ml/min±0.1ml/min,  |              |       |       |               |
+|       |(changing the      |the initial column    |              |       |       |               |
+|       |initial            |temperature was       |              |       |       |               |
+|       |temperature, flow  |40℃±5℃, and the       |              |       |       |               |
+|       |rate, column) and  |chromatographic       |              |       |       |               |
+|       |normal             |columns with different|              |       |       |               |
+|       |chromatographic    |batches were          |              |       |       |               |
+|       |conditions to test |investigated as       |              |       |       |               |
+|       |the solvent content|follows: System       |              |       |       |               |
+|       |of each test       |applicability: no     |              |       |       |               |
+|       |product solution to|interference from     |              |       |       |               |
+|       |achieve, the       |blank solution;       |              |       |       |               |
+|       |chromatographic    |Ethanol, isopropyl    |              |       |       |               |
+|       |diagram obtained by|alcohol, ethyl        |              |       |       |               |
+|       |the control product|acetate, secondary    |              |       |       |               |
+|       |solution, ethanol, |butanol,              |              |       |       |               |
+|       |isopropyl alcohol, |tetrahydrofuran,      |              |       |       |               |
+|       |ethyl acetate,     |toluene               |              |       |       |               |
+|       |secondary butanol, |andn-methylpyrrolidone|              |       |       |               |
+|       |tetrahydrofuran,   |peaked in sequence in |              |       |       |               |
+|       |toluene,           |the chromatogram      |              |       |       |               |
+|       |n-methylpyrrolidone|obtained from the     |              |       |       |               |
+|       |peaks in turn, the |control solution under|              |       |       |               |
+|       |separation degree  |different conditions  |              |       |       |               |
+|       |between the        |of the same           |              |       |       |               |
+|       |adjacent peaks     |chromatographic       |              |       |       |               |
+|       |should be greater  |parameters, and the   |              |       |       |               |
+|       |than 1.5. Under    |separation degree     |              |       |       |               |
+|       |different          |between each adjacent |              |       |       |               |
+|       |conditions of the  |solvent peak was      |              |       |       |               |
+|       |same               |greater than 1.5. Test|              |       |       |               |
+|       |chromatographic    |product solution: RSDS|              |       |       |               |
+|       |parameters, the RSD|of each solvent       |              |       |       |               |
+|       |of the content of  |content in test       |              |       |       |               |
+|       |each solvent to be |product solution under|              |       |       |               |
+|       |measured in the    |the same              |              |       |       |               |
+|       |test product       |chromatographic       |              |       |       |               |
+|       |solution NMT 10%.  |parameters and        |              |       |       |               |
+|       |                   |different conditions  |              |       |       |               |
+|       |                   |were all less than    |              |       |       |               |
+|       |                   |10%.                  |              |       |       |               |
 ---------------------------------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
@@ -37153,8 +37149,8 @@ the chromatogram was recorded.
 |                 |                                               |       |to-noi  |
 |                 |                                               |       |se ratio|
 |                 |-----------------------------------------------|       |        |
-|         |       |1      |2      |3      |4      |5      |6      |       |        |
-|---------|-------|-------|-------|-------|-------|-------|-------|-------|--------|
+|                 |1      |2      |3      |4      |5      |6      |       |        |
+|-----------------|-------|-------|-------|-------|-------|-------|-------|--------|
 |Dime thyl|Retent |6.468  |6.467  |6.468  |6.462  |6.462  |6.462  |0.0 5  |110.8 7 |
 |sulfa te |ion    |       |       |       |       |       |       |       |        |
 |         |time   |       |       |       |       |       |       |       |        |
@@ -38788,11 +38784,11 @@ needle successively, and the chromatogram was recorded.
 |sulfa  |1       |        |                 |                 |
 |te     |        |        |                 |                 |
 |       |--------|--------|-----------------|                 |
-|       |Test    |Not     |Not detected     |        |        |
-|       |product |detected|                 |        |        |
-|       |solution|        |                 |        |        |
-|       |2       |        |                 |        |        |
-|       |--------|--------|-----------------|--------|--------|
+|       |Test    |Not     |Not detected     |                 |
+|       |product |detected|                 |                 |
+|       |solution|        |                 |                 |
+|       |2       |        |                 |                 |
+|       |--------|--------|-----------------|-----------------|
 |       |Solution|Peak    |Amount   |Amount |Measured|Recovery|
 |       |name    |area    |available|added  |amount  |rate (%)|
 |       |        |        |(ng)     |(ng)   |(ng)    |        |
@@ -38939,11 +38935,11 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |sulfa  |1       |        |                 |                 |
 |te     |        |        |                 |                 |
 |       |--------|--------|-----------------|                 |
-|       |Test    |Not     |Not detected     |        |        |
-|       |product |detected|                 |        |        |
-|       |solution|        |                 |        |        |
-|       |2       |        |                 |        |        |
-|       |--------|--------|-----------------|--------|--------|
+|       |Test    |Not     |Not detected     |                 |
+|       |product |detected|                 |                 |
+|       |solution|        |                 |                 |
+|       |2       |        |                 |                 |
+|       |--------|--------|-----------------|-----------------|
 |       |Solution|Peak    |Available|Amount |Measured|Recovery|
 |       |name    |area    |amount   |added  |amount  |rate (%)|
 |       |        |        |(ng)     |(ng)   |(ng)    |        |
@@ -39075,10 +39071,10 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |sulfa  |1       |        |                |               |
 |te     |        |        |                |               |
 |       |--------|--------|----------------|               |
-|       |Test    |Not     |Not detected    |       |       |
-|       |product |detecte |                |       |       |
-|       |solution|        |                |       |       |
-|       |2       |        |                |       |       |
+|       |Test    |Not     |Not detected    |               |
+|       |product |detecte |                |               |
+|       |solution|        |                |               |
+|       |2       |        |                |               |
 ------------------------------------------------------------
 
 Finerenone 
@@ -39266,11 +39262,11 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |sulfa te    |solution|detected|                 |                 |
 |            |1       |        |                 |                 |
 |            |--------|--------|-----------------|                 |
-|            |Test    |Not     |Not detected     |        |        |
-|            |product |detected|                 |        |        |
-|            |solution|        |                 |        |        |
-|            |2       |        |                 |        |        |
-|            |--------|--------|-----------------|--------|--------|
+|            |Test    |Not     |Not detected     |                 |
+|            |product |detected|                 |                 |
+|            |solution|        |                 |                 |
+|            |2       |        |                 |                 |
+|            |--------|--------|-----------------|-----------------|
 |            |Solution|Peak    |Amount   |Amount |Measured|Recovery|
 |            |name    |area    |available|added  |amount  |rate (%)|
 |            |        |        |(ng)     |(ng)   |(ng)    |        |
@@ -40430,70 +40426,70 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |         |100% response  |       |               |                                 |               |               |
 |         |value.         |       |               |                                 |               |               |
 |         |               |       |---------------|---------------------------------|---------------|               |
-|         |               |       |Dimethyl       |14.9352ng/ml~298.7040ng/ml       |y=13215x-26946 |       |       |
-|         |               |       |sulfate        |(7.5ppm~149.4ppm)                |               |       |       |
-|         |               |       |---------------|---------------------------------|---------------|       |-------|
-|         |               |       |Diethyl sulfate|15.3648ng/ml to 307.2960ng/ml    |y=16542x-91014 |       |       |
-|         |               |       |               |(7.7ppm to 153.6ppm)             |               |       |       |
-|         |               |       |---------------|---------------------------------|---------------|       |-------|
-|         |               |       |Diisopropyl    |15.1417ng/ml to 302.8340ng/ml    |y=11126x-84402 |       |       |
-|         |               |       |sulfate        |(7.6ppm to 151.4ppm)             |               |       |       |
-|         |               |       |---------------|---------------------------------|---------------|       |-------|
-|         |               |       |Disec-butyl    |15.3638ng/ml to 307.2754ng/ml    |Y = 4616.2 x - |       |       |
-|         |               |       |sulfate        |(7.7ppm to 153.6ppm)             |41084          |       |       |
-|---------|---------------|-------|---------------|---------------------------------|---------------|       |-------|
-|Repeata  |The RSD of the |Dimethyl Diisopropyl Di-sec-butyl Impurities Diethyl sulfate sulfate     |       |       |
-|bility   |content of     |sulfate sulfate Repeatability 10%, n=6 4%, n=6 5%, n=6 6%, n=6           |       |       |
-|         |dimethyl       |                                                                         |       |       |
-|         |sulfate,       |                                                                         |       |       |
-|         |diethyl        |                                                                         |       |       |
-|         |sulfate,       |                                                                         |       |       |
-|         |diisopropyl    |                                                                         |       |       |
-|         |sulfate and    |                                                                         |       |       |
-|         |disec-butyl    |                                                                         |       |       |
-|         |sulfate in the |                                                                         |       |       |
-|         |solution of 6  |                                                                         |       |       |
-|         |repeatable test|                                                                         |       |       |
-|         |products should|                                                                         |       |       |
-|         |NMT 20%.       |                                                                         |       |       |
-|---------|---------------|-------------------------------------------------------------------------|-------|-------|
-|Accura cy|It is required |       |Impurities     |       |Marking  |Average        |       |RSD    |               |
-|         |that the       |       |               |       |condition|recovery rate  |       |       |               |
-|         |recovery rate  |       |               |       |         |               |       |       |               |
-|         |of each        |       |               |       |         |               |       |       |               |
-|         |impurity in the|       |               |       |         |               |       |       |               |
-|         |solution of    |       |               |       |         |               |       |       |               |
-|         |each added     |       |               |       |         |               |       |       |               |
-|         |standard test  |       |               |       |         |               |       |       |               |
-|         |product should |       |               |       |         |               |       |       |               |
-|         |be between     |       |               |       |         |               |       |       |               |
-|         |80.0% and      |       |               |       |         |               |       |       |               |
-|         |120.0%, and the|       |               |       |         |               |       |       |               |
-|         |RSD of each    |       |               |       |         |               |       |       |               |
-|         |impurity       |       |               |       |         |               |       |       |               |
-|         |recovery rate  |       |               |       |         |               |       |       |               |
-|         |NMT 15%.       |       |               |       |         |               |       |       |               |
-|         |               |       |---------------|-------|---------|---------------|-------|-------|               |
-|         |               |       |Dimethyl       |       |Added    |96.33%, n=9    |       |2.4%,  |       |       |
-|         |               |       |sulfate        |       |0.2317ng |               |       |n=9    |       |       |
-|         |               |       |               |       |to       |               |       |       |       |       |
-|         |               |       |               |       |1.1584ng |               |       |       |       |       |
-|         |               |       |---------------|-------|---------|---------------|-------|-------|       |-------|
-|         |               |       |Diethyl sulfate|       |Added    |100.96%, n=9   |       |7%, n=9|       |       |
-|         |               |       |               |       |0.2333ng |               |       |       |       |       |
-|         |               |       |               |       |to       |               |       |       |       |       |
-|         |               |       |               |       |1.1665ng |               |       |       |       |       |
-|         |               |       |---------------|-------|---------|---------------|-------|-------|       |-------|
-|         |               |       |Diisopropyl    |       |Added    |103.00%, n=9   |       |6%, n=9|       |       |
-|         |               |       |sulfate        |       |0.2210ng |               |       |       |       |       |
-|         |               |       |               |       |to       |               |       |       |       |       |
-|         |               |       |               |       |1.1051ng |               |       |       |       |       |
-|         |               |       |---------------|-------|---------|---------------|-------|-------|       |-------|
-|         |               |       |Di-sec-butyl   |       |Added    |98.57%, n=9    |       |7%, n=9|       |       |
-|         |               |       |sulfate        |       |0.2306ng |               |       |       |       |       |
-|         |               |       |               |       |to       |               |       |       |       |       |
-|         |               |       |               |       |1.1530ng |               |       |       |       |       |
-|---------|---------------|-------|---------------|-------|---------|---------------|-------|-------|-------|-------|
+|         |               |       |Dimethyl       |14.9352ng/ml~298.7040ng/ml       |y=13215x-26946 |               |
+|         |               |       |sulfate        |(7.5ppm~149.4ppm)                |               |               |
+|         |               |       |---------------|---------------------------------|---------------|               |
+|         |               |       |Diethyl sulfate|15.3648ng/ml to 307.2960ng/ml    |y=16542x-91014 |               |
+|         |               |       |               |(7.7ppm to 153.6ppm)             |               |               |
+|         |               |       |---------------|---------------------------------|---------------|               |
+|         |               |       |Diisopropyl    |15.1417ng/ml to 302.8340ng/ml    |y=11126x-84402 |               |
+|         |               |       |sulfate        |(7.6ppm to 151.4ppm)             |               |               |
+|         |               |       |---------------|---------------------------------|---------------|               |
+|         |               |       |Disec-butyl    |15.3638ng/ml to 307.2754ng/ml    |Y = 4616.2 x - |               |
+|         |               |       |sulfate        |(7.7ppm to 153.6ppm)             |41084          |               |
+|---------|---------------|-------|---------------|---------------------------------|---------------|               |
+|Repeata  |The RSD of the |Dimethyl Diisopropyl Di-sec-butyl Impurities Diethyl sulfate sulfate     |               |
+|bility   |content of     |sulfate sulfate Repeatability 10%, n=6 4%, n=6 5%, n=6 6%, n=6           |               |
+|         |dimethyl       |                                                                         |               |
+|         |sulfate,       |                                                                         |               |
+|         |diethyl        |                                                                         |               |
+|         |sulfate,       |                                                                         |               |
+|         |diisopropyl    |                                                                         |               |
+|         |sulfate and    |                                                                         |               |
+|         |disec-butyl    |                                                                         |               |
+|         |sulfate in the |                                                                         |               |
+|         |solution of 6  |                                                                         |               |
+|         |repeatable test|                                                                         |               |
+|         |products should|                                                                         |               |
+|         |NMT 20%.       |                                                                         |               |
+|---------|---------------|-------------------------------------------------------------------------|---------------|
+|Accura cy|It is required |       |Impurities             |Marking  |Average recovery rate  |RSD    |               |
+|         |that the       |       |                       |condition|                       |       |               |
+|         |recovery rate  |       |                       |         |                       |       |               |
+|         |of each        |       |                       |         |                       |       |               |
+|         |impurity in the|       |                       |         |                       |       |               |
+|         |solution of    |       |                       |         |                       |       |               |
+|         |each added     |       |                       |         |                       |       |               |
+|         |standard test  |       |                       |         |                       |       |               |
+|         |product should |       |                       |         |                       |       |               |
+|         |be between     |       |                       |         |                       |       |               |
+|         |80.0% and      |       |                       |         |                       |       |               |
+|         |120.0%, and the|       |                       |         |                       |       |               |
+|         |RSD of each    |       |                       |         |                       |       |               |
+|         |impurity       |       |                       |         |                       |       |               |
+|         |recovery rate  |       |                       |         |                       |       |               |
+|         |NMT 15%.       |       |                       |         |                       |       |               |
+|         |               |       |-----------------------|---------|-----------------------|-------|               |
+|         |               |       |Dimethyl sulfate       |Added    |96.33%, n=9            |2.4%,  |               |
+|         |               |       |                       |0.2317ng |                       |n=9    |               |
+|         |               |       |                       |to       |                       |       |               |
+|         |               |       |                       |1.1584ng |                       |       |               |
+|         |               |       |-----------------------|---------|-----------------------|-------|               |
+|         |               |       |Diethyl sulfate        |Added    |100.96%, n=9           |7%, n=9|               |
+|         |               |       |                       |0.2333ng |                       |       |               |
+|         |               |       |                       |to       |                       |       |               |
+|         |               |       |                       |1.1665ng |                       |       |               |
+|         |               |       |-----------------------|---------|-----------------------|-------|               |
+|         |               |       |Diisopropyl sulfate    |Added    |103.00%, n=9           |6%, n=9|               |
+|         |               |       |                       |0.2210ng |                       |       |               |
+|         |               |       |                       |to       |                       |       |               |
+|         |               |       |                       |1.1051ng |                       |       |               |
+|         |               |       |-----------------------|---------|-----------------------|-------|               |
+|         |               |       |Di-sec-butyl sulfate   |Added    |98.57%, n=9            |7%, n=9|               |
+|         |               |       |                       |0.2306ng |                       |       |               |
+|         |               |       |                       |to       |                       |       |               |
+|         |               |       |                       |1.1530ng |                       |       |               |
+|---------|---------------|-------|-----------------------|---------|-----------------------|-------|---------------|
 |Durabil  |Under different|The initial column temperature was 50℃±5℃, the flow rate of carrier gas  |       |       |
 |         |conditions of  |was                                                                      |       |       |
 ---------------------------------------------------------------------------------------------------------------------
@@ -42464,8 +42460,8 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |Normal    |       |1.18    |80373    |1.19    |80074    |99.5%    |0.23%  |
 |conditions|       |        |         |        |         |         |       |
 |          |       |--------|---------|--------|---------|         |       |
-|          |       |1.18    |80414    |1.19    |80543    |         |       |
-|----------|-------|--------|---------|--------|---------|---------|       |
+|                  |1.18    |80414    |1.19    |80543    |         |       |
+|------------------|--------|---------|--------|---------|---------|       |
 |Wave      |249nm  |1.16    |73280    |1.17    |74216    |99.9%    |       |
 |length    |       |        |         |        |         |         |       |
 |          |       |--------|---------|--------|---------|         |       |
@@ -42497,8 +42493,8 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |----------|-------|--------|---------|--------|---------|---------|       |
 |Column 2          |1.18    |84401    |1.18    |84466    |99.4%    |       |
 |                  |--------|---------|--------|---------|         |       |
-|          |       |1.18    |85388    |1.18    |84993    |         |       |
-|----------|-------|--------|---------|--------|---------|---------|-------|
+|                  |1.18    |85388    |1.18    |84993    |         |       |
+|------------------|--------|---------|--------|---------|---------|-------|
 |Conclusion: Under the conditions of column temperature, wavelength, flow  |
 |rate, different chromatographic columns and normal conditions, the        |
 |theoretical plate number calculated by the peak of fenelidone is NLT 73280|
@@ -42777,12 +42773,12 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 |         |precision    |                                                            |
 |         |tests, the   |                                                            |
 |         |RSD of       |                                                            |
-|         |             |                                                            |
+|         |             |------------------------------------------------------------|
 |         |             |       |Principal|Repeatability|Intermediate|Precisi|       |
 |         |             |       |Component|             |precision   |       |       |
-|         |             |       |---------|-------------|------------|-------|       |
+|         |             |-------|---------|-------------|------------|-------|-------|
 |         |             |       |YA2304   |0.5%, n=6    |0.4%, n=6   |0.4%, n|=      |
-|         |             |       |---------|-------------|------------|-------|-------|
+|         |             |-------|---------|-------------|------------|-------|-------|
 |         |             |       |         |             |            |       |       |
 --------------------------------------------------------------------------------------
 
@@ -54499,45 +54495,52 @@ Table 3.2.S.7.3-7 High Temperature Stress Test Data of Finerenone (Batch No. 231
 
 
 
--------------------------------------------------------------------------------------
-|Batch No.                |240101         |Batch size     |       |10 kg            |
-|-------------------------|---------------|---------------|-------|-----------------|
-|Manufacturing date       |Jan. 06, 2024  |Stability      |       |Feb. 26, 2024    |
-|                         |               |starting date  |       |                 |
-|-------------------------|---------------|---------------|-------|-----------------|
-|Degradation condition    |High temperature 60℃: place appropriate amount of        |
-|                         |substance without package intoa container evenly, the    |
-|                         |thickness of substance is 3 ~ 5 mm. Store the culture    |
-|                         |dish into constant temperature oven at 60℃.              |
-|-------------------------|                                                         |
-|Items     |Specifications|       |Time points                                      |
-|          |              |-------|-------------------------------------------------|
-|          |              |       |0d             |5d     |15d            |30d      |
-|----------|--------------|-------|---------------|-------|---------------|---------|
-|Appearance|White to yellow       |White powder   |Off    |Yellowish      |Yellowish|
-|          |powder.               |               |White  |powder         |powder   |
-|          |                      |               |powder |               |         |
-|----------|----------------------|---------------|-------|---------------|---------|
-|Related   |YA2304-10 NMT 0.10%； |ND             |ND     |ND             |ND       |
-|substances|                      |               |       |               |         |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-12 NMT 0.15%； |ND             |＜0.05%|＜0.05%        |＜0.05%  |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-14 NMT 0.15%； |ND             |＜0.05%|＜0.05%        |＜0.05%  |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-15 NMT 0.15%； |ND             |ND     |ND             |ND       |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-16 NMT 0.15%； |ND             |ND     |ND             |0.05%    |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-17 NMT 0.15%； |ND             |ND     |ND             |ND       |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-18 NMT 0.15%； |ND             |ND     |ND             |＜0.05%  |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-19 NMT 0.15%； |＜0.05%        |＜0.05%|0.07%          |0.11%    |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |Other single          |＜0.05%        |＜0.05%|＜0.05%        |0.06%    |
-|          |impurities: NMT 0.10% |               |       |               |         |
--------------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+|Batch No.         |240101         |Batch size             |10 kg            |
+|------------------|---------------|-----------------------|-----------------|
+|Manufacturing date|Jan. 06, 2024  |Stability starting date|Feb. 26, 2024    |
+|------------------|---------------|-----------------------|-----------------|
+|Degradation       |High temperature 60℃: place appropriate amount of        |
+|condition         |substance without package intoa container evenly, the    |
+|                  |thickness of substance is 3 ~ 5 mm. Store the culture    |
+|                  |dish into constant temperature oven at 60℃.              |
+|------------------|---------------------------------------------------------|
+|Items     |Specifications |Time points                                      |
+|          |               |-------------------------------------------------|
+|          |               |0d             |5d     |15d            |30d      |
+|----------|---------------|---------------|-------|---------------|---------|
+|Appearance|White to yellow|White powder   |Off    |Yellowish      |Yellowish|
+|          |powder.        |               |White  |powder         |powder   |
+|          |               |               |powder |               |         |
+|----------|---------------|---------------|-------|---------------|---------|
+|Related   |YA2304-10 NMT  |ND             |ND     |ND             |ND       |
+|substances|0.10%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-12 NMT  |ND             |＜0.05%|＜0.05%        |＜0.05%  |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-14 NMT  |ND             |＜0.05%|＜0.05%        |＜0.05%  |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-15 NMT  |ND             |ND     |ND             |ND       |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-16 NMT  |ND             |ND     |ND             |0.05%    |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-17 NMT  |ND             |ND     |ND             |ND       |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-18 NMT  |ND             |ND     |ND             |＜0.05%  |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-19 NMT  |＜0.05%        |＜0.05%|0.07%          |0.11%    |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |Other single   |＜0.05%        |＜0.05%|＜0.05%        |0.06%    |
+|          |impurities: NMT|               |       |               |         |
+|          |0.10%          |               |       |               |         |
+------------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -54574,31 +54577,32 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 
 
 
-------------------------------------------------------------------------------------
-|Batch No.                 |240101         |Batch size     |       |10 kg          |
-|--------------------------|---------------|---------------|-------|---------------|
-|Manufacturing date        |Jan. 06, 2024  |Stability      |       |Feb. 26, 2024  |
-|                          |               |starting date  |       |               |
-|--------------------------|---------------|---------------|-------|---------------|
-|Degradation condition     |High temperature 60℃: place appropriate amount of      |
-|                          |substance without package intoa container evenly, the  |
-|                          |thickness of substance is 3 ~ 5 mm. Store the culture  |
-|                          |dish into constant temperature oven at 60℃.            |
-|--------------------------|                                                       |
-|Items      |Specifications|       |Time points                                    |
-|           |              |-------|-----------------------------------------------|
-|           |              |       |0d             |5d     |15d            |30d    |
-|-----------|--------------|-------|---------------|-------|---------------|-------|
-|           |Total impurity: NMT   |＜0.05%        |＜0.05%|0.11%          |0.22%  |
-|           |1.0%                  |               |       |               |       |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Enantiomers|YA2304-20: NMT 0.15%  |0.03%          |ND     |ND             |ND     |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Water      |NMT 0.5%              |0.05%          |0.03%  |0.05%          |0.06%  |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Assay      |98.0% to 102.0%       |99.8%          |100.2% |99.9%          |99.9%  |
-|           |(anhydrous substance).|               |       |               |       |
-------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+|Batch No.          |240101         |Batch size             |10 kg          |
+|-------------------|---------------|-----------------------|---------------|
+|Manufacturing date |Jan. 06, 2024  |Stability starting date|Feb. 26, 2024  |
+|-------------------|---------------|-----------------------|---------------|
+|Degradation        |High temperature 60℃: place appropriate amount of      |
+|condition          |substance without package intoa container evenly, the  |
+|                   |thickness of substance is 3 ~ 5 mm. Store the culture  |
+|                   |dish into constant temperature oven at 60℃.            |
+|-------------------|-------------------------------------------------------|
+|Items      |Specifications |Time points                                    |
+|           |               |-----------------------------------------------|
+|           |               |0d             |5d     |15d            |30d    |
+|-----------|---------------|---------------|-------|---------------|-------|
+|           |Total impurity:|＜0.05%        |＜0.05%|0.11%          |0.22%  |
+|           |NMT 1.0%       |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Enantiomers|YA2304-20: NMT |0.03%          |ND     |ND             |ND     |
+|           |0.15%          |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Water      |NMT 0.5%       |0.05%          |0.03%  |0.05%          |0.06%  |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Assay      |98.0% to 102.0%|99.8%          |100.2% |99.9%          |99.9%  |
+|           |(anhydrous     |               |       |               |       |
+|           |substance).    |               |       |               |       |
+-----------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -54646,47 +54650,54 @@ Table 3.2.S.7.3-8 High Humidity Stress Test Data of Finerenone (Batch No. 231201
 
 
 
------------------------------------------------------------------------------------
-|Batch No.                |231201         |Batch size     |       |10 kg          |
-|-------------------------|---------------|---------------|-------|---------------|
-|Manufacturing date       |Jan. 06, 2024  |Stability      |       |Feb. 24, 2024  |
-|                         |               |starting date  |       |               |
-|-------------------------|---------------|---------------|-------|---------------|
-|Degradation condition    |High humidity 92.5%RH: place appropriate amount of     |
-|                         |substance without package intoa container evenly, the  |
-|                         |thickness of substance is 3 ~ 5 mm. Store the culture  |
-|                         |dish at condition 92.5%RH, 25℃.                        |
-|-------------------------|                                                       |
-|Items     |Specifications|       |Time points                                    |
-|          |              |-------|-----------------------------------------------|
-|          |              |       |0d             |5d     |15d            |30d    |
-|----------|--------------|-------|---------------|-------|---------------|-------|
-|Appearance|White to yellow       |White powder   |White  |White powder   |White  |
-|          |powder.               |               |powder |               |powder |
-|----------|----------------------|---------------|-------|---------------|-------|
-|Related   |YA2304-10 NMT 0.10%； |ND             |ND     |ND             |ND     |
-|substances|                      |               |       |               |       |
-|          |----------------------|---------------|-------|---------------|-------|
-|          |YA2304-12 NMT 0.15%； |ND             |＜0.05%|＜0.05%        |＜0.05%|
-|          |----------------------|---------------|-------|---------------|-------|
-|          |YA2304-14 NMT 0.15%； |ND             |ND     |＜0.05%        |ND     |
-|          |----------------------|---------------|-------|---------------|-------|
-|          |YA2304-15 NMT 0.15%； |ND             |＜0.05%|＜0.05%        |＜0.05%|
-|          |----------------------|---------------|-------|---------------|-------|
-|          |YA2304-16 NMT 0.15%； |ND             |ND     |ND             |ND     |
-|          |----------------------|---------------|-------|---------------|-------|
-|          |YA2304-17 NMT 0.15%； |ND             |ND     |ND             |ND     |
-|          |----------------------|---------------|-------|---------------|-------|
-|          |YA2304-18 NMT 0.15%； |ND             |ND     |ND             |ND     |
-|          |----------------------|---------------|-------|---------------|-------|
-|          |YA2304-19 NMT 0.15%； |＜0.05%        |＜0.05%|＜0.05%        |＜0.05%|
-|          |----------------------|---------------|-------|---------------|-------|
-|          |Other single          |＜0.05%        |＜0.05%|＜0.05%        |＜0.05%|
-|          |impurities: NMT 0.10% |               |       |               |       |
-|          |----------------------|---------------|-------|---------------|-------|
-|          |Total impurity: NMT   |＜0.05%        |＜0.05%|＜0.05%        |＜0.05%|
-|          |1.0%                  |               |       |               |       |
------------------------------------------------------------------------------------
+----------------------------------------------------------------------------
+|Batch No.         |231201         |Batch size             |10 kg          |
+|------------------|---------------|-----------------------|---------------|
+|Manufacturing date|Jan. 06, 2024  |Stability starting date|Feb. 24, 2024  |
+|------------------|---------------|-----------------------|---------------|
+|Degradation       |High humidity 92.5%RH: place appropriate amount of     |
+|condition         |substance without package intoa container evenly, the  |
+|                  |thickness of substance is 3 ~ 5 mm. Store the culture  |
+|                  |dish at condition 92.5%RH, 25℃.                        |
+|------------------|-------------------------------------------------------|
+|Items     |Specifications |Time points                                    |
+|          |               |-----------------------------------------------|
+|          |               |0d             |5d     |15d            |30d    |
+|----------|---------------|---------------|-------|---------------|-------|
+|Appearance|White to yellow|White powder   |White  |White powder   |White  |
+|          |powder.        |               |powder |               |powder |
+|----------|---------------|---------------|-------|---------------|-------|
+|Related   |YA2304-10 NMT  |ND             |ND     |ND             |ND     |
+|substances|0.10%；        |               |       |               |       |
+|          |---------------|---------------|-------|---------------|-------|
+|          |YA2304-12 NMT  |ND             |＜0.05%|＜0.05%        |＜0.05%|
+|          |0.15%；        |               |       |               |       |
+|          |---------------|---------------|-------|---------------|-------|
+|          |YA2304-14 NMT  |ND             |ND     |＜0.05%        |ND     |
+|          |0.15%；        |               |       |               |       |
+|          |---------------|---------------|-------|---------------|-------|
+|          |YA2304-15 NMT  |ND             |＜0.05%|＜0.05%        |＜0.05%|
+|          |0.15%；        |               |       |               |       |
+|          |---------------|---------------|-------|---------------|-------|
+|          |YA2304-16 NMT  |ND             |ND     |ND             |ND     |
+|          |0.15%；        |               |       |               |       |
+|          |---------------|---------------|-------|---------------|-------|
+|          |YA2304-17 NMT  |ND             |ND     |ND             |ND     |
+|          |0.15%；        |               |       |               |       |
+|          |---------------|---------------|-------|---------------|-------|
+|          |YA2304-18 NMT  |ND             |ND     |ND             |ND     |
+|          |0.15%；        |               |       |               |       |
+|          |---------------|---------------|-------|---------------|-------|
+|          |YA2304-19 NMT  |＜0.05%        |＜0.05%|＜0.05%        |＜0.05%|
+|          |0.15%；        |               |       |               |       |
+|          |---------------|---------------|-------|---------------|-------|
+|          |Other single   |＜0.05%        |＜0.05%|＜0.05%        |＜0.05%|
+|          |impurities: NMT|               |       |               |       |
+|          |0.10%          |               |       |               |       |
+|          |---------------|---------------|-------|---------------|-------|
+|          |Total impurity:|＜0.05%        |＜0.05%|＜0.05%        |＜0.05%|
+|          |NMT 1.0%       |               |       |               |       |
+----------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -54727,31 +54738,32 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 
 
 
-------------------------------------------------------------------------------------
-|Batch No.                 |231201         |Batch size     |       |10 kg          |
-|--------------------------|---------------|---------------|-------|---------------|
-|Manufacturing date        |Jan. 06, 2024  |Stability      |       |Feb. 24, 2024  |
-|                          |               |starting date  |       |               |
-|--------------------------|---------------|---------------|-------|---------------|
-|Degradation condition     |High humidity 92.5%RH: place appropriate amount of     |
-|                          |substance without package intoa container evenly, the  |
-|                          |thickness of substance is 3 ~ 5 mm. Store the culture  |
-|                          |dish at condition 92.5%RH, 25℃.                        |
-|--------------------------|                                                       |
-|Items      |Specifications|       |Time points                                    |
-|           |              |-------|-----------------------------------------------|
-|           |              |       |0d             |5d     |15d            |30d    |
-|-----------|--------------|-------|---------------|-------|---------------|-------|
-|Enantiomers|YA2304-20: NMT 0.15%  |0.03%          |0.02%  |0.02%          |0.02%  |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Water      |NMT 0.5%              |0.05%          |0.03%  |0.03%          |0.03%  |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Assay      |98.0% to 102.0%       |99.8%          |100.0% |100.3%         |100.0% |
-|           |(anhydrous substance).|               |       |               |       |
-|-----------|----------------------|---------------|-------|---------------|-------|
-|Hygroscopic|NMT 5%                |/              |0.04%  |0.02%          |0.05%  |
-|gain (%)   |                      |               |       |               |       |
-------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+|Batch No.          |231201         |Batch size             |10 kg          |
+|-------------------|---------------|-----------------------|---------------|
+|Manufacturing date |Jan. 06, 2024  |Stability starting date|Feb. 24, 2024  |
+|-------------------|---------------|-----------------------|---------------|
+|Degradation        |High humidity 92.5%RH: place appropriate amount of     |
+|condition          |substance without package intoa container evenly, the  |
+|                   |thickness of substance is 3 ~ 5 mm. Store the culture  |
+|                   |dish at condition 92.5%RH, 25℃.                        |
+|-------------------|-------------------------------------------------------|
+|Items      |Specifications |Time points                                    |
+|           |               |-----------------------------------------------|
+|           |               |0d             |5d     |15d            |30d    |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Enantiomers|YA2304-20: NMT |0.03%          |0.02%  |0.02%          |0.02%  |
+|           |0.15%          |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Water      |NMT 0.5%       |0.05%          |0.03%  |0.03%          |0.03%  |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Assay      |98.0% to 102.0%|99.8%          |100.0% |100.3%         |100.0% |
+|           |(anhydrous     |               |       |               |       |
+|           |substance).    |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Hygroscopic|NMT 5%         |/              |0.04%  |0.02%          |0.05%  |
+|gain (%)   |               |               |       |               |       |
+-----------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -54793,50 +54805,57 @@ Table 3.2.S.7.3-9 Photostability Data of Finerenone (Batch No. 231201)
 
 
 
--------------------------------------------------------------------------------------
-|Batch No.                |231201         |Batch size     |       |10 kg            |
-|-------------------------|---------------|---------------|-------|-----------------|
-|Manufacturing date       |Jan. 04, 2024  |Stability      |       |Feb. 24, 2024    |
-|                         |               |starting date  |       |                 |
-|-------------------------|---------------|---------------|-------|-----------------|
-|Degradation condition    |Illumination (visible light: 4500 ± 500|       |         |
-|                         |LX; near ultraviolet: 90±5 μW/cm2,     |       |         |
-|                         |25℃): place appropriate amount of      |       |         |
-|                         |substance without package intoa        |       |         |
-|                         |container evenly, the thickness of     |       |         |
-|                         |substance is 3 ~ 5 mm. Store the       |       |         |
-|                         |culture dish at condition: visible     |       |         |
-|                         |light: 4500 ± 500 LX; near ultraviolet:|       |         |
-|                         |90±5 μW/cm2, 25℃.                      |       |         |
-|-------------------------|                                       |-------|---------|
-|Items     |Specifications|       |Time points                    |       |         |
-|          |              |-------|-------------------------------|-------|---------|
-|          |              |       |0d             |5d     |15d            |30d      |
-|----------|--------------|-------|---------------|-------|---------------|---------|
-|Appearance|White to yellow       |White powder   |Off    |Yellowish      |Yellowish|
-|          |powder.               |               |White  |powder         |powder   |
-|          |                      |               |powder |               |         |
-|----------|----------------------|---------------|-------|---------------|---------|
-|Related   |YA2304-10 NMT 0.10%； |ND             |ND     |ND             |ND       |
-|substances|                      |               |       |               |         |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-12 NMT 0.15%； |ND             |＜0.05%|＜0.05%        |＜0.05%  |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-14 NMT 0.15%； |ND             |＜0.05%|＜0.05%        |＜0.05%  |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-15 NMT 0.15%； |ND             |＜0.05%|＜0.05%        |＜0.05%  |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-16 NMT 0.15%； |ND             |＜0.05%|＜0.05%        |＜0.05%  |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-17 NMT 0.15%； |ND             |ND     |ND             |ND       |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-18 NMT 0.15%； |ND             |ND     |ND             |ND       |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |YA2304-19 NMT 0.15%； |＜0.05%        |0.06%  |0.14%          |0.12%    |
-|          |----------------------|---------------|-------|---------------|---------|
-|          |Other single          |＜0.05%        |0.08%  |0.12%          |0.11%    |
-|          |impurities: NMT 0.10% |               |       |               |         |
--------------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+|Batch No.         |231201         |Batch size             |10 kg            |
+|------------------|---------------|-----------------------|-----------------|
+|Manufacturing date|Jan. 04, 2024  |Stability starting date|Feb. 24, 2024    |
+|------------------|---------------|-----------------------|-----------------|
+|Degradation       |Illumination (visible light: 4500 ± 500|       |         |
+|condition         |LX; near ultraviolet: 90±5 μW/cm2,     |       |         |
+|                  |25℃): place appropriate amount of      |       |         |
+|                  |substance without package intoa        |       |         |
+|                  |container evenly, the thickness of     |       |         |
+|                  |substance is 3 ~ 5 mm. Store the       |       |         |
+|                  |culture dish at condition: visible     |       |         |
+|                  |light: 4500 ± 500 LX; near ultraviolet:|       |         |
+|                  |90±5 μW/cm2, 25℃.                      |       |         |
+|------------------|---------------------------------------|-------|---------|
+|Items     |Specifications |Time points                    |       |         |
+|          |               |-------------------------------|-------|---------|
+|          |               |0d             |5d     |15d            |30d      |
+|----------|---------------|---------------|-------|---------------|---------|
+|Appearance|White to yellow|White powder   |Off    |Yellowish      |Yellowish|
+|          |powder.        |               |White  |powder         |powder   |
+|          |               |               |powder |               |         |
+|----------|---------------|---------------|-------|---------------|---------|
+|Related   |YA2304-10 NMT  |ND             |ND     |ND             |ND       |
+|substances|0.10%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-12 NMT  |ND             |＜0.05%|＜0.05%        |＜0.05%  |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-14 NMT  |ND             |＜0.05%|＜0.05%        |＜0.05%  |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-15 NMT  |ND             |＜0.05%|＜0.05%        |＜0.05%  |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-16 NMT  |ND             |＜0.05%|＜0.05%        |＜0.05%  |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-17 NMT  |ND             |ND     |ND             |ND       |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-18 NMT  |ND             |ND     |ND             |ND       |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |YA2304-19 NMT  |＜0.05%        |0.06%  |0.14%          |0.12%    |
+|          |0.15%；        |               |       |               |         |
+|          |---------------|---------------|-------|---------------|---------|
+|          |Other single   |＜0.05%        |0.08%  |0.12%          |0.11%    |
+|          |impurities: NMT|               |       |               |         |
+|          |0.10%          |               |       |               |         |
+------------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -54863,55 +54882,53 @@ Page 541 of 542
 
 
 
--------------------------------------------------------------------------------
-|Batch No.            |231201         |Batch size     |       |10 kg          |
-|---------------------|---------------|---------------|-------|---------------|
-|Manufacturing date   |Jan. 04, 2024  |Stability      |       |Feb. 24, 2024  |
-|                     |               |starting date  |       |               |
-|---------------------|---------------|---------------|-------|---------------|
-|Degradation condition|Illumination   |               |       |               |
-|                     |(visible light:|               |       |               |
-|                     |4500 ± 500 LX; |               |       |               |
-|                     |near           |               |       |               |
-|                     |ultraviolet:   |               |       |               |
-|                     |90±5 μW/cm2,   |               |       |               |
-|                     |25℃): place    |               |       |               |
-|                     |appropriate    |               |       |               |
-|                     |amount of      |               |       |               |
-|                     |substance      |               |       |               |
-|                     |without package|               |       |               |
-|                     |intoa container|               |       |               |
-|                     |evenly, the    |               |       |               |
-|                     |thickness of   |               |       |               |
-|                     |substance is 3 |               |       |               |
-|                     |~ 5 mm. Store  |               |       |               |
-|                     |the culture    |               |       |               |
-|                     |dish at        |               |       |               |
-|                     |condition:     |               |       |               |
-|                     |visible light: |               |       |               |
-|                     |4500 ± 500 LX; |               |       |               |
-|                     |near           |               |       |               |
-|                     |ultraviolet:   |               |       |               |
-|                     |90±5 μW/cm2,   |               |       |               |
-|                     |25℃.           |               |       |               |
-|---------------------|---------------|---------------|-------|---------------|
-|Items                                                                        |
-|-----------------------------------------------------------------------------|
-|           |                 |0d                             |       |30d    |
-|           |-----------------|-------------------------------|-------|-------|
-|           |Total    |       |＜0.05%        |0.14%  |0.30%          |0.22%  |
-|           |impurity:|       |               |       |               |       |
-|           |NMT 1.0% |       |               |       |               |       |
-|-----------|---------|-------|---------------|-------|---------------|-------|
-|Enantiomers|YA2304-20: NMT   |0.03%          |ND     |ND             |ND     |
-|           |0.15%            |               |       |               |       |
-|-----------|-----------------|---------------|-------|---------------|-------|
-|Water      |NMT 0.5%         |0.05%          |0.04%  |0.07%          |0.08%  |
-|-----------|-----------------|---------------|-------|---------------|-------|
-|Assay      |98.0% to 102.0%  |99.8%          |99.7%  |99.1%          |100.0% |
-|           |(anhydrous       |               |       |               |       |
-|           |substance).      |               |       |               |       |
--------------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+|Batch No.          |231201         |Batch size             |10 kg          |
+|-------------------|---------------|-----------------------|---------------|
+|Manufacturing date |Jan. 04, 2024  |Stability starting date|Feb. 24, 2024  |
+|-------------------|---------------|-----------------------|---------------|
+|Degradation        |Illumination   |               |       |               |
+|condition          |(visible light:|               |       |               |
+|                   |4500 ± 500 LX; |               |       |               |
+|                   |near           |               |       |               |
+|                   |ultraviolet:   |               |       |               |
+|                   |90±5 μW/cm2,   |               |       |               |
+|                   |25℃): place    |               |       |               |
+|                   |appropriate    |               |       |               |
+|                   |amount of      |               |       |               |
+|                   |substance      |               |       |               |
+|                   |without package|               |       |               |
+|                   |intoa container|               |       |               |
+|                   |evenly, the    |               |       |               |
+|                   |thickness of   |               |       |               |
+|                   |substance is 3 |               |       |               |
+|                   |~ 5 mm. Store  |               |       |               |
+|                   |the culture    |               |       |               |
+|                   |dish at        |               |       |               |
+|                   |condition:     |               |       |               |
+|                   |visible light: |               |       |               |
+|                   |4500 ± 500 LX; |               |       |               |
+|                   |near           |               |       |               |
+|                   |ultraviolet:   |               |       |               |
+|                   |90±5 μW/cm2,   |               |       |               |
+|                   |25℃.           |               |       |               |
+|-------------------|---------------|---------------|-------|---------------|
+|Items                                                                      |
+|---------------------------------------------------------------------------|
+|           |               |0d                                     |30d    |
+|           |---------------|---------------------------------------|-------|
+|           |Total impurity:|＜0.05%        |0.14%  |0.30%          |0.22%  |
+|           |NMT 1.0%       |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Enantiomers|YA2304-20: NMT |0.03%          |ND     |ND             |ND     |
+|           |0.15%          |               |       |               |       |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Water      |NMT 0.5%       |0.05%          |0.04%  |0.07%          |0.08%  |
+|-----------|---------------|---------------|-------|---------------|-------|
+|Assay      |98.0% to 102.0%|99.8%          |99.7%  |99.1%          |100.0% |
+|           |(anhydrous     |               |       |               |       |
+|           |substance).    |               |       |               |       |
+-----------------------------------------------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
