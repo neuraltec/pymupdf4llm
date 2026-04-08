@@ -11,23 +11,14 @@ classifiers = [
     "Topic :: Utilities",
 ]
 
-<<<<<<< HEAD
-version = "0.2.2"
-requires = [
-    "pymupdf>=1.26.6",
-    "tabulate",
-    "opencv-python",  # For OCR checking functionality
-    "numpy",  # For image processing in OCR checking
-]
-=======
 version = "0.3.4"
 pymupdf_version = "1.27.1"
 pymupdf_version_tuple = tuple(int(x) for x in pymupdf_version.split("."))
 requires = [f"pymupdf>={pymupdf_version}", "tabulate"]
 extras_require = {
+    "ocr": ["opencv-python", "numpy"],
     "layout": [f"pymupdf-layout>={pymupdf_version}"],
 }
->>>>>>> upstream/main
 
 text = f"# Generated file - do not edit.\nMINIMUM_PYMUPDF_VERSION = {pymupdf_version_tuple}\nVERSION = '{version}'\n"
 Path("pymupdf4llm/versions_file.py").write_text(text)

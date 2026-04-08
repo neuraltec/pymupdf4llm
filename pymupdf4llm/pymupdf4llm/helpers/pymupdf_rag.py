@@ -2759,8 +2759,7 @@ def to_markdown(
                                                 continue
 
                                             # Preserve explicit text reported by PyMuPDF for
-                                            # covered positions. Some tables expose real header
-                                            # labels (for example "Time points") in raw_matrix
+                                            # covered positions.
                                             # even when geometry suggests a vertical merge.
                                             raw_text_covered = ""
                                             if (
