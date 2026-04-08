@@ -1,0 +1,95 @@
+Document: YA2304-Quality
+Date:Sep. 2024
+Version: 001
+Drug Master File of Finerenone
+Page 535 of 542
+Finerenone
+Hinye Pharmaceutical Co., Ltd.
+Confidential
+Batch No.
+240102
+Batch size
+10 kg
+Primary package
+double-layered pharmaceutical grade
+low-density polyethylene (LDPE) bag
+Storage condition
+40℃±2℃/ 75%RH±5%RH
+Manufacturing date
+Jan. 30, 2024
+Stability starting
+date
+Feb. 04, 2024
+Manufacturing site
+API (II) Workshop, Hinye Pharmaceutical Co., Ltd.
+Items
+Specifications
+Time points (Months)
+0
+3
+6
+9
+12
+18
+24
+36
+48
+genotoxic
+impurities
+Dimethyl sulfate NMT 75pp
+m
+ND
+/
+ND
+Diethyl sulfate NMT 75ppm
+ND
+/
+ND
+Diisopropyl sulfate NMT 75
+ppm
+ND
+/
+ND
+Disec-butyl sulfate NMT 75
+ppm
+ND
+/
+ND
+Sum of genotoxic impurities
+NMT 250ppm
+ND
+/
+ND
+Water
+NMT 0.5%
+0.2%
+0.1%
+0.05%
+Microbial
+limits
+TAMC: NMT 103CFU/g
+Complies
+/
+Complies
+TYMC: NMT 102CFU/g
+Complies
+/
+Complies
+Absence of Escherichia coli
+(1g)
+Complies
+/
+Complies
+Assay
+98.0% to 102.0% (anhydrous
+substance).
+99.7%
+100.7%
+101.1%
+Crystal
+form XRD
+Basically consistent with the
+results of 0 month
+Complies
+/
+Complies

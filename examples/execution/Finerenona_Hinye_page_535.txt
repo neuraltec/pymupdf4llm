@@ -1,0 +1,2008 @@
+=== Page: page_535 ===
+
+--- Page text (markdown/ascii) ---
+
+**Drug** **Master** **File** **of** **Finerenone** 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+|Batch No.            |240102                  |Batch size             |10 kg                                  |
+|---------------------|------------------------|-----------------------|---------------------------------------|
+|Primary package      |double-layered          |Storage condition      |40℃±2℃ / 75%RH±5%RH                    |
+|                     |pharmaceutical grade    |                       |                                       |
+|                     |low-density polyethylene|                       |                                       |
+|                     |(LDPE) bag              |                       |                                       |
+|---------------------|------------------------|-----------------------|---------------------------------------|
+|Manufacturing date   |Jan. 30, 2024           |Stability starting date|Feb. 04, 2024                          |
+|---------------------|------------------------|-----------------------|---------------------------------------|
+|Manufacturing site   |API (II) Workshop, Hinye|               |       |               |       |       |       |
+|                     |Pharmaceutical Co., Ltd.|               |       |               |       |       |       |
+|---------------------|------------------------|---------------|-------|---------------|-------|-------|-------|
+|Items                |Time points (Months)                                                                    |
+|---------------------|----------------------------------------------------------------------------------------|
+|0                                                                                                             |
+|--------------------------------------------------------------------------------------------------------------|
+|         |Dimethyl   |ND      |/      |ND             |       |               |       |       |       |       |
+|         |sulfate NMT|        |       |               |       |               |       |       |       |       |
+|         |75ppm      |        |       |               |       |               |       |       |       |       |
+|---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|         |Diethyl    |ND      |/      |ND             |       |               |       |       |       |       |
+|         |sulfate NMT|        |       |               |       |               |       |       |       |       |
+|         |75ppm      |        |       |               |       |               |       |       |       |       |
+|---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|         |Diisopropyl|ND      |/      |ND             |       |               |       |       |       |       |
+|         |sulfate NMT|        |       |               |       |               |       |       |       |       |
+|         |75 ppm     |        |       |               |       |               |       |       |       |       |
+|---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|         |Disec-butyl|ND      |/      |ND             |       |               |       |       |       |       |
+|         |sulfate NMT|        |       |               |       |               |       |       |       |       |
+|         |75 ppm     |        |       |               |       |               |       |       |       |       |
+|---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|         |Sum of     |ND      |/      |ND             |       |               |       |       |       |       |
+|         |genotoxic  |        |       |               |       |               |       |       |       |       |
+|         |impurities |        |       |               |       |               |       |       |       |       |
+|         |NMT 250ppm |        |       |               |       |               |       |       |       |       |
+|---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|Water    |NMT 0.5%   |0.2%    |0.1%   |0.05%          |       |               |       |       |       |       |
+|---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|Microbial|TAMC: NMT  |Complies|/      |Complies       |       |               |       |       |       |       |
+|limits   |103CFU/g   |        |       |               |       |               |       |       |       |       |
+|---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|         |TYMC: NMT  |Complies|/      |Complies       |       |               |       |       |       |       |
+|         |102CFU/g   |        |       |               |       |               |       |       |       |       |
+|---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|         |Absence of |Complies|/      |Complies       |       |               |       |       |       |       |
+|         |Escherichia|        |       |               |       |               |       |       |       |       |
+|         |coli (1g)  |        |       |               |       |               |       |       |       |       |
+|---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|Assay    |98.0% to   |99.7%   |100.7% |101.1%         |       |               |       |       |       |       |
+|         |102.0%     |        |       |               |       |               |       |       |       |       |
+|         |(anhydrous |        |       |               |       |               |       |       |       |       |
+|         |substance).|        |       |               |       |               |       |       |       |       |
+|---------|-----------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|Crystal  |Basically  |Complies|/      |Complies       |       |               |       |       |       |       |
+|form XRD |consistent |        |       |               |       |               |       |       |       |       |
+|         |with the   |        |       |               |       |               |       |       |       |       |
+|         |results of |        |       |               |       |               |       |       |       |       |
+|         |0 month    |        |       |               |       |               |       |       |       |       |
+----------------------------------------------------------------------------------------------------------------
+
+Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
+
+
+
+Page 535 of 542 
+
+
+
+
+
+============================================================
+
+--- Table 1 ---
+  bbox: (67.47999572753906, 71.6510009765625, 774.4199829101562, 488.8599853515625)
+  rows: 17, columns: 13
+
+  Markdown:
+|Batch No.||240102|||Batch size|||10 kg|||||
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|Primary package||double-layered pharmaceutical
+grade low-density polyethylene
+(LDPE) bag|||Storage condition|||40℃±2℃ / 75%RH±5%RH|||||
+|Manufacturing date||Jan. 30, 2024|||Stability starting
+date|||Feb. 04, 2024|||||
+|Manufacturing site||API (II) Workshop, Hinye
+Pharmaceutical Co., Ltd.|||||||||||
+|Items||Time points (Months)|||||||||||
+|||0|||||||||||
+||Dimethyl sulfate NMT 75pp m|ND|/|ND|||||||||
+||Diethyl sulfate NMT 75ppm|ND|/|ND|||||||||
+||Diisopropyl sulfate NMT
+75 ppm|ND|/|ND|||||||||
+||Disec-butyl sulfate NMT
+75 ppm|ND|/|ND|||||||||
+||Sum of genotoxic
+impurities NMT 250ppm|ND|/|ND|||||||||
+|Water|NMT 0.5%|0.2%|0.1%|0.05%|||||||||
+|Microbial
+limits|TAMC: NMT 103CFU/g|Complies|/|Complies|||||||||
+||TYMC: NMT 102CFU/g|Complies|/|Complies|||||||||
+||Absence of Escherichia
+coli (1g)|Complies|/|Complies|||||||||
+|Assay|98.0% to 102.0%
+(anhydrous substance).|99.7%|100.7%|101.1%|||||||||
+|Crystal
+form XRD|Basically consistent with
+the results of 0 month|Complies|/|Complies|||||||||
+
+  ASCII:
+------------------------------------------------------------------------------------------------------------------
+|Batch No.              |240102                  |Batch size             |10 kg                                  |
+|-----------------------|------------------------|-----------------------|---------------------------------------|
+|Primary package        |double-layered          |Storage condition      |40℃±2℃ / 75%RH±5%RH                    |
+|                       |pharmaceuticalg rade    |                       |                                       |
+|                       |low-density polyethylene|                       |                                       |
+|                       |(LDPE) bag              |                       |                                       |
+|-----------------------|------------------------|-----------------------|---------------------------------------|
+|Manufacturing date     |Jan. 30, 2024           |Stability startingd ate|Feb. 04, 2024                          |
+|-----------------------|------------------------|-----------------------|---------------------------------------|
+|Manufacturing site     |API (II) Workshop,      |               |       |               |       |       |       |
+|                       |HinyeP harmaceutical    |               |       |               |       |       |       |
+|                       |Co., Ltd.               |               |       |               |       |       |       |
+|-----------------------|------------------------|---------------|-------|---------------|-------|-------|-------|
+|Items                  |Time points (Months)                                                                    |
+|-----------------------|----------------------------------------------------------------------------------------|
+|0                                                                                                               |
+|----------------------------------------------------------------------------------------------------------------|
+|          |Dimethyl    |ND      |/      |ND             |       |               |       |       |       |       |
+|          |sulfate NMT |        |       |               |       |               |       |       |       |       |
+|          |75ppm       |        |       |               |       |               |       |       |       |       |
+|----------|------------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|          |Diethyl     |ND      |/      |ND             |       |               |       |       |       |       |
+|          |sulfate NMT |        |       |               |       |               |       |       |       |       |
+|          |75ppm       |        |       |               |       |               |       |       |       |       |
+|----------|------------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|          |Diisopropyl |ND      |/      |ND             |       |               |       |       |       |       |
+|          |sulfate NMT |        |       |               |       |               |       |       |       |       |
+|          |75 ppm      |        |       |               |       |               |       |       |       |       |
+|----------|------------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|          |Disec-butyl |ND      |/      |ND             |       |               |       |       |       |       |
+|          |sulfate NMT |        |       |               |       |               |       |       |       |       |
+|          |75 ppm      |        |       |               |       |               |       |       |       |       |
+|----------|------------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|          |Sum of      |ND      |/      |ND             |       |               |       |       |       |       |
+|          |genotoxici  |        |       |               |       |               |       |       |       |       |
+|          |mpurities   |        |       |               |       |               |       |       |       |       |
+|          |NMT 250ppm  |        |       |               |       |               |       |       |       |       |
+|----------|------------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|Water     |NMT 0.5%    |0.2%    |0.1%   |0.05%          |       |               |       |       |       |       |
+|----------|------------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|Microbiall|TAMC: NMT   |Complies|/      |Complies       |       |               |       |       |       |       |
+|imits     |103CFU/g    |        |       |               |       |               |       |       |       |       |
+|----------|------------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|          |TYMC: NMT   |Complies|/      |Complies       |       |               |       |       |       |       |
+|          |102CFU/g    |        |       |               |       |               |       |       |       |       |
+|----------|------------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|          |Absence of  |Complies|/      |Complies       |       |               |       |       |       |       |
+|          |Escherichiac|        |       |               |       |               |       |       |       |       |
+|          |oli (1g)    |        |       |               |       |               |       |       |       |       |
+|----------|------------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|Assay     |98.0% to    |99.7%   |100.7% |101.1%         |       |               |       |       |       |       |
+|          |102.0%      |        |       |               |       |               |       |       |       |       |
+|          |(anhydrous  |        |       |               |       |               |       |       |       |       |
+|          |substance). |        |       |               |       |               |       |       |       |       |
+|----------|------------|--------|-------|---------------|-------|---------------|-------|-------|-------|-------|
+|Crystalf  |Basically   |Complies|/      |Complies       |       |               |       |       |       |       |
+|orm XRD   |consistent  |        |       |               |       |               |       |       |       |       |
+|          |witht he    |        |       |               |       |               |       |       |       |       |
+|          |results of 0|        |       |               |       |               |       |       |       |       |
+|          |month       |        |       |               |       |               |       |       |       |       |
+------------------------------------------------------------------------------------------------------------------
+
+  Cells (attributes per cell):
+  [row=0, col=0]
+  content: 'Batch No.'
+  row=0, col=0
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(67.47999954223633, 71.6510009765625, 275.8999938964844, 90.11999893188477)
+
+  [row=0, col=1]
+  content: 'Batch No.'
+  row=0, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 0)
+  bbox=(67.47999954223633, 71.6510009765625, 275.8999938964844, 90.11999893188477)
+
+  [row=0, col=2]
+  content: '240102'
+  row=0, col=2
+  rowspan=1, colspan=3
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 71.6510009765625, 465.6000061035156, 90.11999893188477)
+
+  [row=0, col=3]
+  content: '240102'
+  row=0, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(275.8999938964844, 71.6510009765625, 465.6000061035156, 90.11999893188477)
+
+  [row=0, col=4]
+  content: '240102'
+  row=0, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 2)
+  bbox=(275.8999938964844, 71.6510009765625, 465.6000061035156, 90.11999893188477)
+
+  [row=0, col=5]
+  content: 'Batch size'
+  row=0, col=5
+  rowspan=1, colspan=3
+  is_merged=False
+  merged_from=None
+  bbox=(465.6000061035156, 71.6510009765625, 581.9000244140625, 90.11999893188477)
+
+  [row=0, col=6]
+  content: 'Batch size'
+  row=0, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 5)
+  bbox=(465.6000061035156, 71.6510009765625, 581.9000244140625, 90.11999893188477)
+
+  [row=0, col=7]
+  content: 'Batch size'
+  row=0, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 5)
+  bbox=(465.6000061035156, 71.6510009765625, 581.9000244140625, 90.11999893188477)
+
+  [row=0, col=8]
+  content: '10 kg'
+  row=0, col=8
+  rowspan=1, colspan=5
+  is_merged=False
+  merged_from=None
+  bbox=(581.9000244140625, 71.6510009765625, 774.4199829101562, 90.11999893188477)
+
+  [row=0, col=9]
+  content: '10 kg'
+  row=0, col=9
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 8)
+  bbox=(581.9000244140625, 71.6510009765625, 774.4199829101562, 90.11999893188477)
+
+  [row=0, col=10]
+  content: '10 kg'
+  row=0, col=10
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 8)
+  bbox=(581.9000244140625, 71.6510009765625, 774.4199829101562, 90.11999893188477)
+
+  [row=0, col=11]
+  content: '10 kg'
+  row=0, col=11
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 8)
+  bbox=(581.9000244140625, 71.6510009765625, 774.4199829101562, 90.11999893188477)
+
+  [row=0, col=12]
+  content: '10 kg'
+  row=0, col=12
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 8)
+  bbox=(581.9000244140625, 71.6510009765625, 774.4199829101562, 90.11999893188477)
+
+  [row=1, col=0]
+  content: 'Primary package'
+  row=1, col=0
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(67.47999954223633, 90.11999893188477, 275.8999938964844, 101.73999786376953)
+
+  [row=1, col=1]
+  content: 'Primary package'
+  row=1, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 0)
+  bbox=(67.47999954223633, 90.11999893188477, 275.8999938964844, 101.73999786376953)
+
+  [row=1, col=2]
+  content: 'double-layered pharmaceutical\ngrade low-density polyethylene\n(LDPE) bag'
+  row=1, col=2
+  rowspan=1, colspan=3
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 90.11999893188477, 465.6000061035156, 101.73999786376953)
+
+  [row=1, col=3]
+  content: 'double-layered pharmaceutical\ngrade low-density polyethylene\n(LDPE) bag'
+  row=1, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 2)
+  bbox=(275.8999938964844, 90.11999893188477, 465.6000061035156, 101.73999786376953)
+
+  [row=1, col=4]
+  content: 'double-layered pharmaceutical\ngrade low-density polyethylene\n(LDPE) bag'
+  row=1, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 2)
+  bbox=(275.8999938964844, 90.11999893188477, 465.6000061035156, 101.73999786376953)
+
+  [row=1, col=5]
+  content: 'Storage condition'
+  row=1, col=5
+  rowspan=1, colspan=3
+  is_merged=False
+  merged_from=None
+  bbox=(465.6000061035156, 90.11999893188477, 581.9000244140625, 101.73999786376953)
+
+  [row=1, col=6]
+  content: 'Storage condition'
+  row=1, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 5)
+  bbox=(465.6000061035156, 90.11999893188477, 581.9000244140625, 101.73999786376953)
+
+  [row=1, col=7]
+  content: 'Storage condition'
+  row=1, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 5)
+  bbox=(465.6000061035156, 90.11999893188477, 581.9000244140625, 101.73999786376953)
+
+  [row=1, col=8]
+  content: '40℃±2℃ / 75%RH±5%RH'
+  row=1, col=8
+  rowspan=1, colspan=5
+  is_merged=False
+  merged_from=None
+  bbox=(581.9000244140625, 90.11999893188477, 774.4199829101562, 101.73999786376953)
+
+  [row=1, col=9]
+  content: '40℃±2℃ / 75%RH±5%RH'
+  row=1, col=9
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 8)
+  bbox=(581.9000244140625, 90.11999893188477, 774.4199829101562, 101.73999786376953)
+
+  [row=1, col=10]
+  content: '40℃±2℃ / 75%RH±5%RH'
+  row=1, col=10
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 8)
+  bbox=(581.9000244140625, 90.11999893188477, 774.4199829101562, 101.73999786376953)
+
+  [row=1, col=11]
+  content: '40℃±2℃ / 75%RH±5%RH'
+  row=1, col=11
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 8)
+  bbox=(581.9000244140625, 90.11999893188477, 774.4199829101562, 101.73999786376953)
+
+  [row=1, col=12]
+  content: '40℃±2℃ / 75%RH±5%RH'
+  row=1, col=12
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(1, 8)
+  bbox=(581.9000244140625, 90.11999893188477, 774.4199829101562, 101.73999786376953)
+
+  [row=2, col=0]
+  content: 'Manufacturing date'
+  row=2, col=0
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(67.47999954223633, 101.73999786376953, 275.8999938964844, 124.23999786376953)
+
+  [row=2, col=1]
+  content: 'Manufacturing date'
+  row=2, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=(67.47999954223633, 101.73999786376953, 275.8999938964844, 124.23999786376953)
+
+  [row=2, col=2]
+  content: 'Jan. 30, 2024'
+  row=2, col=2
+  rowspan=1, colspan=3
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 101.73999786376953, 465.6000061035156, 124.23999786376953)
+
+  [row=2, col=3]
+  content: 'Jan. 30, 2024'
+  row=2, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 2)
+  bbox=(275.8999938964844, 101.73999786376953, 465.6000061035156, 124.23999786376953)
+
+  [row=2, col=4]
+  content: 'Jan. 30, 2024'
+  row=2, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 2)
+  bbox=(275.8999938964844, 101.73999786376953, 465.6000061035156, 124.23999786376953)
+
+  [row=2, col=5]
+  content: 'Stability starting\ndate'
+  row=2, col=5
+  rowspan=1, colspan=3
+  is_merged=False
+  merged_from=None
+  bbox=(465.6000061035156, 101.73999786376953, 581.9000244140625, 124.23999786376953)
+
+  [row=2, col=6]
+  content: 'Stability starting\ndate'
+  row=2, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 5)
+  bbox=(465.6000061035156, 101.73999786376953, 581.9000244140625, 124.23999786376953)
+
+  [row=2, col=7]
+  content: 'Stability starting\ndate'
+  row=2, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 5)
+  bbox=(465.6000061035156, 101.73999786376953, 581.9000244140625, 124.23999786376953)
+
+  [row=2, col=8]
+  content: 'Feb. 04, 2024'
+  row=2, col=8
+  rowspan=1, colspan=5
+  is_merged=False
+  merged_from=None
+  bbox=(581.9000244140625, 101.73999786376953, 774.4199829101562, 124.23999786376953)
+
+  [row=2, col=9]
+  content: 'Feb. 04, 2024'
+  row=2, col=9
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 8)
+  bbox=(581.9000244140625, 101.73999786376953, 774.4199829101562, 124.23999786376953)
+
+  [row=2, col=10]
+  content: 'Feb. 04, 2024'
+  row=2, col=10
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 8)
+  bbox=(581.9000244140625, 101.73999786376953, 774.4199829101562, 124.23999786376953)
+
+  [row=2, col=11]
+  content: 'Feb. 04, 2024'
+  row=2, col=11
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 8)
+  bbox=(581.9000244140625, 101.73999786376953, 774.4199829101562, 124.23999786376953)
+
+  [row=2, col=12]
+  content: 'Feb. 04, 2024'
+  row=2, col=12
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 8)
+  bbox=(581.9000244140625, 101.73999786376953, 774.4199829101562, 124.23999786376953)
+
+  [row=3, col=0]
+  content: 'Manufacturing site'
+  row=3, col=0
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(67.47999954223633, 124.23999786376953, 275.8999938964844, 146.74000549316406)
+
+  [row=3, col=1]
+  content: 'Manufacturing site'
+  row=3, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 0)
+  bbox=(67.47999954223633, 124.23999786376953, 275.8999938964844, 146.74000549316406)
+
+  [row=3, col=2]
+  content: 'API (II) Workshop, Hinye\nPharmaceutical Co., Ltd.'
+  row=3, col=2
+  rowspan=1, colspan=3
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 124.23999786376953, 465.6000061035156, 146.74000549316406)
+
+  [row=3, col=3]
+  content: 'API (II) Workshop, Hinye\nPharmaceutical Co., Ltd.'
+  row=3, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 2)
+  bbox=(275.8999938964844, 124.23999786376953, 465.6000061035156, 146.74000549316406)
+
+  [row=3, col=4]
+  content: 'API (II) Workshop, Hinye\nPharmaceutical Co., Ltd.'
+  row=3, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 2)
+  bbox=(275.8999938964844, 124.23999786376953, 465.6000061035156, 146.74000549316406)
+
+  [row=3, col=5]
+  content: ''
+  row=3, col=5
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(465.6000061035156, 124.23999786376953, 581.9000244140625, 146.74000549316406)
+
+  [row=3, col=6]
+  content: ''
+  row=3, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 5)
+  bbox=(465.6000061035156, 124.23999786376953, 581.9000244140625, 146.74000549316406)
+
+  [row=3, col=7]
+  content: ''
+  row=3, col=7
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=3, col=8]
+  content: ''
+  row=3, col=8
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(581.9000244140625, 124.23999786376953, 774.4199829101562, 146.74000549316406)
+
+  [row=3, col=9]
+  content: ''
+  row=3, col=9
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(3, 8)
+  bbox=(581.9000244140625, 124.23999786376953, 774.4199829101562, 146.74000549316406)
+
+  [row=3, col=10]
+  content: ''
+  row=3, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=3, col=11]
+  content: ''
+  row=3, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=3, col=12]
+  content: ''
+  row=3, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=4, col=0]
+  content: 'Items'
+  row=4, col=0
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(67.47999954223633, 146.74000549316406, 275.8999938964844, 158.24000549316406)
+
+  [row=4, col=1]
+  content: 'Items'
+  row=4, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 0)
+  bbox=(67.47999954223633, 146.74000549316406, 275.8999938964844, 158.24000549316406)
+
+  [row=4, col=2]
+  content: 'Time points (Months)'
+  row=4, col=2
+  rowspan=1, colspan=11
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 146.74000549316406, 774.4199829101562, 158.24000549316406)
+
+  [row=4, col=3]
+  content: 'Time points (Months)'
+  row=4, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 2)
+  bbox=(275.8999938964844, 146.74000549316406, 774.4199829101562, 158.24000549316406)
+
+  [row=4, col=4]
+  content: 'Time points (Months)'
+  row=4, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 2)
+  bbox=(275.8999938964844, 146.74000549316406, 774.4199829101562, 158.24000549316406)
+
+  [row=4, col=5]
+  content: 'Time points (Months)'
+  row=4, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 2)
+  bbox=(275.8999938964844, 146.74000549316406, 774.4199829101562, 158.24000549316406)
+
+  [row=4, col=6]
+  content: 'Time points (Months)'
+  row=4, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 2)
+  bbox=(275.8999938964844, 146.74000549316406, 774.4199829101562, 158.24000549316406)
+
+  [row=4, col=7]
+  content: 'Time points (Months)'
+  row=4, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 2)
+  bbox=(275.8999938964844, 146.74000549316406, 774.4199829101562, 158.24000549316406)
+
+  [row=4, col=8]
+  content: 'Time points (Months)'
+  row=4, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 2)
+  bbox=(275.8999938964844, 146.74000549316406, 774.4199829101562, 158.24000549316406)
+
+  [row=4, col=9]
+  content: 'Time points (Months)'
+  row=4, col=9
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 2)
+  bbox=(275.8999938964844, 146.74000549316406, 774.4199829101562, 158.24000549316406)
+
+  [row=4, col=10]
+  content: 'Time points (Months)'
+  row=4, col=10
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 2)
+  bbox=(275.8999938964844, 146.74000549316406, 774.4199829101562, 158.24000549316406)
+
+  [row=4, col=11]
+  content: 'Time points (Months)'
+  row=4, col=11
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 2)
+  bbox=(275.8999938964844, 146.74000549316406, 774.4199829101562, 158.24000549316406)
+
+  [row=4, col=12]
+  content: 'Time points (Months)'
+  row=4, col=12
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(4, 2)
+  bbox=(275.8999938964844, 146.74000549316406, 774.4199829101562, 158.24000549316406)
+
+  [row=5, col=0]
+  content: ''
+  row=5, col=0
+  rowspan=2, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(67.47999954223633, 158.24000549316406, 126.9000015258789, 181.24000549316406)
+
+  [row=5, col=1]
+  content: ''
+  row=5, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(126.9000015258789, 158.24000549316406, 275.8999938964844, 181.24000549316406)
+
+  [row=5, col=2]
+  content: '0'
+  row=5, col=2
+  rowspan=1, colspan=11
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 158.24000549316406, 774.4199829101562, 169.74000549316406)
+
+  [row=5, col=3]
+  content: '0'
+  row=5, col=3
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 2)
+  bbox=(275.8999938964844, 158.24000549316406, 774.4199829101562, 169.74000549316406)
+
+  [row=5, col=4]
+  content: '0'
+  row=5, col=4
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 2)
+  bbox=(275.8999938964844, 158.24000549316406, 774.4199829101562, 169.74000549316406)
+
+  [row=5, col=5]
+  content: '0'
+  row=5, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 2)
+  bbox=(275.8999938964844, 158.24000549316406, 774.4199829101562, 169.74000549316406)
+
+  [row=5, col=6]
+  content: '0'
+  row=5, col=6
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 2)
+  bbox=(275.8999938964844, 158.24000549316406, 774.4199829101562, 169.74000549316406)
+
+  [row=5, col=7]
+  content: '0'
+  row=5, col=7
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 2)
+  bbox=(275.8999938964844, 158.24000549316406, 774.4199829101562, 169.74000549316406)
+
+  [row=5, col=8]
+  content: '0'
+  row=5, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 2)
+  bbox=(275.8999938964844, 158.24000549316406, 774.4199829101562, 169.74000549316406)
+
+  [row=5, col=9]
+  content: '0'
+  row=5, col=9
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 2)
+  bbox=(275.8999938964844, 158.24000549316406, 774.4199829101562, 169.74000549316406)
+
+  [row=5, col=10]
+  content: '0'
+  row=5, col=10
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 2)
+  bbox=(275.8999938964844, 158.24000549316406, 774.4199829101562, 169.74000549316406)
+
+  [row=5, col=11]
+  content: '0'
+  row=5, col=11
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 2)
+  bbox=(275.8999938964844, 158.24000549316406, 774.4199829101562, 169.74000549316406)
+
+  [row=5, col=12]
+  content: '0'
+  row=5, col=12
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 2)
+  bbox=(275.8999938964844, 158.24000549316406, 774.4199829101562, 169.74000549316406)
+
+  [row=6, col=0]
+  content: ''
+  row=6, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(5, 0)
+  bbox=(67.47999954223633, 158.24000549316406, 126.9000015258789, 181.24000549316406)
+
+  [row=6, col=1]
+  content: 'Dimethyl sulfate NMT 75pp m'
+  row=6, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=6, col=2]
+  content: 'ND'
+  row=6, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 169.74000549316406, 358.95001220703125, 181.24000549316406)
+
+  [row=6, col=3]
+  content: '/'
+  row=6, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(358.95001220703125, 169.74000549316406, 442.0, 181.24000549316406)
+
+  [row=6, col=4]
+  content: 'ND'
+  row=6, col=4
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(442.0, 169.74000549316406, 525.0499877929688, 181.24000549316406)
+
+  [row=6, col=5]
+  content: 'ND'
+  row=6, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 4)
+  bbox=(442.0, 169.74000549316406, 525.0499877929688, 181.24000549316406)
+
+  [row=6, col=6]
+  content: ''
+  row=6, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(525.0499877929688, 169.74000549316406, 566.5499877929688, 181.24000549316406)
+
+  [row=6, col=7]
+  content: ''
+  row=6, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(566.5499877929688, 169.74000549316406, 608.0499877929688, 181.24000549316406)
+
+  [row=6, col=8]
+  content: ''
+  row=6, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(6, 7)
+  bbox=(566.5499877929688, 169.74000549316406, 608.0499877929688, 181.24000549316406)
+
+  [row=6, col=9]
+  content: ''
+  row=6, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(608.0499877929688, 169.74000549316406, 649.5499877929688, 181.24000549316406)
+
+  [row=6, col=10]
+  content: ''
+  row=6, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(649.5499877929688, 169.74000549316406, 691.0499877929688, 181.24000549316406)
+
+  [row=6, col=11]
+  content: ''
+  row=6, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(691.0499877929688, 169.74000549316406, 732.5499877929688, 181.24000549316406)
+
+  [row=6, col=12]
+  content: ''
+  row=6, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(732.5499877929688, 169.74000549316406, 774.4199829101562, 181.24000549316406)
+
+  [row=7, col=0]
+  content: ''
+  row=7, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(67.47999954223633, 181.24000549316406, 126.9000015258789, 352.6400146484375)
+
+  [row=7, col=1]
+  content: 'Diethyl sulfate NMT 75ppm'
+  row=7, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(126.9000015258789, 181.24000549316406, 275.8999938964844, 218.63999938964844)
+
+  [row=7, col=2]
+  content: 'ND'
+  row=7, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 181.24000549316406, 358.95001220703125, 218.63999938964844)
+
+  [row=7, col=3]
+  content: '/'
+  row=7, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(358.95001220703125, 181.24000549316406, 442.0, 218.63999938964844)
+
+  [row=7, col=4]
+  content: 'ND'
+  row=7, col=4
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(442.0, 181.24000549316406, 525.0499877929688, 218.63999938964844)
+
+  [row=7, col=5]
+  content: 'ND'
+  row=7, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(7, 4)
+  bbox=(442.0, 181.24000549316406, 525.0499877929688, 218.63999938964844)
+
+  [row=7, col=6]
+  content: ''
+  row=7, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(525.0499877929688, 181.24000549316406, 566.5499877929688, 218.63999938964844)
+
+  [row=7, col=7]
+  content: ''
+  row=7, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(566.5499877929688, 181.24000549316406, 608.0499877929688, 218.63999938964844)
+
+  [row=7, col=8]
+  content: ''
+  row=7, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(7, 7)
+  bbox=(566.5499877929688, 181.24000549316406, 608.0499877929688, 218.63999938964844)
+
+  [row=7, col=9]
+  content: ''
+  row=7, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(608.0499877929688, 181.24000549316406, 649.5499877929688, 218.63999938964844)
+
+  [row=7, col=10]
+  content: ''
+  row=7, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(649.5499877929688, 181.24000549316406, 691.0499877929688, 218.63999938964844)
+
+  [row=7, col=11]
+  content: ''
+  row=7, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(691.0499877929688, 181.24000549316406, 732.5499877929688, 218.63999938964844)
+
+  [row=7, col=12]
+  content: ''
+  row=7, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(732.5499877929688, 181.24000549316406, 774.4199829101562, 218.63999938964844)
+
+  [row=8, col=0]
+  content: ''
+  row=8, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=8, col=1]
+  content: 'Diisopropyl sulfate NMT\n75 ppm'
+  row=8, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(126.9000015258789, 218.63999938964844, 275.8999938964844, 240.44000244140625)
+
+  [row=8, col=2]
+  content: 'ND'
+  row=8, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 218.63999938964844, 358.95001220703125, 240.44000244140625)
+
+  [row=8, col=3]
+  content: '/'
+  row=8, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(358.95001220703125, 218.63999938964844, 442.0, 240.44000244140625)
+
+  [row=8, col=4]
+  content: 'ND'
+  row=8, col=4
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(442.0, 218.63999938964844, 525.0499877929688, 240.44000244140625)
+
+  [row=8, col=5]
+  content: 'ND'
+  row=8, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(8, 4)
+  bbox=(442.0, 218.63999938964844, 525.0499877929688, 240.44000244140625)
+
+  [row=8, col=6]
+  content: ''
+  row=8, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(525.0499877929688, 218.63999938964844, 566.5499877929688, 240.44000244140625)
+
+  [row=8, col=7]
+  content: ''
+  row=8, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(566.5499877929688, 218.63999938964844, 608.0499877929688, 240.44000244140625)
+
+  [row=8, col=8]
+  content: ''
+  row=8, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(8, 7)
+  bbox=(566.5499877929688, 218.63999938964844, 608.0499877929688, 240.44000244140625)
+
+  [row=8, col=9]
+  content: ''
+  row=8, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(608.0499877929688, 218.63999938964844, 649.5499877929688, 240.44000244140625)
+
+  [row=8, col=10]
+  content: ''
+  row=8, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(649.5499877929688, 218.63999938964844, 691.0499877929688, 240.44000244140625)
+
+  [row=8, col=11]
+  content: ''
+  row=8, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(691.0499877929688, 218.63999938964844, 732.5499877929688, 240.44000244140625)
+
+  [row=8, col=12]
+  content: ''
+  row=8, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(732.5499877929688, 218.63999938964844, 774.4199829101562, 240.44000244140625)
+
+  [row=9, col=0]
+  content: ''
+  row=9, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=9, col=1]
+  content: 'Disec-butyl sulfate NMT\n75 ppm'
+  row=9, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(126.9000015258789, 240.44000244140625, 275.8999938964844, 277.8399963378906)
+
+  [row=9, col=2]
+  content: 'ND'
+  row=9, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 240.44000244140625, 358.95001220703125, 277.8399963378906)
+
+  [row=9, col=3]
+  content: '/'
+  row=9, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(358.95001220703125, 240.44000244140625, 442.0, 277.8399963378906)
+
+  [row=9, col=4]
+  content: 'ND'
+  row=9, col=4
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(442.0, 240.44000244140625, 525.0499877929688, 277.8399963378906)
+
+  [row=9, col=5]
+  content: 'ND'
+  row=9, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(9, 4)
+  bbox=(442.0, 240.44000244140625, 525.0499877929688, 277.8399963378906)
+
+  [row=9, col=6]
+  content: ''
+  row=9, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(525.0499877929688, 240.44000244140625, 566.5499877929688, 277.8399963378906)
+
+  [row=9, col=7]
+  content: ''
+  row=9, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(566.5499877929688, 240.44000244140625, 608.0499877929688, 277.8399963378906)
+
+  [row=9, col=8]
+  content: ''
+  row=9, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(9, 7)
+  bbox=(566.5499877929688, 240.44000244140625, 608.0499877929688, 277.8399963378906)
+
+  [row=9, col=9]
+  content: ''
+  row=9, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(608.0499877929688, 240.44000244140625, 649.5499877929688, 277.8399963378906)
+
+  [row=9, col=10]
+  content: ''
+  row=9, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(649.5499877929688, 240.44000244140625, 691.0499877929688, 277.8399963378906)
+
+  [row=9, col=11]
+  content: ''
+  row=9, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(691.0499877929688, 240.44000244140625, 732.5499877929688, 277.8399963378906)
+
+  [row=9, col=12]
+  content: ''
+  row=9, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(732.5499877929688, 240.44000244140625, 774.4199829101562, 277.8399963378906)
+
+  [row=10, col=0]
+  content: ''
+  row=10, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=10, col=1]
+  content: 'Sum of genotoxic\nimpurities NMT 250ppm'
+  row=10, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(126.9000015258789, 277.8399963378906, 275.8999938964844, 315.239990234375)
+
+  [row=10, col=2]
+  content: 'ND'
+  row=10, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 277.8399963378906, 358.95001220703125, 315.239990234375)
+
+  [row=10, col=3]
+  content: '/'
+  row=10, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(358.95001220703125, 277.8399963378906, 442.0, 315.239990234375)
+
+  [row=10, col=4]
+  content: 'ND'
+  row=10, col=4
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(442.0, 277.8399963378906, 525.0499877929688, 315.239990234375)
+
+  [row=10, col=5]
+  content: 'ND'
+  row=10, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(10, 4)
+  bbox=(442.0, 277.8399963378906, 525.0499877929688, 315.239990234375)
+
+  [row=10, col=6]
+  content: ''
+  row=10, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(525.0499877929688, 277.8399963378906, 566.5499877929688, 315.239990234375)
+
+  [row=10, col=7]
+  content: ''
+  row=10, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(566.5499877929688, 277.8399963378906, 608.0499877929688, 315.239990234375)
+
+  [row=10, col=8]
+  content: ''
+  row=10, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(10, 7)
+  bbox=(566.5499877929688, 277.8399963378906, 608.0499877929688, 315.239990234375)
+
+  [row=10, col=9]
+  content: ''
+  row=10, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(608.0499877929688, 277.8399963378906, 649.5499877929688, 315.239990234375)
+
+  [row=10, col=10]
+  content: ''
+  row=10, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(649.5499877929688, 277.8399963378906, 691.0499877929688, 315.239990234375)
+
+  [row=10, col=11]
+  content: ''
+  row=10, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(691.0499877929688, 277.8399963378906, 732.5499877929688, 315.239990234375)
+
+  [row=10, col=12]
+  content: ''
+  row=10, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(732.5499877929688, 277.8399963378906, 774.4199829101562, 315.239990234375)
+
+  [row=11, col=0]
+  content: 'Water'
+  row=11, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=11, col=1]
+  content: 'NMT 0.5%'
+  row=11, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(126.9000015258789, 315.239990234375, 275.8999938964844, 352.6400146484375)
+
+  [row=11, col=2]
+  content: '0.2%'
+  row=11, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 315.239990234375, 358.95001220703125, 352.6400146484375)
+
+  [row=11, col=3]
+  content: '0.1%'
+  row=11, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(358.95001220703125, 315.239990234375, 442.0, 352.6400146484375)
+
+  [row=11, col=4]
+  content: '0.05%'
+  row=11, col=4
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(442.0, 315.239990234375, 525.0499877929688, 352.6400146484375)
+
+  [row=11, col=5]
+  content: '0.05%'
+  row=11, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(11, 4)
+  bbox=(442.0, 315.239990234375, 525.0499877929688, 352.6400146484375)
+
+  [row=11, col=6]
+  content: ''
+  row=11, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(525.0499877929688, 315.239990234375, 566.5499877929688, 352.6400146484375)
+
+  [row=11, col=7]
+  content: ''
+  row=11, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(566.5499877929688, 315.239990234375, 608.0499877929688, 352.6400146484375)
+
+  [row=11, col=8]
+  content: ''
+  row=11, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(11, 7)
+  bbox=(566.5499877929688, 315.239990234375, 608.0499877929688, 352.6400146484375)
+
+  [row=11, col=9]
+  content: ''
+  row=11, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(608.0499877929688, 315.239990234375, 649.5499877929688, 352.6400146484375)
+
+  [row=11, col=10]
+  content: ''
+  row=11, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(649.5499877929688, 315.239990234375, 691.0499877929688, 352.6400146484375)
+
+  [row=11, col=11]
+  content: ''
+  row=11, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(691.0499877929688, 315.239990234375, 732.5499877929688, 352.6400146484375)
+
+  [row=11, col=12]
+  content: ''
+  row=11, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(732.5499877929688, 315.239990234375, 774.4199829101562, 352.6400146484375)
+
+  [row=12, col=0]
+  content: 'Microbial\nlimits'
+  row=12, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(67.47999954223633, 352.6400146484375, 126.9000015258789, 369.8399963378906)
+
+  [row=12, col=1]
+  content: 'TAMC: NMT 103CFU/g'
+  row=12, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(126.9000015258789, 352.6400146484375, 275.8999938964844, 369.8399963378906)
+
+  [row=12, col=2]
+  content: 'Complies'
+  row=12, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 352.6400146484375, 358.95001220703125, 369.8399963378906)
+
+  [row=12, col=3]
+  content: '/'
+  row=12, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(358.95001220703125, 352.6400146484375, 442.0, 369.8399963378906)
+
+  [row=12, col=4]
+  content: 'Complies'
+  row=12, col=4
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(442.0, 352.6400146484375, 525.0499877929688, 369.8399963378906)
+
+  [row=12, col=5]
+  content: 'Complies'
+  row=12, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(12, 4)
+  bbox=(442.0, 352.6400146484375, 525.0499877929688, 369.8399963378906)
+
+  [row=12, col=6]
+  content: ''
+  row=12, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(525.0499877929688, 352.6400146484375, 566.5499877929688, 369.8399963378906)
+
+  [row=12, col=7]
+  content: ''
+  row=12, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(566.5499877929688, 352.6400146484375, 608.0499877929688, 369.8399963378906)
+
+  [row=12, col=8]
+  content: ''
+  row=12, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(12, 7)
+  bbox=(566.5499877929688, 352.6400146484375, 608.0499877929688, 369.8399963378906)
+
+  [row=12, col=9]
+  content: ''
+  row=12, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(608.0499877929688, 352.6400146484375, 649.5499877929688, 369.8399963378906)
+
+  [row=12, col=10]
+  content: ''
+  row=12, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(649.5499877929688, 352.6400146484375, 691.0499877929688, 369.8399963378906)
+
+  [row=12, col=11]
+  content: ''
+  row=12, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(691.0499877929688, 352.6400146484375, 732.5499877929688, 369.8399963378906)
+
+  [row=12, col=12]
+  content: ''
+  row=12, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(732.5499877929688, 352.6400146484375, 774.4199829101562, 369.8399963378906)
+
+  [row=13, col=0]
+  content: ''
+  row=13, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(67.47999954223633, 369.8399963378906, 126.9000015258789, 432.44000244140625)
+
+  [row=13, col=1]
+  content: 'TYMC: NMT 102CFU/g'
+  row=13, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(126.9000015258789, 369.8399963378906, 275.8999938964844, 387.0400085449219)
+
+  [row=13, col=2]
+  content: 'Complies'
+  row=13, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 369.8399963378906, 358.95001220703125, 387.0400085449219)
+
+  [row=13, col=3]
+  content: '/'
+  row=13, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(358.95001220703125, 369.8399963378906, 442.0, 387.0400085449219)
+
+  [row=13, col=4]
+  content: 'Complies'
+  row=13, col=4
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(442.0, 369.8399963378906, 525.0499877929688, 387.0400085449219)
+
+  [row=13, col=5]
+  content: 'Complies'
+  row=13, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(13, 4)
+  bbox=(442.0, 369.8399963378906, 525.0499877929688, 387.0400085449219)
+
+  [row=13, col=6]
+  content: ''
+  row=13, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(525.0499877929688, 369.8399963378906, 566.5499877929688, 387.0400085449219)
+
+  [row=13, col=7]
+  content: ''
+  row=13, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(566.5499877929688, 369.8399963378906, 608.0499877929688, 387.0400085449219)
+
+  [row=13, col=8]
+  content: ''
+  row=13, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(13, 7)
+  bbox=(566.5499877929688, 369.8399963378906, 608.0499877929688, 387.0400085449219)
+
+  [row=13, col=9]
+  content: ''
+  row=13, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(608.0499877929688, 369.8399963378906, 649.5499877929688, 387.0400085449219)
+
+  [row=13, col=10]
+  content: ''
+  row=13, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(649.5499877929688, 369.8399963378906, 691.0499877929688, 387.0400085449219)
+
+  [row=13, col=11]
+  content: ''
+  row=13, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(691.0499877929688, 369.8399963378906, 732.5499877929688, 387.0400085449219)
+
+  [row=13, col=12]
+  content: ''
+  row=13, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(732.5499877929688, 369.8399963378906, 774.4199829101562, 387.0400085449219)
+
+  [row=14, col=0]
+  content: ''
+  row=14, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=14, col=1]
+  content: 'Absence of Escherichia\ncoli (1g)'
+  row=14, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(126.9000015258789, 387.0400085449219, 275.8999938964844, 404.239990234375)
+
+  [row=14, col=2]
+  content: 'Complies'
+  row=14, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 387.0400085449219, 358.95001220703125, 404.239990234375)
+
+  [row=14, col=3]
+  content: '/'
+  row=14, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(358.95001220703125, 387.0400085449219, 442.0, 404.239990234375)
+
+  [row=14, col=4]
+  content: 'Complies'
+  row=14, col=4
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(442.0, 387.0400085449219, 525.0499877929688, 404.239990234375)
+
+  [row=14, col=5]
+  content: 'Complies'
+  row=14, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(14, 4)
+  bbox=(442.0, 387.0400085449219, 525.0499877929688, 404.239990234375)
+
+  [row=14, col=6]
+  content: ''
+  row=14, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(525.0499877929688, 387.0400085449219, 566.5499877929688, 404.239990234375)
+
+  [row=14, col=7]
+  content: ''
+  row=14, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(566.5499877929688, 387.0400085449219, 608.0499877929688, 404.239990234375)
+
+  [row=14, col=8]
+  content: ''
+  row=14, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(14, 7)
+  bbox=(566.5499877929688, 387.0400085449219, 608.0499877929688, 404.239990234375)
+
+  [row=14, col=9]
+  content: ''
+  row=14, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(608.0499877929688, 387.0400085449219, 649.5499877929688, 404.239990234375)
+
+  [row=14, col=10]
+  content: ''
+  row=14, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(649.5499877929688, 387.0400085449219, 691.0499877929688, 404.239990234375)
+
+  [row=14, col=11]
+  content: ''
+  row=14, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(691.0499877929688, 387.0400085449219, 732.5499877929688, 404.239990234375)
+
+  [row=14, col=12]
+  content: ''
+  row=14, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(732.5499877929688, 387.0400085449219, 774.4199829101562, 404.239990234375)
+
+  [row=15, col=0]
+  content: 'Assay'
+  row=15, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=15, col=1]
+  content: '98.0% to 102.0%\n(anhydrous substance).'
+  row=15, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(126.9000015258789, 404.239990234375, 275.8999938964844, 432.44000244140625)
+
+  [row=15, col=2]
+  content: '99.7%'
+  row=15, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 404.239990234375, 358.95001220703125, 432.44000244140625)
+
+  [row=15, col=3]
+  content: '100.7%'
+  row=15, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(358.95001220703125, 404.239990234375, 442.0, 432.44000244140625)
+
+  [row=15, col=4]
+  content: '101.1%'
+  row=15, col=4
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(442.0, 404.239990234375, 525.0499877929688, 432.44000244140625)
+
+  [row=15, col=5]
+  content: '101.1%'
+  row=15, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(15, 4)
+  bbox=(442.0, 404.239990234375, 525.0499877929688, 432.44000244140625)
+
+  [row=15, col=6]
+  content: ''
+  row=15, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(525.0499877929688, 404.239990234375, 566.5499877929688, 432.44000244140625)
+
+  [row=15, col=7]
+  content: ''
+  row=15, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(566.5499877929688, 404.239990234375, 608.0499877929688, 432.44000244140625)
+
+  [row=15, col=8]
+  content: ''
+  row=15, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(15, 7)
+  bbox=(566.5499877929688, 404.239990234375, 608.0499877929688, 432.44000244140625)
+
+  [row=15, col=9]
+  content: ''
+  row=15, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(608.0499877929688, 404.239990234375, 649.5499877929688, 432.44000244140625)
+
+  [row=15, col=10]
+  content: ''
+  row=15, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(649.5499877929688, 404.239990234375, 691.0499877929688, 432.44000244140625)
+
+  [row=15, col=11]
+  content: ''
+  row=15, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(691.0499877929688, 404.239990234375, 732.5499877929688, 432.44000244140625)
+
+  [row=15, col=12]
+  content: ''
+  row=15, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(732.5499877929688, 404.239990234375, 774.4199829101562, 432.44000244140625)
+
+  [row=16, col=0]
+  content: 'Crystal\nform XRD'
+  row=16, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(67.47999954223633, 432.44000244140625, 126.9000015258789, 460.6400146484375)
+
+  [row=16, col=1]
+  content: 'Basically consistent with\nthe results of 0 month'
+  row=16, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(126.9000015258789, 432.44000244140625, 275.8999938964844, 460.6400146484375)
+
+  [row=16, col=2]
+  content: 'Complies'
+  row=16, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(275.8999938964844, 432.44000244140625, 358.95001220703125, 460.6400146484375)
+
+  [row=16, col=3]
+  content: '/'
+  row=16, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(358.95001220703125, 432.44000244140625, 442.0, 460.6400146484375)
+
+  [row=16, col=4]
+  content: 'Complies'
+  row=16, col=4
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(442.0, 432.44000244140625, 525.0499877929688, 460.6400146484375)
+
+  [row=16, col=5]
+  content: 'Complies'
+  row=16, col=5
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(16, 4)
+  bbox=(442.0, 432.44000244140625, 525.0499877929688, 460.6400146484375)
+
+  [row=16, col=6]
+  content: ''
+  row=16, col=6
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(525.0499877929688, 432.44000244140625, 566.5499877929688, 460.6400146484375)
+
+  [row=16, col=7]
+  content: ''
+  row=16, col=7
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(566.5499877929688, 432.44000244140625, 608.0499877929688, 460.6400146484375)
+
+  [row=16, col=8]
+  content: ''
+  row=16, col=8
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(16, 7)
+  bbox=(566.5499877929688, 432.44000244140625, 608.0499877929688, 460.6400146484375)
+
+  [row=16, col=9]
+  content: ''
+  row=16, col=9
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(608.0499877929688, 432.44000244140625, 649.5499877929688, 460.6400146484375)
+
+  [row=16, col=10]
+  content: ''
+  row=16, col=10
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(649.5499877929688, 432.44000244140625, 691.0499877929688, 460.6400146484375)
+
+  [row=16, col=11]
+  content: ''
+  row=16, col=11
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(691.0499877929688, 432.44000244140625, 732.5499877929688, 460.6400146484375)
+
+  [row=16, col=12]
+  content: ''
+  row=16, col=12
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(732.5499877929688, 432.44000244140625, 774.4199829101562, 460.6400146484375)
+
