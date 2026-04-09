@@ -18,6 +18,13 @@ PDF_ENV_VAR = "FINERENONA_HINYE_PDF_PATH"
 
 # (test_id, page, table_index, expected_ascii_matrix)
 TEST_CONFIGURATIONS = [
+
+    (
+        "table_page6",
+        6,
+        0,
+        """-"""
+    ),
     (
         "table2_page9",
         9,
@@ -143,6 +150,18 @@ TEST_CONFIGURATIONS = [
 |         |                                  |chemicals |
 ---------------------------------------------------------"""
     ),
+    (
+        "table_page14",
+        14,
+        0,
+        """-"""
+    ),
+    (
+        "table_page15",
+        15,
+        0,
+        """-"""
+    ),
      (
         "table_page15",
         15,
@@ -179,150 +198,598 @@ TEST_CONFIGURATIONS = [
 ----------------------------------------"""
     ),
     (
-        "table_page230",
-        230,
+        "table_page16",
+        16,
         0,
-        """-------------------------------------------------------------------------------------------
-|       |Impurity |       |9107   |9027   |8791   |8755   |8574   |8452   |8111   |4      |
-|       |YA2304-18|       |       |       |       |       |       |       |       |       |
-|       |---------|       |-------|-------|-------|-------|-------|-------|-------|-------|
-|       |Impurity |       |15639  |15602  |15665  |15644  |15942  |15998  |15712  |1.1    |
-|       |YA2304-19|       |       |       |       |       |       |       |       |       |
-|       |---------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
-|       |Impurity |230nm  |16023  |15969  |15952  |15986  |16017  |16400  |16199  |1.1    |
-|       |YA2304-17|       |       |       |       |       |       |       |       |       |
-|       |---------|       |-------|-------|-------|-------|-------|-------|-------|-------|
-|       |Impurity |       |12233  |12086  |12173  |12076  |12218  |12178  |11975  |0.8    |
-|       |YA2304-10|       |       |       |       |       |       |       |       |       |
-|-------|---------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
-|Conclusions: The impurity peak less than 0.5 times the main peak area of the control     |
-|solution was ignored in the chromatogram of the impurity solution added at 5℃for 100h. At|
-|230mwavelength, the RSD of the known impurity YA2304-17 and YA2304-10 was not greater    |
-|than 1.1% (10% is not required). At 251nm wavelength, the RSD of known impurities        |
-|YA2304-12, YA2304-14, YA2304-15, YA2304-16, YA2304-18 and YA2304-19 are not greater than |
-|4% (10% is not required); The RSD of other single unknown impurity is less than 0.05%,   |
-|the RSD of the single unknown impurity is not counted (not more than 10%), and no new    |
-|impurity interferes with the detection of related substances; The above are in line with |
-|the verification requirements, indicating that the solution of added impurity is stable  |
-|within 100hat 5℃.                                                                        |
--------------------------------------------------------------------------------------------"""
+        """-"""
     ),
     (
-        "table_page229",
-        229,
+        "table_page17",
+        17,
         0,
-        """-----------------------------------------------------------------------------------------------------
-|       |Impurity |230nm  |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
-|       |YA2304-17|       |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
-|       |         |       |        |        |        |        |        |        |        |does not  |
-|       |         |       |        |        |        |        |        |        |        |do        |
-|       |         |       |        |        |        |        |        |        |        |statistics|
-|       |---------|       |--------|--------|--------|--------|--------|--------|--------|----------|
-|       |Impurity |       |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
-|       |YA2304-10|       |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
-|       |         |       |        |        |        |        |        |        |        |does not  |
-|       |         |       |        |        |        |        |        |        |        |do        |
-|       |         |       |        |        |        |        |        |        |        |statistics|
-|-------|---------|-------|--------|--------|--------|--------|--------|--------|--------|----------|
-|Conclusion: When the test solution was placed at 5℃ for 100h, the impurity peak smaller than 0.5   |
-|times of the main peak area of the control solution was ignored in the chromatogram of the test    |
-|solution. The known impurities were detected except YA2304-12 and YA2304-19, and both were less    |
-|than 0.05%, and the rest were not detected. Other single unknown impurities were all less than     |
-|0.05%, the RSD of each impurity peak area was not counted (not more than 10%), and no new          |
-|impurities were added to interfere with the detection of related substances. The above are in line |
-|with the verification requirements, indicating that the test solution is stable within 100hunder   |
-|5℃.                                                                                                |
------------------------------------------------------------------------------------------------------"""
+        """-"""
     ),
     (
-        "table_page229",
-        229,
+        "table_page18",
+        18,
+        0,
+        """-"""
+    ),
+    (
+        "table_page23",
+        23,
+        0,
+        """-"""
+    ),
+    (
+        "table_page24",
+        24,
+        0,
+        """-"""
+    ),
+    (
+        "table_page24",
+        24,
         1,
-        """--------------------------------------------------------------------------------------------------
-|Time Point        |Detection |0h     |8h     |19h    |25h    |46h    |59h    |100h   |RSD/%     |
-|                  |wavelength|       |       |       |       |       |       |       |          |
-|------------------|----------|-------|-------|-------|-------|-------|-------|-------|----------|
-|Im pur |Impurity  |251nm     |8738   |8628   |8837   |8744   |8810   |8825   |8731   |0.9       |
-|ity    |YA2304-12 |          |       |       |       |       |       |       |       |          |
-|peak   |          |          |       |       |       |       |       |       |       |          |
-|area   |          |          |       |       |       |       |       |       |       |          |
-|       |----------|          |-------|-------|-------|-------|-------|-------|-------|----------|
-|       |Unknown   |          |/      |945    |1233   |1061   |1491   |1223   |1666   |Content < |
-|       |impurity  |          |       |       |       |       |       |       |       |0.05%, RSD|
-|       |(RRT≈0.64)|          |       |       |       |       |       |       |       |does not  |
-|       |          |          |       |       |       |       |       |       |       |do        |
-|       |          |          |       |       |       |       |       |       |       |statistics|
-|       |----------|          |-------|-------|-------|-------|-------|-------|-------|----------|
-|       |Impurity  |          |10267  |9809   |9895   |10078  |10015  |10050  |9889   |1.6       |
-|       |YA2304-14 |          |       |       |       |       |       |       |       |          |
-|       |----------|          |-------|-------|-------|-------|-------|-------|-------|----------|
-|       |Impurity  |          |8793   |8747   |8744   |8807   |8888   |8899   |8669   |1.0       |
-|       |YA2304-15 |          |       |       |       |       |       |       |       |          |
-|       |----------|          |-------|-------|-------|-------|-------|-------|-------|----------|
-|       |Unknown   |          |1082   |1049   |1104   |1109   |1096   |1102   |1107   |Content < |
-|       |impurity  |          |       |       |       |       |       |       |       |0.05%, RSD|
-|       |(RRT≈1.27)|          |       |       |       |       |       |       |       |did not do|
-|       |          |          |       |       |       |       |       |       |       |statistics|
-|       |----------|          |-------|-------|-------|-------|-------|-------|-------|----------|
-|       |Impurity  |          |9394   |9292   |9227   |9074   |8798   |8843   |8449   |4         |
-|       |YA2304-16 |          |       |       |       |       |       |       |       |          |
---------------------------------------------------------------------------------------------------"""
+        """-"""
     ),
     (
-        "table_page228",
-        228,
+        "table_page25",
+        25,
         0,
-        """---------------------------------------------------------------------------------------------------------
-|Time Point        |Detection |0h      |8h      |19h     |38.5 h. |46h     |59h     |100h    |RSD/%     |
-|                  |wavelength|        |        |        |        |        |        |        |          |
-|------------------|----------|--------|--------|--------|--------|--------|--------|--------|----------|
-|Impuri |Impurity  |251nm     |382     |333     |343     |386     |467     |337     |356     |Content < |
-|typ    |YA2304-12 |          |        |        |        |        |        |        |        |0.05%, RSD|
-|eakar e|          |          |        |        |        |        |        |        |        |does not  |
-|a      |          |          |        |        |        |        |        |        |        |do        |
-|       |          |          |        |        |        |        |        |        |        |statistics|
-|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
-|       |Unknown   |          |1182    |1090    |1360    |1327    |1308    |1166    |458     |Content < |
-|       |impurity  |          |        |        |        |        |        |        |        |0.05%, RSD|
-|       |(RRT≈0.64)|          |        |        |        |        |        |        |        |did not do|
-|       |          |          |        |        |        |        |        |        |        |statistics|
-|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
-|       |Impurity  |          |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
-|       |YA2304-14 |          |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
-|       |          |          |        |        |        |        |        |        |        |does not  |
-|       |          |          |        |        |        |        |        |        |        |do        |
-|       |          |          |        |        |        |        |        |        |        |statistics|
-|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
-|       |Impurity  |          |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
-|       |YA2304-15 |          |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
-|       |          |          |        |        |        |        |        |        |        |does not  |
-|       |          |          |        |        |        |        |        |        |        |do        |
-|       |          |          |        |        |        |        |        |        |        |statistics|
-|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
-|       |Unknown   |          |1220    |1198    |1161    |1174    |1266    |1201    |1181    |Content < |
-|       |impurity  |          |        |        |        |        |        |        |        |0.05%, RSD|
-|       |(RRT≈1.27)|          |        |        |        |        |        |        |        |does not  |
-|       |          |          |        |        |        |        |        |        |        |do        |
-|       |          |          |        |        |        |        |        |        |        |statistics|
-|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
-|       |Impurity  |          |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
-|       |YA2304-16 |          |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
-|       |          |          |        |        |        |        |        |        |        |does not  |
-|       |          |          |        |        |        |        |        |        |        |do        |
-|       |          |          |        |        |        |        |        |        |        |statistics|
-|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
-|       |Impurity  |          |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
-|       |YA2304-18 |          |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
-|       |          |          |        |        |        |        |        |        |        |does not  |
-|       |          |          |        |        |        |        |        |        |        |do        |
-|       |          |          |        |        |        |        |        |        |        |statistics|
-|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
-|       |Impurity  |          |560     |481     |575     |611     |588     |767     |409     |Content < |
-|       |YA2304-19 |          |        |        |        |        |        |        |        |0.05%, RSD|
-|       |          |          |        |        |        |        |        |        |        |does not  |
-|       |          |          |        |        |        |        |        |        |        |do        |
-|       |          |          |        |        |        |        |        |        |        |statistics|
----------------------------------------------------------------------------------------------------------"""
+        """-"""
+    ),
+    (
+        "table_page26",
+        26,
+        0,
+        """-"""
+    ),
+    (
+        "table_page29",
+        29,
+        0,
+        """-"""
+    ),
+    (
+        "table_page29",
+        29,
+        1,
+        """-"""
+    ),
+    (
+        "table_page30",
+        30,
+        0,
+        """-"""
+    ),
+    (
+        "table_page31",
+        31,
+        0,
+        """-"""
+    ),
+    (
+        "table_page32",
+        32,
+        0,
+        """-"""
+    ),
+    (
+        "table_page36",
+        36,
+        0,
+        """-"""
+    ),
+    (
+        "table_page87",
+        87,
+        0,
+        """-"""
+    ),
+    (
+        "table_page88",
+        88,
+        0,
+        """-"""
+    ),
+    (
+        "table_page89",
+        89,
+        0,
+        """-"""
+    ),
+    (
+        "table_page90",
+        90,
+        0,
+        """-"""
+    ),
+    (
+        "table_page91",
+        91,
+        0,
+        """-"""
+    ),
+    (
+        "table_page92",
+        92,
+        0,
+        """-"""
+    ),
+    (
+        "table_page93",
+        93,
+        0,
+        """-"""
+    ),
+    (
+        "table_page94",
+        94,
+        0,
+        """-"""
+    ),
+    (
+        "table_page95",
+        95,
+        0,
+        """-"""
+    ),
+    (
+        "table_page96",
+        96,
+        0,
+        """-"""
+    ),
+    (
+        "table_page97",
+        97,
+        0,
+        """-"""
+    ),
+    (
+        "table_page112",
+        112,
+        0,
+        """-"""
+    ),
+    (
+        "table_page113",
+        113,
+        0,
+        """-"""
+    ),
+    (
+        "table_page114",
+        114,
+        0,
+        """-"""
+    ),
+    (
+        "table_page114",
+        114,
+        1,
+        """-"""
+    ),
+    (
+        "table_page115",
+        115,
+        0,
+        """-"""
+    ),
+    (
+        "table_page116",
+        116,
+        0,
+        """-"""
+    ),
+    (
+        "table_page117",
+        117,
+        0,
+        """-"""
+    ),
+    (
+        "table_page118",
+        118,
+        0,
+        """-"""
+    ),
+    (
+        "table_page120",
+        120,
+        0,
+        """-"""
+    ),
+    (
+        "table_page121",
+        121,
+        0,
+        """-"""
+    ),
+    (
+        "table_page122",
+        122,
+        0,
+        """-"""
+    ),
+    (
+        "table_page123",
+        123,
+        0,
+        """-"""
+    ),
+    (
+        "table_page129",
+        129,
+        0,
+        """-"""
+    ),
+    (
+        "table_page137",
+        137,
+        0,
+        """-"""
+    ),
+    (
+        "table_page137",
+        137,
+        1,
+        """-"""
+    ),
+    (
+        "table_page139",
+        139,
+        0,
+        """-"""
+    ),
+    (
+        "table_page141",
+        141,
+        0,
+        """-"""
+    ),
+    (
+        "table_page141",
+        141,
+        1,
+        """-"""
+    ),
+    (
+        "table_page142",
+        142,
+        0,
+        """-"""
+    ),
+    (
+        "table_page143",
+        143,
+        0,
+        """-"""
+    ),
+    (
+        "table_page144",
+        144,
+        0,
+        """-"""
+    ),
+    (
+        "table_page147",
+        147,
+        0,
+        """-"""
+    ),
+    (
+        "table_page148",
+        148,
+        0,
+        """-"""
+    ),
+    (
+        "table_page150",
+        150,
+        0,
+        """-"""
+    ),
+    (
+        "table_page155",
+        155,
+        0,
+        """-"""
+    ),
+    (
+        "table_page158",
+        158,
+        0,
+        """-"""
+    ),
+    (
+        "table_page159",
+        159,
+        0,
+        """-"""
+    ),
+    (
+        "table_page163",
+        163,
+        0,
+        """-"""
+    ),
+    (
+        "table_page164",
+        164,
+        0,
+        """-"""
+    ),
+    (
+        "table_page165",
+        165,
+        0,
+        """-"""
+    ),
+    (
+        "table_page166",
+        166,
+        0,
+        """-"""
+    ),
+    (
+        "table_page171",
+        171,
+        0,
+        """-"""
+    ),
+    (
+        "table_page172",
+        172,
+        0,
+        """-"""
+    ),
+    (
+        "table_page173",
+        173,
+        0,
+        """-"""
+    ),
+    (
+        "table_page174",
+        174,
+        0,
+        """-"""
+    ),
+    (
+        "table_page175",
+        175,
+        0,
+        """-"""
+    ),
+    (
+        "table_page178",
+        178,
+        0,
+        """-"""
+    ),
+    (
+        "table_page179",
+        179,
+        0,
+        """-"""
+    ),
+    (
+        "table_page180",
+        180,
+        0,
+        """-"""
+    ),
+    (
+        "table_page181",
+        181,
+        0,
+        """-"""
+    ),
+    (
+        "table_page182",
+        182,
+        0,
+        """-"""
+    ),
+    (
+        "table_page183",
+        183,
+        0,
+        """-"""
+    ),
+    (
+        "table_page184",
+        184,
+        0,
+        """-"""
+    ),
+    (
+        "table_page185",
+        185,
+        0,
+        """-"""
+    ),
+    (
+        "table_page185",
+        185,
+        1,
+        """-"""
+    ),
+    (
+        "table_page186",
+        186,
+        0,
+        """-"""
+    ),
+    (
+        "table_page187",
+        187,
+        0,
+        """-"""
+    ),
+    (
+        "table_page190",
+        190,
+        0,
+        """-"""
+    ),
+    (
+        "table_page191",
+        191,
+        0,
+        """-"""
+    ),
+    (
+        "table_page192",
+        192,
+        0,
+        """-"""
+    ),
+    (
+        "table_page193",
+        193,
+        0,
+        """-"""
+    ),
+    (
+        "table_page194",
+        194,
+        0,
+        """-"""
+    ),
+    (
+        "table_page195",
+        195,
+        0,
+        """-"""
+    ),
+    (
+        "table_page196",
+        196,
+        0,
+        """-"""
+    ),
+    (
+        "table_page197",
+        197,
+        0,
+        """-"""
+    ),
+    (
+        "table_page198",
+        198,
+        0,
+        """-"""
+    ),
+    (
+        "table_page199",
+        199,
+        0,
+        """-"""
+    ),
+    (
+        "table_page199",
+        199,
+        1,
+        """-"""
+    ),
+    (
+        "table_page200",
+        200,
+        0,
+        """-"""
+    ),
+    (
+        "table_page204",
+        204,
+        0,
+        """-"""
+    ),
+    (
+        "table_page205",
+        205,
+        0,
+        """-"""
+    ),
+    (
+        "table_page206",
+        206,
+        0,
+        """-"""
+    ),
+    (
+        "table_page207",
+        207,
+        0,
+        """-"""
+    ),
+    (
+        "table_page208",
+        208,
+        0,
+        """-"""
+    ),
+    (
+        "table_page209",
+        209,
+        0,
+        """-"""
+    ),
+    (
+        "table_page210",
+        210,
+        0,
+        """-"""
+    ),
+    (
+        "table_page211",
+        211,
+        0,
+        """-"""
+    ),
+    (
+        "table_page214",
+        214,
+        0,
+        """-"""
+    ),
+    (
+        "table_page215",
+        215,
+        0,
+        """-"""
+    ),
+    (
+        "table_page219",
+        219,
+        0,
+        """-"""
+    ),
+    (
+        "table_page220",
+        220,
+        0,
+        """-"""
+    ),
+    (
+        "table_page221",
+        221,
+        0,
+        """-"""
+    ),
+    (
+        "table_page222",
+        222,
+        0,
+        """-"""
+    ),
+    (
+        "table_page225",
+        225,
+        0,
+        """-"""
     ),
     (
         "table_page226",
@@ -407,7 +874,160 @@ TEST_CONFIGURATIONS = [
 |the                                                                  |
 -----------------------------------------------------------------------"""
     ),
-
+    (
+        "table_page227",
+        227,
+        0,
+        """-"""
+    ),
+    (
+        "table_page228",
+        228,
+        0,
+        """---------------------------------------------------------------------------------------------------------
+|Time Point        |Detection |0h      |8h      |19h     |38.5 h. |46h     |59h     |100h    |RSD/%     |
+|                  |wavelength|        |        |        |        |        |        |        |          |
+|------------------|----------|--------|--------|--------|--------|--------|--------|--------|----------|
+|Impuri |Impurity  |251nm     |382     |333     |343     |386     |467     |337     |356     |Content < |
+|typ    |YA2304-12 |          |        |        |        |        |        |        |        |0.05%, RSD|
+|eakar e|          |          |        |        |        |        |        |        |        |does not  |
+|a      |          |          |        |        |        |        |        |        |        |do        |
+|       |          |          |        |        |        |        |        |        |        |statistics|
+|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
+|       |Unknown   |          |1182    |1090    |1360    |1327    |1308    |1166    |458     |Content < |
+|       |impurity  |          |        |        |        |        |        |        |        |0.05%, RSD|
+|       |(RRT≈0.64)|          |        |        |        |        |        |        |        |did not do|
+|       |          |          |        |        |        |        |        |        |        |statistics|
+|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
+|       |Impurity  |          |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
+|       |YA2304-14 |          |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
+|       |          |          |        |        |        |        |        |        |        |does not  |
+|       |          |          |        |        |        |        |        |        |        |do        |
+|       |          |          |        |        |        |        |        |        |        |statistics|
+|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
+|       |Impurity  |          |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
+|       |YA2304-15 |          |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
+|       |          |          |        |        |        |        |        |        |        |does not  |
+|       |          |          |        |        |        |        |        |        |        |do        |
+|       |          |          |        |        |        |        |        |        |        |statistics|
+|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
+|       |Unknown   |          |1220    |1198    |1161    |1174    |1266    |1201    |1181    |Content < |
+|       |impurity  |          |        |        |        |        |        |        |        |0.05%, RSD|
+|       |(RRT≈1.27)|          |        |        |        |        |        |        |        |does not  |
+|       |          |          |        |        |        |        |        |        |        |do        |
+|       |          |          |        |        |        |        |        |        |        |statistics|
+|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
+|       |Impurity  |          |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
+|       |YA2304-16 |          |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
+|       |          |          |        |        |        |        |        |        |        |does not  |
+|       |          |          |        |        |        |        |        |        |        |do        |
+|       |          |          |        |        |        |        |        |        |        |statistics|
+|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
+|       |Impurity  |          |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
+|       |YA2304-18 |          |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
+|       |          |          |        |        |        |        |        |        |        |does not  |
+|       |          |          |        |        |        |        |        |        |        |do        |
+|       |          |          |        |        |        |        |        |        |        |statistics|
+|       |----------|          |--------|--------|--------|--------|--------|--------|--------|----------|
+|       |Impurity  |          |560     |481     |575     |611     |588     |767     |409     |Content < |
+|       |YA2304-19 |          |        |        |        |        |        |        |        |0.05%, RSD|
+|       |          |          |        |        |        |        |        |        |        |does not  |
+|       |          |          |        |        |        |        |        |        |        |do        |
+|       |          |          |        |        |        |        |        |        |        |statistics|
+---------------------------------------------------------------------------------------------------------"""
+    ),
+    (
+        "table_page229",
+        229,
+        0,
+        """-----------------------------------------------------------------------------------------------------
+|       |Impurity |230nm  |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
+|       |YA2304-17|       |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
+|       |         |       |        |        |        |        |        |        |        |does not  |
+|       |         |       |        |        |        |        |        |        |        |do        |
+|       |         |       |        |        |        |        |        |        |        |statistics|
+|       |---------|       |--------|--------|--------|--------|--------|--------|--------|----------|
+|       |Impurity |       |Not     |Not     |Not     |Not     |Not     |Not     |Not     |Content < |
+|       |YA2304-10|       |detected|detected|detected|detected|detected|detected|detected|0.05%, RSD|
+|       |         |       |        |        |        |        |        |        |        |does not  |
+|       |         |       |        |        |        |        |        |        |        |do        |
+|       |         |       |        |        |        |        |        |        |        |statistics|
+|-------|---------|-------|--------|--------|--------|--------|--------|--------|--------|----------|
+|Conclusion: When the test solution was placed at 5℃ for 100h, the impurity peak smaller than 0.5   |
+|times of the main peak area of the control solution was ignored in the chromatogram of the test    |
+|solution. The known impurities were detected except YA2304-12 and YA2304-19, and both were less    |
+|than 0.05%, and the rest were not detected. Other single unknown impurities were all less than     |
+|0.05%, the RSD of each impurity peak area was not counted (not more than 10%), and no new          |
+|impurities were added to interfere with the detection of related substances. The above are in line |
+|with the verification requirements, indicating that the test solution is stable within 100hunder   |
+|5℃.                                                                                                |
+-----------------------------------------------------------------------------------------------------"""
+    ),
+    (
+        "table_page229",
+        229,
+        1,
+        """--------------------------------------------------------------------------------------------------
+|Time Point        |Detection |0h     |8h     |19h    |25h    |46h    |59h    |100h   |RSD/%     |
+|                  |wavelength|       |       |       |       |       |       |       |          |
+|------------------|----------|-------|-------|-------|-------|-------|-------|-------|----------|
+|Im pur |Impurity  |251nm     |8738   |8628   |8837   |8744   |8810   |8825   |8731   |0.9       |
+|ity    |YA2304-12 |          |       |       |       |       |       |       |       |          |
+|peak   |          |          |       |       |       |       |       |       |       |          |
+|area   |          |          |       |       |       |       |       |       |       |          |
+|       |----------|          |-------|-------|-------|-------|-------|-------|-------|----------|
+|       |Unknown   |          |/      |945    |1233   |1061   |1491   |1223   |1666   |Content < |
+|       |impurity  |          |       |       |       |       |       |       |       |0.05%, RSD|
+|       |(RRT≈0.64)|          |       |       |       |       |       |       |       |does not  |
+|       |          |          |       |       |       |       |       |       |       |do        |
+|       |          |          |       |       |       |       |       |       |       |statistics|
+|       |----------|          |-------|-------|-------|-------|-------|-------|-------|----------|
+|       |Impurity  |          |10267  |9809   |9895   |10078  |10015  |10050  |9889   |1.6       |
+|       |YA2304-14 |          |       |       |       |       |       |       |       |          |
+|       |----------|          |-------|-------|-------|-------|-------|-------|-------|----------|
+|       |Impurity  |          |8793   |8747   |8744   |8807   |8888   |8899   |8669   |1.0       |
+|       |YA2304-15 |          |       |       |       |       |       |       |       |          |
+|       |----------|          |-------|-------|-------|-------|-------|-------|-------|----------|
+|       |Unknown   |          |1082   |1049   |1104   |1109   |1096   |1102   |1107   |Content < |
+|       |impurity  |          |       |       |       |       |       |       |       |0.05%, RSD|
+|       |(RRT≈1.27)|          |       |       |       |       |       |       |       |did not do|
+|       |          |          |       |       |       |       |       |       |       |statistics|
+|       |----------|          |-------|-------|-------|-------|-------|-------|-------|----------|
+|       |Impurity  |          |9394   |9292   |9227   |9074   |8798   |8843   |8449   |4         |
+|       |YA2304-16 |          |       |       |       |       |       |       |       |          |
+--------------------------------------------------------------------------------------------------"""
+    ),
+    
+(
+        "table_page230",
+        230,
+        0,
+        """-------------------------------------------------------------------------------------------
+|       |Impurity |       |9107   |9027   |8791   |8755   |8574   |8452   |8111   |4      |
+|       |YA2304-18|       |       |       |       |       |       |       |       |       |
+|       |---------|       |-------|-------|-------|-------|-------|-------|-------|-------|
+|       |Impurity |       |15639  |15602  |15665  |15644  |15942  |15998  |15712  |1.1    |
+|       |YA2304-19|       |       |       |       |       |       |       |       |       |
+|       |---------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+|       |Impurity |230nm  |16023  |15969  |15952  |15986  |16017  |16400  |16199  |1.1    |
+|       |YA2304-17|       |       |       |       |       |       |       |       |       |
+|       |---------|       |-------|-------|-------|-------|-------|-------|-------|-------|
+|       |Impurity |       |12233  |12086  |12173  |12076  |12218  |12178  |11975  |0.8    |
+|       |YA2304-10|       |       |       |       |       |       |       |       |       |
+|-------|---------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+|Conclusions: The impurity peak less than 0.5 times the main peak area of the control     |
+|solution was ignored in the chromatogram of the impurity solution added at 5℃for 100h. At|
+|230mwavelength, the RSD of the known impurity YA2304-17 and YA2304-10 was not greater    |
+|than 1.1% (10% is not required). At 251nm wavelength, the RSD of known impurities        |
+|YA2304-12, YA2304-14, YA2304-15, YA2304-16, YA2304-18 and YA2304-19 are not greater than |
+|4% (10% is not required); The RSD of other single unknown impurity is less than 0.05%,   |
+|the RSD of the single unknown impurity is not counted (not more than 10%), and no new    |
+|impurity interferes with the detection of related substances; The above are in line with |
+|the verification requirements, indicating that the solution of added impurity is stable  |
+|within 100hat 5℃.                                                                        |
+-------------------------------------------------------------------------------------------"""
+    ),
+######Parei aqui
 (
         "table_page537",
         537,
