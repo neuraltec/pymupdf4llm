@@ -1011,17 +1011,7 @@ in the original manufacturer's formulation.
 
 
 
-Table 3.2.S.3.1-1 Sample Information for Structure Elucidation 
-
-
-
-
-
-
-
-
-
---------------------------
+Table 3.2.S.3.1-1 Sample Information for Structure --------------------------
 |Structure|Sample        |
 |         |information   |
 |---------|--------------|
@@ -1036,7 +1026,17 @@ Table 3.2.S.3.1-1 Sample Information for Structure Elucidation
 |         |LC-MS/MS, IR, |
 |         |NMR, XRD, TGA |
 |         |and DSC.      |
---------------------------
+-------------------------- 
+
+
+
+
+
+
+
+
+
+Elucidation
 
 The following investigations were carried out to confirm the chemical 
 
@@ -1136,16 +1136,16 @@ Table 3.2.S.3.1-2 Mass Spectrum Data of the Substance to be Examined
 
 
 
-------------------------------------------
-|Batch  |Accurate|Theoretical|Elemental  |
-|No.    |measured|value      |composition|
-|       |mass    |           |           |
-|       |value   |           |           |
-|-------|--------|-----------|-----------|
-|231101 |379.18  |378.43     |[C H N O   |
-|       |        |           |+H]+ 21 22 |
-|       |        |           |4 3        |
-------------------------------------------
+----------------------------------------------
+|Batch  |Accurate|Theoretical|Elemental      |
+|No.    |measured|value      |composition    |
+|       |mass    |           |               |
+|       |value   |           |               |
+|-------|--------|-----------|-----------    |
+|231101 |379.18  |378.43     |[C H N O +H]+  |
+|       |        |           |21 22 4 3      |
+|       |        |           |               |
+----------------------------------------------
 
 Interpretation: 
 
@@ -2198,8 +2198,8 @@ Table 3.2.S.3.1-6 TGA Result of the Substance to be Examined
 |       |Temperature|Mass   |
 |       |           |loss   |
 |-------|-----------|-------|
-|231101 |⁓ 35.0 ℃   |0.60%  |
-|       |184.2 ℃    |       |
+|231101 |~ 35.0 ℃  |0.60%  |
+|       |184.2 ℃   |       |
 -----------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
@@ -2310,14 +2310,14 @@ Table 3.2.S.3.1-7 DSC Result of the Substance to be Examined
 
 
 
----------------------------------------
-|Batch  |endothermic process          |
-|No     |                             |
-|       |-----------------------------|
-|       |The initial    |Peak         |
-|       |temperature of |temperature/℃|
-|       |extrapolation/℃|             |
----------------------------------------
+-----------------------------------------
+|Batch  |endothermic process            |
+|No     |                               |
+|       |-------------------------------|
+|       |The initial     |Peak          |
+|       |temperature of  |temperature/℃|
+|       |extrapolation/℃|              |
+-----------------------------------------
 
 Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
 
@@ -3129,13 +3129,13 @@ Table 3.2.S.3.1-12 TGA Result of the Substance to be Examined
 |       |Temperature/C|Mass   |
 |       |             |loss % |
 |-------|-------------|-------|
-|231101 |184 ℃        |0.60%  |
+|231101 |184 ℃        |0.60% |
 |-------|-------------|-------|
-|231201 |175 ℃        |0.16%  |
+|231201 |175 ℃        |0.16% |
 |-------|-------------|-------|
-|240101 |175 ℃        |0.24%  |
+|240101 |175 ℃        |0.24% |
 |-------|-------------|-------|
-|240102 |175 ℃        |0.16%  |
+|240102 |175 ℃        |0.16% |
 -------------------------------
 
 See 3.2.S.2.2.3 for the crystalline solvent of this product, it can be seen that 
