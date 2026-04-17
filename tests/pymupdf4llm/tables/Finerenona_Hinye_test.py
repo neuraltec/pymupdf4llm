@@ -264,14 +264,62 @@ TEST_CONFIGURATIONS = [
         "table_page16",
         16,
         0,
-        """-"""
-    ),
-    # teste 8
-    (
-        "table_page17",
-        17,
-        0,
-        """-"""
+        """----------------------------------------
+|2974.23,|υCH    |-CH3    |Carbon      |
+|2953.02,|       |-CH2,	  |hydrogen    |
+|28 35.36|       | -C, H  |stretching  |
+|        |       |        |vibration   |
+|--------|-------|--------|------------|
+|2229.71 |υ C≡N  |-CN     |Carbon      |
+|        |       |        |nitrogen    |
+|        |       |        |triple bond |
+|        |       |        |stretching  |
+|        |       |        |vibration   |
+|--------|-------|--------|------------|
+|1683.86 |υ C=O  |-CONH2  |Carbon      |
+|        |       |        |oxygen      |
+|        |       |        |double bond |
+|        |       |        |stretching  |
+|        |       |        |vibration   |
+|--------|-------|--------|------------|
+|1660.71 |υ C=C  |-C=C    |Carbon      |
+|        |       |        |carbon      |
+|        |       |        |double bond |
+|        |       |        |stretching  |
+|        |       |        |vibration   |
+|--------|-------|--------|------------|
+|1606.70,|υ υ C=N|Pyridine|Expansion   |
+|1573.91,|C=C ， |ring,   |and         |
+|14 89.05|       |benzener|contraction |
+|        |       |ing     |vibrations  |
+|        |       |        |of carbon   |
+|        |       |        |nitro gen   |
+|        |       |        |and carbon  |
+|        |       |        |carbon do   |
+|        |       |        |uble bonds  |
+|--------|-------|--------|------------|
+|1463.97 |δCH    |-CH2    |In-plane    |
+|        |       |        |shear       |
+|        |       |        |vibration   |
+|--------|-------|--------|------------|
+|1454.33,|δCH    |-CH3    |Out of plane|
+|1431.18,|       |        |deformationv|
+|14      |       |        |ibration    |
+|08.04,  |       |        |            |
+|1381.03 |       |        |            |
+|--------|-------|--------|------------|
+|1267.23,|υ      |-OCH3   |Asymmetric  |
+|1257.59 |=C-O-C |-OCH2   |stretching  |
+|        |       |        |vibr ation  |
+|        |       |        |of ether    |
+|        |       |        |bond        |
+|--------|-------|--------|------------|
+|1138.00,|υ      |-OCH3   |Symmetric   |
+|1031.92 |=C-O-C |-OCH2   |stretching  |
+|        |       |        |vibrat ion  |
+|        |       |        |of ether    |
+|        |       |        |bond        |
+----------------------------------------"""
     ),
     # teste 9
     (
@@ -381,6 +429,15 @@ TEST_CONFIGURATIONS = [
         "table_page24",
         24,
         0,
+        """---------------------------------------------
+|	|242.7 ℃ ⁓ 438.8 ℃ | 97.30%	    |
+---------------------------------------------"""
+    ),
+    # teste 13
+    (
+        "table_page24",
+        24,
+        1,
         """-----------------------------------------
 |Batch  |endothermic process            |
 |No     |                               |
@@ -390,19 +447,14 @@ TEST_CONFIGURATIONS = [
 |       |extrapolation/℃|              |
 -----------------------------------------"""
     ),
-    # teste 13
-    (
-        "table_page24",
-        24,
-        1,
-        """-"""
-    ),
     # teste 14
     (
         "table_page25",
         25,
         0,
-        """-"""
+        """---------------------------
+|231101  |254.38 | 257.04 |
+---------------------------"""
     ),
     # teste 15
     (
@@ -533,7 +585,22 @@ TEST_CONFIGURATIONS = [
         "table_page31",
         31,
         0,
-        """-"""
+        """----------------------------------------
+|Batch  |Endothermic   		       |
+|No.    |process      		       |
+|       |---------------|--------------|
+|	|Extrapolation 	|Peak 	       |
+	|starting 	|temperature/℃|
+|	|temperature/℃ |              |
+|       |---------------|--------------|
+|       |254.38 	|257.04        |
+|-------|---------------|--------------|
+|231201 |253.88 	|256.33        |
+|-------|---------------|--------------|
+|240101 |254.02 	|256.74        |
+|-------|---------------|--------------|
+|240102 |255.16 	|256.93        |
+----------------------------------------"""
     ),
     # teste 20
     (
@@ -561,7 +628,13 @@ TEST_CONFIGURATIONS = [
         "table_page36",
         36,
         0,
-        """-"""
+        """-------------------------------------------
+|Product   |CAS No.     |Formula|Molecular|
+|name      |            |       |weight   |
+|----------|------------|-------|---------|
+|Finerenone|1050477-31-0|C21 H22|378.43   |
+|          |            |N4 O3  |g/mol    | 
+-------------------------------------------"""
     ),
     #table image
     # teste 22
@@ -1153,91 +1226,373 @@ TEST_CONFIGURATIONS = [
         "table_page112",
         112,
         0,
-        """-"""
+        """-------------------------------------------------
+|Impurity |Batch No. |231201  |240101  |240102  |
+|name	  |          |        |        |        |
+|--------------------|--------|--------|--------|
+|Related   |YA2304-10|Not     |Not     |Not     |
+|subs tance|         |detected|detected|detected|
+|	   |---------|--------|--------|--------|
+|          |YA2304-12|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|	   |---------|--------|--------|--------|
+|          |YA2304-14|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|	   |---------|--------|--------|--------|
+|          |YA2304-15|Not     |Not     |< 0.05% |
+|          |         |detected|detected|        |
+|	   |---------|--------|--------|--------|
+|          |YA2304-16|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|	   |---------|--------|--------|--------|
+|          |YA2304-17|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|	   |---------|--------|--------|--------|
+|          |YA2304-18|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|	   |---------|--------|--------|--------|
+|          |YA2304-19|< 0.05% |< 0.05% |< 0.05% |
+|	   |---------|--------|--------|--------|
+|          |Other    |< 0.05% |< 0.05% |< 0.05% |
+|          |singlei  |        |        |        |
+|          |mpurities|        |        |        |
+|	   |---------|--------|--------|--------|
+|          |Total    |< 0.05% |< 0.05% |< 0.05% |
+|          |Miscella |        |        |        |
+|          |neous    |        |        |        |
+|----------|---------|--------|--------|--------|
+|Related   |YA2304-52|Not     |Not     |Not     |
+|Sub stance|         |detected|detected|detected|
+|II        |         |        |        |        |
+|	   |---------|--------|--------|--------|
+|          |Imidazole|Not     |Not     |Not     |
+|          |         |detected|detected|detected|
+|----------|---------|--------|--------|--------|
+|Enantiomer|YA2304-20|0.03%   |0.03%   |0.02%   |
+-------------------------------------------------"""
     ),
     # teste 34
     (
         "table_page113",
         113,
         0,
-        """-"""
+        """--------------------------------------------------
+|Names of  |Impurity source|Control     |Is the  |
+|Impurities|and removal    |Limits      |negation|
+|          |analysis       |            |of entry|
+|          |               |            |criteria|
+|----------|---------------|------------|--------|
+|Sodium    |Sodium acetate |Incandescent|is      |
+|acetate   |is the reagent |residue     |        |
+|          |used in step 2.|≤0.1%       |        |
+|          |This impurity  |            |        |
+|          |is soluble in  |            |        |
+|          |water and can  |            |        |
+|          |be removed by  |            |        |
+|          |subsequent     |            |        |
+|          |washing and    |            |        |
+|          |crystallization|            |        |
+|          |processes. The |            |        |
+|          |applicant      |            |        |
+|          |intends to     |            |        |
+|          |control sodium |            |        |
+|          |acetate by     |            |        |
+|          |burning        |            |        |
+|          |residue.       |            |        |
+|----------|---------------|------------|--------|
+|Sulfuric  |Sulfuric acid  |Incandescent|is      |
+|acid      |is the reagent |residue     |        |
+|          |used in step 2 |≤0.1%       |        |
+|          |and is         |            |        |
+|          |converted to   |            |        |
+|          |sodium sulfate.|            |        |
+|          |Sodium sulfate |            |        |
+|          |dissolves      |            |        |
+|          |easily in water|            |        |
+|          |and can be     |            |        |
+|          |removed by     |            |        |
+|          |subsequent     |            |        |
+|          |washing and    |            |        |
+|          |crystallization|            |        |
+|          |processes. The |            |        |
+|          |applicant      |            |        |
+|          |intends to     |            |        |
+|          |control sodium |            |        |
+|          |sulfate by     |            |        |
+|          |burning        |            |        |
+|          |residue.       |            |        |
+|----------|---------------|------------|--------|
+|Sodium    |Sodium         |Incandescent|is      |
+|hydroxide |hydroxide is   |residue     |        |
+|          |the reagent    |≤0.1%       |        |
+|          |used in step 2,|            |        |
+|          |which can be   |            |        |
+|          |converted into |            |        |
+|          |sodium         |            |        |
+|          |chloride.      |            |        |
+|          |Sodium chloride|            |        |
+|          |is soluble in  |            |        |
+|          |water and can  |            |        |
+|          |be removed by  |            |        |
+|          |subsequent     |            |        |
+|          |washing and    |            |        |
+|          |crystallization|            |        |
+|          |processes. The |            |        |
+|          |applicant      |            |        |
+|          |intends to     |            |        |
+|          |control sodium |            |        |
+|          |chloride by    |            |        |
+|          |burning        |            |        |
+|          |residue.       |            |        |
+|----------|---------------|------------|--------|
+|Hydrochlo |Hydrochloric   |Incandescent|is      |
+|ric acid  |acid is the    |residue     |        |
+|          |reagent used in|≤0.1%       |        |
+|          |step 2 and is  |            |        |
+|          |converted to   |            |        |
+|          |sodium         |            |        |
+|          |chloride.      |            |        |
+|          |Sodium chloride|            |        |
+|          |is soluble in  |            |        |
+|          |water and can  |            |        |
+|          |be removed by  |            |        |
+|          |subsequent     |            |        |
+|          |washing and    |            |        |
+|          |crystallization|            |        |
+|          |processes. The |            |        |
+|          |applicant      |            |        |
+|          |intends to     |            |        |
+|          |control sodium |            |        |
+|          |chloride by    |            |        |
+|          |burning        |            |        |
+|          |residue.       |            |        |
+|----------|---------------|------------|--------|
+|Sodium    |Sodium         |Burning     |is      |
+|phosphate |phosphate is   |residue     |        |
+|          |the reagent    |≤0.1%       |        |
+|          |used in Step 3 |            |        |
+|          |that is        |            |        |
+|          |partially      |            |        |
+|          |converted to   |            |        |
+|          |convert        |            |        |
+|          |disodium       |            |        |
+|          |hydrogen       |            |        |
+|          |phosphate after|            |        |
+|          |the base is    |            |        |
+|          |modulated in   |            |        |
+|          |step 3. The    |            |        |
+|          |impurities of  |            |        |
+--------------------------------------------------"""
     ),
     # teste 35
     (
         "table_page114",
         114,
         0,
-        """-"""
+        """-----------------------------------------------------------------
+|	|disodium hydrogen phosphate	 |		|	|
+|	|and sodium phosphate are 	 |		|	|
+|	|soluble in water and can be	 |		|	|
+|	|removed by subsequent washing 	 |		|	|
+|	|and crystallization processes.	 |		|	|
+|	|The applicant intends to control|		|	|
+|	|disodium hydrogen phosphate and |		|	|
+|	|sodium phosphate through 	 |		|	|
+|	|incandescent residue.		 | 		|	|
+-----------------------------------------------------------------"""
     ),
     # teste 36
     (
         "table_page114",
         114,
         1,
-        """-"""
+        """-------------------------------------------
+|	   |Batch No.|231201|240101|240102|
+|----------|-------------------------------
+|Test items|				  |
+-------------------------------------------"""
     ),
     # teste 37
     (
         "table_page115",
         115,
         0,
-        """-"""
+        """-----------------------------------------
+|Incandescent|conforms|conforms|conforms|
+|residue     |        |        |        |
+|≤0.1%       |        |        |        |
+|------------|--------|--------|--------|
+|Chloride    |conforms|conforms|conforms|
+|≤0.02%      |        |        |        |
+|------------|--------|--------|--------|
+|Sulfate     |conforms|conforms|conforms|
+|≤0.1%       |        |        |        |
+-----------------------------------------"""
     ),
     # teste 38
     (
         "table_page116",
         116,
         0,
-        """-"""
+        """---------------------------------------------------
+|Name of solvent    |Steps to use |Solvent|Limits |
+|                   |             |classif|       |
+|                   |             |ication|       |
+|-------------------|-------------|-------|-------|
+|Ethyl acetate      |Starting     |Class 3|≤0.5%  |
+|                   |material     |       |       |
+|                   |YA2304-2     |       |       |
+|                   |isintroduced,|       |       |
+|                   |reagent      |       |       |
+|                   |triethyl     |       |       |
+|                   |orthoacetate |       |       |
+|                   |reaction andh|       |       |
+|                   |ydrolysis    |       |       |
+|-------------------|-------------|-------|-------|
+|Isopropyl alcohol  |Steps 1      |Class 3|≤0.5%  |
+|-------------------|-------------|-------|-------|
+|sec-butanol        |Step 1       |Class 3|≤0.5%  |
+|-------------------|-------------|-------|-------|
+|N-methylpyrrolidone|Step 2       |Class 2|≤0.053%|
+|-------------------|-------------|-------|-------|
+|Toluene            |Step 2       |Class 2|≤0.089%|
+|-------------------|-------------|-------|-------|
+|tetrahydrofuran    |Step 2       |Class 2|≤0.072%|
+|-------------------|-------------|-------|-------|
+|Ethanol            |Steps 1,3,4  |Class 3|≤0.5%  |
+|-------------------|-------------|-------|-------|
+|Piperidine         |Steps 1      |Class 4|≤0.1%  |
+---------------------------------------------------"""
     ),
     # teste 39
     (
         "table_page117",
         117,
         0,
-        """-"""
+        """---------------------------------------------
+|benzene|Toluene and     |Class 1 |≤0.0002% |
+|	|ethanol introdu |        |         |
+|	|ced		 |	  |         |
+---------------------------------------------"""
     ),
     # teste 40
     (
         "table_page118",
         118,
         0,
-        """-"""
+        """------------------------------------------------------------------------
+|Batch   |Limits |10% of  |231201  |240101  |240102  |LOD     |LOQ     |
+|        |       |limits  |        |        |        |        |        |
+|--------|-------|--------|--------|--------|--------|--------|--------|
+|Ethanol |≤0. 5% |≤0.05%  |0.1%    |0.2%    |0.1%    |0.003%  |0.01%   |
+|--------|-------|--------|--------|--------|--------|--------|--------|
+|Isoprop |≤0. 5% |≤0.05%  |Not     |Not     |Not     |0.003%  |0.01%   |
+|yl alco |       |        |detected|detected|detected|        |        |
+|hol     |       |        |        |        |        |        |        |
+|--------|-------|--------|--------|--------|--------|--------|--------|
+|Ethyla  |≤0. 5% |≤0.05%  |Not     |Not     |Not     |0.003%  |0.01%   |
+|cetate  |       |        |detected|detected|detected|        |        |
+|--------|-------|--------|--------|--------|--------|--------|--------|
+|sec-but |≤0. 5% |≤0.05%  |Not     |Not     |Not     |0.002%  |0.008%  |
+|anol    |       |        |detected|detected|detected|        |        |
+|--------|-------|--------|--------|--------|--------|--------|--------|
+|tetrahy |≤0.07  |≤0.0072%|Not     |Not     |Not     |0.002%  |0.007%  |
+|drofuran|2%     |        |detected|detected|detected|        |        |
+|--------|-------|--------|--------|--------|--------|--------|--------|
+|Toluene |≤0.08  |≤0.0089%|Not     |Not     |Not     |0.001%  |0.004%  |
+|        |9%     |        |detected|detected|detected|        |        |
+|--------|-------|--------|--------|--------|--------|--------|--------|
+|N-meth  |≤0.05  |≤0.0053%|Not     |Not     |Not     |0.002%  |0.006%  |
+|ylpyrrol|3%     |        |detected|detected|detected|        |        |
+|idone   |       |        |        |        |        |        |        |
+|--------|-------|--------|--------|--------|--------|--------|--------|
+|piperidi|≤0. 1% |≤0.01%  |Not     |Not     |Not     |0.003%  |0.01%   |
+|ne      |       |        |detected|detected|detected|        |        |
+|--------|-------|--------|--------|--------|--------|--------|--------|
+|benzene |≤0.00  |≤0.00002|Not     |Not     |Not     |0.000016|0.000053|
+|        |02%    |%       |detected|detected|detected|%       |%       |
+------------------------------------------------------------------------"""
     ),
     # teste 41
     (
         "table_page120",
         120,
         0,
-        """-"""
+        """-----------------------------------------------
+|Batch No. |231201 |240101 |240102 |10% of the|
+|Elemental |       |       |       |acceptable|
+|impurities|       |       |       |limit     |
+|----------|-------|-------|-------|----------|
+|Palladium |0.053  |0.084  |0.009  |1ppm      |
+|content   |ppm    |ppm    |ppm    |          |
+-----------------------------------------------"""
     ),
     # teste 42
     (
         "table_page121",
         121,
         0,
-        """-"""
+        """-----------------------------------------------
+|Batch No. |231201 |240101 |240102 |30% of the|
+|Elemental |       |       |       |acceptable|
+|impurities|       |       |       |limit     |
+|----------|-------|-------|-------|----------|
+|Lead      |0.380  |0.386  |0.093  |1.5 ppm   |
+|content   |ppm    |ppm    |ppm    |          |
+-----------------------------------------------"""
     ),
     # teste 43
     (
         "table_page122",
         122,
         0,
-        """-"""
+        """-------------------------------------------------------------
+|Batch No. |231201    |240101  |240102    |LODs   |30% ofa  |
+|Elemental |          |        |          |       |cceptable|
+|impurities|          |        |          |       |limits   |
+|----------|----------|--------|----------|-------|---------|
+|Arsenic   |Undetected|Not     |Not       |0.004  |0.45 ppm |
+|levels    |          |detected|detected  |ppm    |         |
+|----------|----------|--------|----------|-------|---------|
+|Cadmium   |Undetected|Not     |Not       |0.001  |0.15 ppm |
+|content   |          |detected|detected  |ppm    |         |
+|----------|----------|--------|----------|-------|---------|
+|Mercury   |Undetected|Not     |Not       |0.020  |0.9 ppm  |
+|content   |          |detected|detected  |ppm    |         |
+|----------|----------|--------|----------|-------|---------|
+|Cobalt    |0.005 ppm |0.028   |Undetected|0.001  |1.5 ppm  |
+|content   |          |ppm     |          |ppm    |         |
+|----------|----------|--------|----------|-------|---------|
+|Nickel    |0.174 ppm |0.351   |0.088 ppm |0.011  |6ppm     |
+|content   |          |ppm     |          |ppm    |         |
+|----------|----------|--------|----------|-------|---------|
+|Vanadium  |Undetected|0.004   |Undetected|0.002  |3ppm     |
+|content   |          |ppm     |          |ppm    |         |
+-------------------------------------------------------------"""
     ),
     # teste 44
     (
         "table_page123",
         123,
         0,
-        """-"""
+        """------------------------------------
+|Batch  |231201  |240101  |240102  |
+|No.    |        |        |        |
+|-------|--------|--------|--------|
+|≤10ppm |conforms|conforms|conforms|
+------------------------------------"""
     ),
     # teste 45
     (
         "table_page129",
         129,
         0,
-        """-"""
+        """------------------------------------------------
+|Batch No.|231201    |240101  |240102  |LOD    |
+|---------|----------|--------|--------|-------|
+|YA2304-38|Undetected|Not     |Not     |0.027% |
+|         |          |detected|detected|       |
+------------------------------------------------"""
     ),
     # teste 46
     (
