@@ -1,0 +1,56 @@
+Document: YA2304-Quality
+Date:Sep. 2024
+Version: 001
+Drug Master File of Finerenone
+Page 114 of 542
+Finerenone
+Hinye Pharmaceutical Co., Ltd.
+Confidential
+disodium hydrogen phosphate and sodium
+phosphate are soluble in water and can be
+removed by subsequent washing and
+crystallization processes. The applicant
+intends to control disodium hydrogen
+phosphate and sodium phosphate through
+incandescent residue.
+Chlorides and sulfates
+Finerenone can remove trace amounts of chloride and sulfate that may
+remain after multiple washing, filtration, and recrystallization processes. The
+applicant has tested the chlorides and sulfates of multiple batches of
+commercial-scale mass-produced Finerenone in accordance with General
+Rules 0801 and 0802 of Part 4 of the 2020 Edition of the Chinese
+Pharmacopoeia. The test results of chloride and sulfate are not more than
+0.02%, and the test results of sulfate are not more than 0.1%, as detailed in
+Table 3.2.S.3.2.2-2. Since the incandescent residue can also control chloride
+and sulfate, the applicant intends not to set up a test item for chloride and
+sulfate in the finished product standard.
+The detection of various inorganic impurities in commercial-scale batch
+production of Finerenone
+The applicant has tested the burning residue, chloride and sulfate of three
+batches of commercial-scale mass produced Finerenone (batch No. 231201,
+240101 and 240102 respectively), and the test results all meet the
+requirements of the standard. The test results are shown in Table
+3.2.S.3.2.2-2.
+Table 3.2.S.3.2.2-2 Statistics of detection data of inorganic impurities in
+Finerenone
+Batch No.
+Test items
+231201
+240101
+240102
+
+--- Tables ---
+
+--- Table 1 ---
+bbox: (84.23666636149089, 87.96999740600586, 511.0950012207031, 204.7899932861328)
+Markdown:
+|Col1|disodium hydrogen phosphate and sodium<br>phosphate are soluble in water and can be<br>removed by subsequent washing and<br>crystallization processes. The applicant<br>intends to control disodium hydrogen<br>phosphate and sodium phosphate through<br>incandescent residue.|Col3|Col4|
+|---|---|---|---|
+
+
+
+--- Table 2 ---
+bbox: (84.23666636149089, 715.6699829101562, 511.0950012207031, 754.510009765625)
+Markdown:
+|Batch No.<br>Test items|231201|240101|240102|
+|---|---|---|---|

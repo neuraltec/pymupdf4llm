@@ -76,6 +76,25 @@ MAX_TOTAL_WIDTH = 120  # maximum allowed width for the entire ASCII table
 MIN_COL_WIDTH = 7      # smallest width any column may have
 
 
+def _normalize_table_text(text, *, keep_newlines=False):
+    """Normalize whitespace for table cell text to avoid layout breaks."""
+    if not text:
+        return text
+    value = _normalize_table_br_tags(text)
+    value = _merge_single_letter_word_splits(value)
+    if not keep_newlines:
+        value = value.replace("\n", " ")
+        value = re.sub(r"[ \t]+", " ", value).strip()
+        return value
+    # Keep line breaks but normalize spaces within each line
+    value = re.sub(r"[ \t]+", " ", value)
+    value = "\n".join(line.strip() for line in value.split("\n"))
+    return value
+
+
+normalize_table_text = _normalize_table_text
+
+
 class IdentifyHeaders:
     """Compute data for identifying header text.
 
@@ -437,6 +456,31 @@ def matrix_to_ascii(matrix):
     row_texts = []
     max_cols = 0
 
+    def _is_explicit_full_span_row(row) -> bool:
+        """Only treat rows as full-span when this is explicit in metadata."""
+        if len(row) <= 1:
+            return True
+        non_empty_primary = []
+        for i, cell in enumerate(row):
+            if isinstance(cell, dict):
+                if cell.get("is_merged") and cell.get("merged_from"):
+                    continue
+                if str(cell.get("text", "") or "").strip():
+                    non_empty_primary.append(i)
+            else:
+                if str(cell or "").strip():
+                    non_empty_primary.append(i)
+        if len(non_empty_primary) != 1:
+            return False
+        idx = non_empty_primary[0]
+        cell = row[idx]
+        if not isinstance(cell, dict):
+            return False
+        try:
+            return int(cell.get("colspan", 1) or 1) >= len(row)
+        except Exception:
+            return False
+
     for r_idx, row in enumerate(matrix):
         current_row_cells = []
         current_row_texts = []
@@ -453,7 +497,7 @@ def matrix_to_ascii(matrix):
             else:
                 if str(cell).strip():
                     non_empty.append(i)
-        if len(non_empty) == 1:
+        if len(non_empty) == 1 and _is_explicit_full_span_row(row):
             main_idx = non_empty[0]
             main_cell = row[main_idx]
             total_cols = len(row)
@@ -696,10 +740,19 @@ def matrix_to_ascii(matrix):
     def build_content_line(row_index, line_in_cell=0):
         # Detect rows that should visually span all columns:
         # exactly one non-empty cell in the row.
-        non_empty_indices = [
-            i for i, t in enumerate(row_texts[row_index]) if t.strip()
-        ]
+        non_empty_indices = [i for i, t in enumerate(row_texts[row_index]) if t.strip()]
+        explicit_full_span = False
         if len(non_empty_indices) == 1:
+            main_idx_check = non_empty_indices[0]
+            cell_check = row_cells[row_index][main_idx_check]
+            if max_cols <= 1:
+                explicit_full_span = True
+            elif isinstance(cell_check, dict):
+                try:
+                    explicit_full_span = int(cell_check.get("colspan", 1) or 1) >= max_cols
+                except Exception:
+                    explicit_full_span = False
+        if explicit_full_span:
             main_idx = non_empty_indices[0]
             if row_index not in full_span_cache:
                 width = total_table_width - 2
@@ -854,10 +907,16 @@ def matrix_to_ascii(matrix):
         # before rows like "Verdict".
         force_full_separator = False
         if row_index + 1 < len(row_texts):
-            next_non_empty = [
-                i for i, t in enumerate(row_texts[row_index + 1]) if t.strip()
-            ]
-            force_full_separator = len(next_non_empty) == 1
+            next_non_empty = [i for i, t in enumerate(row_texts[row_index + 1]) if t.strip()]
+            if len(next_non_empty) == 1:
+                nxt_cell = row_cells[row_index + 1][next_non_empty[0]]
+                if max_cols <= 1:
+                    force_full_separator = True
+                elif isinstance(nxt_cell, dict):
+                    try:
+                        force_full_separator = int(nxt_cell.get("colspan", 1) or 1) >= max_cols
+                    except Exception:
+                        force_full_separator = False
 
         parts = []
         col = 0
@@ -1095,7 +1154,18 @@ def matrix_to_markdown(matrix):
             or (not isinstance(cell, dict) and str(cell).strip())
         ]
         
-        if len(non_empty) == 1:
+        explicit_full_span = False
+        if len(row) <= 1 and len(non_empty) == 1:
+            explicit_full_span = True
+        elif len(non_empty) == 1:
+            maybe_main = row[non_empty[0]]
+            if isinstance(maybe_main, dict):
+                try:
+                    explicit_full_span = int(maybe_main.get("colspan", 1) or 1) >= len(row)
+                except Exception:
+                    explicit_full_span = False
+
+        if explicit_full_span:
             # Full-span row
             main_idx = non_empty[0]
             main_cell = row[main_idx]
@@ -1608,20 +1678,6 @@ def to_markdown(
             return value
         # Collapse multiple spaces/tabs while keeping newlines intact.
         value = re.sub(r"[ \t]+", " ", value)
-        return value
-
-    def normalize_table_text(text, *, keep_newlines=False):
-        """Normalize whitespace for table cell text to avoid layout breaks."""
-        if not text:
-            return text
-        value = _normalize_table_br_tags(text)
-        if not keep_newlines:
-            value = value.replace("\n", " ")
-            value = _collapse_table_spaces(value).strip()
-            return value
-        # Keep line breaks but normalize spaces within each line
-        value = _collapse_table_spaces(value)
-        value = "\n".join(line.strip() for line in value.split("\n"))
         return value
 
     def save_image(parms, rect, i):
@@ -2510,6 +2566,16 @@ def to_markdown(
                                         next_row += 1
                                     elif r > next_row:
                                         break
+
+                                # Guard: repeated bbox rows are sometimes just
+                                # duplicated extraction artifacts. Accept
+                                # rowspan-from-bbox only if bbox height is
+                                # compatible with the inferred number of rows.
+                                if rowspan_from_bbox > 1 and avg_cell_height > 0:
+                                    # 0.8 factor tolerates minor geometric noise.
+                                    min_expected_height = avg_cell_height * rowspan_from_bbox * 0.8
+                                    if cell_rect.height < min_expected_height:
+                                        rowspan_from_bbox = 1
                                 
                                 if rowspan_from_bbox > 1:
                                     rowspan = rowspan_from_bbox
@@ -2703,13 +2769,30 @@ def to_markdown(
                                 rowspan = min(rowspan, row_count - row_idx)
                                 colspan = min(colspan, col_count - col_idx)
 
+                                # Never allow inferred colspan to cross explicit
+                                # text from raw extraction on the same row.
+                                if colspan > 1:
+                                    safe_colspan = colspan
+                                    for check_col in range(col_idx + 1, col_idx + colspan):
+                                        if check_col >= col_count:
+                                            break
+                                        raw_txt = ""
+                                        if (
+                                            row_idx < len(raw_matrix)
+                                            and check_col < len(raw_matrix[row_idx])
+                                        ):
+                                            raw_val = raw_matrix[row_idx][check_col]
+                                            if raw_val:
+                                                raw_txt = normalize_table_text(str(raw_val))
+                                        if raw_txt:
+                                            safe_colspan = check_col - col_idx
+                                            break
+                                    colspan = max(1, safe_colspan)
+
                                 # Guard against false vertical merges: if rows below
                                 # contain explicit text different from this cell in the
                                 # covered column range, this cell must not span there.
                                 if rowspan > 1:
-                                    primary_text_norm = normalize_table_text(
-                                        cell_text if cell_text else ""
-                                    )
                                     max_rowspan = rowspan
                                     for check_row in range(row_idx + 1, row_idx + rowspan):
                                         conflict = False
@@ -2724,7 +2807,7 @@ def to_markdown(
                                                 raw_val = raw_matrix[check_row][check_col]
                                                 if raw_val:
                                                     raw_txt = normalize_table_text(str(raw_val))
-                                            if raw_txt and raw_txt != primary_text_norm:
+                                            if raw_txt:
                                                 max_rowspan = check_row - row_idx
                                                 conflict = True
                                                 break
@@ -2864,12 +2947,59 @@ def to_markdown(
                 for row_idx in range(row_count):  # Start from row 0, not row 1
                     for col_idx in range(col_count):
                         if matrix[row_idx][col_idx] is None:
+                            # If raw extraction already has explicit text for
+                            # this logical position, do not auto-merge it.
+                            # Leave it as None so it will be filled from
+                            # raw_matrix in the consistency pass below.
+                            if (
+                                row_idx < len(raw_matrix)
+                                and col_idx < len(raw_matrix[row_idx])
+                                and normalize_table_text(
+                                    str(raw_matrix[row_idx][col_idx] or "")
+                                )
+                            ):
+                                continue
+
                             # Check if this empty cell should be merged with a cell above or to the left
                             merged_with = None
                             empty_pos = (row_idx, col_idx)
                             
                             # Get estimated bbox for empty cell
                             empty_cell_bbox = estimated_cell_positions.get(empty_pos)
+
+                            # Duplicate-artifact guard: if this empty cell has
+                            # practically the same bbox as the cell right above,
+                            # treat it as extraction duplication, not rowspan.
+                            if row_idx > 0 and empty_cell_bbox is not None:
+                                up_cell = matrix[row_idx - 1][col_idx]
+                                if isinstance(up_cell, dict) and up_cell.get("bbox"):
+                                    up_bbox = pymupdf.Rect(up_cell.get("bbox"))
+                                    tol_eq = 1.0
+                                    same_bbox = (
+                                        abs(empty_cell_bbox.x0 - up_bbox.x0) <= tol_eq
+                                        and abs(empty_cell_bbox.y0 - up_bbox.y0) <= tol_eq
+                                        and abs(empty_cell_bbox.x1 - up_bbox.x1) <= tol_eq
+                                        and abs(empty_cell_bbox.y1 - up_bbox.y1) <= tol_eq
+                                    )
+                                    if same_bbox:
+                                        continue
+
+                            # If this position has an explicit physical cell
+                            # in cell_boxes and its height is close to a normal
+                            # row height, treat it as a legitimate empty cell,
+                            # not a rowspan continuation.
+                            physical_cell_present = (
+                                row_idx < len(cell_boxes)
+                                and col_idx < len(cell_boxes[row_idx])
+                                and cell_boxes[row_idx][col_idx] is not None
+                            )
+                            if (
+                                physical_cell_present
+                                and empty_cell_bbox is not None
+                                and avg_cell_height > 0
+                            ):
+                                if empty_cell_bbox.height <= avg_cell_height * 1.35:
+                                    continue
                             
                             # First, check for cells above that might span to this position
                             if row_idx > 0:
@@ -2993,6 +3123,331 @@ def to_markdown(
                                 "merged_from": None,
                                 "id_merged": (row_idx, col_idx),
                             }
+
+                # Promote vertical merges when an empty cell with a tall bbox
+                # appears directly under a non-empty header cell in the same
+                # column. This is common when table extraction reports the
+                # lower part of a rowspan as an empty primary cell.
+                row_y0 = {}
+                for r_idx in range(row_count):
+                    ys = []
+                    for c_idx in range(col_count):
+                        cc = matrix[r_idx][c_idx]
+                        if not isinstance(cc, dict):
+                            continue
+                        bb = cc.get("bbox")
+                        if not bb:
+                            continue
+                        rr = pymupdf.Rect(bb)
+                        if rr.is_empty:
+                            continue
+                        ys.append(rr.y0)
+                    if ys:
+                        row_y0[r_idx] = min(ys)
+
+                for r_idx in range(1, row_count):
+                    for c_idx in range(col_count):
+                        cell = matrix[r_idx][c_idx]
+                        if not isinstance(cell, dict):
+                            continue
+                        if cell.get("is_merged"):
+                            continue
+                        if int(cell.get("rowspan", 1) or 1) > 1:
+                            continue
+                        txt = normalize_table_text(str(cell.get("text", "") or ""))
+                        if txt:
+                            continue
+                        bb = cell.get("bbox")
+                        if not bb:
+                            continue
+                        cell_rect = pymupdf.Rect(bb)
+                        if cell_rect.is_empty:
+                            continue
+                        # Promote only when this empty cell is significantly
+                        # taller than a typical row cell; normal-height empty
+                        # cells often belong to the next logical record and
+                        # must not be absorbed by vertical merge inference.
+                        if avg_cell_height > 0 and cell_rect.height <= avg_cell_height * 1.5:
+                            continue
+                        # The candidate bbox must start at (or very near) the
+                        # current row baseline. If it starts above, it is likely
+                        # a duplicated bbox inherited from the previous row and
+                        # must not trigger vertical merge promotion.
+                        row_base_y0 = row_y0.get(r_idx)
+                        if row_base_y0 is not None and cell_rect.y0 < row_base_y0 - 1.0:
+                            continue
+
+                        parent = matrix[r_idx - 1][c_idx]
+                        if not isinstance(parent, dict):
+                            continue
+                        if parent.get("is_merged"):
+                            continue
+                        parent_txt = normalize_table_text(str(parent.get("text", "") or ""))
+                        if not parent_txt:
+                            continue
+                        pbb = parent.get("bbox")
+                        if pbb:
+                            p_rect = pymupdf.Rect(pbb)
+                            if not p_rect.is_empty:
+                                tolx = max(2.0, float(avg_cell_width) * 0.15) if avg_cell_width > 0 else 2.0
+                                same_edges = (
+                                    abs(cell_rect.x0 - p_rect.x0) <= tolx
+                                    and abs(cell_rect.x1 - p_rect.x1) <= tolx
+                                )
+                                contained_in_parent = (
+                                    cell_rect.x0 >= p_rect.x0 - tolx
+                                    and cell_rect.x1 <= p_rect.x1 + tolx
+                                )
+                                if not (same_edges or contained_in_parent):
+                                    continue
+
+                        covered_rows = []
+                        for rr in range(r_idx, row_count):
+                            # never cross explicit text in raw extraction
+                            raw_txt = ""
+                            if rr < len(raw_matrix) and c_idx < len(raw_matrix[rr]):
+                                raw_val = raw_matrix[rr][c_idx]
+                                if raw_val:
+                                    raw_txt = normalize_table_text(str(raw_val))
+                            if raw_txt:
+                                break
+
+                            y0v = row_y0.get(rr)
+                            if y0v is None:
+                                continue
+                            if y0v <= cell_rect.y1 + 1.0:
+                                covered_rows.append(rr)
+                            else:
+                                break
+
+                        if not covered_rows:
+                            continue
+
+                        parent_row = int(parent.get("row", r_idx - 1) or (r_idx - 1))
+                        required_rowspan = covered_rows[-1] - parent_row + 1
+                        if required_rowspan <= 1:
+                            continue
+
+                        parent["rowspan"] = max(
+                            int(parent.get("rowspan", 1) or 1),
+                            required_rowspan,
+                        )
+                        matrix[parent_row][c_idx] = parent
+
+                        for rr in covered_rows:
+                            matrix[rr][c_idx] = {
+                                "text": "",
+                                "row": rr,
+                                "col": c_idx,
+                                "rowspan": 1,
+                                "colspan": 1,
+                                "bbox": tuple(cell_rect),
+                                "is_merged": True,
+                                "merged_from": (parent_row, c_idx),
+                                "primary_row": parent_row,
+                                "primary_col": c_idx,
+                                "id_merged": (parent_row, c_idx),
+                            }
+
+                # Sanity check for false rowspans: if a primary cell claims a
+                # vertical span but the covered rows contain multiple distinct
+                # physical cell boxes in the same column, this is usually a
+                # detection artifact (duplicate rows / repeated bboxes). In
+                # that case, collapse rowspan and restore covered cells.
+                for r_idx in range(row_count):
+                    for c_idx in range(col_count):
+                        cell = matrix[r_idx][c_idx]
+                        if not isinstance(cell, dict):
+                            continue
+                        if cell.get("is_merged"):
+                            continue
+                        span = int(cell.get("rowspan", 1) or 1)
+                        if span <= 1:
+                            continue
+
+                        covered = range(r_idx + 1, min(r_idx + span, row_count))
+                        physical_boxes = []
+                        for rr in covered:
+                            if rr < len(cell_boxes) and c_idx < len(cell_boxes[rr]):
+                                cb = cell_boxes[rr][c_idx]
+                                if cb is not None:
+                                    rc = pymupdf.Rect(cb) if not isinstance(cb, pymupdf.Rect) else cb
+                                    if not rc.is_empty:
+                                        physical_boxes.append(
+                                            (round(rc.x0, 1), round(rc.y0, 1), round(rc.x1, 1), round(rc.y1, 1))
+                                        )
+
+                        if len(set(physical_boxes)) < 2:
+                            continue
+
+                        cell["rowspan"] = 1
+                        matrix[r_idx][c_idx] = cell
+
+                        for rr in covered:
+                            raw_txt = ""
+                            if rr < len(raw_matrix) and c_idx < len(raw_matrix[rr]):
+                                raw_val = raw_matrix[rr][c_idx]
+                                if raw_val:
+                                    raw_txt = normalize_table_text(str(raw_val))
+                            rb = None
+                            if rr < len(cell_boxes) and c_idx < len(cell_boxes[rr]):
+                                cb = cell_boxes[rr][c_idx]
+                                if cb is not None:
+                                    rc = pymupdf.Rect(cb) if not isinstance(cb, pymupdf.Rect) else cb
+                                    if not rc.is_empty:
+                                        rb = tuple(rc)
+                            matrix[rr][c_idx] = {
+                                "text": raw_txt,
+                                "row": rr,
+                                "col": c_idx,
+                                "rowspan": 1,
+                                "colspan": 1,
+                                "bbox": rb,
+                                "is_merged": False,
+                                "merged_from": None,
+                                "id_merged": (rr, c_idx),
+                            }
+
+                # Recover content hidden by false horizontal merges (common
+                # in tables with diagonal / irregular first-cell geometry).
+                # Strategy: if a primary cell spans multiple columns but its
+                # covered positions are empty merged placeholders, split its
+                # bbox by inferred column edges and re-extract each sub-cell.
+                def _median(values):
+                    if not values:
+                        return None
+                    vals = sorted(values)
+                    n = len(vals)
+                    mid = n // 2
+                    if n % 2:
+                        return vals[mid]
+                    return (vals[mid - 1] + vals[mid]) / 2
+
+                col_edges = {}
+                for c in range(col_count):
+                    x0s = []
+                    x1s = []
+                    for r in range(row_count):
+                        cc = matrix[r][c]
+                        if not isinstance(cc, dict):
+                            continue
+                        if cc.get("is_merged"):
+                            continue
+                        if int(cc.get("colspan", 1) or 1) != 1:
+                            continue
+                        bb = cc.get("bbox")
+                        if not bb:
+                            continue
+                        rr = pymupdf.Rect(bb)
+                        if rr.is_empty:
+                            continue
+                        x0s.append(rr.x0)
+                        x1s.append(rr.x1)
+                    if x0s and x1s:
+                        col_edges[c] = (_median(x0s), _median(x1s))
+
+                if len(col_edges) >= 2:
+                    for r in range(row_count):
+                        for c in range(col_count):
+                            cell = matrix[r][c]
+                            if not isinstance(cell, dict):
+                                continue
+                            if cell.get("is_merged"):
+                                continue
+                            span = int(cell.get("colspan", 1) or 1)
+                            if span <= 1:
+                                continue
+                            span = min(span, col_count - c)
+                            bb = cell.get("bbox")
+                            if not bb:
+                                continue
+                            base_rect = pymupdf.Rect(bb)
+                            if base_rect.is_empty:
+                                continue
+
+                            # Split only when secondary covered cells are empty placeholders.
+                            placeholders_ok = True
+                            primary_text_norm = normalize_table_text(
+                                str(cell.get("text", "") or "")
+                            )
+                            for off in range(1, span):
+                                target = matrix[r][c + off]
+                                if not (
+                                    isinstance(target, dict)
+                                    and target.get("is_merged")
+                                    and target.get("merged_from") == (r, c)
+                                ):
+                                    placeholders_ok = False
+                                    break
+                                target_text_norm = normalize_table_text(
+                                    str(target.get("text", "") or "")
+                                )
+                                if target_text_norm and target_text_norm != primary_text_norm:
+                                    placeholders_ok = False
+                                    break
+                            if not placeholders_ok:
+                                continue
+
+                            sub_rects = []
+                            split_ok = True
+                            for k in range(c, c + span):
+                                if k not in col_edges:
+                                    split_ok = False
+                                    break
+                                ex0, ex1 = col_edges[k]
+                                x0 = max(base_rect.x0, ex0)
+                                x1 = min(base_rect.x1, ex1)
+                                if x1 - x0 < 2:
+                                    split_ok = False
+                                    break
+                                sub_rects.append(
+                                    pymupdf.Rect(x0, base_rect.y0, x1, base_rect.y1)
+                                )
+                            if not split_ok:
+                                continue
+
+                            sub_texts = []
+                            for sr in sub_rects:
+                                try:
+                                    txt = extract_cells(
+                                        parms.textpage,
+                                        tuple(sr),
+                                        markdown=False,
+                                    )
+                                    txt = normalize_table_text(txt)
+                                except Exception:
+                                    txt = ""
+                                sub_texts.append(txt)
+
+                            non_empty = [i for i, txt in enumerate(sub_texts) if txt]
+                            if len(non_empty) < 2:
+                                continue
+
+                            if not any(
+                                sub_texts[i]
+                                and normalize_table_text(sub_texts[i]) != primary_text_norm
+                                for i in range(1, span)
+                            ):
+                                continue
+
+                            cell["colspan"] = 1
+                            if sub_texts[0]:
+                                cell["text"] = sub_texts[0]
+                            matrix[r][c] = cell
+
+                            for off in range(1, span):
+                                sr = sub_rects[off]
+                                matrix[r][c + off] = {
+                                    "text": sub_texts[off],
+                                    "row": r,
+                                    "col": c + off,
+                                    "rowspan": 1,
+                                    "colspan": 1,
+                                    "bbox": tuple(sr),
+                                    "is_merged": False,
+                                    "merged_from": None,
+                                    "id_merged": (r, c + off),
+                                }
                 
                 # Post-process: for rows with only one non-empty cell, make it span all columns
                 for row_idx in range(row_count):
@@ -3022,6 +3477,21 @@ def to_markdown(
                 # blocks on the same row. This avoids artificial split columns
                 # like the blank column between "Batch size" and "10 kg".
                 for row_idx in range(row_count):
+                    # Do not force horizontal merges in rows that already have
+                    # explicit merge metadata. This avoids swallowing real
+                    # columns in complex tables with rowspans / diagonals.
+                    has_explicit_merge = any(
+                        isinstance(c, dict)
+                        and (
+                            c.get("is_merged")
+                            or int(c.get("rowspan", 1) or 1) > 1
+                            or int(c.get("colspan", 1) or 1) > 1
+                        )
+                        for c in matrix[row_idx]
+                    )
+                    if has_explicit_merge:
+                        continue
+
                     for col_idx in range(1, col_count - 1):
                         cell = matrix[row_idx][col_idx]
                         if not isinstance(cell, dict) or cell.get("is_merged"):
@@ -3034,6 +3504,8 @@ def to_markdown(
                         if not isinstance(right, dict):
                             continue
                         if right.get("is_merged"):
+                            continue
+                        if right.get("bbox") is None:
                             continue
                         if not str(right.get("text", "") or "").strip():
                             continue
@@ -3056,6 +3528,23 @@ def to_markdown(
                                 break
 
                         if left is None or left_col is None:
+                            continue
+                        if left.get("bbox") is None:
+                            continue
+
+                        # Require geometric adjacency to avoid joining truly
+                        # separate columns that merely have an empty cell
+                        # between them in the extracted matrix.
+                        left_bbox = pymupdf.Rect(left.get("bbox"))
+                        right_bbox = pymupdf.Rect(right.get("bbox"))
+                        gap_tol = max(3.0, float(avg_cell_width) * 0.15) if avg_cell_width > 0 else 3.0
+                        vertical_overlap = min(left_bbox.y1, right_bbox.y1) - max(left_bbox.y0, right_bbox.y0)
+                        min_h = min(left_bbox.height, right_bbox.height)
+                        if min_h <= 0:
+                            continue
+                        if vertical_overlap / min_h < 0.6:
+                            continue
+                        if abs(left_bbox.x1 - right_bbox.x0) > gap_tol:
                             continue
 
                         left_span = max(1, int(left.get("colspan", 1) or 1))
