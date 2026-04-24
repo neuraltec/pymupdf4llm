@@ -1,0 +1,56 @@
+Document: YA2304-Quality
+Date:Sep. 2024
+Version: 001
+Drug Master File of Finerenone
+Page 25 of 542
+Finerenone
+Hinye Pharmaceutical Co., Ltd.
+Confidential
+231101
+254.38
+257.04
+Interpretation:
+DSC showed that the self-made sample had an endothermic peak at 254℃,
+without other endothermic peaks, indicating that the endothermic peak was
+the melting point, consistent with the melting point reported in the original
+research patent (about 252℃).
+The DSC pattern is provided in:
+3.2.S.3.1 Annex 6
+DSC pattern on Finerenone (batch No.: 231101, 231201,
+240101, 240102)
+If. X-ray Diffraction Pattern (XRD)
+Sample Batch No.: 231101.
+Instrument:
+Japanese
+Institute
+of
+Technology
+(Smartlab
+3kW)
+X-ray
+diffractometer
+Test method: Light tube voltage 40kW, filament current 15mA, Cu radiation,
+Ni filtering, Hypix 3000 two-dimensional detector.
+Detection and analysis: The sample has the maximum peak value (error range
+is ±0.2°) at 2θ angles of 8.5, 14.1, 17.2, 19.0, 20.5, 25.6 and 26.5, which is
+consistent with the characteristic peak of polycrystalline substance I reported
+in the original research patent.
+The XRD pattern is provided in:
+3.2.S.3.1 Annex 7
+XRD pattern on Finerenone (batch No.: 231101)
+3.2.S.3.1 Annex 8
+XRD pattern on Finerenone (batch No.: 231201)
+3.2.S.3.1 Annex 9
+XRD pattern on Finerenone (batch No.: 240101)
+3.2.S.3.1 Annex 10
+XRD pattern on Finerenone (batch No.: 240102)
+Ig. Elemental Analysis
+Instrument model: Elementar Vario EL cube element analyzer
+
+--- Tables ---
+
+--- Table 1 ---
+bbox: (84.5999984741211, 89.23999786376953, 510.70001220703125, 105.33999633789062)
+Markdown:
+|231101|254.38|257.04|
+|---|---|---|

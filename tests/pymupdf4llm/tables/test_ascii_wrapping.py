@@ -66,3 +66,31 @@ def test_ascii_width_expansion(monkeypatch):
 
     # also verify the word appears intact in the output
     assert "abcdefgh" in ascii_tbl.replace("\n", " ")
+
+
+def test_ascii_requires_explicit_full_span_metadata():
+    """Rows with one visible text cell must not become full-span implicitly.
+
+    This protects tables that contain vertical merged placeholders from being
+    collapsed across all columns and swallowing neighboring content.
+    """
+    matrix = [
+        [
+            {"text": "A", "row": 0, "col": 0, "rowspan": 1, "colspan": 1, "is_merged": False, "merged_from": None},
+            {"text": "B", "row": 0, "col": 1, "rowspan": 1, "colspan": 1, "is_merged": False, "merged_from": None},
+            {"text": "C", "row": 0, "col": 2, "rowspan": 1, "colspan": 1, "is_merged": False, "merged_from": None},
+        ],
+        [
+            {"text": "II", "row": 1, "col": 0, "rowspan": 1, "colspan": 1, "is_merged": False, "merged_from": None},
+            {"text": "", "row": 1, "col": 1, "rowspan": 1, "colspan": 1, "is_merged": True, "merged_from": (0, 1)},
+            {"text": "", "row": 1, "col": 2, "rowspan": 1, "colspan": 1, "is_merged": True, "merged_from": (0, 2)},
+        ],
+    ]
+
+    ascii_tbl = matrix_to_ascii(matrix)
+    lines = [ln for ln in ascii_tbl.splitlines() if ln.startswith("|")]
+
+    # Header row should keep 3 columns.
+    assert lines[0].count("|") == 4
+    # The "II" row should also keep 3 columns (not full-span).
+    assert lines[-1].count("|") == 4

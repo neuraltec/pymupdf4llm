@@ -10,7 +10,7 @@ import pymupdf
 
 
 def main():
-    pdf_path = Path("Finerenona_Hinye.pdf")
+    pdf_path = Path("Jubilant.pdf")
 
     if not pdf_path.exists():
         print(f"Error: {pdf_path} not found")
@@ -81,13 +81,41 @@ def main():
                     print(f"  Link {i}: {link}")
                 print()
 
+                # Tables on page
+                tables = page.find_tables()
+                print(f"--- Tables ({len(tables.tables)} total) ---")
+                table_output_lines = []
+                if tables.tables:
+                    for i, table in enumerate(tables.tables):
+                        table_markdown = table.to_markdown()
+                        print(f"  Table {i}: bbox={table.bbox}")
+                        print("  Markdown:")
+                        print(table_markdown)
+                        table_output_lines.append(f"--- Table {i + 1} ---")
+                        table_output_lines.append(f"bbox: {table.bbox}")
+                        table_output_lines.append("Markdown:")
+                        table_output_lines.append(table_markdown)
+                        table_output_lines.append("")
+                        print()
+                else:
+                    print("(No tables detected on this page.)")
+                    table_output_lines.append("(No tables detected on this page.)")
+                    print()
+
                 # Option to save page text
                 save_choice = input("Save page text to file? (y/n): ").strip().lower()
                 if save_choice == "y":
                     output_file = pdf_path.with_name(
                         f"{pdf_path.stem}_page_{page_number}_pymupdf.txt"
                     )
-                    output_file.write_text(text, encoding="utf-8")
+                    output_lines = [
+                        text.rstrip(),
+                        "",
+                        "--- Tables ---",
+                        "",
+                        *table_output_lines,
+                    ]
+                    output_file.write_text("\n".join(output_lines).rstrip() + "\n", encoding="utf-8")
                     print(f"Saved to: {output_file}")
                     print()
 

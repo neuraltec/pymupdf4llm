@@ -1,0 +1,183 @@
+Document: YA2304-Quality
+Date:Sep. 2024
+Version: 001
+Drug Master File of Finerenone
+Page 118 of 542
+Finerenone
+Hinye Pharmaceutical Co., Ltd.
+Confidential
+Batch
+Limit
+s
+10% of
+limits
+231201
+240101
+240102
+LOD
+LOQ
+Ethanol
+≤0.
+5%
+≤0.05%
+0.1%
+0.2%
+0.1%
+0.003%
+0.01%
+Isoprop
+yl alco
+hol
+≤0.
+5%
+≤0.05%
+Not
+detecte
+d
+Not
+detecte
+d
+Not
+detecte
+d
+0.003%
+0.01%
+Ethyl a
+cetate
+≤0.
+5%
+≤0.05%
+Not
+detecte
+d
+Not
+detecte
+d
+Not
+detecte
+d
+0.003%
+0.01%
+sec-but
+anol
+≤0.
+5%
+≤0.05%
+Not
+detecte
+d
+Not
+detecte
+d
+Not
+detecte
+d
+0.002%
+0.008%
+tetrahy
+drofura
+n
+≤0.07
+2%
+≤0.0072%
+Not
+detecte
+d
+Not
+detecte
+d
+Not
+detecte
+d
+0.002%
+0.007%
+Toluene
+≤0.08
+9%
+≤0.0089%
+Not
+detecte
+d
+Not
+detecte
+d
+Not
+detecte
+d
+0.001%
+0.004%
+N-meth
+ylpyrrol
+idone
+≤0.05
+3%
+≤0.0053%
+Not
+detecte
+d
+Not
+detecte
+d
+Not
+detecte
+d
+0.002%
+0.006%
+piperidi
+ne
+≤0.
+1%
+≤0.01%
+Not
+detecte
+d
+Not
+detecte
+d
+Not
+detecte
+d
+0.003%
+0.01%
+benzen
+e
+≤0.00
+02%
+≤0.00002
+%
+Not
+detecte
+d
+Not
+detecte
+d
+Not
+detecte
+d
+0.000016
+%
+0.000053
+%
+According to the test results of three commercial-scale batches of self-made
+samples for residual solvents, except for ethanol used in the last step of the
+process, the remaining eight residual solvents were not detected (LOD is
+detailed in Table 3.2.S.3.2.3-2), all below 10% of their acceptable limits.
+Therefore, the applicant in the final draft quality standards, the solvent used
+in the last step of the process of ethanol and the second class of solvents
+
+--- Tables ---
+
+--- Table 1 ---
+bbox: (84.63000106811523, 87.96999740600586, 510.6699981689453, 591.3900146484375)
+Markdown:
+|Batch|Limit<br>s|10% of<br>limits|231201|240101|240102|LOD|LOQ|
+|---|---|---|---|---|---|---|---|
+|Ethanol|≤0.<br>5%|≤0.05%|0.1%|0.2%|0.1%|0.003%|0.01%|
+|Isoprop<br>yl alco<br>hol|≤0.<br>5%|≤0.05%|Not<br>detecte<br>d|Not<br>detecte<br>d|Not<br>detecte<br>d|0.003%|0.01%|
+|Ethyl a<br>cetate|≤0.<br>5%|≤0.05%|Not<br>detecte<br>d|Not<br>detecte<br>d|Not<br>detecte<br>d|0.003%|0.01%|
+|sec-but<br>anol|≤0.<br>5%|≤0.05%|Not<br>detecte<br>d|Not<br>detecte<br>d|Not<br>detecte<br>d|0.002%|0.008%|
+|tetrahy<br>drofura<br>n|≤0.07<br>2%|≤0.0072%|Not<br>detecte<br>d|Not<br>detecte<br>d|Not<br>detecte<br>d|0.002%|0.007%|
+|Toluene|≤0.08<br>9%|≤0.0089%|Not<br>detecte<br>d|Not<br>detecte<br>d|Not<br>detecte<br>d|0.001%|0.004%|
+|N-meth<br>ylpyrrol<br>idone|≤0.05<br>3%|≤0.0053%|Not<br>detecte<br>d|Not<br>detecte<br>d|Not<br>detecte<br>d|0.002%|0.006%|
+|piperidi<br>ne|≤0.<br>1%|≤0.01%|Not<br>detecte<br>d|Not<br>detecte<br>d|Not<br>detecte<br>d|0.003%|0.01%|
+|benzen<br>e|≤0.00<br>02%|≤0.00002<br>%|Not<br>detecte<br>d|Not<br>detecte<br>d|Not<br>detecte<br>d|0.000016<br>%|0.000053<br>%|

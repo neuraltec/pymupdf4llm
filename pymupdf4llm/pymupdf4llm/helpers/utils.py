@@ -1108,30 +1108,26 @@ def _normalize_table_br_tags(value: str) -> str:
 
 
 def _merge_single_letter_word_splits(value: str) -> str:
-    """Merge whitespace splits when one side is a single letter."""
+    """Merge likely OCR/extraction splits around isolated i/I tokens.
+
+    Keep this heuristic conservative: it should fix patterns like
+    "single i mpurities" -> "single impurities" without altering normal
+    language sequences such as "a possibility".
+    """
     if not value:
         return value
 
     letter = r"[^\W\d_]"
-    # Use explicit space/tab classes instead of \s to avoid matching newlines.
-    mid_single = re.compile(
-        rf"({letter}{{2,}})[ \t]+({letter})[ \t]+({letter}{{2,}})", re.UNICODE
-    )
-    left_single = re.compile(
-        rf"(?<!{letter})({letter})[ \t]+({letter}{{2,}})", re.UNICODE
-    )
-    # don't merge if the single-letter token is immediately followed by a newline
-    right_single = re.compile(
-        rf"({letter}{{2,}})[ \t]+({letter})(?!{letter})(?![ \t]+{letter})(?!\n)",
-        re.UNICODE,
+    # Only target middle-token isolated i/I cases between two words.
+    # This prevents false joins like "There is a possibility".
+    mid_isolated_i = re.compile(
+        rf"({letter}{{2,}})[ \t]+([iI])[ \t]+({letter}{{2,}})", re.UNICODE
     )
 
     previous = None
     while value != previous:
         previous = value
-        value = mid_single.sub(r"\1\2 \3", value)
-        value = left_single.sub(r"\1\2", value)
-        value = right_single.sub(r"\1\2", value)
+        value = mid_isolated_i.sub(r"\1 \2\3", value)
     return value
 
 

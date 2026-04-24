@@ -1,0 +1,40 @@
+Document: YA2304-Quality
+Date:Sep. 2024
+Version: 001
+Drug Master File of Finerenone
+Page 36 of 542
+Finerenone
+Hinye Pharmaceutical Co., Ltd.
+Confidential
+2.3 Physical and chemical hazards
+Referring to current information, no physical or chemical hazard.
+2.4 Health hazards
+Referring to current information, no health hazard.
+2.5 Environmental hazards
+Referring to current information, no environmental hazard.
+2.6 Other hazards
+Caution: Physiologically highly active, therapeutically usable substance. The
+substance must be handled with the care required for hazardous materials.
+SECTION 3: Composition/information on ingredients
+3.1 Substances
+Product name
+CAS No.
+Formula
+Molecular weight
+Finerenone
+1050477-31-0
+C21H22N4O3
+378.43 g/mol
+SECTION 4: First-aid measures
+If inhaled
+After inhalation: fresh air. Consult doctor if feeling unwell.
+
+--- Tables ---
+
+--- Table 1 ---
+bbox: (84.47999954223633, 510.32000732421875, 527.3200073242188, 573.8400268554688)
+Markdown:
+|3.1 Substances|Col2|Col3|Col4|
+|---|---|---|---|
+|Product name|CAS No.|Formula|Molecular weight|
+|Finerenone|1050477-31-0|C21H22N4O3|378.43 g/mol|

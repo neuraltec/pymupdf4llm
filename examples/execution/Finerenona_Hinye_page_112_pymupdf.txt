@@ -1,0 +1,106 @@
+Document: YA2304-Quality
+Date:Sep. 2024
+Version: 001
+Drug Master File of Finerenone
+Page 112 of 542
+Finerenone
+Hinye Pharmaceutical Co., Ltd.
+Confidential
+Table 3.2.S.3.2.1-2 Detection of each potential organic impurity in Finer
+enone
+Batch No.
+Impurity name
+231201
+240101
+240102
+Related subs
+tance
+YA2304-10
+Not detected
+Not detected
+Not detected
+YA2304-12
+Not detected
+Not detected
+Not detected
+YA2304-14
+Not detected
+Not detected
+Not detected
+YA2304-15
+Not detected
+Not detected
+< 0.05%
+YA2304-16
+Not detected
+Not detected
+Not detected
+YA2304-17
+Not detected
+Not detected
+Not detected
+YA2304-18
+Not detected
+Not detected
+Not detected
+YA2304-19
+< 0.05%
+< 0.05%
+< 0.05%
+Other single i
+mpurities
+< 0.05%
+< 0.05%
+< 0.05%
+Total Miscella
+neous
+< 0.05%
+< 0.05%
+< 0.05%
+Related Sub
+stance II
+YA2304-52
+Not detected
+Not detected
+Not detected
+Imidazole
+Not detected
+Not detected
+Not detected
+Enantiomer
+YA2304-20
+0.03%
+0.03%
+0.02%
+3.2.S.3.2.2 Inorganic Impurities
+Inorganic impurities in Finerenone may originate from reaction reagents,
+catalysts used in the production process, and inorganic salts used in the
+post-treatment process. For inorganic impurities that may be introduced into
+the starting material, the applicant intends to set up a incandescent residue
+item in each starting material quality standard to control inorganic
+impurities. Therefore, the applicant combined with 3.2.S.2.2.3 process
+description to analyze and study the inorganic impurities in the process of
+Finerenone preparation, and formulated the corresponding control strategy,
+as detailed in Table 3.2.S.3.2.2-1.
+
+--- Tables ---
+
+--- Table 1 ---
+bbox: (84.30000305175781, 137.7699966430664, 510.8999938964844, 462.0899963378906)
+Markdown:
+|Col1|Col2|enone|Col4|Col5|
+|---|---|---|---|---|
+|Batch No.<br>Impurity name|Batch No.<br>Impurity name|231201|240101|240102|
+|Related subs<br>tance|YA2304-10|Not detected|Not detected|Not detected|
+|Related subs<br>tance|YA2304-12|Not detected|Not detected|Not detected|
+|Related subs<br>tance|YA2304-14|Not detected|Not detected|Not detected|
+|Related subs<br>tance|YA2304-15|Not detected|Not detected|< 0.05%|
+|Related subs<br>tance|YA2304-16|Not detected|Not detected|Not detected|
+|Related subs<br>tance|YA2304-17|Not detected|Not detected|Not detected|
+|Related subs<br>tance|YA2304-18|Not detected|Not detected|Not detected|
+|Related subs<br>tance|YA2304-19|< 0.05%|< 0.05%|< 0.05%|
+|Related subs<br>tance|Other single i<br>mpurities|< 0.05%|< 0.05%|< 0.05%|
+|Related subs<br>tance|Total Miscella<br>neous|< 0.05%|< 0.05%|< 0.05%|
+|Related Sub<br>stance II|YA2304-52|Not detected|Not detected|Not detected|
+|Related Sub<br>stance II|Imidazole|Not detected|Not detected|Not detected|
+|Enantiomer|YA2304-20|0.03%|0.03%|0.02%|
