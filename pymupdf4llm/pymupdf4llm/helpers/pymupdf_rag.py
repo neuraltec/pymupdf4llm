@@ -80,7 +80,10 @@ def _normalize_table_text(text, *, keep_newlines=False):
     """Normalize whitespace for table cell text to avoid layout breaks."""
     if not text:
         return text
-    value = _normalize_table_br_tags(text)
+    # Convert real newlines to <br> tags so _normalize_table_br_tags can process them.
+    # This handles table extractions from PyMuPDF that may have \n instead of <br>.
+    value = text.replace("\n", "<br>")
+    value = _normalize_table_br_tags(value)
     value = _merge_single_letter_word_splits(value)
     if not keep_newlines:
         value = value.replace("\n", " ")

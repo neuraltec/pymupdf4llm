@@ -10,7 +10,7 @@ import pymupdf
 
 
 def main():
-    pdf_path = Path("Jubilant.pdf")
+    pdf_path = Path("Finerenona_Hinye.pdf")
 
     if not pdf_path.exists():
         print(f"Error: {pdf_path} not found")
