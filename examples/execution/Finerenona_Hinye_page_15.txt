@@ -30,16 +30,14 @@ Table 3.2.S.3.1-2 Mass Spectrum Data of the Substance to be Examined
 
 
 
-------------------------------------------
-|Batch  |Accurate|Theoretical|Elemental  |
-|No.    |measured|value      |composition|
-|       |mass    |           |           |
-|       |value   |           |           |
-|-------|--------|-----------|-----------|
-|231101 |379.18  |378.43     |[C H N O   |
-|       |        |           |+H]+ 21 22 |
-|       |        |           |4 3        |
-------------------------------------------
+----------------------------------------------
+|Batch  |Accurate|Theoretical|Elemental      |
+|No.    |measured|value      |composition    |
+|       |mass    |           |               |
+|       |value   |           |               |
+|-------|--------|-----------|---------------|
+|231101 |379.18  |378.43     |[C21H22N4O3+H]+|
+----------------------------------------------
 
 Interpretation: 
 
@@ -121,7 +119,7 @@ Table 3.2.S.3.1-3 Infrared Spectrum Data of the Substance to be Examined
 |peak posit|vibr   |Gro ups |          |
 |ion (cm-1)|ation  |        |          |
 |----------|-------|--------|----------|
-|3475.73   |υNH2   |-CONH 2 |Asymmetric|
+|3475.73   |υNH2   |-CONH2  |Asymmetric|
 |          |       |        |stretching|
 |          |       |        |vibr ation|
 |          |       |        |of        |
@@ -129,7 +127,7 @@ Table 3.2.S.3.1-3 Infrared Spectrum Data of the Substance to be Examined
 |          |       |        |and hydr  |
 |          |       |        |ogen      |
 |----------|-------|--------|----------|
-|3415.93   |υNH    |-CONH 2 |Nitrogen  |
+|3415.93   |υNH    |-CONH2  |Nitrogen  |
 |          |       |        |hydrogen  |
 |          |       |        |symmetr ic|
 |          |       |        |stretching|
@@ -166,19 +164,17 @@ Page 15 of 542
   Markdown:
 |Batch No.|Accurate measured mass value|Theoretical value|Elemental composition|
 |---|---|---|---|
-|231101|379.18|378.43|[C H N O +H]+ 21 22 4 3|
+|231101|379.18|378.43|[C21H22N4O3+H]+|
 
   ASCII:
-------------------------------------------
-|Batch  |Accurate|Theoretical|Elemental  |
-|No.    |measured|value      |composition|
-|       |mass    |           |           |
-|       |value   |           |           |
-|-------|--------|-----------|-----------|
-|231101 |379.18  |378.43     |[C H N O   |
-|       |        |           |+H]+ 21 22 |
-|       |        |           |4 3        |
-------------------------------------------
+----------------------------------------------
+|Batch  |Accurate|Theoretical|Elemental      |
+|No.    |measured|value      |composition    |
+|       |mass    |           |               |
+|       |value   |           |               |
+|-------|--------|-----------|---------------|
+|231101 |379.18  |378.43     |[C21H22N4O3+H]+|
+----------------------------------------------
 
   Cells (attributes per cell):
   [row=0, col=0]
@@ -238,7 +234,7 @@ Page 15 of 542
   bbox=(320.20001220703125, 193.94000244140625, 401.0, 210.0399932861328)
 
   [row=1, col=3]
-  content: '[C H N O +H]+ 21 22 4 3'
+  content: '[C21H22N4O3+H]+'
   row=1, col=3
   rowspan=1, colspan=1
   is_merged=False
@@ -253,8 +249,8 @@ Page 15 of 542
   Markdown:
 |Absorption peak posit ion (cm-1)|Type of vibr ation|Possible Gro ups|Remarks|
 |---|---|---|---|
-|3475.73|υNH2|-CONH 2|Asymmetric stretching vibr ation of nitrogen and hydr ogen|
-|3415.93|υNH|-CONH 2|Nitrogen hydrogen symmetr ic stretching vibration|
+|3475.73|υNH2|-CONH2|Asymmetric stretching vibr ation of nitrogen and hydr ogen|
+|3415.93|υNH|-CONH2|Nitrogen hydrogen symmetr ic stretching vibration|
 |3365.78|υNH|-NH|Nitrogen hydrogen stretchi ng vibration|
 |3115.04, 3079.53|υCH|Pyridine ring, benzene ring|Carbon hydrogen stretching vibration|
 
@@ -264,7 +260,7 @@ Page 15 of 542
 |peak posit|vibr   |Gro ups |          |
 |ion (cm-1)|ation  |        |          |
 |----------|-------|--------|----------|
-|3475.73   |υNH2   |-CONH 2 |Asymmetric|
+|3475.73   |υNH2   |-CONH2  |Asymmetric|
 |          |       |        |stretching|
 |          |       |        |vibr ation|
 |          |       |        |of        |
@@ -272,7 +268,7 @@ Page 15 of 542
 |          |       |        |and hydr  |
 |          |       |        |ogen      |
 |----------|-------|--------|----------|
-|3415.93   |υNH    |-CONH 2 |Nitrogen  |
+|3415.93   |υNH    |-CONH2  |Nitrogen  |
 |          |       |        |hydrogen  |
 |          |       |        |symmetr ic|
 |          |       |        |stretching|
@@ -340,7 +336,7 @@ Page 15 of 542
   bbox=(206.6999969482422, 585.4400024414062, 283.25, 632.739990234375)
 
   [row=1, col=2]
-  content: '-CONH 2'
+  content: '-CONH2'
   row=1, col=2
   rowspan=1, colspan=1
   is_merged=False
@@ -372,7 +368,7 @@ Page 15 of 542
   bbox=(206.6999969482422, 632.739990234375, 283.25, 664.4400024414062)
 
   [row=2, col=2]
-  content: '-CONH 2'
+  content: '-CONH2'
   row=2, col=2
   rowspan=1, colspan=1
   is_merged=False

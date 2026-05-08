@@ -194,7 +194,7 @@ TEST_CONFIGURATIONS = [
 |       |                      |       |       |              |Sarah:    |             |as part of CSO|
 |       |                      |       |       |              |Positive  |             |with TTC limit|
 |       |                      |       |       |              |          |             |[NMT 50 PPM]  |
-|       |                      |       |       |              |          |             |[i.eCustomer  |
+|       |                      |       |       |              |          |             |[i.e Customer |
 |       |                      |       |       |              |          |             |specific      |
 |       |                      |       |       |              |          |             |order] CSO#   |
 |       |                      |       |       |              |          |             |1566 Refer    |
@@ -208,7 +208,7 @@ TEST_CONFIGURATIONS = [
 |       |                      |       |       |              |Positive  |             |as part of CSO|
 |       |                      |       |       |              |          |             |with TTC limit|
 |       |                      |       |       |              |          |             |[NMT 50 PPM]  |
-|       |                      |       |       |              |          |             |[i.eCustomer  |
+|       |                      |       |       |              |          |             |[i.e Customer |
 |       |                      |       |       |              |          |             |specific      |
 |       |                      |       |       |              |          |             |order] CSO#   |
 |       |                      |       |       |              |          |             |1566 Refer    |
@@ -500,7 +500,7 @@ TEST_CONFIGURATIONS = [
 |drug         |            |due to       |
 |substance    |            |reagents is  |
 |manufacturing|            |eliminated.  |
-|             |            |There isa    |
+|             |            |There is a   |
 |             |            |possibility  |
 |             |            |for carryover|
 |             |            |of secondary |

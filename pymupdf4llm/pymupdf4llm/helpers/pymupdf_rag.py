@@ -1240,6 +1240,60 @@ def _get_table_cell_boxes(t):
     return cell_boxes
 
 
+def _fix_subscript_separation_in_matrix(raw_matrix, cell_boxes, textpage):
+    """Fix subscript/superscript separation caused by t.extract() Y-reordering.
+    
+    When PyMuPDF's t.extract() encounters subscripts/superscripts at different Y positions,
+    it places them on separate lines. This function detects these patterns and uses
+    extract_cells() to get the correct inline version from textpage.
+    
+    Args:
+        raw_matrix: List of lists (table data from t.extract())
+        cell_boxes: List of lists of cell bboxes (row-major order)
+        textpage: PyMuPDF TextPage object for correction
+    """
+    
+    if not raw_matrix or not cell_boxes:
+        return
+    
+    # Detect subscript patterns in each cell
+    for row_idx, row in enumerate(raw_matrix):
+        for col_idx, cell_text in enumerate(row):
+            if not cell_text or "\n" not in cell_text:
+                continue
+            
+            lines = cell_text.split("\n")
+            if len(lines) < 2:
+                continue
+            
+            # Heuristic: if last line is ONLY digits/spaces (subscript pattern)
+            last_line = lines[-1].strip()
+            is_likely_subscript = (
+                last_line and
+                all(c.isdigit() or c.isspace() for c in last_line) and
+                len(last_line) <= 20  # subscripts are short
+            )
+            
+            if not is_likely_subscript:
+                continue
+            
+            # Try to get corrected text using extract_cells
+            if row_idx < len(cell_boxes) and col_idx < len(cell_boxes[row_idx]):
+                cell_bbox = cell_boxes[row_idx][col_idx]
+                if cell_bbox:
+                    try:
+                        corrected = extract_cells(textpage, tuple(cell_bbox), markdown=False)
+                        if corrected and corrected != cell_text:
+                            # Use corrected version if it doesn't have the subscript separation
+                            if "\n" not in corrected or not all(
+                                c.isdigit() or c.isspace() 
+                                for c in corrected.split("\n")[-1].strip()
+                            ):
+                                raw_matrix[row_idx][col_idx] = corrected
+                    except Exception:
+                        pass
+
+
 def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: float = 0.05):
     """Merge table metadata entries that are parts of the same logical table.
 
@@ -2399,13 +2453,21 @@ def to_markdown(
                     if len(deduped_rows) >= row_count:
                         cell_boxes = deduped_rows[:row_count]
 
-                # Attempt to get the cell text from PyMuPDF's table extractor.
-                # This is often more reliable than manual bbox-based text extraction.
+                # Get the cell text from PyMuPDF's table extractor
+                # We'll post-process subscripts/superscripts after to preserve structure
                 raw_matrix = None
                 try:
                     raw_matrix = t.extract() or []
                 except Exception:
                     raw_matrix = []
+
+                # Post-process to fix subscript/superscript separation by Y position
+                # When t.extract() separates subscripts (like "21 22 4 3" after "[C H N O]"),
+                # we detect them using Y coordinates and merge them back inline
+                if raw_matrix and cell_boxes:
+                    _fix_subscript_separation_in_matrix(
+                        raw_matrix, cell_boxes, parms.textpage
+                    )
 
                 # Normalize raw_matrix size to match row_count/col_count
                 if raw_matrix is None:
@@ -2529,14 +2591,8 @@ def to_markdown(
                             try:
                                 cell_rect = pymupdf.Rect(cell) if not isinstance(cell, pymupdf.Rect) else cell
 
-                                # Prefer PyMuPDF's table text extraction (more accurate)
+                                # Get cell text from raw_matrix (which already uses extract_cells)
                                 cell_text = raw_matrix[row_idx][col_idx] if row_idx < len(raw_matrix) and col_idx < len(raw_matrix[row_idx]) else ""
-
-                                if not cell_text:
-                                    # Fallback: extract from textpage using bbox
-                                    cell_text = extract_cells(
-                                        parms.textpage, cell, markdown=False
-                                    )
 
                                 # Normalize whitespace/HTML breaks before wrapping
                                 cell_text = normalize_table_text(cell_text)

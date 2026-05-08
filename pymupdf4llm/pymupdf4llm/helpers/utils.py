@@ -1168,6 +1168,9 @@ def extract_cells(table_blocks, cell, markdown=False, ocrpage=False):
     for block in table_blocks:
         if outside_bbox(block["bbox"], cell):
             continue
+        # Skip non-text blocks (type 0 = text)
+        if block.get("type", 0) != 0 or "lines" not in block:
+            continue
         for line in block["lines"]:
             if outside_bbox(line["bbox"], cell):
                 continue
@@ -1184,7 +1187,7 @@ def extract_cells(table_blocks, cell, markdown=False, ocrpage=False):
                     continue
                 if ocrpage:
                     span_text = span["text"]
-                else:
+                elif "chars" in span:
                     # compose span text from chars
                     # only include chars with more than 50% bbox overlap
                     span_text = ""
@@ -1194,6 +1197,9 @@ def extract_cells(table_blocks, cell, markdown=False, ocrpage=False):
                             span_text += this_char
                         elif this_char in WHITE_CHARS:
                             span_text += " "
+                else:
+                    # Fallback: use text directly (happens when TextPage was created with certain flags)
+                    span_text = span.get("text", "")
 
                 if not span_text:
                     continue  # skip empty span
@@ -1204,16 +1210,16 @@ def extract_cells(table_blocks, cell, markdown=False, ocrpage=False):
 
                 prefix = ""
                 suffix = ""
-                if horizontal and span["char_flags"] & pymupdf.mupdf.FZ_STEXT_STRIKEOUT:
+                if horizontal and span.get("char_flags", 0) & pymupdf.mupdf.FZ_STEXT_STRIKEOUT:
                     prefix += "~~"
                     suffix = "~~" + suffix
-                if span["char_flags"] & pymupdf.mupdf.FZ_STEXT_BOLD:
+                if span.get("char_flags", 0) & pymupdf.mupdf.FZ_STEXT_BOLD:
                     prefix += "**"
                     suffix = "**" + suffix
-                if span["flags"] & pymupdf.TEXT_FONT_ITALIC:
+                if span.get("flags", 0) & pymupdf.TEXT_FONT_ITALIC:
                     prefix += "_"
                     suffix = "_" + suffix
-                if not ocrpage and span["flags"] & pymupdf.TEXT_FONT_MONOSPACED:
+                if not ocrpage and span.get("flags", 0) & pymupdf.TEXT_FONT_MONOSPACED:
                     prefix += "`"
                     suffix = "`" + suffix
 
