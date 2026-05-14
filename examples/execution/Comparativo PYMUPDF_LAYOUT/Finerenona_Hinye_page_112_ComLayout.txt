@@ -1,0 +1,761 @@
+=== Page: page_112 ===
+
+--- Page text (markdown/ascii) ---
+
+**Drug** **Master** **File** **of** **Finerenone** 
+Document: YA2304-Quality Version: 001 Date:Sep. 2024 
+
+
+
+Table 3.2.S.3.2.1-2 Detection of each potential organic impurity in Finer 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------
+|Batch No. Impurity   |231201  |240101  |240102  |
+|name                 |        |        |        |
+|---------------------|--------|--------|--------|
+|Related   |YA2304-10 |Not     |Not     |Not     |
+|subs tance|          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-12 |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-14 |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-15 |Not     |Not     |< 0.05% |
+|          |          |detected|detected|        |
+|          |----------|--------|--------|--------|
+|          |YA2304-16 |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-17 |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-18 |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-19 |< 0.05% |< 0.05% |< 0.05% |
+|          |----------|--------|--------|--------|
+|          |Other     |< 0.05% |< 0.05% |< 0.05% |
+|          |single    |        |        |        |
+|          |impurities|        |        |        |
+|          |----------|--------|--------|--------|
+|          |Total     |< 0.05% |< 0.05% |< 0.05% |
+|          |Miscella  |        |        |        |
+|          |neous     |        |        |        |
+|----------|----------|--------|--------|--------|
+|Related   |YA2304-52 |Not     |Not     |Not     |
+|Sub stance|          |detected|detected|detected|
+|II        |          |        |        |        |
+|          |----------|--------|--------|--------|
+|          |Imidazole |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|----------|----------|--------|--------|--------|
+|Enantiomer|YA2304-20 |0.03%   |0.03%   |0.02%   |
+--------------------------------------------------
+
+**3.2.S.3.2.2** **Inorganic** **Impurities** 
+
+
+
+Inorganic impurities in Finerenone may originate from reaction reagents, 
+
+
+
+catalysts used in the production process, and inorganic salts used in the 
+
+
+
+post-treatment process. For inorganic impurities that may be introduced into 
+
+
+
+the starting material, the applicant intends to set up a incandescent residue 
+
+
+
+item in each starting material quality standard to control inorganic 
+
+
+
+impurities. Therefore, the applicant combined with 3.2.S.2.2.3 process 
+
+
+
+description to analyze and study the inorganic impurities in the process of 
+
+
+
+Finerenone preparation, and formulated the corresponding control strategy, 
+
+
+
+as detailed in Table 3.2.S.3.2.2-1. 
+
+
+
+Finerenone 
+Confidential Hinye Pharmaceutical Co., Ltd. 
+
+
+
+Page 112 of 542 
+
+
+
+
+
+============================================================
+
+--- Table 1 ---
+  bbox: (84.30000305175781, 118.09945678710938, 510.8999938964844, 462.0899963378906)
+  rows: 14, columns: 5
+
+  Markdown:
+|Batch No. Impurity name||231201|240101|240102|
+|---|---|---|---|---|
+|Related subs tance|YA2304-10|Not detected|Not detected|Not detected|
+||YA2304-12|Not detected|Not detected|Not detected|
+||YA2304-14|Not detected|Not detected|Not detected|
+||YA2304-15|Not detected|Not detected|< 0.05%|
+||YA2304-16|Not detected|Not detected|Not detected|
+||YA2304-17|Not detected|Not detected|Not detected|
+||YA2304-18|Not detected|Not detected|Not detected|
+||YA2304-19|< 0.05%|< 0.05%|< 0.05%|
+||Other single impurities|< 0.05%|< 0.05%|< 0.05%|
+||Total Miscella neous|< 0.05%|< 0.05%|< 0.05%|
+|Related Sub stance II|YA2304-52|Not detected|Not detected|Not detected|
+||Imidazole|Not detected|Not detected|Not detected|
+|Enantiomer|YA2304-20|0.03%|0.03%|0.02%|
+
+  ASCII:
+--------------------------------------------------
+|Batch No. Impurity   |231201  |240101  |240102  |
+|name                 |        |        |        |
+|---------------------|--------|--------|--------|
+|Related   |YA2304-10 |Not     |Not     |Not     |
+|subs tance|          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-12 |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-14 |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-15 |Not     |Not     |< 0.05% |
+|          |          |detected|detected|        |
+|          |----------|--------|--------|--------|
+|          |YA2304-16 |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-17 |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-18 |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|          |----------|--------|--------|--------|
+|          |YA2304-19 |< 0.05% |< 0.05% |< 0.05% |
+|          |----------|--------|--------|--------|
+|          |Other     |< 0.05% |< 0.05% |< 0.05% |
+|          |single    |        |        |        |
+|          |impurities|        |        |        |
+|          |----------|--------|--------|--------|
+|          |Total     |< 0.05% |< 0.05% |< 0.05% |
+|          |Miscella  |        |        |        |
+|          |neous     |        |        |        |
+|----------|----------|--------|--------|--------|
+|Related   |YA2304-52 |Not     |Not     |Not     |
+|Sub stance|          |detected|detected|detected|
+|II        |          |        |        |        |
+|          |----------|--------|--------|--------|
+|          |Imidazole |Not     |Not     |Not     |
+|          |          |detected|detected|detected|
+|----------|----------|--------|--------|--------|
+|Enantiomer|YA2304-20 |0.03%   |0.03%   |0.02%   |
+--------------------------------------------------
+
+  Cells (attributes per cell):
+  [row=0, col=0]
+  content: 'Batch No. Impurity name'
+  row=0, col=0
+  rowspan=1, colspan=2
+  is_merged=False
+  merged_from=None
+  bbox=(84.30000305175781, 118.09945678710938, 242.60000610351562, 137.7699966430664)
+
+  [row=0, col=1]
+  content: 'Batch No. Impurity name'
+  row=0, col=1
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(0, 0)
+  bbox=(84.30000305175781, 118.09945678710938, 242.60000610351562, 137.7699966430664)
+
+  [row=0, col=2]
+  content: '231201'
+  row=0, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 118.09945678710938, 332.0, 137.7699966430664)
+
+  [row=0, col=3]
+  content: '240101'
+  row=0, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 118.09945678710938, 421.3999938964844, 137.7699966430664)
+
+  [row=0, col=4]
+  content: '240102'
+  row=0, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 118.09945678710938, 510.8999938964844, 137.7699966430664)
+
+  [row=1, col=0]
+  content: 'Related subs tance'
+  row=1, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(84.30000305175781, 137.7699966430664, 242.60000610351562, 176.58999633789062)
+
+  [row=1, col=1]
+  content: 'YA2304-10'
+  row=1, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=1, col=2]
+  content: 'Not detected'
+  row=1, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 137.7699966430664, 332.0, 176.58999633789062)
+
+  [row=1, col=3]
+  content: 'Not detected'
+  row=1, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 137.7699966430664, 421.3999938964844, 176.58999633789062)
+
+  [row=1, col=4]
+  content: 'Not detected'
+  row=1, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 137.7699966430664, 510.8999938964844, 176.58999633789062)
+
+  [row=2, col=0]
+  content: ''
+  row=2, col=0
+  rowspan=9, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
+
+  [row=2, col=1]
+  content: 'YA2304-12'
+  row=2, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 176.58999633789062, 242.60000610351562, 196.19000244140625)
+
+  [row=2, col=2]
+  content: 'Not detected'
+  row=2, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 176.58999633789062, 332.0, 196.19000244140625)
+
+  [row=2, col=3]
+  content: 'Not detected'
+  row=2, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 176.58999633789062, 421.3999938964844, 196.19000244140625)
+
+  [row=2, col=4]
+  content: 'Not detected'
+  row=2, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 176.58999633789062, 510.8999938964844, 196.19000244140625)
+
+  [row=3, col=0]
+  content: ''
+  row=3, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
+
+  [row=3, col=1]
+  content: 'YA2304-14'
+  row=3, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 196.19000244140625, 242.60000610351562, 213.2899932861328)
+
+  [row=3, col=2]
+  content: 'Not detected'
+  row=3, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 196.19000244140625, 332.0, 213.2899932861328)
+
+  [row=3, col=3]
+  content: 'Not detected'
+  row=3, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 196.19000244140625, 421.3999938964844, 213.2899932861328)
+
+  [row=3, col=4]
+  content: 'Not detected'
+  row=3, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 196.19000244140625, 510.8999938964844, 213.2899932861328)
+
+  [row=4, col=0]
+  content: ''
+  row=4, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
+
+  [row=4, col=1]
+  content: 'YA2304-15'
+  row=4, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 213.2899932861328, 242.60000610351562, 232.88999938964844)
+
+  [row=4, col=2]
+  content: 'Not detected'
+  row=4, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 213.2899932861328, 332.0, 232.88999938964844)
+
+  [row=4, col=3]
+  content: 'Not detected'
+  row=4, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 213.2899932861328, 421.3999938964844, 232.88999938964844)
+
+  [row=4, col=4]
+  content: '< 0.05%'
+  row=4, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 213.2899932861328, 510.8999938964844, 232.88999938964844)
+
+  [row=5, col=0]
+  content: ''
+  row=5, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
+
+  [row=5, col=1]
+  content: 'YA2304-16'
+  row=5, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 232.88999938964844, 242.60000610351562, 252.49000549316406)
+
+  [row=5, col=2]
+  content: 'Not detected'
+  row=5, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 232.88999938964844, 332.0, 252.49000549316406)
+
+  [row=5, col=3]
+  content: 'Not detected'
+  row=5, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 232.88999938964844, 421.3999938964844, 252.49000549316406)
+
+  [row=5, col=4]
+  content: 'Not detected'
+  row=5, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 232.88999938964844, 510.8999938964844, 252.49000549316406)
+
+  [row=6, col=0]
+  content: ''
+  row=6, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
+
+  [row=6, col=1]
+  content: 'YA2304-17'
+  row=6, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 252.49000549316406, 242.60000610351562, 272.0899963378906)
+
+  [row=6, col=2]
+  content: 'Not detected'
+  row=6, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 252.49000549316406, 332.0, 272.0899963378906)
+
+  [row=6, col=3]
+  content: 'Not detected'
+  row=6, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 252.49000549316406, 421.3999938964844, 272.0899963378906)
+
+  [row=6, col=4]
+  content: 'Not detected'
+  row=6, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 252.49000549316406, 510.8999938964844, 272.0899963378906)
+
+  [row=7, col=0]
+  content: ''
+  row=7, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
+
+  [row=7, col=1]
+  content: 'YA2304-18'
+  row=7, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 272.0899963378906, 242.60000610351562, 291.69000244140625)
+
+  [row=7, col=2]
+  content: 'Not detected'
+  row=7, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 272.0899963378906, 332.0, 291.69000244140625)
+
+  [row=7, col=3]
+  content: 'Not detected'
+  row=7, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 272.0899963378906, 421.3999938964844, 291.69000244140625)
+
+  [row=7, col=4]
+  content: 'Not detected'
+  row=7, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 272.0899963378906, 510.8999938964844, 291.69000244140625)
+
+  [row=8, col=0]
+  content: ''
+  row=8, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
+
+  [row=8, col=1]
+  content: 'YA2304-19'
+  row=8, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 291.69000244140625, 242.60000610351562, 311.2900085449219)
+
+  [row=8, col=2]
+  content: '< 0.05%'
+  row=8, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 291.69000244140625, 332.0, 311.2900085449219)
+
+  [row=8, col=3]
+  content: '< 0.05%'
+  row=8, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 291.69000244140625, 421.3999938964844, 311.2900085449219)
+
+  [row=8, col=4]
+  content: '< 0.05%'
+  row=8, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 291.69000244140625, 510.8999938964844, 311.2900085449219)
+
+  [row=9, col=0]
+  content: ''
+  row=9, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
+
+  [row=9, col=1]
+  content: 'Other single impurities'
+  row=9, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 311.2900085449219, 242.60000610351562, 330.8900146484375)
+
+  [row=9, col=2]
+  content: '< 0.05%'
+  row=9, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 311.2900085449219, 332.0, 330.8900146484375)
+
+  [row=9, col=3]
+  content: '< 0.05%'
+  row=9, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 311.2900085449219, 421.3999938964844, 330.8900146484375)
+
+  [row=9, col=4]
+  content: '< 0.05%'
+  row=9, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 311.2900085449219, 510.8999938964844, 330.8900146484375)
+
+  [row=10, col=0]
+  content: ''
+  row=10, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(2, 0)
+  bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
+
+  [row=10, col=1]
+  content: 'Total Miscella neous'
+  row=10, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 330.8900146484375, 242.60000610351562, 367.0899963378906)
+
+  [row=10, col=2]
+  content: '< 0.05%'
+  row=10, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 330.8900146484375, 332.0, 367.0899963378906)
+
+  [row=10, col=3]
+  content: '< 0.05%'
+  row=10, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 330.8900146484375, 421.3999938964844, 367.0899963378906)
+
+  [row=10, col=4]
+  content: '< 0.05%'
+  row=10, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 330.8900146484375, 510.8999938964844, 367.0899963378906)
+
+  [row=11, col=0]
+  content: 'Related Sub stance II'
+  row=11, col=0
+  rowspan=2, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=11, col=1]
+  content: 'YA2304-52'
+  row=11, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 367.0899963378906, 242.60000610351562, 403.2900085449219)
+
+  [row=11, col=2]
+  content: 'Not detected'
+  row=11, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 367.0899963378906, 332.0, 403.2900085449219)
+
+  [row=11, col=3]
+  content: 'Not detected'
+  row=11, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 367.0899963378906, 421.3999938964844, 403.2900085449219)
+
+  [row=11, col=4]
+  content: 'Not detected'
+  row=11, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 367.0899963378906, 510.8999938964844, 403.2900085449219)
+
+  [row=12, col=0]
+  content: ''
+  row=12, col=0
+  rowspan=1, colspan=1
+  is_merged=True
+  merged_from=(11, 0)
+  bbox=(84.30000305175781, 403.2900085449219, 160.10000610351562, 442.489990234375)
+
+  [row=12, col=1]
+  content: 'Imidazole'
+  row=12, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 403.2900085449219, 242.60000610351562, 422.8900146484375)
+
+  [row=12, col=2]
+  content: 'Not detected'
+  row=12, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 403.2900085449219, 332.0, 422.8900146484375)
+
+  [row=12, col=3]
+  content: 'Not detected'
+  row=12, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 403.2900085449219, 421.3999938964844, 422.8900146484375)
+
+  [row=12, col=4]
+  content: 'Not detected'
+  row=12, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 403.2900085449219, 510.8999938964844, 422.8900146484375)
+
+  [row=13, col=0]
+  content: 'Enantiomer'
+  row=13, col=0
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=None
+
+  [row=13, col=1]
+  content: 'YA2304-20'
+  row=13, col=1
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(160.10000610351562, 422.8900146484375, 242.60000610351562, 442.489990234375)
+
+  [row=13, col=2]
+  content: '0.03%'
+  row=13, col=2
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(242.60000610351562, 422.8900146484375, 332.0, 442.489990234375)
+
+  [row=13, col=3]
+  content: '0.03%'
+  row=13, col=3
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(332.0, 422.8900146484375, 421.3999938964844, 442.489990234375)
+
+  [row=13, col=4]
+  content: '0.02%'
+  row=13, col=4
+  rowspan=1, colspan=1
+  is_merged=False
+  merged_from=None
+  bbox=(421.3999938964844, 422.8900146484375, 510.8999938964844, 442.489990234375)
+

@@ -1240,58 +1240,125 @@ def _get_table_cell_boxes(t):
     return cell_boxes
 
 
-def _fix_subscript_separation_in_matrix(raw_matrix, cell_boxes, textpage):
-    """Fix subscript/superscript separation caused by t.extract() Y-reordering.
-    
-    When PyMuPDF's t.extract() encounters subscripts/superscripts at different Y positions,
-    it places them on separate lines. This function detects these patterns and uses
-    extract_cells() to get the correct inline version from textpage.
-    
+def _fix_subscript_separation_in_matrix(
+    raw_matrix, cell_boxes, textpage, y_merge_ratio: float = 0.30
+):
+    """Fix t.extract() line breaks using Y-overlap between consecutive words.
+
+    Strategy:
+    - Keep using t.extract() as the base (preserves table structure).
+    - For multiline cell text, inspect each word's vertical bbox inside the cell.
+    - Rebuild line breaks so consecutive words stay on the same line when their
+      Y-ranges intersect enough.
+
     Args:
-        raw_matrix: List of lists (table data from t.extract())
-        cell_boxes: List of lists of cell bboxes (row-major order)
-        textpage: PyMuPDF TextPage object for correction
+        raw_matrix: List of lists (table data from t.extract()).
+        cell_boxes: List of lists of cell bboxes (row-major order).
+        textpage: PyMuPDF TextPage object.
+        y_merge_ratio: Minimum Y-overlap ratio (0..1) against the smaller word
+            height to keep words in the same line. Default 0.30.
     """
-    
-    if not raw_matrix or not cell_boxes:
+
+    if not raw_matrix or not cell_boxes or textpage is None:
         return
-    
-    # Detect subscript patterns in each cell
+
+    y_merge_ratio = max(0.0, min(1.0, float(y_merge_ratio)))
+
+    try:
+        # Word tuple: (x0, y0, x1, y1, word, block_no, line_no, word_no)
+        all_words = textpage.extractWORDS() or []
+    except Exception:
+        return
+
+    def _cell_words(cell_bbox):
+        """Return words in cell sorted by visual reading order."""
+        in_cell = []
+        for w in all_words:
+            wb = (w[0], w[1], w[2], w[3])
+            if almost_in_bbox(wb, cell_bbox, portion=0.5):
+                in_cell.append(w)
+
+        in_cell.sort(key=lambda w: (round(w[1], 1), w[0]))
+        return in_cell
+
+    def _overlap_ratio_y(b1, b2):
+        y0 = max(b1[1], b2[1])
+        y1 = min(b1[3], b2[3])
+        overlap = max(0.0, y1 - y0)
+        h1 = max(1e-6, b1[3] - b1[1])
+        h2 = max(1e-6, b2[3] - b2[1])
+        return overlap / min(h1, h2)
+
     for row_idx, row in enumerate(raw_matrix):
         for col_idx, cell_text in enumerate(row):
-            if not cell_text or "\n" not in cell_text:
+            if not cell_text:
                 continue
-            
-            lines = cell_text.split("\n")
-            if len(lines) < 2:
+            if row_idx >= len(cell_boxes) or col_idx >= len(cell_boxes[row_idx]):
                 continue
-            
-            # Heuristic: if last line is ONLY digits/spaces (subscript pattern)
-            last_line = lines[-1].strip()
-            is_likely_subscript = (
-                last_line and
-                all(c.isdigit() or c.isspace() for c in last_line) and
-                len(last_line) <= 20  # subscripts are short
+            cell_bbox = cell_boxes[row_idx][col_idx]
+            if not cell_bbox:
+                continue
+
+            has_newline = "\n" in cell_text
+            has_alpha_digit_spacing = bool(
+                re.search(r"[A-Za-z]\s+\d|\d\s+[A-Za-z]", str(cell_text))
             )
-            
-            if not is_likely_subscript:
+            if not has_newline and not has_alpha_digit_spacing:
                 continue
-            
-            # Try to get corrected text using extract_cells
-            if row_idx < len(cell_boxes) and col_idx < len(cell_boxes[row_idx]):
-                cell_bbox = cell_boxes[row_idx][col_idx]
-                if cell_bbox:
-                    try:
-                        corrected = extract_cells(textpage, tuple(cell_bbox), markdown=False)
-                        if corrected and corrected != cell_text:
-                            # Use corrected version if it doesn't have the subscript separation
-                            if "\n" not in corrected or not all(
-                                c.isdigit() or c.isspace() 
-                                for c in corrected.split("\n")[-1].strip()
-                            ):
-                                raw_matrix[row_idx][col_idx] = corrected
-                    except Exception:
-                        pass
+
+            cell_words = _cell_words(cell_bbox)
+            if not cell_words:
+                continue
+
+            # Common chemical/subscript case: t.extract() inserts spaces inside one visual word,
+            # while extractWORDS already returns the compact token (e.g., [C21H22N4O3+H]+).
+            if len(cell_words) == 1:
+                compact_raw = re.sub(r"\s+", "", str(cell_text))
+                compact_word = re.sub(r"\s+", "", str(cell_words[0][4]))
+                if compact_raw == compact_word and str(cell_text) != str(cell_words[0][4]):
+                    raw_matrix[row_idx][col_idx] = str(cell_words[0][4])
+                continue
+
+            if len(cell_words) < 2:
+                continue
+
+            # Rebuild text: newline only when Y-overlap with previous word is too small.
+            rebuilt_lines = []
+            current_tokens = [cell_words[0][4]]
+            prev_bbox = (cell_words[0][0], cell_words[0][1], cell_words[0][2], cell_words[0][3])
+            prev_word = cell_words[0][4]
+
+            # If X-gap is very small and token pair looks like subscript continuation,
+            # concatenate without an extra space.
+            def _should_glue_without_space(left_word, right_word, left_bbox, right_bbox):
+                x_gap = right_bbox[0] - left_bbox[2]
+                if x_gap <= 0.8:
+                    return True
+                left_has_alpha = any(ch.isalpha() for ch in left_word)
+                right_has_digit = any(ch.isdigit() for ch in right_word)
+                if left_has_alpha and right_has_digit and x_gap <= 2.0:
+                    return True
+                return False
+
+            for w in cell_words[1:]:
+                tok = w[4]
+                bbox = (w[0], w[1], w[2], w[3])
+                overlap_ratio = _overlap_ratio_y(prev_bbox, bbox)
+                if overlap_ratio >= y_merge_ratio:
+                    if _should_glue_without_space(prev_word, tok, prev_bbox, bbox):
+                        current_tokens[-1] = current_tokens[-1] + tok
+                    else:
+                        current_tokens.append(tok)
+                else:
+                    rebuilt_lines.append(" ".join(current_tokens))
+                    current_tokens = [tok]
+                prev_bbox = bbox
+                prev_word = tok
+            rebuilt_lines.append(" ".join(current_tokens))
+
+            rebuilt_text = "\n".join(rebuilt_lines)
+            if rebuilt_text and rebuilt_text != cell_text:
+                raw_matrix[row_idx][col_idx] = rebuilt_text
 
 
 def merge_split_tables(tables, y_gap_factor: float = 1.5, x_tolerance_factor: float = 0.05):
@@ -2466,7 +2533,7 @@ def to_markdown(
                 # we detect them using Y coordinates and merge them back inline
                 if raw_matrix and cell_boxes:
                     _fix_subscript_separation_in_matrix(
-                        raw_matrix, cell_boxes, parms.textpage
+                        raw_matrix, cell_boxes, parms.textpage, y_merge_ratio=0.30
                     )
 
                 # Normalize raw_matrix size to match row_count/col_count

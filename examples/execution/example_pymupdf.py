@@ -106,7 +106,7 @@ def main():
                 save_choice = input("Save page text to file? (y/n): ").strip().lower()
                 if save_choice == "y":
                     output_file = pdf_path.with_name(
-                        f"{pdf_path.stem}_page_{page_number}_pymupdf.txt"
+                        f"{pdf_path.stem}_page_{page_number}_pymupdf_ComLayout.txt"
                     )
                     output_lines = [
                         text.rstrip(),

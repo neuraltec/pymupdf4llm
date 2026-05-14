@@ -42,62 +42,62 @@ Document: YA2304-Quality Version: 001 Date:Sep. 2024
 
 
 
-----------------------------------------------
-|2974.23,|υCH       |-CH3,-CH2,-C|Carbon     |
-|2953.02,|          |H           |hydrogen   |
-|28 35.36|          |            |stretching |
-|        |          |            |vibration  |
-|--------|----------|------------|-----------|
-|2229.71 |υC≡N      |-CN         |Carbon     |
-|        |          |            |nitrogen   |
-|        |          |            |triple bond|
-|        |          |            |stretching |
-|        |          |            |vibration  |
-|--------|----------|------------|-----------|
-|1683.86 |υC=O      |-CONH2      |Carbon     |
-|        |          |            |oxygen     |
-|        |          |            |double bond|
-|        |          |            |stretching |
-|        |          |            |vibration  |
-|--------|----------|------------|-----------|
-|1660.71 |υC=C      |-C=C        |Carbon     |
-|        |          |            |carbon     |
-|        |          |            |double bond|
-|        |          |            |stretching |
-|        |          |            |vibration  |
-|--------|----------|------------|-----------|
-|1606.70,|υC=N，υC=C|Pyridine    |Expansion  |
-|1573.91,|          |ring,       |and        |
-|14 89.05|          |benzene ring|contraction|
-|        |          |            |vibrations |
-|        |          |            |of carbon  |
-|        |          |            |nitro gen  |
-|        |          |            |and carbon |
-|        |          |            |carbon do  |
-|        |          |            |uble bonds |
-|--------|----------|------------|-----------|
-|1463.97 |δCH       |-CH2        |In-plane   |
-|        |          |            |shear      |
-|        |          |            |vibration  |
-|--------|----------|------------|-----------|
-|1454.33,|δCH       |-CH3        |Out of     |
-|1431.18,|          |            |plane      |
-|14      |          |            |deformation|
-|08.04,  |          |            |vibration  |
-|1381.03 |          |            |           |
-|--------|----------|------------|-----------|
-|1267.23,|υ=C-O-C   |-OCH3,-OCH2 |Asymmetric |
-|1257.59 |          |            |stretching |
-|        |          |            |vibr ation |
-|        |          |            |of ether   |
-|        |          |            |bond       |
-|--------|----------|------------|-----------|
-|1138.00,|υ=C-O-C   |-OCH3,-OCH2 |Symmetric  |
-|1031.92 |          |            |stretching |
-|        |          |            |vibrat ion |
-|        |          |            |of ether   |
-|        |          |            |bond       |
-----------------------------------------------
+---------------------------------------
+|2974.23,|υCH    |-CH3,   |Carbon     |
+|2953.02,|       |-CH2, -C|hydrogen   |
+|28 35.36|       |H       |stretching |
+|        |       |        |vibration  |
+|--------|-------|--------|-----------|
+|2229.71 |υ C≡N  |-CN     |Carbon     |
+|        |       |        |nitrogen   |
+|        |       |        |triple bond|
+|        |       |        |stretching |
+|        |       |        |vibration  |
+|--------|-------|--------|-----------|
+|1683.86 |υ C=O  |-CONH2  |Carbon     |
+|        |       |        |oxygen     |
+|        |       |        |double bond|
+|        |       |        |stretching |
+|        |       |        |vibration  |
+|--------|-------|--------|-----------|
+|1660.71 |υ C=C  |-C=C    |Carbon     |
+|        |       |        |carbon     |
+|        |       |        |double bond|
+|        |       |        |stretching |
+|        |       |        |vibration  |
+|--------|-------|--------|-----------|
+|1606.70,|υ υ C=N|Pyridine|Expansion  |
+|1573.91,|C=C ， |ring,   |and        |
+|14 89.05|       |benzene |contraction|
+|        |       |ring    |vibrations |
+|        |       |        |of carbon  |
+|        |       |        |nitro gen  |
+|        |       |        |and carbon |
+|        |       |        |carbon do  |
+|        |       |        |uble bonds |
+|--------|-------|--------|-----------|
+|1463.97 |δCH    |-CH2    |In-plane   |
+|        |       |        |shear      |
+|        |       |        |vibration  |
+|--------|-------|--------|-----------|
+|1454.33,|δCH    |-CH3    |Out of     |
+|1431.18,|       |        |plane      |
+|14      |       |        |deformation|
+|08.04,  |       |        |vibration  |
+|1381.03 |       |        |           |
+|--------|-------|--------|-----------|
+|1267.23,|υ      |-OCH3   |Asymmetric |
+|1257.59 |=C-O-C |-OCH2   |stretching |
+|        |       |        |vibr ation |
+|        |       |        |of ether   |
+|        |       |        |bond       |
+|--------|-------|--------|-----------|
+|1138.00,|υ      |-OCH3   |Symmetric  |
+|1031.92 |=C-O-C |-OCH2   |stretching |
+|        |       |        |vibrat ion |
+|        |       |        |of ether   |
+|        |       |        |bond       |
+---------------------------------------
 
 **Analysis** **and** **results:** 
 
@@ -180,74 +180,74 @@ Page 16 of 542
   rows: 9, columns: 4
 
   Markdown:
-|2974.23, 2953.02, 28 35.36|υCH|-CH3,-CH2,-C H|Carbon hydrogen stretching vibration|
+|2974.23, 2953.02, 28 35.36|υCH|-CH3 -CH2 -C H|Carbon hydrogen stretching vibration|
 |---|---|---|---|
-|2229.71|υC≡N|-CN|Carbon nitrogen triple bond stretching vibration|
-|1683.86|υC=O|-CONH2|Carbon oxygen double bond stretching vibration|
-|1660.71|υC=C|-C=C|Carbon carbon double bond stretching vibration|
-|1606.70, 1573.91, 14 89.05|υC=N，υC=C|Pyridine ring, benzene ring|Expansion and contraction vibrations of carbon nitro gen and carbon carbon do uble bonds|
+|2229.71|υ C≡N|-CN|Carbon nitrogen triple bond stretching vibration|
+|1683.86|υ C=O|-CONH2|Carbon oxygen double bond stretching vibration|
+|1660.71|υ C=C|-C=C|Carbon carbon double bond stretching vibration|
+|1606.70, 1573.91, 14 89.05|υ υ C=N C=C ，|Pyridine ring, benzene ring|Expansion and contraction vibrations of carbon nitro gen and carbon carbon do uble bonds|
 |1463.97|δCH|-CH2|In-plane shear vibration|
 |1454.33, 1431.18, 14 08.04, 1381.03|δCH|-CH3|Out of plane deformation vibration|
-|1267.23, 1257.59|υ=C-O-C|-OCH3,-OCH2|Asymmetric stretching vibr ation of ether bond|
-|1138.00, 1031.92|υ=C-O-C|-OCH3,-OCH2|Symmetric stretching vibrat ion of ether bond|
+|1267.23, 1257.59|υ =C-O-C|-OCH3 -OCH2 |Asymmetric stretching vibr ation of ether bond|
+|1138.00, 1031.92|υ =C-O-C|-OCH3 -OCH2|Symmetric stretching vibrat ion of ether bond|
 
   ASCII:
-----------------------------------------------
-|2974.23,|υCH       |-CH3,-CH2,-C|Carbon     |
-|2953.02,|          |H           |hydrogen   |
-|28 35.36|          |            |stretching |
-|        |          |            |vibration  |
-|--------|----------|------------|-----------|
-|2229.71 |υC≡N      |-CN         |Carbon     |
-|        |          |            |nitrogen   |
-|        |          |            |triple bond|
-|        |          |            |stretching |
-|        |          |            |vibration  |
-|--------|----------|------------|-----------|
-|1683.86 |υC=O      |-CONH2      |Carbon     |
-|        |          |            |oxygen     |
-|        |          |            |double bond|
-|        |          |            |stretching |
-|        |          |            |vibration  |
-|--------|----------|------------|-----------|
-|1660.71 |υC=C      |-C=C        |Carbon     |
-|        |          |            |carbon     |
-|        |          |            |double bond|
-|        |          |            |stretching |
-|        |          |            |vibration  |
-|--------|----------|------------|-----------|
-|1606.70,|υC=N，υC=C|Pyridine    |Expansion  |
-|1573.91,|          |ring,       |and        |
-|14 89.05|          |benzene ring|contraction|
-|        |          |            |vibrations |
-|        |          |            |of carbon  |
-|        |          |            |nitro gen  |
-|        |          |            |and carbon |
-|        |          |            |carbon do  |
-|        |          |            |uble bonds |
-|--------|----------|------------|-----------|
-|1463.97 |δCH       |-CH2        |In-plane   |
-|        |          |            |shear      |
-|        |          |            |vibration  |
-|--------|----------|------------|-----------|
-|1454.33,|δCH       |-CH3        |Out of     |
-|1431.18,|          |            |plane      |
-|14      |          |            |deformation|
-|08.04,  |          |            |vibration  |
-|1381.03 |          |            |           |
-|--------|----------|------------|-----------|
-|1267.23,|υ=C-O-C   |-OCH3,-OCH2 |Asymmetric |
-|1257.59 |          |            |stretching |
-|        |          |            |vibr ation |
-|        |          |            |of ether   |
-|        |          |            |bond       |
-|--------|----------|------------|-----------|
-|1138.00,|υ=C-O-C   |-OCH3,-OCH2 |Symmetric  |
-|1031.92 |          |            |stretching |
-|        |          |            |vibrat ion |
-|        |          |            |of ether   |
-|        |          |            |bond       |
-----------------------------------------------
+---------------------------------------
+|2974.23,|υCH    |-CH3,   |Carbon     |
+|2953.02,|       |-CH2, -C|hydrogen   |
+|28 35.36|       |H       |stretching |
+|        |       |        |vibration  |
+|--------|-------|--------|-----------|
+|2229.71 |υ C≡N  |-CN     |Carbon     |
+|        |       |        |nitrogen   |
+|        |       |        |triple bond|
+|        |       |        |stretching |
+|        |       |        |vibration  |
+|--------|-------|--------|-----------|
+|1683.86 |υ C=O  |-CONH2  |Carbon     |
+|        |       |        |oxygen     |
+|        |       |        |double bond|
+|        |       |        |stretching |
+|        |       |        |vibration  |
+|--------|-------|--------|-----------|
+|1660.71 |υ C=C  |-C=C    |Carbon     |
+|        |       |        |carbon     |
+|        |       |        |double bond|
+|        |       |        |stretching |
+|        |       |        |vibration  |
+|--------|-------|--------|-----------|
+|1606.70,|υ υ C=N|Pyridine|Expansion  |
+|1573.91,|C=C ， |ring,   |and        |
+|14 89.05|       |benzene |contraction|
+|        |       |ring    |vibrations |
+|        |       |        |of carbon  |
+|        |       |        |nitro gen  |
+|        |       |        |and carbon |
+|        |       |        |carbon do  |
+|        |       |        |uble bonds |
+|--------|-------|--------|-----------|
+|1463.97 |δCH    |-CH2    |In-plane   |
+|        |       |        |shear      |
+|        |       |        |vibration  |
+|--------|-------|--------|-----------|
+|1454.33,|δCH    |-CH3    |Out of     |
+|1431.18,|       |        |plane      |
+|14      |       |        |deformation|
+|08.04,  |       |        |vibration  |
+|1381.03 |       |        |           |
+|--------|-------|--------|-----------|
+|1267.23,|υ      |-OCH3   |Asymmetric |
+|1257.59 |=C-O-C |-OCH2   |stretching |
+|        |       |        |vibr ation |
+|        |       |        |of ether   |
+|        |       |        |bond       |
+|--------|-------|--------|-----------|
+|1138.00,|υ      |-OCH3   |Symmetric  |
+|1031.92 |=C-O-C |-OCH2   |stretching |
+|        |       |        |vibrat ion |
+|        |       |        |of ether   |
+|        |       |        |bond       |
+---------------------------------------
 
   Cells (attributes per cell):
   [row=0, col=0]
@@ -267,7 +267,7 @@ Page 16 of 542
   bbox=(206.6999969482422, 89.11999893188477, 283.25, 120.94000244140625)
 
   [row=0, col=2]
-  content: '-CH3,-CH2,-C H'
+  content: '-CH -CH -C 3, 2, H'
   row=0, col=2
   rowspan=1, colspan=1
   is_merged=False
@@ -291,7 +291,7 @@ Page 16 of 542
   bbox=(84.57999801635742, 120.94000244140625, 206.6999969482422, 152.63999938964844)
 
   [row=1, col=1]
-  content: 'υC≡N'
+  content: 'υ C≡N'
   row=1, col=1
   rowspan=1, colspan=1
   is_merged=False
@@ -323,7 +323,7 @@ Page 16 of 542
   bbox=(84.57999801635742, 152.63999938964844, 206.6999969482422, 184.33999633789062)
 
   [row=2, col=1]
-  content: 'υC=O'
+  content: 'υ C=O'
   row=2, col=1
   rowspan=1, colspan=1
   is_merged=False
@@ -355,7 +355,7 @@ Page 16 of 542
   bbox=(84.57999801635742, 184.33999633789062, 206.6999969482422, 216.0399932861328)
 
   [row=3, col=1]
-  content: 'υC=C'
+  content: 'υ C=C'
   row=3, col=1
   rowspan=1, colspan=1
   is_merged=False
@@ -387,7 +387,7 @@ Page 16 of 542
   bbox=(84.57999801635742, 216.0399932861328, 206.6999969482422, 278.94000244140625)
 
   [row=4, col=1]
-  content: 'υC=N，υC=C'
+  content: 'υ υ C=N C=C ，'
   row=4, col=1
   rowspan=1, colspan=1
   is_merged=False
@@ -483,7 +483,7 @@ Page 16 of 542
   bbox=(84.57999801635742, 333.8399963378906, 206.6999969482422, 365.5400085449219)
 
   [row=7, col=1]
-  content: 'υ=C-O-C'
+  content: 'υ =C-O-C'
   row=7, col=1
   rowspan=1, colspan=1
   is_merged=False
@@ -491,7 +491,7 @@ Page 16 of 542
   bbox=(206.6999969482422, 333.8399963378906, 283.25, 365.5400085449219)
 
   [row=7, col=2]
-  content: '-OCH3,-OCH2'
+  content: '-OCH -OCH 3, 2'
   row=7, col=2
   rowspan=1, colspan=1
   is_merged=False
@@ -515,7 +515,7 @@ Page 16 of 542
   bbox=(84.57999801635742, 365.5400085449219, 206.6999969482422, 397.239990234375)
 
   [row=8, col=1]
-  content: 'υ=C-O-C'
+  content: 'υ =C-O-C'
   row=8, col=1
   rowspan=1, colspan=1
   is_merged=False
@@ -523,7 +523,7 @@ Page 16 of 542
   bbox=(206.6999969482422, 365.5400085449219, 283.25, 397.239990234375)
 
   [row=8, col=2]
-  content: '-OCH3,-OCH2'
+  content: '-OCH -OCH 3, 2'
   row=8, col=2
   rowspan=1, colspan=1
   is_merged=False

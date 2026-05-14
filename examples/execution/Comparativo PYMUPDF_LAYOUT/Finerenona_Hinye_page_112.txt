@@ -146,7 +146,7 @@ Page 112 of 542
 ||YA2304-17|Not detected|Not detected|Not detected|
 ||YA2304-18|Not detected|Not detected|Not detected|
 ||YA2304-19|< 0.05%|< 0.05%|< 0.05%|
-||Other single i mpurities|< 0.05%|< 0.05%|< 0.05%|
+||Other single impurities|< 0.05%|< 0.05%|< 0.05%|
 ||Total Miscella neous|< 0.05%|< 0.05%|< 0.05%|
 |Related Sub stance II|YA2304-52|Not detected|Not detected|Not detected|
 ||Imidazole|Not detected|Not detected|Not detected|
@@ -242,7 +242,7 @@ Page 112 of 542
   [row=1, col=0]
   content: 'Related subs tance'
   row=1, col=0
-  rowspan=10, colspan=1
+  rowspan=1, colspan=1
   is_merged=False
   merged_from=None
   bbox=(84.30000305175781, 137.7699966430664, 242.60000610351562, 176.58999633789062)
@@ -282,9 +282,9 @@ Page 112 of 542
   [row=2, col=0]
   content: ''
   row=2, col=0
-  rowspan=1, colspan=1
-  is_merged=True
-  merged_from=(1, 0)
+  rowspan=9, colspan=1
+  is_merged=False
+  merged_from=None
   bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
 
   [row=2, col=1]
@@ -324,7 +324,7 @@ Page 112 of 542
   row=3, col=0
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(1, 0)
+  merged_from=(2, 0)
   bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
 
   [row=3, col=1]
@@ -364,7 +364,7 @@ Page 112 of 542
   row=4, col=0
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(1, 0)
+  merged_from=(2, 0)
   bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
 
   [row=4, col=1]
@@ -404,7 +404,7 @@ Page 112 of 542
   row=5, col=0
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(1, 0)
+  merged_from=(2, 0)
   bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
 
   [row=5, col=1]
@@ -444,7 +444,7 @@ Page 112 of 542
   row=6, col=0
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(1, 0)
+  merged_from=(2, 0)
   bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
 
   [row=6, col=1]
@@ -484,7 +484,7 @@ Page 112 of 542
   row=7, col=0
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(1, 0)
+  merged_from=(2, 0)
   bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
 
   [row=7, col=1]
@@ -524,7 +524,7 @@ Page 112 of 542
   row=8, col=0
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(1, 0)
+  merged_from=(2, 0)
   bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
 
   [row=8, col=1]
@@ -564,11 +564,11 @@ Page 112 of 542
   row=9, col=0
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(1, 0)
+  merged_from=(2, 0)
   bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
 
   [row=9, col=1]
-  content: 'Other single\ni mpurities'
+  content: 'Other single impurities'
   row=9, col=1
   rowspan=1, colspan=1
   is_merged=False
@@ -604,11 +604,11 @@ Page 112 of 542
   row=10, col=0
   rowspan=1, colspan=1
   is_merged=True
-  merged_from=(1, 0)
+  merged_from=(2, 0)
   bbox=(84.30000305175781, 176.58999633789062, 160.10000610351562, 403.2900085449219)
 
   [row=10, col=1]
-  content: 'Total\nMiscella\nneous'
+  content: 'Total Miscella neous'
   row=10, col=1
   rowspan=1, colspan=1
   is_merged=False

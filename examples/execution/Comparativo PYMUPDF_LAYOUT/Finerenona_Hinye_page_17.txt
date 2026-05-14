@@ -1,0 +1,103 @@
+=== Page: page_17 ===
+
+--- Page text (markdown/ascii) ---
+
+**Drug** **Master** **File** **of** **Finerenone** 
+
+Document: YA2304-Quality Version: 001 Date:Sep. 2024 
+
+
+
+Indicating that the compound contains methylene and multiple methyl groups. 
+
+
+
+1267.23cm [-1] and 1257.59cm [-1] are asymmetric stretching vibrations of alkyl 
+
+
+
+aromatic ether bonds, and 1138.00cm [-1] and 1031.92cm [-1] are symmetric 
+
+
+
+stretching vibrations of ether bonds, indicating that the compound contains 
+
+
+
+two alkyl aromatic ether bonds. According to the above IR data, the compound 
+
+
+
+contains amide bond, secondary amine, pyridine ring, phenyl ring, 
+
+
+
+carbon-carbon double bond, alkyl aromatic ether bond, methylene and several 
+
+
+
+methyl groups, which is consistent with the structure of Finerenone. 
+
+
+
+The spectrum is provided in: 
+
+
+
+_3.2.S.3.1 Annex 2_ _Infrared (IR) spectrum of_ Finerenone. _(batch_ _No.:_ 231101 _)._ 
+
+
+
+**Ic.** **Nuclear** **Magnetic** **Resonance** **Spectroscopy** **(NMR)** 
+
+
+
+Sample Batch No.: 231101 
+
+
+
+Instrument: Bruker Avance AV 400 Superconducting Fourier-Transform NMR 
+
+
+
+Spectrometer 
+
+
+
+Test conditions: 
+
+
+ - solvent: DMSO- _d6_ 
+
+
+ - inner standard: TMS ( [1] H NMR) 
+
+
+ - resonant frequency for the [1] H NMR: 400MHz 
+
+
+ - resonant frequency for the [13] C NMR: 100MHz 
+
+
+
+The serial number of carbon atoms and hydrogen atoms in the structure (not 
+
+
+
+IUPAC nomenclature, only for NMR spectrometry): 
+
+
+
+Finerenone Confidential Hinye Pharmaceutical Co., Ltd. 
+
+
+
+Page 17 of 542 
+
+
+
+
+
+============================================================
+
+(No tables detected on this page.)

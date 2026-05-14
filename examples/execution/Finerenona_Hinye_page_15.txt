@@ -30,14 +30,16 @@ Table 3.2.S.3.1-2 Mass Spectrum Data of the Substance to be Examined
 
 
 
-----------------------------------------------
-|Batch  |Accurate|Theoretical|Elemental      |
-|No.    |measured|value      |composition    |
-|       |mass    |           |               |
-|       |value   |           |               |
-|-------|--------|-----------|---------------|
-|231101 |379.18  |378.43     |[C21H22N4O3+H]+|
-----------------------------------------------
+------------------------------------------
+|Batch  |Accurate|Theoretical|Elemental  |
+|No.    |measured|value      |composition|
+|       |mass    |           |           |
+|       |value   |           |           |
+|-------|--------|-----------|-----------|
+|231101 |379.18  |378.43     |[C H N O   |
+|       |        |           |+H]+ 21 22 |
+|       |        |           |4 3        |
+------------------------------------------
 
 Interpretation: 
 
@@ -164,17 +166,19 @@ Page 15 of 542
   Markdown:
 |Batch No.|Accurate measured mass value|Theoretical value|Elemental composition|
 |---|---|---|---|
-|231101|379.18|378.43|[C21H22N4O3+H]+|
+|231101|379.18|378.43|[C H N O +H]+ 21 22 4 3|
 
   ASCII:
-----------------------------------------------
-|Batch  |Accurate|Theoretical|Elemental      |
-|No.    |measured|value      |composition    |
-|       |mass    |           |               |
-|       |value   |           |               |
-|-------|--------|-----------|---------------|
-|231101 |379.18  |378.43     |[C21H22N4O3+H]+|
-----------------------------------------------
+------------------------------------------
+|Batch  |Accurate|Theoretical|Elemental  |
+|No.    |measured|value      |composition|
+|       |mass    |           |           |
+|       |value   |           |           |
+|-------|--------|-----------|-----------|
+|231101 |379.18  |378.43     |[C H N O   |
+|       |        |           |+H]+ 21 22 |
+|       |        |           |4 3        |
+------------------------------------------
 
   Cells (attributes per cell):
   [row=0, col=0]
@@ -234,7 +238,7 @@ Page 15 of 542
   bbox=(320.20001220703125, 193.94000244140625, 401.0, 210.0399932861328)
 
   [row=1, col=3]
-  content: '[C21H22N4O3+H]+'
+  content: '[C H N O +H]+ 21 22 4 3'
   row=1, col=3
   rowspan=1, colspan=1
   is_merged=False

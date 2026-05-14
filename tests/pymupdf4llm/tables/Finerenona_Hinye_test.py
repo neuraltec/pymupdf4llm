@@ -49,12 +49,13 @@ TEST_CONFIGURATIONS = [
 |constant      |                      |
 |[(pKa)]       |                      |
 |--------------|----------------------|
-|partition     |LogD（1-Octanol/buffer|
-|coefficient   |solution pH 2.4）=0.4 |
+|partition     |Log                   |
+|coefficient   |D（1-Octanol/buffer   |
+|              |solution pH 2.4）=0.4 |
 |              |LogD（1-Octanol/buffer|
 |              |solution pH 7.4）=2.8 |
 |--------------|----------------------|
-|BCS           |ClassⅡ                |
+|BCS           |Class Ⅱ               |
 |classification|                      |
 ---------------------------------------"""
     ),

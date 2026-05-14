@@ -1,4 +1,5 @@
 import sys
+import time
 from pathlib import Path
 
 
@@ -67,9 +68,11 @@ def write_page_tables_dump(chunk: dict, page_label: str, output_txt: Path) -> No
 if __name__ == "__main__":
     ensure_local_import()
 
+    start = time.perf_counter()
+
     import pymupdf4llm as llm
 
-    pdf_path = Path("Jubilant.pdf")
+    pdf_path = Path("Finerenona_Hinye.pdf")
 
     print("Processing mode:")
     print("  1) Entire document")
@@ -78,9 +81,9 @@ if __name__ == "__main__":
 
     if choice == "1":
         text = llm.to_markdown(str(pdf_path), show_progress=True)
-        with open("document_Jubilant.txt", "w", encoding="utf-8") as file:
+        with open("document_Finerenona.txt", "w", encoding="utf-8") as file:
             file.write(text)
-        print("Done. Output: document_Jubilant.txt")
+        print("Done. Output: document_Finerenona.txt")
     elif choice == "2":
         import pymupdf
 
@@ -114,3 +117,6 @@ if __name__ == "__main__":
             doc.close()
     else:
         print("Invalid choice")
+
+    elapsed = time.perf_counter() - start
+    print(f"Total execution time: {elapsed:.2f} seconds")
